@@ -1,0 +1,17 @@
+
+// Media queries
+$medium: 800px;
+$large: 1200px;
+
+
+@mixin bp($point) {
+
+	@if $point == medium {
+		@media screen and (min-width: $medium) { @content; }
+	}
+
+	@else if $point == large {
+		@media screen and (min-width: $large) { @content; }
+	}
+
+}

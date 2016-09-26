@@ -1,0 +1,18 @@
+
+.header-view {
+	background-color: $blue;
+	color: rgba(255, 255, 255, 0.87);
+	font-size: 20px;
+	min-width: 1000px;
+	padding: 0 20px;
+
+	ul {
+		text-align: right;
+	}
+
+	li {
+		text-decoration: none;
+		display: inline-block;
+		margin-right: 10px;
+	}
+}

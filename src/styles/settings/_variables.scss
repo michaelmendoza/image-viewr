@@ -1,0 +1,31 @@
+
+// App Width
+$app-min-width: 1200px;
+
+// Color Palette
+$black: #222222;
+$blue: #106CC8;
+$light-blue: #7D99C7;
+$dark-blue: #0A4386;
+$white: #FFFFFF;
+$off-white: #f7f7f7;
+
+// Background Colors
+$primary: $blue;
+$secondary: $light-blue;
+
+// Text
+$text-color: $black;
+
+// Border Colors
+$grey-border-color: #B7B7B7;
+$light-grey-border-color: #E1E2E4;
+
+// Z-Index
+$z-active:100;
+$z-sticky-header: 200;
+$z-dropdown: 900;
+$z-modal: 1000;
+$z-drag: 2000;
+
+$box-shadow-z1: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12); 

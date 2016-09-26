@@ -1,0 +1,15 @@
+
+button {
+	background-color: $blue;
+	border: none;
+	border-radius: 6px;
+	color: $white;
+	font-weight: bold;
+	padding: 6px 18px;
+
+	&:focus, &:hover {
+		background-color: saturate($blue, 15%);
+		padding-bottom: 4px;
+		border-bottom: 2px solid #BB7119;
+	}
+}

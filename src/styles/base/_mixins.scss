@@ -1,0 +1,34 @@
+
+// Mixin Functions
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transition($transition) {
+  transition: $transition;
+  -moz-transition: $transition;
+  -webkit-transition: $transition;
+}
+
+@mixin box-shadow($shadow) {
+  box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+}
+
+@mixin box-sizing($sizing: border-box) {
+  -moz-box-sizing: $sizing;
+  -webkit-box-sizing: $sizing;
+  box-sizing: $sizing;
+}
+
+@mixin rotate($degrees) {
+  -ms-transform: rotate($degrees + deg); /* IE 9 */
+  -webkit-transform: rotate($degrees + deg); /* Chrome, Safari, Opera */
+  transform: rotate($degrees + deg);
+}
+
