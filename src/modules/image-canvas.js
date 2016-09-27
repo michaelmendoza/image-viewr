@@ -22,6 +22,7 @@ class ImagerCanvas {
 		this.pixel = null;
 
 		// Canvas Event Listeners/Handler
+		this.defaultAction = () => {};
 		this.onMouseMove = () => {};
 		this.onCanvasModeChange = () => {};
 		this.canvas.onmousemove = this.handleMouseMove.bind(this);
@@ -55,55 +56,53 @@ class ImagerCanvas {
 	}
 
 	handleMouseMove(event) {
-
-		switch(this.canvasMode) {
-			case CanvasModes.PIXEL:
-				this.getPixelData(event);
-				break;
-
-			case CanvasModes.ROI_UPDATE_RADIUS:
+		var actions = {
+			[CanvasModes.PIXEL]: () => { 
+				this.getPixelData(event); 
+			},
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
 				this.roi.updateROIRadius(event);
-				this.drawROI();			
-				break;
-
-			case CanvasModes.ROI_UPDATE_POSITION:
+				this.drawROI(); 
+			},
+			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				this.roi.updateROIPosition(event);
-				this.drawROI();			
-				break;
+				this.drawROI();	
+			} 
 		}
 
+		(actions[this.canvasMode] || this.defaultAction)();
 		this.onMouseMove();
 	}
 
 	handleMouseDown(event) {
-		switch(this.canvasMode) {
-			case CanvasModes.ROI:
-				// Select ROI Update mode
-				if(this.roi.isPositionInROI(event)) {
+		var actions = {
+			[CanvasModes.ROI]: () => {
+				if(this.roi.isPositionInROI(event))
 					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
-					this.roi.createROI(event);
-				}
-				else {
+				else
 					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;	
-					this.roi.createROI(event);
-				}
-				break;
+				
+				this.roi.createROI(event);
+			}
 		}
+
+		(actions[this.canvasMode] || this.defaultAction)();
 	}
 
 	handleMouseUp() {
-		switch(this.canvasMode) {
-			case CanvasModes.ROI_UPDATE_RADIUS:
+		var actions = {
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
 				this.roi.updateROIRadius(event);
 				this.drawROI();
 				this.canvasMode = CanvasModes.ROI;
-				break;
-
-			case CanvasModes.ROI_UPDATE_POSITION:
+			},
+			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				this.drawROI();
 				this.canvasMode = CanvasModes.ROI
-				break;
-		}	
+			}
+		}
+
+		(actions[this.canvasMode] || this.defaultAction)();
 	}
 
 }
