@@ -14,6 +14,9 @@
 @import 'views/header-view';
 @import 'views/main-view';
 
+@import 'components/pixel-panel';
+@import 'components/roi-panel';
+@import 'components/threshold-panel';
 @import 'components/viewer-file-panel';
 @import 'components/viewer-info-panel';
 @import 'components/viewer';

@@ -33,6 +33,10 @@ class ViewerStore extends EventEmitter {
 		this.canvas.drawImage(imageFile);
 	}
 
+	drawMinThreshold(minThreshold) {
+		this.canvas.drawMinThreshold(minThreshold);
+	}
+
 }
 
 export default new ViewerStore();

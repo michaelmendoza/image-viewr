@@ -5,7 +5,7 @@
 	border-radius: 6px;	
 	box-shadow: $box-shadow-z1;
 	margin: 0px 40px;
-	height: 80px;
+	min-height: 430px;
 	padding: 0;
 	text-align: center;
 	width: 300px;
@@ -33,7 +33,4 @@
 
 	}
 
-	div {
-		display: inline-block;
-	}
 }

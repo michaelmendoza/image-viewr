@@ -55,6 +55,10 @@ class ImagerCanvas {
 		this.canvasDraw.drawROI(this.roi);
 	}
 
+	drawMinThreshold(minThreshold) {
+		this.canvasDraw.drawMinThreshold(minThreshold);
+	}
+
 	handleMouseMove(event) {
 		var actions = {
 			[CanvasModes.PIXEL]: () => { 
@@ -68,7 +72,7 @@ class ImagerCanvas {
 				this.roi.updateROIPosition(event);
 				this.drawROI();	
 			} 
-		}
+		};
 
 		(actions[this.canvasMode] || this.defaultAction)();
 		this.onMouseMove();
@@ -84,7 +88,7 @@ class ImagerCanvas {
 				
 				this.roi.createROI(event);
 			}
-		}
+		};
 
 		(actions[this.canvasMode] || this.defaultAction)();
 	}
@@ -100,7 +104,7 @@ class ImagerCanvas {
 				this.drawROI();
 				this.canvasMode = CanvasModes.ROI
 			}
-		}
+		};
 
 		(actions[this.canvasMode] || this.defaultAction)();
 	}

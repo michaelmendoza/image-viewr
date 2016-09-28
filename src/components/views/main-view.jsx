@@ -7,7 +7,7 @@ class MainView extends React.Component {
 
 	render() {
 		return (
-			<section className='main-view layout-row ' >
+			<section className='main-view layout-row' >
 				<ViewerFilePanel className='flex'></ViewerFilePanel>
 				<Viewer 	       className='flex'></Viewer>
 				<ViewerInfoPanel className='flex'></ViewerInfoPanel>
