@@ -6,7 +6,7 @@
 	box-shadow: $box-shadow-z1;
 	margin: 0px 40px;
 	height: 80px;
-	padding: 0;
+	padding: 0 20px;
 	text-align: center;
 	width: 300px;
 	min-height: 600px;
@@ -14,13 +14,12 @@
 	h4 {
 		border-bottom: 1px solid $light-grey-border-color;
 		font-weight: normal;
-		margin: 0 10px 10px 10px;
+		margin: 0 0 10px 0;
 		padding: 10px;
 	}
 
 	ul {
 		text-align: left;
-		padding: 0 16px;
 	}
 
 	li {
@@ -32,4 +31,25 @@
 		display: block;
 		width: 64px;
 	}
+
+	.load-image-file {
+		border: 1px dashed #A9A9A9;
+		border-radius: 8px;
+		color: #A9A9A9;
+		margin-bottom: 20px;
+		padding: 10px;
+		text-align: center;
+
+		i { 
+			color: #A9A9A9; 
+			display: inline-block; 
+			vertical-align: middle;
+			padding: 0;
+		}
+		
+		span {
+			display: inline-block; 
+			vertical-align: middle;
+		}
+	}	
 }
