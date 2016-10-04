@@ -11,6 +11,7 @@ class ViewerStore extends EventEmitter {
 
 		this.getCanvas = this.getCanvas.bind(this);
 		this.loadImage = this.loadImage.bind(this);
+		this.loadDicomImage = this.loadDicomImage.bind(this);
 	}
 
 	getCanvas() {
@@ -31,6 +32,10 @@ class ViewerStore extends EventEmitter {
 
 	loadImage(imageFile) {
 		this.canvas.drawImage(imageFile);
+	}
+
+	loadDicomImage(imageFile) {
+		this.canvas.canvasDraw.drawDicomImage(imageFile);
 	}
 
 	drawMinThreshold(minThreshold) {

@@ -29,6 +29,9 @@ class ViewerFilePanel extends React.Component {
 	handleSelectFile(file) {
 		var imageFile = file.img != null ? file.img.src : file.filename;
 		ViewerStore.loadImage(imageFile);
+		if(file.type == 'dicom') {
+			ViewerStore.loadDicomImage(file);
+		}
 	}
 
 	render() {
@@ -43,8 +46,9 @@ class ViewerFilePanel extends React.Component {
 						</li>
 						{
 							this.state.files.map(function(file, index) {
+								var src = file.img !== undefined ? file.img.src : '../src/assets/d.jpg';
 								return <li key={index} onClick={this.handleSelectFile.bind(this, file)}> 
-									<img src={file.img.src}/> 
+									<img src={src}/> 
 								</li>
 							}.bind(this))
 						}

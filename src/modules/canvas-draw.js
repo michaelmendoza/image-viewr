@@ -31,6 +31,24 @@ class CanvasDraw {
 		this.img.src = imgFile;	
 	}
 
+	drawDicomImage(imgFile) {
+		this.width = imgFile.width;
+		this.height = imgFile.height;
+		this.clear();
+		this.drawPixelData(imgFile.pixelData, this.width * this.height);
+	}
+
+	drawPixelData(pixelData, numPixels) {
+		var imageData = this.context.getImageData(0, 0, this.width, this.height);
+		for(var i = 0; i < numPixels; i++) {
+		    imageData.data[4*i] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+1] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+2] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+3] = 255;
+		}
+		this.context.putImageData(imageData, 0, 0);
+	}
+
 	drawROI(roi) {
 		this.context.drawImage(this.img, 0, 0);
 
