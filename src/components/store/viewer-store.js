@@ -26,6 +26,10 @@ class ViewerStore extends EventEmitter {
 		return this.canvas.canvasMode;
 	}
 
+	getFeatures() {
+		return this.canvas.getFeatures();
+	}
+
 	setCanvasMode(mode) {
 		this.canvas.setCanvasMode(mode);
 	}

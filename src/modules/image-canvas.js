@@ -2,7 +2,9 @@
 
 import CanvasDraw from './canvas-draw.js';
 import CanvasModes from './canvas-modes.js';
-import CanvasROI from './canvas-roi.js';
+//import CanvasROI from './canvas-roi.js';
+import FeatureTypes from './feature-types.js';
+import FeatureManager from './feature-manager.js';
 
 /**
  * Canvas based image viewer
@@ -18,7 +20,8 @@ class ImagerCanvas {
 		// ImageCanvas Properties
 		this.canvasMode = CanvasModes.PIXEL;
 		this.canvasDraw = new CanvasDraw(this.canvas);
-		this.roi = new CanvasROI(this.canvas);
+		//this.roi = new CanvasROI(this.canvas);
+		this.featureManager = new FeatureManager(this.canvas);
 		this.pixel = null;
 
 		// Canvas Event Listeners/Handler
@@ -30,8 +33,12 @@ class ImagerCanvas {
 		this.canvas.onmouseup = this.handleMouseUp.bind(this);
 	}
 
-	getROI() {
-		return this.roi;
+	getActiveFeature() {
+		return this.featureManager.activeFeature;
+	}
+
+	getFeatures() {
+		return this.featureManager.features;
 	}
 
 	getPixelData(event) {
@@ -51,9 +58,9 @@ class ImagerCanvas {
 		this.canvasDraw.drawImage(imgFile);
 	}
 
-	drawROI() {
-		this.canvasDraw.drawROI(this.roi);
-	}
+	//drawROI() {
+	//	this.canvasDraw.drawROI(this.roi);
+	//}
 
 	drawMinThreshold(minThreshold) {
 		this.canvasDraw.drawMinThreshold(minThreshold);
@@ -61,6 +68,21 @@ class ImagerCanvas {
 
 	handleMouseMove(event) {
 		var actions = {
+			[CanvasModes.PIXEL]: () => { 
+				this.getPixelData(event);
+			},
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
+				this.featureManager.updateActiveFeature(event);
+				this.canvasDraw.drawLoadedImage();
+				this.featureManager.drawAllFeatures(); 
+			},
+			[CanvasModes.ROI_UPDATE_POSITION]: () => {
+				this.featureManager.updateActiveFeaturePosition(event);
+				this.canvasDraw.drawLoadedImage();
+				this.featureManager.drawAllFeatures(); 
+			}
+
+			/*
 			[CanvasModes.PIXEL]: () => { 
 				this.getPixelData(event); 
 			},
@@ -71,7 +93,8 @@ class ImagerCanvas {
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				this.roi.updateROIPosition(event);
 				this.drawROI();	
-			} 
+			}
+			*/
 		};
 
 		(actions[this.canvasMode] || this.defaultAction)();
@@ -81,12 +104,26 @@ class ImagerCanvas {
 	handleMouseDown(event) {
 		var actions = {
 			[CanvasModes.ROI]: () => {
+
+				this.featureManager.setActiveFeature(event);
+
+				if(this.featureManager.activeFeature == null) {
+					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
+					this.featureManager.createFeature(event, FeatureTypes.CIRCLE);					
+				}
+				else {
+					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
+
+				}
+
+				/*
 				if(this.roi.isPositionInROI(event))
 					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
 				else
 					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;	
 				
 				this.roi.createROI(event);
+				*/
 			}
 		};
 
@@ -95,6 +132,20 @@ class ImagerCanvas {
 
 	handleMouseUp() {
 		var actions = {
+
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
+				this.featureManager.updateActiveFeature(event);
+				this.canvasDraw.drawLoadedImage();
+				this.featureManager.drawAllFeatures(); 
+				this.canvasMode = CanvasModes.ROI;
+			},
+			[CanvasModes.ROI_UPDATE_POSITION]: () => {
+				this.canvasDraw.drawLoadedImage();
+				this.featureManager.drawAllFeatures(); 
+				this.canvasMode = CanvasModes.ROI
+			}
+
+			/*
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
 				this.roi.updateROIRadius(event);
 				this.drawROI();
@@ -104,6 +155,7 @@ class ImagerCanvas {
 				this.drawROI();
 				this.canvasMode = CanvasModes.ROI
 			}
+			*/
 		};
 
 		(actions[this.canvasMode] || this.defaultAction)();

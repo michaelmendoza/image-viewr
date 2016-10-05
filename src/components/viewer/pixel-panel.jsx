@@ -5,12 +5,21 @@ class PixelPanel extends React.Component {
 
 	constructor() {
 		super();
+		this.getPixelData = this.getPixelData.bind(this);
 		this.state = { pixel:{x:'-', y:'-', value:'-'} };
+	}
 
-		ViewerStore.on('mousemove', () => {
-			var data = ViewerStore.getCanvasMousePixel();
-			this.setState({ pixel:data });
-		})
+	componentDidMount() {
+		ViewerStore.on('mousemove', this.getPixelData);	      
+	}
+
+	componentWillUnmount() {
+		ViewerStore.removeListener('mousemove', this.getPixelData);
+	}
+
+	getPixelData() {
+		var data = ViewerStore.getCanvasMousePixel();
+		this.setState({ pixel:data });
 	}
 
 	render() {

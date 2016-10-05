@@ -6,11 +6,11 @@ class CanvasDraw {
 
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
-		this.img = null;		
+		this.img = null;
 	}
 
 	clear() {
-		this.context.clearRect(0,0,this.width, this.height) 
+		this.context.clearRect(0,0,this.width, this.height);
 	}
 
 	drawImage(imgFile) {
@@ -47,6 +47,10 @@ class CanvasDraw {
 		    imageData.data[4*i+3] = 255;
 		}
 		this.context.putImageData(imageData, 0, 0);
+	}
+
+	drawLoadedImage() {
+		this.context.drawImage(this.img, 0, 0);
 	}
 
 	drawROI(roi) {

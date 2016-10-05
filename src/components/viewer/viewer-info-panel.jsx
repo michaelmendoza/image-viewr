@@ -2,16 +2,15 @@ import React from 'react';
 import ViewerStore from '../store/viewer-store.js';
 import CanvasModes from '../../modules/canvas-modes.js';
 import PixelPanel from './pixel-panel.jsx';
+import ROIPanel from './roi-panel.jsx';
 import ThresholdPanel from './threshold-panel.jsx';
 
 class ViewerInfoPanel extends React.Component {
 
-	constructor() {
-		super();
-
+	componentDidMount() {
 		ViewerStore.on('canvasmode', () => {
 			this.setState({});
-		})
+		})	      
 	}
 
 	render() {
@@ -25,6 +24,7 @@ class ViewerInfoPanel extends React.Component {
 		var selectThreshold = ViewerStore.setCanvasMode.bind(ViewerStore, CanvasModes.THRESHOLD);
 
 		var pixelPanel = <PixelPanel></PixelPanel>
+		var roiPanel = <ROIPanel></ROIPanel>
 		var thresholdPanel = <ThresholdPanel></ThresholdPanel>
 
 		return (
@@ -35,6 +35,7 @@ class ViewerInfoPanel extends React.Component {
 					<li className={activeThreshold} onClick={selectThreshold}> Threshold </li>
 				</ul>
 				{ activePixel == 'active' ? pixelPanel : null }
+				{ activeROI == 'active' ? roiPanel : null }
 				{ activeThreshold == 'active' ? thresholdPanel : null }
 			</section>
 		);

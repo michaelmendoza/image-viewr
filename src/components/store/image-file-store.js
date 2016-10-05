@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import dicomParser from 'dicom-parser';
+import CanvasDraw from '../../modules/canvas-draw.js'
 
 class ImageFileStore extends EventEmitter {
 
@@ -93,8 +94,29 @@ class ImageFileStore extends EventEmitter {
 		  throw 'frame exceeds size of pixelData';
 		}
 		var pixelData = new Uint16Array(dataSet.byteArray.buffer, frameOffset, numPixels);
+		var imageFile = { filename:file.name, type:'dicom', pixelData:pixelData, width:columns, height:rows, numPixels:numPixels };
 
-		this.files.push({ filename:file.name, type:'dicom', pixelData:pixelData, width:columns, height:rows, numPixels:numPixels });
+		var canvas = document.createElement('canvas');
+		canvas.width = columns;
+		canvas.height = rows;
+
+    var context = canvas.getContext('2d');
+    var numPixels = columns * rows;
+		var imageData = context.getImageData(0, 0, columns, rows);
+		for(var i = 0; i < numPixels; i++) {
+		    imageData.data[4*i] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+1] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+2] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+3] = 255;
+		}
+		context.putImageData(imageData, 0, 0);
+		var dataURL = canvas.toDataURL();     
+
+		var img = document.createElement('img');
+		img.src = dataURL;
+		imageFile.img = img;
+
+		this.files.push(imageFile);
 		this.emit('filesloaded');
 	}
 
