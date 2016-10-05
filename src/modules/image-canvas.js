@@ -2,7 +2,6 @@
 
 import CanvasDraw from './canvas-draw.js';
 import CanvasModes from './canvas-modes.js';
-//import CanvasROI from './canvas-roi.js';
 import FeatureTypes from './feature-types.js';
 import FeatureManager from './feature-manager.js';
 
@@ -20,7 +19,6 @@ class ImagerCanvas {
 		// ImageCanvas Properties
 		this.canvasMode = CanvasModes.PIXEL;
 		this.canvasDraw = new CanvasDraw(this.canvas);
-		//this.roi = new CanvasROI(this.canvas);
 		this.featureManager = new FeatureManager(this.canvas);
 		this.pixel = null;
 
@@ -58,10 +56,6 @@ class ImagerCanvas {
 		this.canvasDraw.drawImage(imgFile);
 	}
 
-	//drawROI() {
-	//	this.canvasDraw.drawROI(this.roi);
-	//}
-
 	drawMinThreshold(minThreshold) {
 		this.canvasDraw.drawMinThreshold(minThreshold);
 	}
@@ -81,20 +75,6 @@ class ImagerCanvas {
 				this.canvasDraw.drawLoadedImage();
 				this.featureManager.drawAllFeatures(); 
 			}
-
-			/*
-			[CanvasModes.PIXEL]: () => { 
-				this.getPixelData(event); 
-			},
-			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
-				this.roi.updateROIRadius(event);
-				this.drawROI(); 
-			},
-			[CanvasModes.ROI_UPDATE_POSITION]: () => {
-				this.roi.updateROIPosition(event);
-				this.drawROI();	
-			}
-			*/
 		};
 
 		(actions[this.canvasMode] || this.defaultAction)();
@@ -115,15 +95,6 @@ class ImagerCanvas {
 					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
 
 				}
-
-				/*
-				if(this.roi.isPositionInROI(event))
-					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
-				else
-					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;	
-				
-				this.roi.createROI(event);
-				*/
 			}
 		};
 
@@ -144,18 +115,6 @@ class ImagerCanvas {
 				this.featureManager.drawAllFeatures(); 
 				this.canvasMode = CanvasModes.ROI
 			}
-
-			/*
-			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
-				this.roi.updateROIRadius(event);
-				this.drawROI();
-				this.canvasMode = CanvasModes.ROI;
-			},
-			[CanvasModes.ROI_UPDATE_POSITION]: () => {
-				this.drawROI();
-				this.canvasMode = CanvasModes.ROI
-			}
-			*/
 		};
 
 		(actions[this.canvasMode] || this.defaultAction)();

@@ -49,10 +49,12 @@ class FeatureManager {
 
 	updateActiveFeature(event) {
 		this.activeFeature.updateROI(event);
+		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.context);
 	}	
 
 	updateActiveFeaturePosition(event) {
 		this.activeFeature.updateROIPosition(event);
+		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.context);		
 	}
 
 	drawAllFeatures() {
