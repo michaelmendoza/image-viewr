@@ -29,7 +29,11 @@ class FeatureCircleROI extends FeatureROI {
 	}
 
 	calcAveragePixelValue(context) {
-		var imageData = context.getImageData(this.x, this.y, this.radius, this.radius);
+		var sx = this.x - this.radius;
+		var sy = this.y - this.radius;
+		var width = this.x + this.radius;
+		var height = this.y + this.radius;
+		var imageData = context.getImageData(sx, sy, width, height);
 		var data = imageData.data;
 		var total = 0;
 		for (var i = 0; i < data.length; i += 4) {

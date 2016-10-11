@@ -4,6 +4,8 @@
 	canvas {
 		cursor: hand;
 		cursor: pointer;
+
+		height: 100%;
 	}
 
 	h4 {
@@ -18,14 +20,22 @@
 		border-radius: 4px;
 		box-shadow: $box-shadow-z1;
 		margin-bottom: 20px;
+
+		.icons-left {
+			text-align: left;
+		}
+
+		.icons-right {
+			text-align: right;
+		}
 	}
 
 	.viewer {
 		//border-top: 5px solid $blue;
 		width: 600px;
+		height: 600px;
 		box-shadow: $box-shadow-z1;
 		margin: 0 auto 0 auto;
-		padding: 20px;
 
 		$checkerboard-color: rgba(0,0,0,0.1);
 		background-color: #eee;

@@ -10,10 +10,6 @@ class HeaderView extends React.Component {
 			<section className='header-view layout-vertical-center' >  
 				<div className='flex'>Image Viewer</div>
 				<ul className='flex'>
-					<li>Edit</li>
-					<li>Color</li>
-					<li>Algo</li>
-					<li>Tools</li>
 				</ul>
 			</section>
 		);

@@ -1,72 +1,7 @@
-import EventEmitter from 'events';
+
 import dicomParser from 'dicom-parser';
 
-class ImageFileStore extends EventEmitter {
-
-	constructor() {
-		super();
-		this.files = [];
-
-		this.getLoadedFiles = this.getLoadedFiles.bind(this);
-		this.readFile = this.readFile.bind(this);
-	}
-
-	getLoadedFiles() {
-		return this.files;
-	}
-
-	readFile(event) {
-    var files = event.dataTransfer.files;
-
-    for (var i = 0; i < files.length; i++) {
-    	var file = files[i];
-    	var reader = new FileReader();
-
-    	var readers = {
-    		"image/png" : () => {
-		    	reader.onload = this.readPNG.bind(this, file);
-		   		reader.readAsDataURL(file)
-    		},
-    		"application/dicom" : () => {
-    			reader.onload = this.readDICOM.bind(this, file);
-    			reader.readAsArrayBuffer(file);
-    		}
-    	}
-    	readers[file.type]();
-
-    }
-	}
-
-	readPNG(file, event) {
-		var img = document.createElement('img');
-		img.src = event.target.result;
-		this.files.push({ filename:file.name, type:'png', img:img });
-		this.emit('filesloaded');
-	}
-
-	getPixelFormat(dataSet) {
-		var pixelRepresentation = dataSet.uint16('x00280103');
-		var bitsAllocated = dataSet.uint16('x00280100');
-		if(pixelRepresentation === 0 && bitsAllocated === 8) {
-			return 1; // unsigned 8 bit
-		} 
-		else if(pixelRepresentation === 0 && bitsAllocated === 16) {
-			return 2; // unsigned 16 bit
-		} 
-		else if(pixelRepresentation === 1 && bitsAllocated === 16) {
-			return 3; // signed 16 bit data
-		}
-	}
-
-	getBytesPerPixel(pixelFormat) {
-		if(pixelFormat ===1) {
-		  return 1;
-		}
-		else if(pixelFormat ===2 || pixelFormat ===3) {
-		  return 2;
-		}
-		throw "unknown pixel format";
-	}
+class FileDICOM {
 
 	readDICOM(file, event) {
 		var frame = 0;
@@ -115,10 +50,33 @@ class ImageFileStore extends EventEmitter {
 		img.src = dataURL;
 		imageFile.img = img;
 
-		this.files.push(imageFile);
-		this.emit('filesloaded');
+		return imageFile;
+	}
+
+	getPixelFormat(dataSet) {
+		var pixelRepresentation = dataSet.uint16('x00280103');
+		var bitsAllocated = dataSet.uint16('x00280100');
+		if(pixelRepresentation === 0 && bitsAllocated === 8) {
+			return 1; // unsigned 8 bit
+		} 
+		else if(pixelRepresentation === 0 && bitsAllocated === 16) {
+			return 2; // unsigned 16 bit
+		} 
+		else if(pixelRepresentation === 1 && bitsAllocated === 16) {
+			return 3; // signed 16 bit data
+		}
+	}
+
+	getBytesPerPixel(pixelFormat) {
+		if(pixelFormat ===1) {
+		  return 1;
+		}
+		else if(pixelFormat ===2 || pixelFormat ===3) {
+		  return 2;
+		}
+		throw "unknown pixel format";
 	}
 
 }
 
-export default new ImageFileStore();
+export default FileDICOM;

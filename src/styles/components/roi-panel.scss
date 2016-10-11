@@ -3,6 +3,19 @@
 	width: 100%;
 	padding: 20px 30px;
 
+	.roi-type-buttons {
+		margin-bottom: 30px;
+		button {
+			margin: 0 6px;
+		}
+	}
+
+	.roi-info-box {
+		box-shadow: $box-shadow-z1;
+		border-radius: 6px;
+		margin-bottom: 10px;
+		padding: 10px;
+	}
 
 	.feature-item {
 		box-shadow: $box-shadow-z1;
