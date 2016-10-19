@@ -15,16 +15,15 @@ class Viewer extends ViewerEvents {
 		super();
 
 		// Canvas Properties 
-		this.canvas = document.createElement('canvas');
-		this.context = this.canvas.getContext('2d');
-		this.width = width || 800;
-		this.height = height || 600;
+		this.canvas = document.createElement('canvas');	// Canvas DOM
+		this.context = this.canvas.getContext('2d');		// Context reference
+		this.width = width || 800;											// Viewer DOM Width
+		this.height = height || 600;										// Viewer DOM Height
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
 
 		// ImageCanvas Properties
 		this.canvasDraw = new Image(this.canvas);
-
 		this.featureManager = new FeatureManager(this.canvas);
 		this.pixel = null;
 
@@ -43,6 +42,10 @@ class Viewer extends ViewerEvents {
 
 	getFeatures() {
 		return this.featureManager.features;
+	}
+
+	getImageParameters() {
+		return this.canvasDraw;
 	}
 
 	getPixelData(event) {
@@ -66,8 +69,8 @@ class Viewer extends ViewerEvents {
 
 	}
 
-	drawImage(imgFile) {
-		this.canvasDraw.drawImage(imgFile);
+	drawImage() {
+		this.canvasDraw.drawImage();
 	}
 
 	drawDicomImage(imageFile) {
@@ -75,7 +78,8 @@ class Viewer extends ViewerEvents {
 	}
 
 	drawMinThreshold(minThreshold) {
-		this.canvasDraw.drawMinThreshold(minThreshold);
+		this.canvasDraw.setMinThreshold(minThreshold);
+		this.drawImage();
 	}
 
 	panImage(event) {

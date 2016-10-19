@@ -5,7 +5,7 @@ class ThresholdPanel extends React.Component {
 
 	constructor() {
 		super();
-		this.state = { minThreshold: 5 } ;
+		this.state = { minThreshold: ViewerStore.getMinThreshold() } ;
 	}
 
   handleMinThresholdChange(event) {

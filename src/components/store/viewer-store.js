@@ -1,4 +1,5 @@
 import Viewer from '../../modules/viewer.js';
+import CanvasModes from '../../modules/canvas-modes.js';
 import EventEmitter from 'events';
 
 class ViewerStore extends EventEmitter {
@@ -7,6 +8,7 @@ class ViewerStore extends EventEmitter {
 		super();
 
 		this.getCanvas = this.getCanvas.bind(this);
+		this.getCanvasModes = this.getCanvasModes.bind(this);
 		this.loadImage = this.loadImage.bind(this);
 		this.loadDicomImage = this.loadDicomImage.bind(this);
 	}
@@ -31,12 +33,12 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.canvasMode;
 	}
 
-	getFeatures() {
-		return this.viewer.getFeatures();
+	getCanvasModes() {
+		return CanvasModes;
 	}
 
-	setCanvasMode(mode) {
-		this.viewer.setCanvasMode(mode);
+	getFeatures() {
+		return this.viewer.getFeatures();
 	}
 
 	loadImage(imageFile) {
@@ -49,6 +51,14 @@ class ViewerStore extends EventEmitter {
 
 	drawMinThreshold(minThreshold) {
 		this.viewer.drawMinThreshold(minThreshold);
+	}
+
+	setCanvasMode(mode) {
+		this.viewer.setCanvasMode(mode);
+	}
+
+	getMinThreshold() {
+		return this.viewer.getImageParameters().minThreshold;
 	}
 
 	selectPanMode() {

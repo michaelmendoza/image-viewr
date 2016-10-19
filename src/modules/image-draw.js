@@ -1,8 +1,45 @@
 
-class ImageDraw {
+var ImageDraw = function() {
 
-	drawInvertedImage() {
+	this.clear = () => {
+		this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
+	}	
+
+	this.drawImage = () => {
+		var sx = 0;
+		var sy = 0;
+		var sWidth = Math.round(this.width);
+		var sHeight = Math.round(this.height);
+		var dx = this.panX;
+		var dy = this.panY;
+		var dWidth = Math.round(this.width * this.zoom);
+		var dHeight = Math.round(this.height * this.zoom);
+		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+		console.log(this.minThreshold);
+		this.drawMinThreshold(this.minThreshold);
+		//drawAllFeatures()
+	}
+
+	this.drawDicomImage = (imgFile) => {
+		this.width = imgFile.width;
+		this.height = imgFile.height;
+		this.clear();
+		this.drawPixelData(imgFile.pixelData, this.width * this.height);
+	}	
+
+	this.drawPixelData = (pixelData, numPixels) => {
 		var imageData = this.context.getImageData(0, 0, this.width, this.height);
+		for(var i = 0; i < numPixels; i++) {
+		    imageData.data[4*i] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+1] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+2] = (pixelData[i]*255)/4095;
+		    imageData.data[4*i+3] = 255;
+		}
+		this.context.putImageData(imageData, 0, 0);
+	}
+
+	this.drawInvertedImage = () => {
+		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 		var data = imageData.data;
 		for (var i = 0; i < data.length; i += 4) {
 			data[i]     = 255 - data[i];     // red
@@ -12,8 +49,8 @@ class ImageDraw {
 		this.context.putImageData(imageData, 0, 0);
 	}
 
-	drawGreyScaleImage() {
-		var imageData = this.context.getImageData(0, 0, this.width, this.height);
+	this.drawGreyScaleImage = () => {
+		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 		var data = imageData.data;
     for (var i = 0; i < data.length; i += 4) {
       var avg = (data[i] + data[i +1] + data[i +2]) / 3;
@@ -24,9 +61,8 @@ class ImageDraw {
     this.context.putImageData(imageData, 0, 0);		
 	}
 
-	drawMinThreshold(minThreshold) {
-		this.context.drawImage(this.img, 0, 0);
-		var imageData = this.context.getImageData(0, 0, this.width, this.height);
+	this.drawMinThreshold = (minThreshold) => {
+		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 		var data = imageData.data;
     for (var i = 0; i < data.length; i += 4) {
       var avg = (data[i] + data[i +1] + data[i +2]) / 3;
@@ -37,17 +73,17 @@ class ImageDraw {
     this.context.putImageData(imageData, 0, 0);		
 	}
 
-	drawCircleROI(context) {
-		context.beginPath();
-		context.strokeStyle = '#4DF94D';
-		context.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
-		context.stroke();
+	this.drawCircleROI = (roi) => {
+		this.context.beginPath();
+		this.context.strokeStyle = '#4DF94D';
+		this.context.arc(roi.x, roi.y, roi.radius, 0, 2*Math.PI);
+		this.context.stroke();
 	}
 
-	drawRectROI(context) {
-		context.strokeStyle = '#4DF94D';
-		context.rect(this.x,this.y,this.width,this.height);
-		context.stroke();
+	this.drawRectROI = (roi) => {
+		this.context.strokeStyle = '#4DF94D';
+		this.context.rect(roi.x,roi.y,roi.width,roi.height);
+		this.context.stroke();
 	}
 
 }

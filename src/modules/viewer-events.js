@@ -11,10 +11,6 @@ class ViewerEvents {
 		this.canvasMode = CanvasModes.PIXEL;
 	}
 
-	selectPanMode() {
-		this.canvasMode = CanvasModes.PAN;
-	}
-
 	handleMouseMove(event) {
 		var actions = {
 

@@ -9,6 +9,7 @@
   "dependencies": {
     "dicom-parser": "^1.7.4",
     "express": "~4.9.x",
+    "mixin": "^0.2.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1"
   },

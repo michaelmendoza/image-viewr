@@ -7,6 +7,7 @@ var CanvasModes = {
 	ROI: 'roi',
 	ROI_UPDATE_POSITION: 'roi_position',
 	ROI_UPDATE_RADIUS: 'roi_radius',
+	CONTRAST: 'contrast',
 	THRESHOLD: 'threshold'
 }
 
