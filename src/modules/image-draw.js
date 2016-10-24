@@ -44,27 +44,47 @@ var ImageDraw = function() {
 	}
 
 	this.drawGreyScaleImage = () => {
-		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
-		var data = imageData.data;
-    for (var i = 0; i < data.length; i += 4) {
-      var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-      data[i]     = avg; // red
-      data[i + 1] = avg; // green
-      data[i + 2] = avg; // blue
-    }
-    this.context.putImageData(imageData, 0, 0);		
+	var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+	var data = imageData.data;
+	for (var i = 0; i < data.length; i += 4) {
+		var avg = (data[i] + data[i +1] + data[i +2]) / 3;
+		data[i]     = avg; // red
+		data[i + 1] = avg; // green
+		data[i + 2] = avg; // blue
+		}
+	this.context.putImageData(imageData, 0, 0);		
 	}
 
 	this.drawMinThreshold = (minThreshold) => {
 		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 		var data = imageData.data;
-    for (var i = 0; i < data.length; i += 4) {
-      var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-      data[i]     = (avg <= minThreshold) ? 0 : avg;
-      data[i + 1] = (avg <= minThreshold) ? 0 : avg;
-      data[i + 2] = (avg <= minThreshold) ? 0 : avg;
-    }
-    this.context.putImageData(imageData, 0, 0);		
+		for (var i = 0; i < data.length; i += 4) {
+			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
+			if(avg <= minThreshold) {
+				data[i] = 0;
+				data[i + 1] = 0;
+				data[i + 2] = 0;
+			}
+		}
+		this.context.putImageData(imageData, 0, 0);		
+	}
+
+	this.drawColorThreshold = (colorThresholds) => {
+		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+		var data = imageData.data;
+		for (var i = 0; i < data.length; i += 4) {
+
+			// Set pixel to black, if pixel not with in color thresholds
+			if( (data[i    ] <= colorThresholds.r || colorThresholds.r < data[i    ]) ||
+					(data[i + 1] <= colorThresholds.g || colorThresholds.g < data[i + 1]) ||
+					(data[i + 2] <= colorThresholds.b || colorThresholds.b < data[i + 2]) ) {
+				
+				data[i] = 0;
+				data[i + 1] = 0;
+				data[i + 2] = 0;			
+			}
+		}
+		this.context.putImageData(imageData, 0, 0);	
 	}
 
 	this.drawCircleROI = (roi) => {
