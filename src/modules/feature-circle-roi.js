@@ -28,6 +28,7 @@ class FeatureCircleROI extends FeatureROI {
 		return xCheck && yCheck;
 	}
 
+	// TODO: fix width, height
 	calcAveragePixelValue(context) {
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;
@@ -40,6 +41,23 @@ class FeatureCircleROI extends FeatureROI {
 			total += (data[i] + data[i +1] + data[i +2]) / 3;
 		}
 		return total / (data.length / 4);
+	}
+
+	getNonZeroPixelCount(canvas) {
+		var context = canvas.getContext('2d');
+		
+		var sx = this.x - this.radius;
+		var sy = this.y - this.radius;
+		var width = this.x + this.radius;
+		var height = this.y + this.radius;
+		var imageData = context.getImageData(sx, sy, width, height);
+		var data = imageData.data;
+		var count = 0;
+    for (var i = 0; i < data.length; i += 4) {
+      if(data[i] > 0)
+      	count += 1;
+    }
+    return count;
 	}
 
 	drawROI(context) {

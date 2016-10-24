@@ -23,15 +23,17 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
+				//event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
-				this.featureManager.drawAllFeatures(); 
+				//this.featureManager.drawAllFeatures(); 
 			},
 
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
+				//event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeaturePosition(event);
 				this.canvasDraw.drawImage();
-				this.featureManager.drawAllFeatures(); 
+				//this.featureManager.drawAllFeatures(); 
 			}
 		};
 
@@ -47,7 +49,7 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.ROI]: () => {
-
+				//event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.setActiveFeature(event);
 
 				if(this.featureManager.activeFeature == null) {
@@ -73,14 +75,15 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
+				//event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
-				this.featureManager.drawAllFeatures(); 
+				//this.featureManager.drawAllFeatures(); 
 				this.canvasMode = CanvasModes.ROI;
 			},
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				this.canvasDraw.drawImage();
-				this.featureManager.drawAllFeatures(); 
+				//this.featureManager.drawAllFeatures(); 
 				this.canvasMode = CanvasModes.ROI
 			}
 		};

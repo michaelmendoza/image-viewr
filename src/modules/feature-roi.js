@@ -5,6 +5,7 @@ class FeatureROI {
 		this.x = null;
 		this.y = null;
 		this.area = null
+		this.pixelCount = null;
 		this.pixelData = null;
 		this.avgPixel = null;		
 	}

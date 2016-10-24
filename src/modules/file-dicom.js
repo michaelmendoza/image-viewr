@@ -3,7 +3,11 @@ import dicomParser from 'dicom-parser';
 
 class FileDICOM {
 
-	readDICOM(file, event) {
+	constructor(event) {
+		this.readDICOM(event);
+	}
+
+	readDICOM(event) {
 		var frame = 0;
 		var arrayBuffer = event.target.result;
 		var byteArray = new Uint8Array(arrayBuffer);
@@ -28,7 +32,6 @@ class FileDICOM {
 		  throw 'frame exceeds size of pixelData';
 		}
 		var pixelData = new Uint16Array(dataSet.byteArray.buffer, frameOffset, numPixels);
-		var imageFile = { filename:file.name, type:'dicom', pixelData:pixelData, width:columns, height:rows, numPixels:numPixels };
 
 		var canvas = document.createElement('canvas');
 		canvas.width = columns;
@@ -38,19 +41,22 @@ class FileDICOM {
     var numPixels = columns * rows;
 		var imageData = context.getImageData(0, 0, columns, rows);
 		for(var i = 0; i < numPixels; i++) {
-		    imageData.data[4*i] = (pixelData[i]*255)/4095;
-		    imageData.data[4*i+1] = (pixelData[i]*255)/4095;
-		    imageData.data[4*i+2] = (pixelData[i]*255)/4095;
-		    imageData.data[4*i+3] = 255;
+			imageData.data[4*i] = (pixelData[i]*255)/4095;
+			imageData.data[4*i+1] = (pixelData[i]*255)/4095;
+			imageData.data[4*i+2] = (pixelData[i]*255)/4095;
+			imageData.data[4*i+3] = 255;
 		}
 		context.putImageData(imageData, 0, 0);
 		var dataURL = canvas.toDataURL();     
 
 		var img = document.createElement('img');
 		img.src = dataURL;
-		imageFile.img = img;
-
-		return imageFile;
+		
+		this.img = img;
+		this.width = columns;
+		this.height = rows;
+		this.numPixels = numPixels;
+		this.pixelData = pixelData;
 	}
 
 	getPixelFormat(dataSet) {

@@ -55,6 +55,8 @@ class ROIPanel extends React.Component {
 							</div>
 							<div>
 								<label> avg: {feature.avgPixel.toPrecision(5)} </label>
+								<label> pixel count: {feature.pixelCount} </label>
+
 							</div>
 						</div>
 					})
