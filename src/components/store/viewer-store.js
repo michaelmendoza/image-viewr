@@ -44,12 +44,20 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadImage(imageFile);
 	}
 
+	drawColorThreshold(colorThreshold) {
+		this.viewer.drawColorThreshold(colorThreshold);
+	}
+
 	drawMinThreshold(minThreshold) {
 		this.viewer.drawMinThreshold(minThreshold);
 	}
 
 	setCanvasMode(mode) {
 		this.viewer.setCanvasMode(mode);
+	}
+
+	getColorThreshold() {
+		return this.viewer.getImageParameters().colorThreshold;
 	}
 
 	getMinThreshold() {

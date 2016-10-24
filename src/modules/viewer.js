@@ -69,6 +69,11 @@ class Viewer extends ViewerEvents {
 		this.canvasDraw.drawImage();
 	}
 
+	drawColorThreshold(colorThreshold) {
+		this.canvasDraw.setColorThreshold(colorThreshold);
+		this.drawImage();
+	}
+
 	drawMinThreshold(minThreshold) {
 		this.canvasDraw.setMinThreshold(minThreshold);
 		this.drawImage();

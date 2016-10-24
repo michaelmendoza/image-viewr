@@ -24,6 +24,15 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 
 		this.minThreshold = 0;
 		this.maxThreshold = 255;
+		this.colorThreshold = {
+			r: { min:0, max:255 },
+			g: { min:0, max:255 },
+			b: { min:0, max:255 }
+		};
+	}
+	
+	setColorThreshold(colorThreshold) {
+		this.colorThreshold = colorThreshold;
 	}
 
 	setMinThreshold(minThreshold) {

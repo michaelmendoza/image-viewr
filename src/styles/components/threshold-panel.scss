@@ -3,8 +3,19 @@
 	width: 100%;
 	padding: 20px 30px;
 
+	.threshold-settings {
+		border-bottom:1px solid #E1E2E4;		
+		padding-bottom: 30px;
+		margin-bottom: 30px;
+
+		label {
+			margin-left: 10px;
+		}
+	}
+
 	.min-threshold-control {
 		width: 100%;
+		margin-bottom: 10px;
 
 		input {
 			width: 80%;

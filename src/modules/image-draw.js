@@ -18,6 +18,7 @@ var ImageDraw = function() {
 		var dHeight = Math.round(this.height * this.zoom);
 		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 		this.drawMinThreshold(this.minThreshold);
+		//this.drawColorThreshold(this.colorThreshold);
 		this.viewer.featureManager.drawAllFeatures();
 	}
 
