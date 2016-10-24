@@ -23,8 +23,8 @@ class Viewer extends ViewerEvents {
 		this.canvas.height = this.height;
 
 		// ImageCanvas Properties
-		this.canvasDraw = new Image(this.canvas);
-		this.featureManager = new FeatureManager(this.canvas);
+		this.canvasDraw = new Image(this);
+		this.featureManager = new FeatureManager(this);
 		this.pixel = null;
 
 		// Canvas Event Listeners/Handler

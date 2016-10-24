@@ -4,14 +4,11 @@ import ImageDraw from './image-draw.js';
 import ImageControls from './image-controls.js';
 import ImageLoad from './image-load.js';
 
-const MAIN_ZOOM = 0.2;
-const MAX_ZOOM = 4;
-const ZOOM_STEP = 0.1;
-
 class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
-	constructor(canvas) {
+	constructor(viewer) {
 		super();
-		this.canvas = canvas;
+		this.viewer = viewer;
+		this.canvas = viewer.canvas;
 		this.context = this.canvas.getContext('2d');
 		this.img = null;
 	
@@ -31,6 +28,10 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 
 	setMinThreshold(minThreshold) {
 		this.minThreshold = minThreshold;
+	}
+
+	setMaxThreshold(maxThreshold) {
+		this.maxThreshold = minThreshold;
 	}
 
 }

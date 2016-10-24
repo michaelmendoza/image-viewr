@@ -4,8 +4,9 @@ import FeatureCircleROI from './feature-circle-roi.js';
 import FeatureRectangleROI from './feature-rectangle-roi.js';
 
 class FeatureManager {
-	constructor(canvas) {
-		this.canvas = canvas;
+	constructor(viewer) {
+		this.viewer = viewer;
+		this.canvas = viewer.canvas;
 		this.context = this.canvas.getContext('2d');	
 
 		this.activeFeature = null;
@@ -60,8 +61,9 @@ class FeatureManager {
 	drawAllFeatures() {
 		var context = this.context;
 		this.features.forEach(function(feature) {
-			feature.drawROI(context);
-		})
+			//feature.drawROI(context);
+			this.viewer.canvasDraw.drawCircleROI(feature);
+		}.bind(this))
 	}
 }
 

@@ -15,9 +15,8 @@ var ImageDraw = function() {
 		var dWidth = Math.round(this.width * this.zoom);
 		var dHeight = Math.round(this.height * this.zoom);
 		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-		console.log(this.minThreshold);
 		this.drawMinThreshold(this.minThreshold);
-		//drawAllFeatures()
+		this.viewer.featureManager.drawAllFeatures();
 	}
 
 	this.drawDicomImage = (imgFile) => {
@@ -74,9 +73,13 @@ var ImageDraw = function() {
 	}
 
 	this.drawCircleROI = (roi) => {
+		var x = roi.x * this.zoom + this.panX;
+		var y = roi.y * this.zoom + this.panY;
+		var r = roi.radius * this.zoom;
+
 		this.context.beginPath();
 		this.context.strokeStyle = '#4DF94D';
-		this.context.arc(roi.x, roi.y, roi.radius, 0, 2*Math.PI);
+		this.context.arc(x, y, r, 0, 2*Math.PI);
 		this.context.stroke();
 	}
 
