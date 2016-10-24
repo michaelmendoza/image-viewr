@@ -45,10 +45,6 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadImage(imageFile);
 	}
 
-	loadDicomImage(imageFile) {
-		this.viewer.drawDicomImage(imageFile);
-	}
-
 	drawMinThreshold(minThreshold) {
 		this.viewer.drawMinThreshold(minThreshold);
 	}

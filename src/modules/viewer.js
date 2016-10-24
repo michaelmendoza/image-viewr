@@ -65,16 +65,8 @@ class Viewer extends ViewerEvents {
 		this.canvasDraw.loadImage(imgFile);
 	}
 
-	loadDicomImage(imgFile) {
-
-	}
-
 	drawImage() {
 		this.canvasDraw.drawImage();
-	}
-
-	drawDicomImage(imageFile) {
-		this.canvasDraw.drawDicomImage(imageFile);
 	}
 
 	drawMinThreshold(minThreshold) {

@@ -29,9 +29,6 @@ class ViewerFilePanel extends React.Component {
 	handleSelectFile(file) {
 		var imageFile = file.img != null ? file.img.src : file.filename;
 		ViewerStore.loadImage(imageFile);
-		if(file.type == 'dicom') {
-			ViewerStore.loadDicomImage(file);
-		}
 	}
 
 	render() {

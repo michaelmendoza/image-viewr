@@ -6,6 +6,8 @@ var ImageDraw = function() {
 	}	
 
 	this.drawImage = () => {
+		this.clear();
+
 		var sx = 0;
 		var sy = 0;
 		var sWidth = Math.round(this.width);
@@ -18,13 +20,6 @@ var ImageDraw = function() {
 		this.drawMinThreshold(this.minThreshold);
 		this.viewer.featureManager.drawAllFeatures();
 	}
-
-	this.drawDicomImage = (imgFile) => {
-		this.width = imgFile.width;
-		this.height = imgFile.height;
-		this.clear();
-		this.drawPixelData(imgFile.pixelData, this.width * this.height);
-	}	
 
 	this.drawPixelData = (pixelData, numPixels) => {
 		var imageData = this.context.getImageData(0, 0, this.width, this.height);
