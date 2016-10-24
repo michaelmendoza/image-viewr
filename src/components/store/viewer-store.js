@@ -10,7 +10,6 @@ class ViewerStore extends EventEmitter {
 		this.getCanvas = this.getCanvas.bind(this);
 		this.getCanvasModes = this.getCanvasModes.bind(this);
 		this.loadImage = this.loadImage.bind(this);
-		this.loadDicomImage = this.loadDicomImage.bind(this);
 	}
 
 	setupViewer(width, height) {

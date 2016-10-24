@@ -2,18 +2,24 @@
 var ImageLoad = function() {
 
 	this.loadImage = (imgFile) => {
-		this.img = new Image();
 
-		this.img.onload = function() {
-			var context = this.context;
+		if(imgFile.img != null) {
+			this.img = imgFile.img;
 			this.width = this.img.width;
 			this.height = this.img.height;
-			this.img.crossOrigin = "Anonymous";
-			context.drawImage(this.img, 0, 0);
-			
-		}.bind(this)
-
-		this.img.src = imgFile;	
+			this.drawImage();
+		}
+		else {
+			this.img = new Image();
+			this.img.onload = function() {
+				var context = this.context;
+				this.width = this.img.width;
+				this.height = this.img.height;
+				this.img.crossOrigin = "Anonymous";
+				this.drawImage();
+			}.bind(this)
+			this.img.src = imgFile.filename;
+		}
 	}
 
 }

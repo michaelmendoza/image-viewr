@@ -13,7 +13,6 @@ class Viewer extends React.Component {
 		var width = this.refs.Viewer.offsetWidth;
 		var height = this.refs.Viewer.offsetHeight;
 		ViewerStore.setupViewer(width, height);
-		ViewerStore.loadImage('../src/assets/image.png');
 	 	var element = document.getElementById("image-viewer");
 	 	var canvas = ViewerStore.getCanvas().canvas;
 		element.appendChild(canvas);
