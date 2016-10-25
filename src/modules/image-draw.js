@@ -17,8 +17,8 @@ var ImageDraw = function() {
 		var dWidth = Math.round(this.width * this.zoom);
 		var dHeight = Math.round(this.height * this.zoom);
 		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-		this.drawMinThreshold(this.minThreshold);
-		//this.drawColorThreshold(this.colorThreshold);
+		//this.drawMinThreshold(this.minThreshold);
+		this.drawColorThreshold(this.colorThreshold);
 		this.viewer.featureManager.drawAllFeatures();
 	}
 
@@ -71,21 +71,25 @@ var ImageDraw = function() {
 	}
 
 	this.drawColorThreshold = (colorThresholds) => {
+		var rMin = colorThresholds.r.min;
+		var rMax = colorThresholds.r.max;
+		var gMin = colorThresholds.g.min;
+		var gMax = colorThresholds.g.max;
+		var bMin = colorThresholds.b.min;
+		var bMax = colorThresholds.b.max;
+		console.log(colorThresholds);
+
 		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 		var data = imageData.data;
 		for (var i = 0; i < data.length; i += 4) {
-
-			// Set pixel to black, if pixel not with in color thresholds
-			if( (data[i    ] <= colorThresholds.r || colorThresholds.r < data[i    ]) ||
-					(data[i + 1] <= colorThresholds.g || colorThresholds.g < data[i + 1]) ||
-					(data[i + 2] <= colorThresholds.b || colorThresholds.b < data[i + 2]) ) {
-				
+			
+			if(data[i] < rMin || data[i] > rMax || data[i+1] < gMin || data[i+1] > gMax || data[i+2] < bMin || data[i+2] > bMax) {
 				data[i] = 0;
 				data[i + 1] = 0;
-				data[i + 2] = 0;			
+				data[i + 2] = 0;
 			}
 		}
-		this.context.putImageData(imageData, 0, 0);	
+		this.context.putImageData(imageData, 0, 0);
 	}
 
 	this.drawCircleROI = (roi) => {
