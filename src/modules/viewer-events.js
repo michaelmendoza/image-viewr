@@ -1,17 +1,16 @@
 
 import CanvasModes from './canvas-modes.js';
 import FeatureTypes from './feature-types.js';
+import ThresholdModes from './threshold-modes.js';
 
 /**
  * Canvas based image viewer
  */
 class ViewerEvents {
 
-	constructor() {
-		this.canvasMode = CanvasModes.PIXEL;
-	}
-
 	handleMouseMove(event) {
+		this.getPixelData(event);
+
 		var actions = {
 
 			[CanvasModes.PAN_UPDATE]: () => {
@@ -19,21 +18,19 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.PIXEL]: () => { 
-				this.getPixelData(event);
+				//this.getPixelData(event);
 			},
 
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
-				//event = this.canvasDraw.removeOffsetAndZoom(event);
+				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
-				//this.featureManager.drawAllFeatures(); 
 			},
 
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
-				//event = this.canvasDraw.removeOffsetAndZoom(event);
+				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeaturePosition(event);
 				this.canvasDraw.drawImage();
-				//this.featureManager.drawAllFeatures(); 
 			}
 		};
 
@@ -49,7 +46,7 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.ROI]: () => {
-				//event = this.canvasDraw.removeOffsetAndZoom(event);
+				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.setActiveFeature(event);
 
 				if(this.featureManager.activeFeature == null) {
@@ -58,7 +55,14 @@ class ViewerEvents {
 				}
 				else {
 					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
+				}
+			},
 
+			[CanvasModes.THRESHOLD]: () => {
+				if(this.thresholdMode == ThresholdModes.COLOR) {
+					var colorPixel = this.getPixelColorData(event);
+					this.drawColorPixelThreshold(colorPixel);
+					this.onSettingsChange();
 				}
 			}
 		};
@@ -75,15 +79,13 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
-				//event = this.canvasDraw.removeOffsetAndZoom(event);
+				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
-				//this.featureManager.drawAllFeatures(); 
 				this.canvasMode = CanvasModes.ROI;
 			},
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				this.canvasDraw.drawImage();
-				//this.featureManager.drawAllFeatures(); 
 				this.canvasMode = CanvasModes.ROI
 			}
 		};

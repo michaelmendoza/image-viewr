@@ -1,23 +1,32 @@
 import React from 'react';
 import ViewerStore from '../store/viewer-store.js';
 
-var ThresholdModes = {
-	COLOR: 'Color',
-	GREY: 'Grey',
-}
+var ThresholdModes = ViewerStore.getThresholdModes();
 
 class ThresholdPanel extends React.Component {
 
 	constructor() {
 		super();
+
+		var thresholdMode = ViewerStore.getThresholdMode();
+		if(thresholdMode == ThresholdModes.NONE)
+			ViewerStore.setThresholdMode(ThresholdModes.GREY);
+
 		this.state = { 
 			colorThreshold: ViewerStore.getColorThreshold(),
 			minThreshold: ViewerStore.getMinThreshold(),
-			thresholdMode:ThresholdModes.GREY
+			thresholdMode: ViewerStore.getThresholdMode()
 		};
 	}
 
+	componentDidMount() {
+		ViewerStore.on('settings_update', () => {
+			this.setState({ colorThreshold: ViewerStore.getColorThreshold() });
+		}) 
+	}
+
 	handleModeChange(mode) {
+		ViewerStore.setThresholdMode(mode);
 		this.setState({ thresholdMode:mode });
 	}
 

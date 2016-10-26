@@ -24,11 +24,6 @@ class Viewer extends React.Component {
 		})	 		
 	}
 
-	handleSelectPixelMode() {
-		var modes = ViewerStore.getCanvasModes();
-		ViewerStore.setCanvasMode(modes.PIXEL);
-	}
-
 	handleSelectPanMode() {
 		var modes = ViewerStore.getCanvasModes();
 		ViewerStore.setCanvasMode(modes.PAN);
@@ -74,7 +69,6 @@ class Viewer extends React.Component {
 			<div className='viewer-container'>
 				<div className='viewer-header layout-row' > 
 					<div className='icons-left flex'> 
-						<button className={'icon-button '     + pixelButtonClass}     onClick={this.handleSelectPixelMode}> <i className='material-icons'>touch_app</i> </button>					
 						<button className={'icon-button pan ' + panButtonClass}       onClick={this.handleSelectPanMode}> <i className='material-icons'>pan_tool</i> </button>
 						<button className={'icon-button '     + roiButtonClass}       onClick={this.handleSelectROIMode}> <i className='material-icons'>bubble_chart</i> </button>																		
 						<button className={'icon-button '     + contrastButtonClass}  onClick={this.handleSelectConstrastMode}> <i className='material-icons'>opacity</i> </button>												

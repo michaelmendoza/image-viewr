@@ -29,14 +29,18 @@ class ViewerInfoPanel extends React.Component {
 
 		return (
 			<section className='viewer-info-panel'>  
+				<section className='panel'>
+					{pixelPanel}
+				</section>
+
+				<section className='panel info-panel'>
 				<ul>
-					<li className={activePixel} 		onClick={selectPixel}> Pixel </li>
 					<li className={activeROI} 			onClick={selectROI}> ROI </li>
 					<li className={activeThreshold} onClick={selectThreshold}> Threshold </li>
 				</ul>
-				{ activePixel == 'active' ? pixelPanel : null }
 				{ activeROI == 'active' ? roiPanel : null }
 				{ activeThreshold == 'active' ? thresholdPanel : null }
+				</section>
 			</section>
 		);
 	}

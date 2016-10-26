@@ -1,11 +1,6 @@
 
 .viewer-info-panel {
-	color: $black; //#ffffff;
-	background-color: $white; //linear-gradient(to bottom,#0c4e84 0,#1d3e74 100%);
-	border-radius: 6px;	
-	box-shadow: $box-shadow-z1;
 	margin: 0px 40px;
-	min-height: 430px;
 	padding: 0;
 	text-align: center;
 	width: 300px;
@@ -32,6 +27,17 @@
 			border-bottom: solid 2px rgb(255,82,82);
 		}
 
+	}
+
+	.panel {
+		color: $black; //#ffffff;
+		background-color: $white; //linear-gradient(to bottom,#0c4e84 0,#1d3e74 100%);
+		border-radius: 6px;	
+		box-shadow: $box-shadow-z1;
+	}
+
+	.info-panel {
+		min-height: 600px;
 	}
 
 }

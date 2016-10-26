@@ -6,7 +6,7 @@ const ZOOM_STEP = 0.1;
 var ImageControls = function() {
 
 	this.removeOffsetAndZoom = (event) => {
-		return { offsetX:event.offsetX * this.zoom - this.panX, offsetY:event.offsetY * this.zoom - this.panY };
+		return { offsetX: (event.offsetX - this.panX) / this.zoom , offsetY: (event.offsetY - this.panY) / this.zoom  };
 	}
 
 	this.panImage = (event) => {

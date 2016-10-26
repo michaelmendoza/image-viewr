@@ -1,4 +1,6 @@
 
+import ThresholdModes from './threshold-modes.js';
+
 var ImageDraw = function() {
 
 	this.clear = () => {
@@ -6,8 +8,11 @@ var ImageDraw = function() {
 	}	
 
 	this.drawImage = () => {
+
+		// Clear Image
 		this.clear();
 
+		// Draw scaled/translated Image
 		var sx = 0;
 		var sy = 0;
 		var sWidth = Math.round(this.width);
@@ -17,8 +22,14 @@ var ImageDraw = function() {
 		var dWidth = Math.round(this.width * this.zoom);
 		var dHeight = Math.round(this.height * this.zoom);
 		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-		//this.drawMinThreshold(this.minThreshold);
-		this.drawColorThreshold(this.colorThreshold);
+		
+		// Thresholding
+		if(this.viewer.thresholdMode == ThresholdModes.GREY)
+			this.drawMinThreshold(this.minThreshold);
+		else if(this.viewer.thresholdMode == ThresholdModes.COLOR)
+			this.drawColorThreshold(this.colorThreshold);
+		
+		// Draw Features 
 		this.viewer.featureManager.drawAllFeatures();
 	}
 
@@ -84,9 +95,10 @@ var ImageDraw = function() {
 		for (var i = 0; i < data.length; i += 4) {
 			
 			if(data[i] < rMin || data[i] > rMax || data[i+1] < gMin || data[i+1] > gMax || data[i+2] < bMin || data[i+2] > bMax) {
-				data[i] = 0;
-				data[i + 1] = 0;
-				data[i + 2] = 0;
+				//data[i] = 0;
+				//data[i + 1] = 0;
+				//data[i + 2] = 0;
+				data[i + 3] = 0;
 			}
 		}
 		this.context.putImageData(imageData, 0, 0);

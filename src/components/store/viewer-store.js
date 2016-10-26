@@ -1,5 +1,6 @@
 import Viewer from '../../modules/viewer.js';
 import CanvasModes from '../../modules/canvas-modes.js';
+import ThresholdModes from '../../modules/threshold-modes.js';
 import EventEmitter from 'events';
 
 class ViewerStore extends EventEmitter {
@@ -16,6 +17,7 @@ class ViewerStore extends EventEmitter {
 		this.viewer = new Viewer(width, height);
 		this.viewer.onCanvasModeChange = () => { this.emit('canvasmode'); };
 		this.viewer.onMouseMove = () => { this.emit('mousemove'); }; 
+		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };
 	}
 
 	getCanvas() {
@@ -34,6 +36,10 @@ class ViewerStore extends EventEmitter {
 
 	getCanvasModes() {
 		return CanvasModes;
+	}
+
+	getThresholdModes() {
+		return ThresholdModes;
 	}
 
 	getFeatures() {
@@ -62,6 +68,14 @@ class ViewerStore extends EventEmitter {
 
 	getMinThreshold() {
 		return this.viewer.getImageParameters().minThreshold;
+	}
+
+	getThresholdMode() {
+		return this.viewer.thresholdMode;
+	}
+
+	setThresholdMode(thresholdMode) {
+		this.viewer.setThresholdMode(thresholdMode);
 	}
 
 	selectPanMode() {

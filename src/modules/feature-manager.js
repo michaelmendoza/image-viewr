@@ -63,7 +63,6 @@ class FeatureManager {
 	drawAllFeatures() {
 		var context = this.context;
 		this.features.forEach(function(feature) {
-			//feature.drawROI(context);
 			this.viewer.canvasDraw.drawCircleROI(feature);
 		}.bind(this))
 	}

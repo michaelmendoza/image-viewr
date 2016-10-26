@@ -25,7 +25,7 @@ class PixelPanel extends React.Component {
 	render() {
 		var pixel = 'x: ' + this.state.pixel.x + 
 								' y: ' + this.state.pixel.y + 
-								' data: ' + this.state.pixel.value;
+								' value: ' + this.state.pixel.value;
 
 		return (
 			<div className='pixel-panel'>{pixel}</div>

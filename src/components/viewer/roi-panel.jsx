@@ -49,8 +49,8 @@ class ROIPanel extends React.Component {
 					this.state.features.map(function(feature, index) {
 						return <div key={index} className='feature-item'>
 							<div>
-								<label> x: {feature.x} </label>
-								<label> y: {feature.y} </label>
+								<label> x: { Math.round(feature.x) } </label>
+								<label> y: { Math.round(feature.y) } </label>
 								<label> radius: {feature.radius.toPrecision(3)} </label>
 							</div>
 							<div>

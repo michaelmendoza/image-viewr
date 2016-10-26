@@ -40,11 +40,6 @@ class FeatureRectangleROI extends FeatureROI {
 		return total / (data.length / 4);
 	}
 
-	drawROI(context) {
-		context.strokeStyle = '#4DF94D';
-		context.rect(this.x,this.y,this.width,this.height);
-		context.stroke();
-	}
 }
 
 export default FeatureRectangleROI;

@@ -2,6 +2,8 @@
 
 import Image from './image.js';
 import FeatureManager from './feature-manager.js';
+import CanvasModes from './canvas-modes.js';
+import ThresholdModes from './threshold-modes.js';
 
 // Partial Classes
 import ViewerEvents from './viewer-events.js';
@@ -27,10 +29,15 @@ class Viewer extends ViewerEvents {
 		this.featureManager = new FeatureManager(this);
 		this.pixel = null;
 
+		// Modes/Settings
+		this.canvasMode = CanvasModes.PAN;
+		this.thresholdMode = ThresholdModes.NONE;
+
 		// Canvas Event Listeners/Handler
 		this.defaultAction = () => {};
 		this.onMouseMove = () => {};
 		this.onCanvasModeChange = () => {};
+		this.onSettingsChange = () => {};
 		this.canvas.onmousemove = this.handleMouseMove.bind(this);
 		this.canvas.onmousedown = this.handleMouseDown.bind(this);
 		this.canvas.onmouseup = this.handleMouseUp.bind(this);
@@ -52,13 +59,25 @@ class Viewer extends ViewerEvents {
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var data = this.context.getImageData(x, y, 1, 1).data;
-		var greyValue = Math.round((data[0] + data[1] + data[3]) / 3);
+		var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
 		this.pixel = { x:x, y:y, value:greyValue };
+	}
+
+	getPixelColorData(event) {
+		var x = event.offsetX;
+		var y = event.offsetY;
+		var data = this.context.getImageData(x, y, 1, 1).data;
+		return { x:x, y:y, r:data[0], g:data[1], b:data[2] };
 	}
 
 	setCanvasMode(mode) {
 		this.canvasMode = mode;
 		this.onCanvasModeChange();
+	}
+
+	setThresholdMode(mode) {
+		this.thresholdMode = mode;
+		this.drawImage();
 	}
 
 	loadImage(imgFile) {
@@ -71,6 +90,11 @@ class Viewer extends ViewerEvents {
 
 	drawColorThreshold(colorThreshold) {
 		this.canvasDraw.setColorThreshold(colorThreshold);
+		this.drawImage();
+	}
+
+	drawColorPixelThreshold(colorPixel) {
+		this.canvasDraw.setColorPixelThreshold(colorPixel);
 		this.drawImage();
 	}
 
