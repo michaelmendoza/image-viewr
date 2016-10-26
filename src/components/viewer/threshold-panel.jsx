@@ -30,6 +30,24 @@ class ThresholdPanel extends React.Component {
 		this.setState({ thresholdMode:mode });
 	}
 
+	handleSelectEyedropperMode() {
+		var modes = ViewerStore.getCanvasModes();
+		ViewerStore.setCanvasMode(modes.THRESHOLD_EYEDROPPER);
+	}
+
+	handleResetThreshold() {
+		var thresholdMode = ViewerStore.getThresholdMode();
+		if(thresholdMode == ThresholdModes.COLOR) {
+			var defaultColorThreshold = { r: { min:0, max:255 }, g: { min:0, max:255 }, b: { min:0, max:255 } };
+			ViewerStore.drawColorThreshold(defaultColorThreshold);
+			this.setState({ colorThreshold: ViewerStore.getColorThreshold() })
+		}
+		else if(thresholdMode == ThresholdModes.GREY) {
+			ViewerStore.drawMinThreshold(0);
+			this.setState({ minThreshold: ViewerStore.getMinThreshold() })
+		}
+	}
+
 	handleColorThresholdChange(color, key, event) {
 		this.state.colorThreshold[color][key] = event.target.value;
     this.setState({});
@@ -46,7 +64,7 @@ class ThresholdPanel extends React.Component {
   }
 
 	renderSliderControl(title, value, handleChange) {
-		return <div className='min-threshold-control'>
+		return <div className='threshold-control'>
 			<h4>{title}</h4>
 			<div className='layout-row'>
 				<input className='flex-80' type="range" name="points" value={value} min="0" max="255" onChange={handleChange}/>
@@ -68,21 +86,30 @@ class ThresholdPanel extends React.Component {
 			{ this.renderSliderControl('Blue Max Threshold',  color.b.max, this.handleColorThresholdChange.bind(this, 'b', 'max')) }
 		</section>
 
-		var greyThresholdControls = <div className='min-threshold-control'>
+		var greyThresholdControls = <section>
 			{ this.renderSliderControl('Min Threshold', this.state.minThreshold, this.handleMinThresholdChange.bind(this)) }
-		</div>
+		</section>
+
+		var eyedropperButton = <button className={'icon-button' } onClick={this.handleSelectEyedropperMode}> 
+			<i className='material-icons'>opacity</i> 
+		</button>			
+		
+		var resetButton = <button className={'icon-button'} onClick={this.handleResetThreshold.bind(this)}> 
+			<i className='material-icons'>cached</i> 
+		</button>																
 
 		return (
-			<div className='threshold-panel'>
+			<section className='threshold-panel'>
 
 				<div className='threshold-settings layout-row'>
-					<span className='settings-item flex'>
+					<span className='settings-item'>
 						<input type='radio' value={ThresholdModes.COLOR}
 							checked={this.state.thresholdMode == ThresholdModes.COLOR} 
 							onChange={this.handleModeChange.bind(this, ThresholdModes.COLOR)}/> 
 						<label>Color</label>
 					</span>
-					<span className='settings-item flex'>
+					<span className='flex'></span>
+					<span className='settings-item'>
 						<input type='radio' value={ThresholdModes.GREY} 
 							checked={this.state.thresholdMode == ThresholdModes.GREY} 
 							onChange={this.handleModeChange.bind(this, ThresholdModes.GREY)}/> 
@@ -90,9 +117,14 @@ class ThresholdPanel extends React.Component {
 					</span>
 				</div>
 
-				{ this.state.thresholdMode == ThresholdModes.COLOR ? colorThresholdControls : greyThresholdControls } 
+				<div className='threshold-buttons layout-row'>
+					{ this.state.thresholdMode == ThresholdModes.COLOR ? eyedropperButton : null}
+					<div className='flex'></div>
+					{resetButton}
+				</div>
 
-			</div>
+				{ this.state.thresholdMode == ThresholdModes.COLOR ? colorThresholdControls : greyThresholdControls } 
+			</section>
 		);
 	}
 }

@@ -50,14 +50,14 @@ class FeatureManager {
 
 	updateActiveFeature(event) {
 		this.activeFeature.updateROI(event);
-		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.context);
-		this.activeFeature.pixelCount = this.activeFeature.getNonZeroPixelCount(this.canvas);
+		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.viewer.canvasDraw);
+		this.activeFeature.pixelCount = this.activeFeature.getNonZeroPixelCount(this.viewer.canvasDraw);
 	}	
 
 	updateActiveFeaturePosition(event) {
 		this.activeFeature.updateROIPosition(event);
-		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.context);	
-		this.activeFeature.pixelCount = this.activeFeature.getNonZeroPixelCount(this.canvas);			
+		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.viewer.canvasDraw);	
+		this.activeFeature.pixelCount = this.activeFeature.getNonZeroPixelCount(this.viewer.canvasDraw);			
 	}
 
 	drawAllFeatures() {

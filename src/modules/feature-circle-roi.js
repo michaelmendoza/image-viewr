@@ -7,7 +7,7 @@ class FeatureCircleROI extends FeatureROI {
 		super();
 		this.type = FeatureTypes.CIRCLE;
 		this.radius = null;
-	}	
+	}
 
 	updateROI(event) {
 		var x = event.offsetX;
@@ -29,11 +29,17 @@ class FeatureCircleROI extends FeatureROI {
 	}
 
 	// TODO: fix width, height
-	calcAveragePixelValue(context) {
+	calcAveragePixelValue(image) {
+		var canvas = document.createElement('canvas');
+		canvas.width = image.width;
+		canvas.height = image.height;
+    var context = canvas.getContext('2d');
+		context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
+
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;
-		var width = this.x + this.radius;
-		var height = this.y + this.radius;
+		var width = this.radius;
+		var height = this.radius;
 		var imageData = context.getImageData(sx, sy, width, height);
 		var data = imageData.data;
 		var total = 0;
@@ -43,20 +49,26 @@ class FeatureCircleROI extends FeatureROI {
 		return total / (data.length / 4);
 	}
 
-	getNonZeroPixelCount(canvas) {
-		var context = canvas.getContext('2d');
+	getNonZeroPixelCount(image) {
+		var canvas = document.createElement('canvas');
+		canvas.width = image.width;
+		canvas.height = image.height;
+    var context = canvas.getContext('2d');
+		context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
 		
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;
-		var width = this.x + this.radius;
-		var height = this.y + this.radius;
+		var width = this.radius;
+		var height = this.radius;
 		var imageData = context.getImageData(sx, sy, width, height);
 		var data = imageData.data;
 		var count = 0;
-    for (var i = 0; i < data.length; i += 4) {
-      if(data[i] > 0)
-      	count += 1;
-    }
+		for (var i = 0; i < data.length; i += 4) {
+			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
+			if(avg > image.minThreshold) {
+				count += 1;
+			}
+		}
     return count;
 	}
 

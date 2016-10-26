@@ -4,16 +4,20 @@
 	padding: 20px 30px;
 
 	.threshold-settings {
-		border-bottom:1px solid #E1E2E4;		
-		padding-bottom: 30px;
-		margin-bottom: 30px;
+		border-bottom:1px solid #E1E2E4;	
+		padding: 0 14px 30px 14px;	
+		margin-bottom: 10px;
 
 		label {
 			margin-left: 10px;
 		}
 	}
 
-	.min-threshold-control {
+	.threshold-buttons {
+		margin-bottom: 10px;
+	}
+
+	.threshold-control {
 		width: 100%;
 		margin-bottom: 10px;
 

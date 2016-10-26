@@ -35,7 +35,7 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 		this.colorThreshold = colorThreshold;
 	}
 
-	setColorPixelThreshold(colorPixel, offset = 20) {
+	setColorPixelThreshold(colorPixel, offset = 40) {
 		var r = colorPixel.r;
 		var g = colorPixel.g;
 		var b = colorPixel.b;

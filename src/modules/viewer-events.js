@@ -17,10 +17,6 @@ class ViewerEvents {
 				this.panImage(event);
 			},
 
-			[CanvasModes.PIXEL]: () => { 
-				//this.getPixelData(event);
-			},
-
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
 				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeature(event);
@@ -58,11 +54,12 @@ class ViewerEvents {
 				}
 			},
 
-			[CanvasModes.THRESHOLD]: () => {
+			[CanvasModes.THRESHOLD_EYEDROPPER]: () => {
 				if(this.thresholdMode == ThresholdModes.COLOR) {
 					var colorPixel = this.getPixelColorData(event);
 					this.drawColorPixelThreshold(colorPixel);
 					this.onSettingsChange();
+					this.canvasMode = CanvasModes.THRESHOLD
 				}
 			}
 		};

@@ -71,7 +71,6 @@ class Viewer extends React.Component {
 					<div className='icons-left flex'> 
 						<button className={'icon-button pan ' + panButtonClass}       onClick={this.handleSelectPanMode}> <i className='material-icons'>pan_tool</i> </button>
 						<button className={'icon-button '     + roiButtonClass}       onClick={this.handleSelectROIMode}> <i className='material-icons'>bubble_chart</i> </button>																		
-						<button className={'icon-button '     + contrastButtonClass}  onClick={this.handleSelectConstrastMode}> <i className='material-icons'>opacity</i> </button>												
 						<button className={'icon-button '     + thresholdButtonClass} onClick={this.handleSelectThresholdMode}> <i className='material-icons'>equalizer</i> </button>						
 					</div>
 					<div className='icons-right flex'>

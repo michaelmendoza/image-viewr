@@ -25,6 +25,9 @@ button {
 
 		&:focus {
 			outline: none;
+			background-color: $blue;
+			box-shadow: $box-shadow-z1;
+			color: $white;
 		}
 		
 		&:hover {
