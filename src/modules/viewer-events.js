@@ -22,7 +22,7 @@ class ViewerEvents {
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
 			},
-			
+
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeaturePosition(event);
@@ -60,7 +60,7 @@ class ViewerEvents {
 
 			[CanvasModes.THRESHOLD_EYEDROPPER]: () => {
 				if(this.thresholdMode == ThresholdModes.COLOR) {
-					var colorPixel = this.getPixelColorData(event);
+					var colorPixel = this.getPixelData(event);
 					this.drawColorPixelThreshold(colorPixel);
 					this.onSettingsChange();
 					this.canvasMode = CanvasModes.THRESHOLD
