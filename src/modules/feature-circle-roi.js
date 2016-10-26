@@ -27,7 +27,7 @@ class FeatureCircleROI extends FeatureROI {
 		var yCheck = (this.y - this.radius) <= y && y <= (this.y + this.radius);
 		return xCheck && yCheck;
 	}
-	
+
 	calcAveragePixelValue(image) {
 		var canvas = document.createElement('canvas');
 		canvas.width = image.width;
