@@ -48,6 +48,10 @@ class FeatureManager {
 		this.activeFeature = feature;
 	}
 
+	deleteFeature(index) {
+		this.features.splice(index, 1);
+	}
+
 	updateActiveFeature(event) {
 		this.activeFeature.updateROI(event);
 		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.viewer.canvasDraw);
@@ -66,6 +70,7 @@ class FeatureManager {
 			this.viewer.canvasDraw.drawCircleROI(feature);
 		}.bind(this))
 	}
+
 }
 
 export default FeatureManager;

@@ -51,6 +51,11 @@ class Viewer extends ViewerEvents {
 		return this.featureManager.features;
 	}
 
+	deleteFeature(index) {
+		this.featureManager.deleteFeature(index);
+		this.drawImage();
+	}
+
 	getImageParameters() {
 		return this.canvasDraw;
 	}

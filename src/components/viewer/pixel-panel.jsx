@@ -23,12 +23,13 @@ class PixelPanel extends React.Component {
 	}
 
 	render() {
-		var pixel = 'x: ' + this.state.pixel.x + 
-								' y: ' + this.state.pixel.y + 
-								' value: ' + this.state.pixel.value;
 
 		return (
-			<div className='pixel-panel'>{pixel}</div>
+			<div className='pixel-panel'>
+				<label> { 'X: ' + this.state.pixel.x }</label>
+				<label> { 'Y: ' + this.state.pixel.y } </label>
+				<label> { 'Value: ' + this.state.pixel.value } </label>
+			</div>
 		);
 	}
 }

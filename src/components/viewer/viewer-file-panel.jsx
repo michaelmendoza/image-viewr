@@ -33,7 +33,7 @@ class ViewerFilePanel extends React.Component {
 	render() {
 
 		var defaultImage = <li onClick={this.handleSelectFile.bind(this, { filename:'../src/assets/image.png', img:null })}> 
-			<img src='../src/assets/image.png'/> 
+			<img src='../src/assets/image.png'/>
 		</li>
 
 		return (

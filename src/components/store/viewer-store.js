@@ -46,6 +46,10 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.getFeatures();
 	}
 
+	deleteFeature(index) {
+		return this.viewer.deleteFeature(index);
+	}
+
 	loadImage(imageFile) {
 		this.viewer.loadImage(imageFile);
 	}
