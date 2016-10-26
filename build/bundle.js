@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.18', 'Date:Oct 26, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.20', 'Date:Oct 26, 2016');
 
 /***/ },
 /* 1 */
@@ -24584,6 +24584,12 @@
 			key: 'render',
 			value: function render() {
 
+				var defaultImage = _react2.default.createElement(
+					'li',
+					{ onClick: this.handleSelectFile.bind(this, { filename: '../src/assets/image.png', img: null }) },
+					_react2.default.createElement('img', { src: '../src/assets/image.png' })
+				);
+
 				return _react2.default.createElement(
 					'section',
 					{ className: 'viewer-file-panel', onDragOver: this.handleDragOver.bind(this), onDrop: this.handleDrop.bind(this) },
@@ -24598,11 +24604,6 @@
 						_react2.default.createElement(
 							'ul',
 							null,
-							_react2.default.createElement(
-								'li',
-								{ onClick: this.handleSelectFile.bind(this, { filename: '../src/assets/image.png', img: null }) },
-								_react2.default.createElement('img', { src: '../src/assets/image.png' })
-							),
 							this.state.files.map(function (file, index) {
 								var src = file.img !== undefined ? file.img.src : '../src/assets/d.jpg';
 								return _react2.default.createElement(

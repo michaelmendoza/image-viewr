@@ -32,14 +32,15 @@ class ViewerFilePanel extends React.Component {
 
 	render() {
 
+		var defaultImage = <li onClick={this.handleSelectFile.bind(this, { filename:'../src/assets/image.png', img:null })}> 
+			<img src='../src/assets/image.png'/> 
+		</li>
+
 		return (
 			<section className='viewer-file-panel' onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>  
 				<h4> Image Files </h4>
 				<div>
 					<ul>
-						<li onClick={this.handleSelectFile.bind(this, { filename:'../src/assets/image.png', img:null })}> 
-							<img src='../src/assets/image.png'/> 
-						</li>
 						{
 							this.state.files.map(function(file, index) {
 								var src = file.img !== undefined ? file.img.src : '../src/assets/d.jpg';
