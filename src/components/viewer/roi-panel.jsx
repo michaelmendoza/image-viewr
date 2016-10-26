@@ -23,25 +23,12 @@ class ROIPanel extends React.Component {
 		})
 	}
 
-	handleSelectCircle() {
-		console.log('Circle');
-	}
-
-	handleSelectRect() {
-		console.log('Rect');
-	}
-
 	render() {
 
 		var infoBox = <div className='roi-info-box'> Please create an roi by click and draging on image </div>
 
 		return (
 			<section className='roi-panel'>  
-
-				<div className='roi-type-buttons'>
-					<button className='button' onClick={this.handleSelectCircle}> Circle </button>
-					<button className='button' onClick={this.handleSelectRect}> Rectange </button>
-				</div>
 
 				{ this.state.features.length == 0 ? infoBox : null }
 

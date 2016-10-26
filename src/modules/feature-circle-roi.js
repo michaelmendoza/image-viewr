@@ -38,13 +38,30 @@ class FeatureCircleROI extends FeatureROI {
 
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;
-		var width = this.radius;
-		var height = this.radius;
+		var width = 2 * this.radius;
+		var height = 2 * this.radius;
 		var imageData = context.getImageData(sx, sy, width, height);
 		var data = imageData.data;
+
+		var canvas2 = document.createElement('canvas');
+		canvas2.width = 2 * this.radius;
+		canvas2.height = 2 * this.radius;
+		var context2 = canvas2.getContext('2d');
+		context2.clearRect(0,0,canvas2.width, canvas2.height);
+		var x = this.radius;
+		var y = this.radius;
+		var r = this.radius;
+		context2.beginPath();
+		context2.fillStyle = "#FFFFFF";
+		context2.arc(x, y, r, 0, 2*Math.PI);
+		context2.fill();
+		var imageData2 = context2.getImageData(0, 0, canvas2.width, canvas2.height);
+		var data2 = imageData2.data;
+
 		var total = 0;
 		for (var i = 0; i < data.length; i += 4) {
-			total += (data[i] + data[i +1] + data[i +2]) / 3;
+			if(data2[i] == 255)
+				total += (data[i] + data[i +1] + data[i +2]) / 3;
 		}
 		return total / (data.length / 4);
 	}
@@ -58,14 +75,30 @@ class FeatureCircleROI extends FeatureROI {
 		
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;
-		var width = this.radius;
-		var height = this.radius;
+		var width = 2 * this.radius;
+		var height = 2 * this.radius;
 		var imageData = context.getImageData(sx, sy, width, height);
 		var data = imageData.data;
+
+		var canvas2 = document.createElement('canvas');
+		canvas2.width = 2 * this.radius;
+		canvas2.height = 2 * this.radius;
+    var context2 = canvas2.getContext('2d');
+    context2.clearRect(0,0,canvas2.width, canvas2.height);
+		var x = this.radius;
+		var y = this.radius;
+		var r = this.radius;
+		context2.beginPath();
+		context2.fillStyle = "#FFFFFF";
+		context2.arc(x, y, r, 0, 2*Math.PI);
+		context2.fill();
+		var imageData2 = context2.getImageData(0, 0, canvas2.width, canvas2.height);
+		var data2 = imageData2.data;
+
 		var count = 0;
 		for (var i = 0; i < data.length; i += 4) {
-			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-			if(avg > image.minThreshold) {
+			var avg = (data[i] + data[i+1] + data[i+2]) / 3;
+			if(data2[i] == 255 && avg > parseInt(image.minThreshold)) {
 				count += 1;
 			}
 		}
