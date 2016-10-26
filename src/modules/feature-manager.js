@@ -52,6 +52,14 @@ class FeatureManager {
 		this.features.splice(index, 1);
 	}
 
+	clickedOnFeatureHandles() {
+		var pixel = this.viewer.pixel;
+		if(pixel.r == 77 && pixel.g == 249 && pixel.b == 77) // Green - #4DF94D
+			return true;
+		else
+			return false;
+	}
+
 	updateActiveFeature(event) {
 		this.activeFeature.updateROI(event);
 		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.viewer.canvasDraw);

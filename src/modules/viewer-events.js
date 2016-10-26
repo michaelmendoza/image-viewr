@@ -22,7 +22,7 @@ class ViewerEvents {
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
 			},
-
+			
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeaturePosition(event);
@@ -50,7 +50,11 @@ class ViewerEvents {
 					this.featureManager.createFeature(event, FeatureTypes.CIRCLE);					
 				}
 				else {
-					this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
+					var onHandles = this.featureManager.clickedOnFeatureHandles();
+					if(onHandles)
+						this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
+					else
+						this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
 				}
 			},
 

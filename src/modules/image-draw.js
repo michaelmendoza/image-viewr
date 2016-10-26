@@ -109,6 +109,7 @@ var ImageDraw = function() {
 		var y = roi.y * this.zoom + this.panY;
 		var r = roi.radius * this.zoom;
 
+		this.context.lineWidth = 5;
 		this.context.beginPath();
 		this.context.strokeStyle = '#4DF94D';
 		this.context.arc(x, y, r, 0, 2*Math.PI);
@@ -116,6 +117,7 @@ var ImageDraw = function() {
 	}
 
 	this.drawRectROI = (roi) => {
+		this.context.lineWidth = 5;
 		this.context.strokeStyle = '#4DF94D';
 		this.context.rect(roi.x,roi.y,roi.width,roi.height);
 		this.context.stroke();

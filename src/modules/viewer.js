@@ -65,14 +65,7 @@ class Viewer extends ViewerEvents {
 		var y = event.offsetY;
 		var data = this.context.getImageData(x, y, 1, 1).data;
 		var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
-		this.pixel = { x:x, y:y, value:greyValue };
-	}
-
-	getPixelColorData(event) {
-		var x = event.offsetX;
-		var y = event.offsetY;
-		var data = this.context.getImageData(x, y, 1, 1).data;
-		return { x:x, y:y, r:data[0], g:data[1], b:data[2] };
+		this.pixel = { x:x, y:y, r:data[0], g:data[1], b:data[2], value:greyValue };
 	}
 
 	setCanvasMode(mode) {
