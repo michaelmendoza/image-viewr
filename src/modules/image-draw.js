@@ -95,9 +95,6 @@ var ImageDraw = function() {
 		for (var i = 0; i < data.length; i += 4) {
 			
 			if(data[i] < rMin || data[i] > rMax || data[i+1] < gMin || data[i+1] > gMax || data[i+2] < bMin || data[i+2] > bMax) {
-				//data[i] = 0;
-				//data[i + 1] = 0;
-				//data[i + 2] = 0;
 				data[i + 3] = 0;
 			}
 		}
@@ -109,7 +106,9 @@ var ImageDraw = function() {
 		var y = roi.y * this.zoom + this.panY;
 		var r = roi.radius * this.zoom;
 
-		this.context.lineWidth = 5;
+		var lineWidth = 5;
+		r = Math.max(r - (lineWidth / 2), 0);
+		this.context.lineWidth = lineWidth;
 		this.context.beginPath();
 		this.context.strokeStyle = '#4DF94D';
 		this.context.arc(x, y, r, 0, 2*Math.PI);
