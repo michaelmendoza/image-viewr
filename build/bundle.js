@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.27', 'Date:Nov 30, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.29', 'Date:Nov 30, 2016');
 
 /***/ },
 /* 1 */
@@ -22303,6 +22303,16 @@
 				this.viewer.setCanvasMode(mode);
 			}
 		}, {
+			key: 'setColorPixelOffset',
+			value: function setColorPixelOffset(offset) {
+				this.viewer.setColorPixelOffset(offset);
+			}
+		}, {
+			key: 'getColorPixelOffset',
+			value: function getColorPixelOffset() {
+				return this.viewer.getColorPixelOffset();
+			}
+		}, {
 			key: 'getColorThreshold',
 			value: function getColorThreshold() {
 				return this.viewer.getImageParameters().colorThreshold;
@@ -22469,6 +22479,17 @@
 				this.onCanvasModeChange();
 			}
 		}, {
+			key: 'getColorPixelOffset',
+			value: function getColorPixelOffset() {
+				return this.canvasDraw.colorPixelOffset;
+			}
+		}, {
+			key: 'setColorPixelOffset',
+			value: function setColorPixelOffset(offset) {
+				this.canvasDraw.setColorPixelOffset(offset);
+				this.drawImage();
+			}
+		}, {
 			key: 'setThresholdMode',
 			value: function setThresholdMode(mode) {
 				this.thresholdMode = mode;
@@ -22491,9 +22512,9 @@
 				this.drawImage();
 			}
 		}, {
-			key: 'drawColorPixelThreshold',
-			value: function drawColorPixelThreshold(colorPixel) {
-				this.canvasDraw.setColorPixelThreshold(colorPixel);
+			key: 'drawColorThresholdWithPixel',
+			value: function drawColorThresholdWithPixel(colorPixel) {
+				this.canvasDraw.setColorThresholdWithPixel(colorPixel);
 				this.drawImage();
 			}
 		}, {
@@ -22595,6 +22616,9 @@
 
 			_this.minThreshold = 0;
 			_this.maxThreshold = 255;
+
+			_this.colorPickerPixel = null;
+			_this.colorPixelOffset = 40;
 			_this.colorThreshold = {
 				r: { min: 0, max: 255 },
 				g: { min: 0, max: 255 },
@@ -22604,19 +22628,26 @@
 		}
 
 		_createClass(_Image, [{
+			key: 'setColorPixelOffset',
+			value: function setColorPixelOffset(offset) {
+				this.colorPixelOffset = offset;
+
+				if (this.colorPickerPixel != null) this.setColorThresholdWithPixel(this.colorPickerPixel);
+			}
+		}, {
 			key: 'setColorThreshold',
 			value: function setColorThreshold(colorThreshold) {
 				this.colorThreshold = colorThreshold;
 			}
 		}, {
-			key: 'setColorPixelThreshold',
-			value: function setColorPixelThreshold(colorPixel) {
-				var offset = arguments.length <= 1 || arguments[1] === undefined ? 40 : arguments[1];
-
+			key: 'setColorThresholdWithPixel',
+			value: function setColorThresholdWithPixel(colorPixel) {
 				var r = colorPixel.r;
 				var g = colorPixel.g;
 				var b = colorPixel.b;
+				var offset = this.colorPixelOffset;
 
+				this.colorPickerPixel = colorPixel;
 				this.colorThreshold.r.min = Math.max(r - offset, 0);
 				this.colorThreshold.r.max = Math.min(r + offset, 255);
 				this.colorThreshold.g.min = Math.max(g - offset, 0);
@@ -24188,7 +24219,7 @@
 				}), _defineProperty(_actions2, _canvasModes2.default.THRESHOLD_EYEDROPPER, function () {
 					if (_this2.thresholdMode == _thresholdModes2.default.COLOR) {
 						var colorPixel = _this2.getPixelData(event);
-						_this2.drawColorPixelThreshold(colorPixel);
+						_this2.drawColorThresholdWithPixel(colorPixel);
 						_this2.onSettingsChange();
 						_this2.canvasMode = _canvasModes2.default.THRESHOLD;
 					}
@@ -41134,7 +41165,7 @@
 
 			_this.state = {
 				colorThreshold: _viewerStore2.default.getColorThreshold(),
-				colorPercent: 10,
+				colorPercent: _viewerStore2.default.getColorPixelOffset(),
 				minThreshold: _viewerStore2.default.getMinThreshold(),
 				thresholdMode: _viewerStore2.default.getThresholdMode()
 			};
@@ -41179,6 +41210,8 @@
 			key: 'handleColorPercentageChange',
 			value: function handleColorPercentageChange(event) {
 				this.setState({ colorPercent: event.target.value });
+
+				_viewerStore2.default.setColorPixelOffset(this.state.colorPercent);
 			}
 		}, {
 			key: 'handleColorThresholdChange',
@@ -41199,7 +41232,7 @@
 			}
 		}, {
 			key: 'renderSliderControl',
-			value: function renderSliderControl(title, value, handleChange) {
+			value: function renderSliderControl(title, value, min, max, handleChange) {
 				return _react2.default.createElement(
 					'div',
 					{ className: 'threshold-control' },
@@ -41211,7 +41244,7 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'layout-row' },
-						_react2.default.createElement('input', { className: 'flex-80', type: 'range', name: 'points', value: value, min: '0', max: '255', onChange: handleChange }),
+						_react2.default.createElement('input', { className: 'flex-80', type: 'range', name: 'points', value: value, min: min, max: max, onChange: handleChange }),
 						_react2.default.createElement(
 							'label',
 							{ className: 'label-value flex-20' },
@@ -41227,18 +41260,18 @@
 				var colorThresholdControls = _react2.default.createElement(
 					'section',
 					null,
-					this.renderSliderControl('Red Min Threshold', color.r.min, this.handleColorThresholdChange.bind(this, 'r', 'min')),
-					this.renderSliderControl('Red Max Threshold', color.r.max, this.handleColorThresholdChange.bind(this, 'r', 'max')),
-					this.renderSliderControl('Green Min Threshold', color.g.min, this.handleColorThresholdChange.bind(this, 'g', 'min')),
-					this.renderSliderControl('Green Max Threshold', color.g.max, this.handleColorThresholdChange.bind(this, 'g', 'max')),
-					this.renderSliderControl('Blue Min Threshold', color.b.min, this.handleColorThresholdChange.bind(this, 'b', 'min')),
-					this.renderSliderControl('Blue Max Threshold', color.b.max, this.handleColorThresholdChange.bind(this, 'b', 'max'))
+					this.renderSliderControl('Red Min Threshold', color.r.min, 0, 255, this.handleColorThresholdChange.bind(this, 'r', 'min')),
+					this.renderSliderControl('Red Max Threshold', color.r.max, 0, 255, this.handleColorThresholdChange.bind(this, 'r', 'max')),
+					this.renderSliderControl('Green Min Threshold', color.g.min, 0, 255, this.handleColorThresholdChange.bind(this, 'g', 'min')),
+					this.renderSliderControl('Green Max Threshold', color.g.max, 0, 255, this.handleColorThresholdChange.bind(this, 'g', 'max')),
+					this.renderSliderControl('Blue Min Threshold', color.b.min, 0, 255, this.handleColorThresholdChange.bind(this, 'b', 'min')),
+					this.renderSliderControl('Blue Max Threshold', color.b.max, 0, 255, this.handleColorThresholdChange.bind(this, 'b', 'max'))
 				);
 
 				var greyThresholdControls = _react2.default.createElement(
 					'section',
 					null,
-					this.renderSliderControl('Min Threshold', this.state.minThreshold, this.handleMinThresholdChange.bind(this))
+					this.renderSliderControl('Min Threshold', this.state.minThreshold, 0, 255, this.handleMinThresholdChange.bind(this))
 				);
 
 				var eyedropperButton = _react2.default.createElement(
@@ -41264,7 +41297,7 @@
 				var colorPercentControl = _react2.default.createElement(
 					'section',
 					null,
-					this.renderSliderControl('Min Threshold', this.state.minThreshold, this.handleColorPercentageChange.bind(this))
+					this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 50, this.handleColorPercentageChange.bind(this))
 				);
 
 				return _react2.default.createElement(
