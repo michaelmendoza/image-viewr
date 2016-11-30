@@ -41297,7 +41297,7 @@
 				var colorPercentControl = _react2.default.createElement(
 					'section',
 					null,
-					this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 100, this.handleColorPercentageChange.bind(this))
+					this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 200, this.handleColorPercentageChange.bind(this))
 				);
 
 				return _react2.default.createElement(

@@ -106,7 +106,7 @@ class ThresholdPanel extends React.Component {
 		</button>																
 
 		var colorPercentControl = <section>
-			{ this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 100, this.handleColorPercentageChange.bind(this)) }
+			{ this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 200, this.handleColorPercentageChange.bind(this)) }
 		</section>
 
 		return (
