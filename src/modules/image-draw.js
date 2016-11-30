@@ -88,7 +88,6 @@ var ImageDraw = function() {
 		var gMax = colorThresholds.g.max;
 		var bMin = colorThresholds.b.min;
 		var bMax = colorThresholds.b.max;
-		console.log(colorThresholds);
 
 		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 		var data = imageData.data;

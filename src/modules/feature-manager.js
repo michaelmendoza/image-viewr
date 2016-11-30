@@ -2,6 +2,7 @@
 import FeatureTypes from './feature-types.js';
 import FeatureCircleROI from './feature-circle-roi.js';
 import FeatureRectangleROI from './feature-rectangle-roi.js';
+import ThresholdModes from './threshold-modes.js';
 
 class FeatureManager {
 	constructor(viewer) {
@@ -63,13 +64,23 @@ class FeatureManager {
 	updateActiveFeature(event) {
 		this.activeFeature.updateROI(event);
 		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.viewer.canvasDraw);
-		this.activeFeature.pixelCount = this.activeFeature.getNonZeroPixelCount(this.viewer.canvasDraw);
+		if(this.viewer.thresholdMode == ThresholdModes.GREY)
+			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(this.viewer.canvasDraw);
+		else if(this.viewer.thresholdMode = ThresholdModes.COLOR)
+			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(this.viewer.canvasDraw);	
+		else
+			this.activeFeature.pixelCount = 0;
 	}	
 
 	updateActiveFeaturePosition(event) {
 		this.activeFeature.updateROIPosition(event);
 		this.activeFeature.avgPixel = this.activeFeature.calcAveragePixelValue(this.viewer.canvasDraw);	
-		this.activeFeature.pixelCount = this.activeFeature.getNonZeroPixelCount(this.viewer.canvasDraw);			
+		if(this.viewer.thresholdMode == ThresholdModes.GREY)
+			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(this.viewer.canvasDraw);	
+		else if(this.viewer.thresholdMode = ThresholdModes.COLOR)
+			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(this.viewer.canvasDraw);	
+		else 
+			this.activeFeature.pixelCount = 0;	
 	}
 
 	drawAllFeatures() {

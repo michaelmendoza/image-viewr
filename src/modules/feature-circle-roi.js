@@ -72,7 +72,7 @@ class FeatureCircleROI extends FeatureROI {
 		return total / (data.img.length / 4);
 	}
 
-	getNonZeroPixelCount(image) {
+	getGreyThresdholdPixelCount(image) {
 		var data = this.createROIMaskData(image);
 
 		var count = 0;
@@ -82,7 +82,27 @@ class FeatureCircleROI extends FeatureROI {
 				count += 1;
 			}
 		}
-    return count;
+		return count;
+	}
+
+	getColorThresholdPixelCount(image) {
+		var data = this.createROIMaskData(image);
+
+		var thresholds = image.colorThreshold;
+		var rMin = parseInt(thresholds.r.min);
+		var rMax = parseInt(thresholds.r.max);
+		var gMin = parseInt(thresholds.g.min);
+		var gMax = parseInt(thresholds.g.max);
+		var bMin = parseInt(thresholds.b.min);
+		var bMax = parseInt(thresholds.b.max);
+
+		var count = 0;
+		for (var i = 0; i < data.img.length; i += 4) {
+			if(data.mask[i] == 255 && !(data.img[i] < rMin || data.img[i] > rMax || data.img[i+1] < gMin || data.img[i+1] > gMax || data.img[i+2] < bMin || data.img[i+2] > bMax)) {
+				count += 1;
+			}		
+		}
+		return count;
 	}
 
 }
