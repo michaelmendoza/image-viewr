@@ -21,6 +21,8 @@
 
 	ul {
 		text-align: left;
+		overflow-y: scroll;
+    max-height: 520px;
 	}
 
 	li {
