@@ -52,7 +52,7 @@ class ThresholdPanel extends React.Component {
 	handleColorPercentageChange(event) {
 		this.setState({ colorPercent: event.target.value });
 
-		ViewerStore.setColorPixelOffset(this.state.colorPercent);
+		ViewerStore.setColorPixelOffset(parseInt(this.state.colorPercent));
 	}
 
 	handleColorThresholdChange(color, key, event) {
@@ -106,7 +106,7 @@ class ThresholdPanel extends React.Component {
 		</button>																
 
 		var colorPercentControl = <section>
-			{ this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 50, this.handleColorPercentageChange.bind(this)) }
+			{ this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 100, this.handleColorPercentageChange.bind(this)) }
 		</section>
 
 		return (

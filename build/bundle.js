@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.29', 'Date:Nov 30, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.30', 'Date:Nov 30, 2016');
 
 /***/ },
 /* 1 */
@@ -41211,7 +41211,7 @@
 			value: function handleColorPercentageChange(event) {
 				this.setState({ colorPercent: event.target.value });
 
-				_viewerStore2.default.setColorPixelOffset(this.state.colorPercent);
+				_viewerStore2.default.setColorPixelOffset(parseInt(this.state.colorPercent));
 			}
 		}, {
 			key: 'handleColorThresholdChange',
@@ -41297,7 +41297,7 @@
 				var colorPercentControl = _react2.default.createElement(
 					'section',
 					null,
-					this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 50, this.handleColorPercentageChange.bind(this))
+					this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 100, this.handleColorPercentageChange.bind(this))
 				);
 
 				return _react2.default.createElement(
