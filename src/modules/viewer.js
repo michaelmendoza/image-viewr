@@ -80,6 +80,7 @@ class Viewer extends ViewerEvents {
 
 	setColorPixelOffset(offset) {
 		this.canvasDraw.setColorPixelOffset(offset);
+		this.drawImage();
 	}
 
 	setThresholdMode(mode) {
