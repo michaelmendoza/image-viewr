@@ -66,6 +66,14 @@ class ViewerStore extends EventEmitter {
 		this.viewer.setCanvasMode(mode);
 	}
 
+	setColorPixelOffset(offset) {
+		this.viewer.setColorPixelOffset(offset);
+	}
+
+	getColorPixelOffset() {
+		return this.viewer.getColorPixelOffset();
+	}
+
 	getColorThreshold() {
 		return this.viewer.getImageParameters().colorThreshold;
 	}

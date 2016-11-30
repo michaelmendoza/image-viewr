@@ -74,6 +74,14 @@ class Viewer extends ViewerEvents {
 		this.onCanvasModeChange();
 	}
 
+	getColorPixelOffset() {
+		return this.canvasDraw.colorPixelOffset;
+	}
+
+	setColorPixelOffset(offset) {
+		this.canvasDraw.setColorPixelOffset(offset);
+	}
+
 	setThresholdMode(mode) {
 		this.thresholdMode = mode;
 		this.drawImage();
@@ -92,8 +100,8 @@ class Viewer extends ViewerEvents {
 		this.drawImage();
 	}
 
-	drawColorPixelThreshold(colorPixel) {
-		this.canvasDraw.setColorPixelThreshold(colorPixel);
+	drawColorThresholdWithPixel(colorPixel) {
+		this.canvasDraw.setColorThresholdWithPixel(colorPixel);
 		this.drawImage();
 	}
 

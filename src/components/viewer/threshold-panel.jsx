@@ -3,7 +3,7 @@ import ViewerStore from '../store/viewer-store.js';
 
 var ThresholdModes = ViewerStore.getThresholdModes();
 
-class ThresholdPanel extends React.Component {
+class ThresholdPanel extends React.Component { 
 
 	constructor() {
 		super();
@@ -14,6 +14,7 @@ class ThresholdPanel extends React.Component {
 
 		this.state = { 
 			colorThreshold: ViewerStore.getColorThreshold(),
+			colorPercent: ViewerStore.getColorPixelOffset(),
 			minThreshold: ViewerStore.getMinThreshold(),
 			thresholdMode: ViewerStore.getThresholdMode()
 		};
@@ -48,6 +49,12 @@ class ThresholdPanel extends React.Component {
 		}
 	}
 
+	handleColorPercentageChange(event) {
+		this.setState({ colorPercent: event.target.value });
+
+		ViewerStore.setColorPixelOffset(this.state.colorPercent);
+	}
+
 	handleColorThresholdChange(color, key, event) {
 		this.state.colorThreshold[color][key] = event.target.value;
     this.setState({});
@@ -63,11 +70,11 @@ class ThresholdPanel extends React.Component {
     ViewerStore.drawMinThreshold(event.target.value);
   }
 
-	renderSliderControl(title, value, handleChange) {
+	renderSliderControl(title, value, min, max, handleChange) {
 		return <div className='threshold-control'>
 			<h4>{title}</h4>
 			<div className='layout-row'>
-				<input className='flex-80' type="range" name="points" value={value} min="0" max="255" onChange={handleChange}/>
+				<input className='flex-80' type="range" name="points" value={value} min={min} max={max} onChange={handleChange}/>
 				<label className='label-value flex-20'>
 					{value}
 				</label>
@@ -78,16 +85,16 @@ class ThresholdPanel extends React.Component {
 	render() {
 		var color = this.state.colorThreshold;
 		var colorThresholdControls = <section>
-			{ this.renderSliderControl('Red Min Threshold',   color.r.min, this.handleColorThresholdChange.bind(this, 'r', 'min')) }
-			{ this.renderSliderControl('Red Max Threshold',   color.r.max, this.handleColorThresholdChange.bind(this, 'r', 'max')) }
-			{ this.renderSliderControl('Green Min Threshold', color.g.min, this.handleColorThresholdChange.bind(this, 'g', 'min')) }
-			{ this.renderSliderControl('Green Max Threshold', color.g.max, this.handleColorThresholdChange.bind(this, 'g', 'max')) }
-			{ this.renderSliderControl('Blue Min Threshold',  color.b.min, this.handleColorThresholdChange.bind(this, 'b', 'min')) }
-			{ this.renderSliderControl('Blue Max Threshold',  color.b.max, this.handleColorThresholdChange.bind(this, 'b', 'max')) }
+			{ this.renderSliderControl('Red Min Threshold',   color.r.min, 0, 255, this.handleColorThresholdChange.bind(this, 'r', 'min')) }
+			{ this.renderSliderControl('Red Max Threshold',   color.r.max, 0, 255, this.handleColorThresholdChange.bind(this, 'r', 'max')) }
+			{ this.renderSliderControl('Green Min Threshold', color.g.min, 0, 255, this.handleColorThresholdChange.bind(this, 'g', 'min')) }
+			{ this.renderSliderControl('Green Max Threshold', color.g.max, 0, 255, this.handleColorThresholdChange.bind(this, 'g', 'max')) }
+			{ this.renderSliderControl('Blue Min Threshold',  color.b.min, 0, 255, this.handleColorThresholdChange.bind(this, 'b', 'min')) }
+			{ this.renderSliderControl('Blue Max Threshold',  color.b.max, 0, 255, this.handleColorThresholdChange.bind(this, 'b', 'max')) }
 		</section>
 
 		var greyThresholdControls = <section>
-			{ this.renderSliderControl('Min Threshold', this.state.minThreshold, this.handleMinThresholdChange.bind(this)) }
+			{ this.renderSliderControl('Min Threshold', this.state.minThreshold, 0, 255, this.handleMinThresholdChange.bind(this)) }
 		</section>
 
 		var eyedropperButton = <button className={'icon-button' } onClick={this.handleSelectEyedropperMode}> 
@@ -97,6 +104,10 @@ class ThresholdPanel extends React.Component {
 		var resetButton = <button className={'icon-button'} onClick={this.handleResetThreshold.bind(this)}> 
 			<i className='material-icons'>cached</i> 
 		</button>																
+
+		var colorPercentControl = <section>
+			{ this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 50, this.handleColorPercentageChange.bind(this)) }
+		</section>
 
 		return (
 			<section className='threshold-panel'>
@@ -122,6 +133,8 @@ class ThresholdPanel extends React.Component {
 					<div className='flex'></div>
 					{resetButton}
 				</div>
+
+				{ this.state.thresholdMode == ThresholdModes.COLOR ? colorPercentControl : null } 
 
 				{ this.state.thresholdMode == ThresholdModes.COLOR ? colorThresholdControls : greyThresholdControls } 
 			</section>

@@ -41134,6 +41134,7 @@
 
 			_this.state = {
 				colorThreshold: _viewerStore2.default.getColorThreshold(),
+				colorPercent: 10,
 				minThreshold: _viewerStore2.default.getMinThreshold(),
 				thresholdMode: _viewerStore2.default.getThresholdMode()
 			};
@@ -41173,6 +41174,11 @@
 					_viewerStore2.default.drawMinThreshold(0);
 					this.setState({ minThreshold: _viewerStore2.default.getMinThreshold() });
 				}
+			}
+		}, {
+			key: 'handleColorPercentageChange',
+			value: function handleColorPercentageChange(event) {
+				this.setState({ colorPercent: event.target.value });
 			}
 		}, {
 			key: 'handleColorThresholdChange',
@@ -41255,6 +41261,12 @@
 					)
 				);
 
+				var colorPercentControl = _react2.default.createElement(
+					'section',
+					null,
+					this.renderSliderControl('Min Threshold', this.state.minThreshold, this.handleColorPercentageChange.bind(this))
+				);
+
 				return _react2.default.createElement(
 					'section',
 					{ className: 'threshold-panel' },
@@ -41294,6 +41306,7 @@
 						_react2.default.createElement('div', { className: 'flex' }),
 						resetButton
 					),
+					this.state.thresholdMode == ThresholdModes.COLOR ? colorPercentControl : null,
 					this.state.thresholdMode == ThresholdModes.COLOR ? colorThresholdControls : greyThresholdControls
 				);
 			}

@@ -24,6 +24,7 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 
 		this.minThreshold = 0;
 		this.maxThreshold = 255;
+		this.colorPixelOffset = 40;
 		this.colorThreshold = {
 			r: { min:0, max:255 },
 			g: { min:0, max:255 },
@@ -31,14 +32,19 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 		};
 	}
 	
+	setColorPixelOffset(offset) {
+		this.colorPixelOffset = offset;
+	}
+
 	setColorThreshold(colorThreshold) {
 		this.colorThreshold = colorThreshold;
 	}
 
-	setColorPixelThreshold(colorPixel, offset = 40) {
+	setColorThresholdWithPixel(colorPixel) {
 		var r = colorPixel.r;
 		var g = colorPixel.g;
 		var b = colorPixel.b;
+		var offset = this.colorPixelOffset;
 
 		this.colorThreshold.r.min = Math.max(r - offset, 0);
 		this.colorThreshold.r.max = Math.min(r + offset, 255);

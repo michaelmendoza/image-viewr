@@ -61,7 +61,7 @@ class ViewerEvents {
 			[CanvasModes.THRESHOLD_EYEDROPPER]: () => {
 				if(this.thresholdMode == ThresholdModes.COLOR) {
 					var colorPixel = this.getPixelData(event);
-					this.drawColorPixelThreshold(colorPixel);
+					this.drawColorThresholdWithPixel(colorPixel);
 					this.onSettingsChange();
 					this.canvasMode = CanvasModes.THRESHOLD
 				}
