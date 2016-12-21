@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.30', 'Date:Nov 30, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.31', 'Date:Dec 21, 2016');
 
 /***/ },
 /* 1 */
@@ -22226,7 +22226,7 @@
 
 			_this.getCanvas = _this.getCanvas.bind(_this);
 			_this.getCanvasModes = _this.getCanvasModes.bind(_this);
-			_this.loadImage = _this.loadImage.bind(_this);
+			_this.loadFile = _this.loadFile.bind(_this);
 			return _this;
 		}
 
@@ -22283,9 +22283,9 @@
 				return this.viewer.deleteFeature(index);
 			}
 		}, {
-			key: 'loadImage',
-			value: function loadImage(imageFile) {
-				this.viewer.loadImage(imageFile);
+			key: 'loadFile',
+			value: function loadFile(file) {
+				this.viewer.loadFile(file);
 			}
 		}, {
 			key: 'drawColorThreshold',
@@ -22467,10 +22467,21 @@
 			value: function getPixelData(event) {
 				var x = event.offsetX;
 				var y = event.offsetY;
-				var data = this.context.getImageData(x, y, 1, 1).data;
-				var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
-				this.pixel = { x: x, y: y, r: data[0], g: data[1], b: data[2], value: greyValue };
-				return this.pixel;
+				var file = this.canvasDraw.file;
+				if (file == null) return null;
+
+				var pixelData = file.pixelData;
+				if (pixelData !== undefined) {
+					var width = file.width;
+					var height = file.height;
+					this.pixel = { x: x, y: y, value: pixelData[x + y * width] };
+					return this.pixel;
+				} else {
+					var data = this.context.getImageData(x, y, 1, 1).data;
+					var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
+					this.pixel = { x: x, y: y, r: data[0], g: data[1], b: data[2], value: greyValue };
+					return this.pixel;
+				}
 			}
 		}, {
 			key: 'setCanvasMode',
@@ -22496,9 +22507,9 @@
 				this.drawImage();
 			}
 		}, {
-			key: 'loadImage',
-			value: function loadImage(imgFile) {
-				this.canvasDraw.loadImage(imgFile);
+			key: 'loadFile',
+			value: function loadFile(file) {
+				this.canvasDraw.loadFile(file);
 			}
 		}, {
 			key: 'drawImage',
@@ -22602,6 +22613,8 @@
 			_this.viewer = viewer;
 			_this.canvas = viewer.canvas;
 			_this.context = _this.canvas.getContext('2d');
+
+			_this.file = null;
 			_this.img = null;
 
 			_this.width = null; // Image Width
@@ -23681,10 +23694,12 @@
 	var ImageLoad = function ImageLoad() {
 		var _this = this;
 
-		this.loadImage = function (imgFile) {
+		this.loadFile = function (file) {
 
-			if (imgFile.img != null) {
-				_this.img = imgFile.img;
+			_this.file = file;
+
+			if (file.img != null) {
+				_this.img = file.img;
 				_this.width = _this.img.width;
 				_this.height = _this.img.height;
 				_this.drawImage();
@@ -23697,7 +23712,7 @@
 					this.img.crossOrigin = "Anonymous";
 					this.drawImage();
 				}.bind(_this);
-				_this.img.src = imgFile.filename;
+				_this.img.src = file.filename;
 			}
 		};
 	};
@@ -24629,7 +24644,7 @@
 		}, {
 			key: 'handleSelectFile',
 			value: function handleSelectFile(file) {
-				_viewerStore2.default.loadImage(file);
+				_viewerStore2.default.loadFile(file);
 			}
 		}, {
 			key: 'render',
@@ -24917,10 +24932,20 @@
 				var context = canvas.getContext('2d');
 				var numPixels = columns * rows;
 				var imageData = context.getImageData(0, 0, columns, rows);
+
+				var maxValue = 0;
 				for (var i = 0; i < numPixels; i++) {
-					imageData.data[4 * i] = pixelData[i] * 255 / 4095;
-					imageData.data[4 * i + 1] = pixelData[i] * 255 / 4095;
-					imageData.data[4 * i + 2] = pixelData[i] * 255 / 4095;
+					maxValue = maxValue >= pixelData[i] ? maxValue : pixelData[i];
+				}
+
+				var bitsStored = dataSet.uint16('x00280101');
+				var resolution = maxValue; //Math.pow(2,bitsStored);
+
+				for (var i = 0; i < numPixels; i++) {
+					var value = pixelData[i] * 255 / resolution;
+					imageData.data[4 * i] = value;
+					imageData.data[4 * i + 1] = value;
+					imageData.data[4 * i + 2] = value;
 					imageData.data[4 * i + 3] = 255;
 				}
 				context.putImageData(imageData, 0, 0);
@@ -24934,6 +24959,12 @@
 				this.height = rows;
 				this.numPixels = numPixels;
 				this.pixelData = pixelData;
+			}
+		}, {
+			key: 'getDicomMetadata',
+			value: function getDicomMetadata() {
+				var pixelspacing = dataSet.uint16('x00280030');
+				var slicethickness = dataSet.uint16('x00180050');
 			}
 		}, {
 			key: 'getPixelFormat',
