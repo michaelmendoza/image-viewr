@@ -40,10 +40,20 @@ class FileDICOM {
     var context = canvas.getContext('2d');
     var numPixels = columns * rows;
 		var imageData = context.getImageData(0, 0, columns, rows);
+
+		var maxValue = 0;
 		for(var i = 0; i < numPixels; i++) {
-			imageData.data[4*i] = (pixelData[i]*255)/4095;
-			imageData.data[4*i+1] = (pixelData[i]*255)/4095;
-			imageData.data[4*i+2] = (pixelData[i]*255)/4095;
+			maxValue = maxValue >= pixelData[i] ? maxValue : pixelData[i];
+		}
+
+		var bitsStored = dataSet.uint16('x00280101'); 
+		var resolution = maxValue; //Math.pow(2,bitsStored);
+
+		for(var i = 0; i < numPixels; i++) {
+			var value = (pixelData[i] * 255)/resolution;
+			imageData.data[4*i] = value;
+			imageData.data[4*i+1] = value;
+			imageData.data[4*i+2] = value;
 			imageData.data[4*i+3] = 255;
 		}
 		context.putImageData(imageData, 0, 0);
@@ -57,6 +67,11 @@ class FileDICOM {
 		this.height = rows;
 		this.numPixels = numPixels;
 		this.pixelData = pixelData;
+	}
+
+	getDicomMetadata() {
+		var pixelspacing = dataSet.uint16('x00280030');
+		var slicethickness = dataSet.uint16('x00180050');
 	}
 
 	getPixelFormat(dataSet) {

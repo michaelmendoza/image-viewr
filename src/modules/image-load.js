@@ -1,10 +1,12 @@
 
 var ImageLoad = function() {
 
-	this.loadImage = (imgFile) => {
+	this.loadFile = (file) => {
 
-		if(imgFile.img != null) {
-			this.img = imgFile.img;
+		this.file = file;
+
+		if(file.img != null) {
+			this.img = file.img;
 			this.width = this.img.width;
 			this.height = this.img.height;
 			this.drawImage();
@@ -18,7 +20,7 @@ var ImageLoad = function() {
 				this.img.crossOrigin = "Anonymous";
 				this.drawImage();
 			}.bind(this)
-			this.img.src = imgFile.filename;
+			this.img.src = file.filename;
 		}
 	}
 

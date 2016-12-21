@@ -10,6 +10,8 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 		this.viewer = viewer;
 		this.canvas = viewer.canvas;
 		this.context = this.canvas.getContext('2d');
+
+		this.file = null;
 		this.img = null;
 	
 		this.width = null;   // Image Width

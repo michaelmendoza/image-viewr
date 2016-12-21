@@ -10,7 +10,7 @@ class ViewerStore extends EventEmitter {
 
 		this.getCanvas = this.getCanvas.bind(this);
 		this.getCanvasModes = this.getCanvasModes.bind(this);
-		this.loadImage = this.loadImage.bind(this);
+		this.loadFile = this.loadFile.bind(this);
 	}
 
 	setupViewer(width, height) {
@@ -50,8 +50,8 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.deleteFeature(index);
 	}
 
-	loadImage(imageFile) {
-		this.viewer.loadImage(imageFile);
+	loadFile(file) {
+		this.viewer.loadFile(file);
 	}
 
 	drawColorThreshold(colorThreshold) {
