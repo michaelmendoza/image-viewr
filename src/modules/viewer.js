@@ -67,8 +67,15 @@ class Viewer extends ViewerEvents {
 		if(file == null)
 			return null;
 
+		var zoom = this.canvasDraw.zoom;
+		var offsetX = this.canvasDraw.panX;
+		var offsetY = this.canvasDraw.panY;
+
 		var pixelData = file.pixelData;
 		if(pixelData !== undefined) {
+			x = Math.round((x - offsetX) / zoom);
+			y = Math.round((y - offsetY) / zoom);
+
 			var width = file.width;
 			var height = file.height;
 			this.pixel = { x:x, y:y, value:pixelData[x + y * width] };

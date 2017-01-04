@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.31', 'Date:Dec 21, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.32', 'Date:Jan 4th, 2016');
 
 /***/ },
 /* 1 */
@@ -22470,8 +22470,15 @@
 				var file = this.canvasDraw.file;
 				if (file == null) return null;
 
+				var zoom = this.canvasDraw.zoom;
+				var offsetX = this.canvasDraw.panX;
+				var offsetY = this.canvasDraw.panY;
+
 				var pixelData = file.pixelData;
 				if (pixelData !== undefined) {
+					x = Math.round((x - offsetX) / zoom);
+					y = Math.round((y - offsetY) / zoom);
+
 					var width = file.width;
 					var height = file.height;
 					this.pixel = { x: x, y: y, value: pixelData[x + y * width] };
