@@ -2,6 +2,7 @@
 import FeatureTypes from './feature-types.js';
 import FeatureCircleROI from './feature-circle-roi.js';
 import FeatureRectangleROI from './feature-rectangle-roi.js';
+import FeatureCustomROI from './feature-custom-roi.js';
 import ThresholdModes from './threshold-modes.js';
 
 class FeatureManager {
@@ -38,6 +39,9 @@ class FeatureManager {
 		}
 		else if(type == FeatureTypes.RECT) {
 			var feature = new FeatureRectangleROI();
+		}
+		else if(type == FeatureTypes.CUSTOM) {
+			var feature = new FeatureCustomROI();
 		}
 		else {
 			console.log('Warning: Invalid Feature Type');
@@ -86,7 +90,10 @@ class FeatureManager {
 	drawAllFeatures() {
 		var context = this.context;
 		this.features.forEach(function(feature) {
-			this.viewer.canvasDraw.drawCircleROI(feature);
+			if(feature.type == FeatureTypes.CIRCLE)
+				this.viewer.canvasDraw.drawCircleROI(feature);
+			else if(feature.type == FeatureTypes.CUSTOM)
+				this.viewer.canvasDraw.drawCustomROI(feature);
 		}.bind(this))
 	}
 

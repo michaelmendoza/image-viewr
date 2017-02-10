@@ -58,6 +58,20 @@ class ViewerEvents {
 				}
 			},
 
+			[CanvasModes.CUSTOM_ROI]: () => {
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				
+				if(this.featureManager.activeFeature == null) {
+					this.featureManager.createFeature(event, FeatureTypes.CUSTOM);
+					this.featureManager.activeFeature.addPoint(event);
+				}
+				else {
+					this.featureManager.activeFeature.addPoint(event);
+				}
+				this.featureManager.updateActiveFeature(event);
+				this.canvasDraw.drawImage();
+			},
+
 			[CanvasModes.THRESHOLD_EYEDROPPER]: () => {
 				if(this.thresholdMode == ThresholdModes.COLOR) {
 					var colorPixel = this.getPixelData(event);

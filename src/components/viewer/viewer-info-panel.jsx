@@ -14,9 +14,21 @@ class ViewerInfoPanel extends React.Component {
 	}
 
 	render() {
-		var canvasMode = ViewerStore.getCanvasMode(); 
-		var activeROI = (canvasMode == CanvasModes.ROI || canvasMode == CanvasModes.ROI_UPDATE_POSITION || canvasMode == CanvasModes.ROI_UPDATE_RADIUS) ? 'active' : '';
-		var activeThreshold = (canvasMode == CanvasModes.THRESHOLD || canvasMode == CanvasModes.THRESHOLD_EYEDROPPER) ? 'active' : '';
+		var mode = ViewerStore.getCanvasMode();
+
+		var options = {
+			[CanvasModes.ROI]:'active',
+			[CanvasModes.ROI_UPDATE_POSITION]:'active',
+			[CanvasModes.ROI_UPDATE_RADIUS]:'active',
+			[CanvasModes.CUSTOM_ROI]:'active'
+		};
+		var activeROI = options[mode] || '';
+		
+		options = {
+			[CanvasModes.THRESHOLD]:'active',
+			[CanvasModes.THRESHOLD_EYEDROPPER]:'active'
+		}
+		var activeThreshold = options[mode] || '';
 
 		var selectROI = ViewerStore.setCanvasMode.bind(ViewerStore, CanvasModes.ROI);
 		var selectThreshold = ViewerStore.setCanvasMode.bind(ViewerStore, CanvasModes.THRESHOLD);

@@ -34,6 +34,11 @@ class Viewer extends React.Component {
 		ViewerStore.setCanvasMode(modes.ROI);
 	}
 
+	handleSelectCustomROI() {
+		var modes = ViewerStore.getCanvasModes();
+		ViewerStore.setCanvasMode(modes.CUSTOM_ROI);
+	}
+
 	handleSelectConstrastMode() {
 		var modes = ViewerStore.getCanvasModes();
 		ViewerStore.setCanvasMode(modes.CONTRAST);
@@ -62,15 +67,17 @@ class Viewer extends React.Component {
 		var pixelButtonClass = mode == modes.PIXEL ? 'active' : '';
 		var panButtonClass = mode == modes.PAN || mode == modes.PAN_UPDATE ? 'active' : '';
 		var roiButtonClass = mode == modes.ROI || mode == modes.ROI_UPDATE_POSITION || mode == modes.ROI_UPDATE_RADIUS ? 'active' : '';
+		var customRoiButtonClass = mode == modes.CUSTOM_ROI ? 'active' : '';
 		var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
 		var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
-
+		
 		return (
 			<div className='viewer-container'>
 				<div className='viewer-header layout-row' > 
 					<div className='icons-left flex'> 
 						<button className={'icon-button pan ' + panButtonClass}       onClick={this.handleSelectPanMode}> <i className='material-icons'>pan_tool</i> </button>
 						<button className={'icon-button '     + roiButtonClass}       onClick={this.handleSelectROIMode}> <i className='material-icons'>bubble_chart</i> </button>																		
+						<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleSelectCustomROI} > <i className='material-icons'>edit_mode</i> </button>
 						<button className={'icon-button '     + thresholdButtonClass} onClick={this.handleSelectThresholdMode}> <i className='material-icons'>equalizer</i> </button>						
 					</div>
 					<div className='icons-right flex'>

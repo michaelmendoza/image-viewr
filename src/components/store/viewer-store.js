@@ -1,5 +1,6 @@
 import Viewer from '../../modules/viewer.js';
 import CanvasModes from '../../modules/canvas-modes.js';
+import FeatureTypes from '../../modules/feature-types.js';
 import ThresholdModes from '../../modules/threshold-modes.js';
 import EventEmitter from 'events';
 
@@ -36,6 +37,10 @@ class ViewerStore extends EventEmitter {
 
 	getCanvasModes() {
 		return CanvasModes;
+	}
+
+	getFeatureTypes() {
+		return FeatureTypes;
 	}
 
 	getThresholdModes() {

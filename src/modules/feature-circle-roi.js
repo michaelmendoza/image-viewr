@@ -28,81 +28,23 @@ class FeatureCircleROI extends FeatureROI {
 		return xCheck && yCheck;
 	}
 	
-	createROIMaskData(image) {
-		// Create a copy canvas of image and get pixel data
-		var canvas = document.createElement('canvas');
-		canvas.width = image.width;
-		canvas.height = image.height;
-    var context = canvas.getContext('2d');
-		context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
+	getBoundingBox() {
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;
 		var width = 2 * this.radius;
 		var height = 2 * this.radius;
-		var imageData = context.getImageData(sx, sy, width, height);
-		var data = imageData.data;	
+		return { sx:sx, sy:sy, width:width, height:height };
+	}
 
-		// Create ROI Mask and get pixel data
-		var canvas2 = document.createElement('canvas');
-		canvas2.width = 2 * this.radius;
-		canvas2.height = 2 * this.radius;
-		var context2 = canvas2.getContext('2d');
-		context2.clearRect(0,0,canvas2.width, canvas2.height);
+	drawMaskROI(context) {
+		//context2.clearRect(0,0,canvas2.width, canvas2.height);
 		var x = this.radius;
 		var y = this.radius;
 		var r = this.radius;
-		context2.beginPath();
-		context2.fillStyle = "#FFFFFF";
-		context2.arc(x, y, r, 0, 2*Math.PI);
-		context2.fill();
-		var imageData2 = context2.getImageData(0, 0, canvas2.width, canvas2.height);
-		var data2 = imageData2.data;		
-		return { img:data, mask:data2 };
-	}
-
-
-	calcAveragePixelValue(image) {
-		var data = this.createROIMaskData(image);
-
-		var total = 0;
-		for (var i = 0; i < data.img.length; i += 4) {
-			if(data.mask[i] == 255)
-				total += (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
-		}
-		return total / (data.img.length / 4);
-	}
-
-	getGreyThresdholdPixelCount(image) {
-		var data = this.createROIMaskData(image);
-
-		var count = 0;
-		for (var i = 0; i < data.img.length; i += 4) {
-			var avg = (data.img[i] + data.img[i+1] + data.img[i+2]) / 3;
-			if(data.mask[i] == 255 && avg > parseInt(image.minThreshold)) {
-				count += 1;
-			}
-		}
-		return count;
-	}
-
-	getColorThresholdPixelCount(image) {
-		var data = this.createROIMaskData(image);
-
-		var thresholds = image.colorThreshold;
-		var rMin = parseInt(thresholds.r.min);
-		var rMax = parseInt(thresholds.r.max);
-		var gMin = parseInt(thresholds.g.min);
-		var gMax = parseInt(thresholds.g.max);
-		var bMin = parseInt(thresholds.b.min);
-		var bMax = parseInt(thresholds.b.max);
-
-		var count = 0;
-		for (var i = 0; i < data.img.length; i += 4) {
-			if(data.mask[i] == 255 && !(data.img[i] < rMin || data.img[i] > rMax || data.img[i+1] < gMin || data.img[i+1] > gMax || data.img[i+2] < bMin || data.img[i+2] > bMax)) {
-				count += 1;
-			}		
-		}
-		return count;
+		context.beginPath();
+		context.fillStyle = "#FFFFFF";
+		context.arc(x, y, r, 0, 2*Math.PI);
+		context.fill();
 	}
 
 }

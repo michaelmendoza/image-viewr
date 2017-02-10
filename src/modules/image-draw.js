@@ -121,6 +121,35 @@ var ImageDraw = function() {
 		this.context.stroke();
 	}
 
+	this.drawCustomROI = (roi) => {
+		this.context.lineWidth = 2;
+		this.context.strokeStyle = '#EEEEEE';
+
+		roi.points.forEach(function(point) {
+			this.context.beginPath();
+			this.context.fillStyle = '#EEEEEE';
+			var r = 2;
+			this.context.arc(point.x, point.y, r, 0, 2*Math.PI);
+			this.context.fill();
+		}.bind(this))
+
+		if(roi.points.length > 1) {
+			this.context.moveTo(roi.points[0].x, roi.points[0].y);
+
+			roi.points.forEach(function(point) {
+				this.context.lineTo(point.x, point.y);
+			}.bind(this));
+			this.context.stroke();
+		}
+
+		if(roi.isClosedShape) {
+			this.context.globalAlpha = 0.5;
+			this.context.fill();
+			this.context.globalAlpha = 1.0;
+		}
+
+	}
+
 }
 
 export default ImageDraw;
