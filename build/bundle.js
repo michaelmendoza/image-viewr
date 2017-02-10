@@ -93,7 +93,7 @@
 
 
 	// module
-	exports.push([module.id, "/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS and IE text size adjust after device orientation change,\n *    without disabling user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */ }\n\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0; }\n\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */ }\n\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none; }\n\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent; }\n\n/**\n * Improve readability of focused elements when they are also in an\n * active/hover state.\n */\na:active,\na:hover {\n  outline: 0; }\n\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted; }\n\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold; }\n\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic; }\n\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0; }\n\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000; }\n\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%; }\n\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsup {\n  top: -0.5em; }\n\nsub {\n  bottom: -0.25em; }\n\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0; }\n\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden; }\n\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px; }\n\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  box-sizing: content-box;\n  height: 0; }\n\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto; }\n\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em; }\n\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */ }\n\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible; }\n\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none; }\n\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */ }\n\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default; }\n\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0; }\n\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal; }\n\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */ }\n\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto; }\n\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  box-sizing: content-box;\n  /* 2 */ }\n\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none; }\n\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em; }\n\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */ }\n\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto; }\n\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold; }\n\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\ntd,\nth {\n  padding: 0; }\n\n/* Base Styles */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nbody {\n  background-color: #f7f7f7; }\n\nul {\n  padding: 0; }\n\nli {\n  list-style: none; }\n\nselect {\n  background-color: #FFFFFF;\n  border: 1px solid #B7B7B7;\n  border-radius: 4px;\n  font-size: 16px;\n  height: 30px;\n  line-height: 1;\n  margin-bottom: 10px;\n  width: 100%; }\n\ninput, textarea {\n  margin-left: 1px; }\n\nbutton {\n  border: none;\n  border-radius: 6px;\n  padding: 6px 18px; }\n  button.button {\n    background-color: #106CC8;\n    color: #FFFFFF;\n    font-weight: bold; }\n    button.button:focus, button.button:hover {\n      background-color: #006cd8;\n      padding-bottom: 4px;\n      border-bottom: 2px solid #0a4681; }\n  button.icon-button {\n    background-color: transparent;\n    border-radius: 20px;\n    display: inline-block;\n    margin: 6px 4px;\n    padding: 6px  6px 2px 6px; }\n    button.icon-button:focus {\n      outline: none;\n      background-color: #106CC8;\n      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n      color: #FFFFFF; }\n    button.icon-button:hover {\n      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }\n    button.icon-button.active {\n      background-color: #106CC8;\n      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n      color: #FFFFFF; }\n    button.icon-button.pan i {\n      top: -1px;\n      left: -1px;\n      position: relative; }\n\n.layout, .layout-column, .layout-row, .layout-center, .layout-vertical-center, .layout-horizontal-center {\n  box-sizing: border-box;\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flexbox;\n  display: flex; }\n\n.layout-column {\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -webkit-flex-direction: column; }\n\n.layout-row {\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-flex-direction: row; }\n\n.layout-center {\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.layout-vertical-center {\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.layout-horizontal-center {\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.layout-wrap {\n  flex-wrap: wrap; }\n\n.flex {\n  box-sizing: border-box;\n  flex: 1; }\n\n.flex-5 {\n  flex: 0 0 5%; }\n\n.flex-10 {\n  flex: 0 0 10%; }\n\n.flex-15 {\n  flex: 0 0 15%; }\n\n.flex-20 {\n  flex: 0 0 20%; }\n\n.flex-25 {\n  flex: 0 0 25%; }\n\n.flex-30 {\n  flex: 0 0 30%; }\n\n.flex-35 {\n  flex: 0 0 35%; }\n\n.flex-40 {\n  flex: 0 0 40%; }\n\n.flex-45 {\n  flex: 0 0 45%; }\n\n.flex-50 {\n  flex: 0 0 50%; }\n\n.flex-55 {\n  flex: 0 0 55%; }\n\n.flex-60 {\n  flex: 0 0 60%; }\n\n.flex-65 {\n  flex: 0 0 65%; }\n\n.flex-70 {\n  flex: 0 0 70%; }\n\n.flex-75 {\n  flex: 0 0 75%; }\n\n.flex-80 {\n  flex: 0 0 80%; }\n\n.flex-85 {\n  flex: 0 0 85%; }\n\n.flex-90 {\n  flex: 0 0 90%; }\n\n.flex-95 {\n  flex: 0 0 95%; }\n\n.flex-100 {\n  flex: 0 0 100%; }\n\n/*\n// Example for row layout\n<div class=\"layout-row\">\n\t<div class=\"flex-20\"> A </div>  // take 20% width\n\t<div class=\"flex-10\"> B </div>  // take 10% width\n\t<div class=\"flex\"> C </div>\t\t \t// take leftover width\n\t<div class=\"flex\"> D </div>\t\t \t// take leftover width and share with other flex\n</div>\n\n// Example for row layout\n<div class=\"layout-row\">\n\t<div class=\"flex\"> A </div>\t\t \t// take leftover width and share with other flex\n\t<div class=\"flex-20\"> B </div>  // take 20% width\n\t<div class=\"flex-10\"> C </div>  // take 10% width\n\t<div class=\"flex\"> D </div>\t\t \t// take leftover width and share with other flex\n</div>\n\n// Example for row layout with centered content\n<div class=\"layout-center\">\n  <div class=\"flex-20\"> A </div>  \n  <div class=\"flex-10\"> B </div>  \n</div>\n*/\nbody {\n  font-family: 'Roboto', 'Helvetica Neue', sans-serif; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  /* Support for all WebKit browsers. */\n  -webkit-font-smoothing: antialiased;\n  /* Support for Safari and Chrome. */\n  text-rendering: optimizeLegibility;\n  /* Support for Firefox. */\n  -moz-osx-font-smoothing: grayscale;\n  /* Support for IE. */\n  font-feature-settings: 'liga'; }\n\n.modal-container {\n  display: none; }\n  .modal-container.show {\n    display: block; }\n\n.modal-background {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  background: rgba(0, 0, 0, 0.6);\n  z-index: 100; }\n\n.modal-popup {\n  margin: auto;\n  position: absolute;\n  top: 100px;\n  left: 0;\n  right: 0;\n  width: 80%;\n  border-radius: 6px;\n  background-color: #ffffff;\n  z-index: 110; }\n  .modal-popup .modal-toolbar {\n    color: #FFFFFF;\n    border-radius: 3px 3px 0 0;\n    background-color: #7D99C7;\n    padding: 10px; }\n    .modal-popup .modal-toolbar h3 {\n      display: inline-block;\n      font-weight: bold;\n      margin: 10px;\n      width: 50%; }\n    .modal-popup .modal-toolbar i {\n      color: #ffffff;\n      font-size: 32px;\n      vertical-align: middle; }\n      .modal-popup .modal-toolbar i:hover {\n        color: #aaaaaa; }\n    .modal-popup .modal-toolbar .close-button {\n      background: none;\n      border: none;\n      float: right;\n      padding: 6px; }\n  .modal-popup .modal-content {\n    padding: 20px;\n    margin: 0;\n    position: relative;\n    overflow-y: auto;\n    height: calc(100% - 63px); }\n\n.header-view {\n  background-color: #106CC8;\n  color: rgba(255, 255, 255, 0.87);\n  font-size: 20px;\n  min-width: 1000px;\n  padding: 0 20px; }\n  .header-view ul {\n    text-align: right; }\n  .header-view li {\n    text-decoration: none;\n    display: inline-block;\n    margin-right: 10px; }\n\n.main-view {\n  padding: 40px 0;\n  text-align: center; }\n\n.pixel-panel {\n  height: 48px;\n  margin-bottom: 20px;\n  padding: 14px 30px;\n  width: 100%; }\n  .pixel-panel label {\n    margin: 0 6px; }\n\n.roi-panel {\n  width: 100%;\n  padding: 20px 30px; }\n  .roi-panel .roi-type-buttons {\n    margin-bottom: 30px; }\n    .roi-panel .roi-type-buttons button {\n      margin: 0 6px; }\n  .roi-panel .roi-info-box {\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    border-radius: 6px;\n    margin-bottom: 10px;\n    padding: 10px; }\n  .roi-panel .feature-item {\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    border-radius: 6px;\n    margin-bottom: 10px;\n    padding: 10px;\n    position: relative;\n    text-align: left; }\n    .roi-panel .feature-item div {\n      margin-bottom: 2px; }\n      .roi-panel .feature-item div:last-of-type {\n        margin-bottom: 0px; }\n    .roi-panel .feature-item label {\n      margin-right: 6px; }\n    .roi-panel .feature-item button {\n      position: absolute;\n      top: -4%;\n      right: 0;\n      color: #7B7B7B; }\n      .roi-panel .feature-item button:focus {\n        background-color: #FFFFFF;\n        box-shadow: none;\n        color: #C22A27; }\n      .roi-panel .feature-item button:hover {\n        box-shadow: none;\n        color: #C22A27; }\n\n.threshold-panel {\n  width: 100%;\n  padding: 20px 30px; }\n  .threshold-panel .threshold-settings {\n    border-bottom: 1px solid #E1E2E4;\n    padding: 0 14px 30px 14px;\n    margin-bottom: 10px; }\n    .threshold-panel .threshold-settings label {\n      margin-left: 10px; }\n  .threshold-panel .threshold-buttons {\n    margin-bottom: 10px; }\n  .threshold-panel .threshold-control {\n    width: 100%;\n    margin-bottom: 10px; }\n    .threshold-panel .threshold-control input {\n      width: 80%; }\n    .threshold-panel .threshold-control h4 {\n      margin: 0;\n      text-align: left;\n      font-weight: normal;\n      margin-bottom: 10px; }\n    .threshold-panel .threshold-control .label-value {\n      text-align: right; }\n\n.viewer-file-panel {\n  color: #222222;\n  background-color: #FFFFFF;\n  border-radius: 6px;\n  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n  margin: 0px 40px;\n  height: 80px;\n  padding: 0 20px;\n  text-align: center;\n  width: 300px;\n  min-height: 660px;\n  float: left; }\n  .viewer-file-panel h4 {\n    border-bottom: 1px solid #E1E2E4;\n    font-weight: normal;\n    margin: 0 0 10px 0;\n    padding: 10px; }\n  .viewer-file-panel ul {\n    text-align: left;\n    overflow-y: scroll;\n    max-height: 520px; }\n  .viewer-file-panel li {\n    display: inline-block;\n    padding: 10px 10px; }\n  .viewer-file-panel img {\n    display: block;\n    width: 64px;\n    max-height: 128px; }\n  .viewer-file-panel .load-image-file {\n    border: 1px dashed #A9A9A9;\n    border-radius: 8px;\n    color: #A9A9A9;\n    margin-bottom: 20px;\n    padding: 10px;\n    text-align: center; }\n    .viewer-file-panel .load-image-file i {\n      color: #A9A9A9;\n      display: inline-block;\n      vertical-align: middle;\n      padding: 0; }\n    .viewer-file-panel .load-image-file span {\n      display: inline-block;\n      vertical-align: middle; }\n\n.viewer-info-panel {\n  margin: 0px 40px;\n  padding: 0;\n  text-align: center;\n  width: 300px;\n  float: left; }\n  .viewer-info-panel ul {\n    border-bottom: 1px solid #E1E2E4;\n    margin: 0 10px 10px 10px;\n    padding: 0 10px; }\n  .viewer-info-panel li {\n    cursor: hand;\n    cursor: pointer;\n    display: inline-block;\n    margin: 0;\n    padding: 10px 10px; }\n    .viewer-info-panel li:hover {\n      background-color: rgba(0, 0, 0, 0.1);\n      border-bottom: solid 2px rgba(0, 0, 0, 0.1); }\n    .viewer-info-panel li.active {\n      border-bottom: solid 2px #ff5252; }\n  .viewer-info-panel .panel {\n    color: #222222;\n    background-color: #FFFFFF;\n    border-radius: 6px;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }\n  .viewer-info-panel .info-panel {\n    min-height: 600px; }\n\n.viewer-container {\n  float: left;\n  width: calc(100% - 760px); }\n  .viewer-container canvas {\n    cursor: hand;\n    cursor: pointer;\n    height: 100%; }\n  .viewer-container h4 {\n    font-weight: normal;\n    margin: 0;\n    padding: 10px; }\n  .viewer-container .viewer-header {\n    background-color: #FFFFFF;\n    border-radius: 4px;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    margin-bottom: 20px;\n    padding: 0 10px; }\n    .viewer-container .viewer-header .icons-left {\n      text-align: left; }\n    .viewer-container .viewer-header .icons-right {\n      text-align: right; }\n  .viewer-container .viewer {\n    width: 100%;\n    height: 600px;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    margin: 0 auto 0 auto;\n    overflow: hidden;\n    background-color: #eee;\n    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)), linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));\n    background-size: 60px 60px;\n    background-position: 0 0, 30px 30px; }\n", ""]);
+	exports.push([module.id, "/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS and IE text size adjust after device orientation change,\n *    without disabling user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  /* 1 */\n  -ms-text-size-adjust: 100%;\n  /* 2 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */ }\n\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0; }\n\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  /* 1 */\n  vertical-align: baseline;\n  /* 2 */ }\n\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none; }\n\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background-color: transparent; }\n\n/**\n * Improve readability of focused elements when they are also in an\n * active/hover state.\n */\na:active,\na:hover {\n  outline: 0; }\n\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted; }\n\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold; }\n\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic; }\n\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0; }\n\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000; }\n\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%; }\n\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsup {\n  top: -0.5em; }\n\nsub {\n  bottom: -0.25em; }\n\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0; }\n\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden; }\n\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px; }\n\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  box-sizing: content-box;\n  height: 0; }\n\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto; }\n\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em; }\n\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n  margin: 0;\n  /* 3 */ }\n\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible; }\n\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none; }\n\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  /* 2 */\n  cursor: pointer;\n  /* 3 */ }\n\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default; }\n\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0; }\n\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal; }\n\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */ }\n\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto; }\n\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  box-sizing: content-box;\n  /* 2 */ }\n\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none; }\n\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em; }\n\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  /* 1 */\n  padding: 0;\n  /* 2 */ }\n\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto; }\n\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold; }\n\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\ntd,\nth {\n  padding: 0; }\n\n/* Base Styles */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nbody {\n  background-color: #f7f7f7; }\n\nul {\n  padding: 0; }\n\nli {\n  list-style: none; }\n\nselect {\n  background-color: #FFFFFF;\n  border: 1px solid #B7B7B7;\n  border-radius: 4px;\n  font-size: 16px;\n  height: 30px;\n  line-height: 1;\n  margin-bottom: 10px;\n  width: 100%; }\n\ninput, textarea {\n  margin-left: 1px; }\n\nbutton {\n  border: none;\n  border-radius: 6px;\n  padding: 6px 18px; }\n  button.button {\n    background-color: #106CC8;\n    color: #FFFFFF;\n    font-weight: bold; }\n    button.button:focus, button.button:hover {\n      background-color: #006cd8;\n      padding-bottom: 4px;\n      border-bottom: 2px solid #0a4681; }\n  button.icon-button {\n    background-color: transparent;\n    border-radius: 20px;\n    display: inline-block;\n    margin: 6px 4px;\n    padding: 6px  6px 2px 6px; }\n    button.icon-button:focus {\n      outline: none;\n      background-color: #106CC8;\n      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n      color: #FFFFFF; }\n    button.icon-button:hover {\n      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }\n    button.icon-button.active {\n      background-color: #106CC8;\n      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n      color: #FFFFFF; }\n    button.icon-button.pan i {\n      top: -1px;\n      left: -1px;\n      position: relative; }\n    button.icon-button.edit i {\n      width: 24px; }\n\n.layout, .layout-column, .layout-row, .layout-center, .layout-vertical-center, .layout-horizontal-center {\n  box-sizing: border-box;\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flexbox;\n  display: flex; }\n\n.layout-column {\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -webkit-flex-direction: column; }\n\n.layout-row {\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-flex-direction: row; }\n\n.layout-center {\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.layout-vertical-center {\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.layout-horizontal-center {\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.layout-wrap {\n  flex-wrap: wrap; }\n\n.flex {\n  box-sizing: border-box;\n  flex: 1; }\n\n.flex-5 {\n  flex: 0 0 5%; }\n\n.flex-10 {\n  flex: 0 0 10%; }\n\n.flex-15 {\n  flex: 0 0 15%; }\n\n.flex-20 {\n  flex: 0 0 20%; }\n\n.flex-25 {\n  flex: 0 0 25%; }\n\n.flex-30 {\n  flex: 0 0 30%; }\n\n.flex-35 {\n  flex: 0 0 35%; }\n\n.flex-40 {\n  flex: 0 0 40%; }\n\n.flex-45 {\n  flex: 0 0 45%; }\n\n.flex-50 {\n  flex: 0 0 50%; }\n\n.flex-55 {\n  flex: 0 0 55%; }\n\n.flex-60 {\n  flex: 0 0 60%; }\n\n.flex-65 {\n  flex: 0 0 65%; }\n\n.flex-70 {\n  flex: 0 0 70%; }\n\n.flex-75 {\n  flex: 0 0 75%; }\n\n.flex-80 {\n  flex: 0 0 80%; }\n\n.flex-85 {\n  flex: 0 0 85%; }\n\n.flex-90 {\n  flex: 0 0 90%; }\n\n.flex-95 {\n  flex: 0 0 95%; }\n\n.flex-100 {\n  flex: 0 0 100%; }\n\n/*\n// Example for row layout\n<div class=\"layout-row\">\n\t<div class=\"flex-20\"> A </div>  // take 20% width\n\t<div class=\"flex-10\"> B </div>  // take 10% width\n\t<div class=\"flex\"> C </div>\t\t \t// take leftover width\n\t<div class=\"flex\"> D </div>\t\t \t// take leftover width and share with other flex\n</div>\n\n// Example for row layout\n<div class=\"layout-row\">\n\t<div class=\"flex\"> A </div>\t\t \t// take leftover width and share with other flex\n\t<div class=\"flex-20\"> B </div>  // take 20% width\n\t<div class=\"flex-10\"> C </div>  // take 10% width\n\t<div class=\"flex\"> D </div>\t\t \t// take leftover width and share with other flex\n</div>\n\n// Example for row layout with centered content\n<div class=\"layout-center\">\n  <div class=\"flex-20\"> A </div>  \n  <div class=\"flex-10\"> B </div>  \n</div>\n*/\nbody {\n  font-family: 'Roboto', 'Helvetica Neue', sans-serif; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  /* Preferred icon size */\n  display: inline-block;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n  /* Support for all WebKit browsers. */\n  -webkit-font-smoothing: antialiased;\n  /* Support for Safari and Chrome. */\n  text-rendering: optimizeLegibility;\n  /* Support for Firefox. */\n  -moz-osx-font-smoothing: grayscale;\n  /* Support for IE. */\n  font-feature-settings: 'liga'; }\n\n.modal-container {\n  display: none; }\n  .modal-container.show {\n    display: block; }\n\n.modal-background {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  background: rgba(0, 0, 0, 0.6);\n  z-index: 100; }\n\n.modal-popup {\n  margin: auto;\n  position: absolute;\n  top: 100px;\n  left: 0;\n  right: 0;\n  width: 80%;\n  border-radius: 6px;\n  background-color: #ffffff;\n  z-index: 110; }\n  .modal-popup .modal-toolbar {\n    color: #FFFFFF;\n    border-radius: 3px 3px 0 0;\n    background-color: #7D99C7;\n    padding: 10px; }\n    .modal-popup .modal-toolbar h3 {\n      display: inline-block;\n      font-weight: bold;\n      margin: 10px;\n      width: 50%; }\n    .modal-popup .modal-toolbar i {\n      color: #ffffff;\n      font-size: 32px;\n      vertical-align: middle; }\n      .modal-popup .modal-toolbar i:hover {\n        color: #aaaaaa; }\n    .modal-popup .modal-toolbar .close-button {\n      background: none;\n      border: none;\n      float: right;\n      padding: 6px; }\n  .modal-popup .modal-content {\n    padding: 20px;\n    margin: 0;\n    position: relative;\n    overflow-y: auto;\n    height: calc(100% - 63px); }\n\n.header-view {\n  background-color: #106CC8;\n  color: rgba(255, 255, 255, 0.87);\n  font-size: 20px;\n  min-width: 1000px;\n  padding: 0 20px; }\n  .header-view ul {\n    text-align: right; }\n  .header-view li {\n    text-decoration: none;\n    display: inline-block;\n    margin-right: 10px; }\n\n.main-view {\n  padding: 40px 0;\n  text-align: center; }\n\n.pixel-panel {\n  height: 48px;\n  margin-bottom: 20px;\n  padding: 14px 30px;\n  width: 100%; }\n  .pixel-panel label {\n    margin: 0 6px; }\n\n.roi-panel {\n  width: 100%;\n  padding: 20px 30px; }\n  .roi-panel .roi-type-buttons {\n    margin-bottom: 30px; }\n    .roi-panel .roi-type-buttons button {\n      margin: 0 6px; }\n  .roi-panel .roi-info-box {\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    border-radius: 6px;\n    margin-bottom: 10px;\n    padding: 10px; }\n  .roi-panel .feature-item {\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    border-radius: 6px;\n    margin-bottom: 10px;\n    padding: 10px;\n    position: relative;\n    text-align: left; }\n    .roi-panel .feature-item div {\n      margin-bottom: 2px; }\n      .roi-panel .feature-item div:last-of-type {\n        margin-bottom: 0px; }\n    .roi-panel .feature-item label {\n      margin-right: 6px; }\n    .roi-panel .feature-item button {\n      position: absolute;\n      top: -4%;\n      right: 0;\n      color: #7B7B7B; }\n      .roi-panel .feature-item button:focus {\n        background-color: #FFFFFF;\n        box-shadow: none;\n        color: #C22A27; }\n      .roi-panel .feature-item button:hover {\n        box-shadow: none;\n        color: #C22A27; }\n\n.threshold-panel {\n  width: 100%;\n  padding: 20px 30px; }\n  .threshold-panel .threshold-settings {\n    border-bottom: 1px solid #E1E2E4;\n    padding: 0 14px 30px 14px;\n    margin-bottom: 10px; }\n    .threshold-panel .threshold-settings label {\n      margin-left: 10px; }\n  .threshold-panel .threshold-buttons {\n    margin-bottom: 10px; }\n  .threshold-panel .threshold-control {\n    width: 100%;\n    margin-bottom: 10px; }\n    .threshold-panel .threshold-control input {\n      width: 80%; }\n    .threshold-panel .threshold-control h4 {\n      margin: 0;\n      text-align: left;\n      font-weight: normal;\n      margin-bottom: 10px; }\n    .threshold-panel .threshold-control .label-value {\n      text-align: right; }\n\n.viewer-file-panel {\n  color: #222222;\n  background-color: #FFFFFF;\n  border-radius: 6px;\n  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n  margin: 0px 40px;\n  height: 80px;\n  padding: 0 20px;\n  text-align: center;\n  width: 300px;\n  min-height: 660px;\n  float: left; }\n  .viewer-file-panel h4 {\n    border-bottom: 1px solid #E1E2E4;\n    font-weight: normal;\n    margin: 0 0 10px 0;\n    padding: 10px; }\n  .viewer-file-panel ul {\n    text-align: left;\n    overflow-y: scroll;\n    max-height: 520px; }\n  .viewer-file-panel li {\n    display: inline-block;\n    padding: 10px 10px; }\n  .viewer-file-panel img {\n    display: block;\n    width: 64px;\n    max-height: 128px; }\n  .viewer-file-panel .load-image-file {\n    border: 1px dashed #A9A9A9;\n    border-radius: 8px;\n    color: #A9A9A9;\n    margin-bottom: 20px;\n    padding: 10px;\n    text-align: center; }\n    .viewer-file-panel .load-image-file i {\n      color: #A9A9A9;\n      display: inline-block;\n      vertical-align: middle;\n      padding: 0; }\n    .viewer-file-panel .load-image-file span {\n      display: inline-block;\n      vertical-align: middle; }\n\n.viewer-info-panel {\n  margin: 0px 40px;\n  padding: 0;\n  text-align: center;\n  width: 300px;\n  float: left; }\n  .viewer-info-panel ul {\n    border-bottom: 1px solid #E1E2E4;\n    margin: 0 10px 10px 10px;\n    padding: 0 10px; }\n  .viewer-info-panel li {\n    cursor: hand;\n    cursor: pointer;\n    display: inline-block;\n    margin: 0;\n    padding: 10px 10px; }\n    .viewer-info-panel li:hover {\n      background-color: rgba(0, 0, 0, 0.1);\n      border-bottom: solid 2px rgba(0, 0, 0, 0.1); }\n    .viewer-info-panel li.active {\n      border-bottom: solid 2px #ff5252; }\n  .viewer-info-panel .panel {\n    color: #222222;\n    background-color: #FFFFFF;\n    border-radius: 6px;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }\n  .viewer-info-panel .info-panel {\n    min-height: 600px; }\n\n.viewer-container {\n  float: left;\n  width: calc(100% - 760px); }\n  .viewer-container canvas {\n    cursor: hand;\n    cursor: pointer;\n    height: 100%; }\n  .viewer-container h4 {\n    font-weight: normal;\n    margin: 0;\n    padding: 10px; }\n  .viewer-container .viewer-header {\n    background-color: #FFFFFF;\n    border-radius: 4px;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    margin-bottom: 20px;\n    padding: 0 10px; }\n    .viewer-container .viewer-header .icons-left {\n      text-align: left; }\n    .viewer-container .viewer-header .icons-right {\n      text-align: right; }\n  .viewer-container .viewer {\n    width: 100%;\n    height: 600px;\n    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);\n    margin: 0 auto 0 auto;\n    overflow: hidden;\n    background-color: #eee;\n    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)), linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));\n    background-size: 60px 60px;\n    background-position: 0 0, 30px 30px; }\n", ""]);
 
 	// exports
 
@@ -430,7 +430,7 @@
 
 	var _mainView2 = _interopRequireDefault(_mainView);
 
-	var _footerView = __webpack_require__(250);
+	var _footerView = __webpack_require__(251);
 
 	var _footerView2 = _interopRequireDefault(_footerView);
 
@@ -21930,11 +21930,11 @@
 
 	var _viewer2 = _interopRequireDefault(_viewer);
 
-	var _viewerFilePanel = __webpack_require__(199);
+	var _viewerFilePanel = __webpack_require__(200);
 
 	var _viewerFilePanel2 = _interopRequireDefault(_viewerFilePanel);
 
-	var _viewerInfoPanel = __webpack_require__(246);
+	var _viewerInfoPanel = __webpack_require__(247);
 
 	var _viewerInfoPanel2 = _interopRequireDefault(_viewerInfoPanel);
 
@@ -22048,6 +22048,12 @@
 				_viewerStore2.default.setCanvasMode(modes.ROI);
 			}
 		}, {
+			key: 'handleSelectCustomROI',
+			value: function handleSelectCustomROI() {
+				var modes = _viewerStore2.default.getCanvasModes();
+				_viewerStore2.default.setCanvasMode(modes.CUSTOM_ROI);
+			}
+		}, {
 			key: 'handleSelectConstrastMode',
 			value: function handleSelectConstrastMode() {
 				var modes = _viewerStore2.default.getCanvasModes();
@@ -22082,6 +22088,7 @@
 				var pixelButtonClass = mode == modes.PIXEL ? 'active' : '';
 				var panButtonClass = mode == modes.PAN || mode == modes.PAN_UPDATE ? 'active' : '';
 				var roiButtonClass = mode == modes.ROI || mode == modes.ROI_UPDATE_POSITION || mode == modes.ROI_UPDATE_RADIUS ? 'active' : '';
+				var customRoiButtonClass = mode == modes.CUSTOM_ROI ? 'active' : '';
 				var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
 				var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
 
@@ -22113,6 +22120,17 @@
 									'i',
 									{ className: 'material-icons' },
 									'bubble_chart'
+								),
+								' '
+							),
+							_react2.default.createElement(
+								'button',
+								{ className: 'icon-button edit ' + customRoiButtonClass, onClick: this.handleSelectCustomROI },
+								' ',
+								_react2.default.createElement(
+									'i',
+									{ className: 'material-icons' },
+									'edit_mode'
 								),
 								' '
 							),
@@ -22196,15 +22214,19 @@
 
 	var _viewer2 = _interopRequireDefault(_viewer);
 
-	var _canvasModes = __webpack_require__(196);
+	var _canvasModes = __webpack_require__(197);
 
 	var _canvasModes2 = _interopRequireDefault(_canvasModes);
+
+	var _featureTypes = __webpack_require__(192);
+
+	var _featureTypes2 = _interopRequireDefault(_featureTypes);
 
 	var _thresholdModes = __webpack_require__(188);
 
 	var _thresholdModes2 = _interopRequireDefault(_thresholdModes);
 
-	var _events = __webpack_require__(198);
+	var _events = __webpack_require__(199);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -22266,6 +22288,11 @@
 			key: 'getCanvasModes',
 			value: function getCanvasModes() {
 				return _canvasModes2.default;
+			}
+		}, {
+			key: 'getFeatureTypes',
+			value: function getFeatureTypes() {
+				return _featureTypes2.default;
 			}
 		}, {
 			key: 'getThresholdModes',
@@ -22379,7 +22406,7 @@
 
 	var _featureManager2 = _interopRequireDefault(_featureManager);
 
-	var _canvasModes = __webpack_require__(196);
+	var _canvasModes = __webpack_require__(197);
 
 	var _canvasModes2 = _interopRequireDefault(_canvasModes);
 
@@ -22387,7 +22414,7 @@
 
 	var _thresholdModes2 = _interopRequireDefault(_thresholdModes);
 
-	var _viewerEvents = __webpack_require__(197);
+	var _viewerEvents = __webpack_require__(198);
 
 	var _viewerEvents2 = _interopRequireDefault(_viewerEvents);
 
@@ -23602,6 +23629,34 @@
 			_this.context.rect(roi.x, roi.y, roi.width, roi.height);
 			_this.context.stroke();
 		};
+
+		this.drawCustomROI = function (roi) {
+			_this.context.lineWidth = 2;
+			_this.context.strokeStyle = '#EEEEEE';
+
+			roi.points.forEach(function (point) {
+				this.context.beginPath();
+				this.context.fillStyle = '#EEEEEE';
+				var r = 2;
+				this.context.arc(point.x, point.y, r, 0, 2 * Math.PI);
+				this.context.fill();
+			}.bind(_this));
+
+			if (roi.points.length > 1) {
+				_this.context.moveTo(roi.points[0].x, roi.points[0].y);
+
+				roi.points.forEach(function (point) {
+					this.context.lineTo(point.x, point.y);
+				}.bind(_this));
+				_this.context.stroke();
+			}
+
+			if (roi.isClosedShape) {
+				_this.context.globalAlpha = 0.5;
+				_this.context.fill();
+				_this.context.globalAlpha = 1.0;
+			}
+		};
 	};
 
 	exports.default = ImageDraw;
@@ -23750,6 +23805,10 @@
 
 	var _featureRectangleRoi2 = _interopRequireDefault(_featureRectangleRoi);
 
+	var _featureCustomRoi = __webpack_require__(196);
+
+	var _featureCustomRoi2 = _interopRequireDefault(_featureCustomRoi);
+
 	var _thresholdModes = __webpack_require__(188);
 
 	var _thresholdModes2 = _interopRequireDefault(_thresholdModes);
@@ -23793,6 +23852,8 @@
 					var feature = new _featureCircleRoi2.default();
 				} else if (type == _featureTypes2.default.RECT) {
 					var feature = new _featureRectangleRoi2.default();
+				} else if (type == _featureTypes2.default.CUSTOM) {
+					var feature = new _featureCustomRoi2.default();
 				} else {
 					console.log('Warning: Invalid Feature Type');
 					return;
@@ -23833,7 +23894,7 @@
 			value: function drawAllFeatures() {
 				var context = this.context;
 				this.features.forEach(function (feature) {
-					this.viewer.canvasDraw.drawCircleROI(feature);
+					if (feature.type == _featureTypes2.default.CIRCLE) this.viewer.canvasDraw.drawCircleROI(feature);else if (feature.type == _featureTypes2.default.CUSTOM) this.viewer.canvasDraw.drawCustomROI(feature);
 				}.bind(this));
 			}
 		}]);
@@ -23855,7 +23916,8 @@
 
 	var FeatureTypes = {
 		CIRCLE: 'circle',
-		RECT: 'rect'
+		RECT: 'rect',
+		CUSTOM: 'custom'
 	};
 
 	exports.default = FeatureTypes;
@@ -23922,42 +23984,98 @@
 				return xCheck && yCheck;
 			}
 		}, {
+			key: 'getBoundingBox',
+			value: function getBoundingBox() {
+				var sx = this.x - this.radius;
+				var sy = this.y - this.radius;
+				var width = 2 * this.radius;
+				var height = 2 * this.radius;
+				return { sx: sx, sy: sy, width: width, height: height };
+			}
+		}, {
+			key: 'drawMaskROI',
+			value: function drawMaskROI(context) {
+				//context2.clearRect(0,0,canvas2.width, canvas2.height);
+				var x = this.radius;
+				var y = this.radius;
+				var r = this.radius;
+				context.beginPath();
+				context.fillStyle = "#FFFFFF";
+				context.arc(x, y, r, 0, 2 * Math.PI);
+				context.fill();
+			}
+		}]);
+
+		return FeatureCircleROI;
+	}(_featureRoi2.default);
+
+	exports.default = FeatureCircleROI;
+
+/***/ },
+/* 194 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var FeatureROI = function () {
+		function FeatureROI() {
+			_classCallCheck(this, FeatureROI);
+
+			this.x = null;
+			this.y = null;
+			this.area = 0;
+			this.pixelCount = 0;
+			this.pixelData = null;
+			this.avgPixel = 0;
+		}
+
+		_createClass(FeatureROI, [{
+			key: 'createROI',
+			value: function createROI(event) {
+				this.x = event.offsetX;
+				this.y = event.offsetY;
+			}
+		}, {
+			key: 'updateROIPosition',
+			value: function updateROIPosition(event) {
+				this.x = event.offsetX;
+				this.y = event.offsetY;
+			}
+		}, {
 			key: 'createROIMaskData',
 			value: function createROIMaskData(image) {
-				// Create a copy canvas of image and get pixel data
+				// Create a copy of image and get pixel data within the bounding box
 				var canvas = document.createElement('canvas');
 				canvas.width = image.width;
 				canvas.height = image.height;
 				var context = canvas.getContext('2d');
 				context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
-				var sx = this.x - this.radius;
-				var sy = this.y - this.radius;
-				var width = 2 * this.radius;
-				var height = 2 * this.radius;
-				var imageData = context.getImageData(sx, sy, width, height);
+				var bounds = this.getBoundingBox();
+				var imageData = context.getImageData(bounds.sx, bounds.sy, bounds.width, bounds.height);
 				var data = imageData.data;
 
 				// Create ROI Mask and get pixel data
-				var canvas2 = document.createElement('canvas');
-				canvas2.width = 2 * this.radius;
-				canvas2.height = 2 * this.radius;
-				var context2 = canvas2.getContext('2d');
-				context2.clearRect(0, 0, canvas2.width, canvas2.height);
-				var x = this.radius;
-				var y = this.radius;
-				var r = this.radius;
-				context2.beginPath();
-				context2.fillStyle = "#FFFFFF";
-				context2.arc(x, y, r, 0, 2 * Math.PI);
-				context2.fill();
-				var imageData2 = context2.getImageData(0, 0, canvas2.width, canvas2.height);
-				var data2 = imageData2.data;
-				return { img: data, mask: data2 };
+				var canvasMask = document.createElement('canvas');
+				canvasMask.width = bounds.width;
+				canvasMask.height = bounds.height;
+				var contextMask = canvasMask.getContext('2d');
+				this.drawMaskROI(contextMask);
+				var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
+				return { img: data, mask: mask.data };
 			}
 		}, {
 			key: 'calcAveragePixelValue',
 			value: function calcAveragePixelValue(image) {
 				var data = this.createROIMaskData(image);
+				if (data == null) return 0;
 
 				var total = 0;
 				for (var i = 0; i < data.img.length; i += 4) {
@@ -23969,6 +24087,7 @@
 			key: 'getGreyThresdholdPixelCount',
 			value: function getGreyThresdholdPixelCount(image) {
 				var data = this.createROIMaskData(image);
+				if (data == null) return 0;
 
 				var count = 0;
 				for (var i = 0; i < data.img.length; i += 4) {
@@ -23983,6 +24102,7 @@
 			key: 'getColorThresholdPixelCount',
 			value: function getColorThresholdPixelCount(image) {
 				var data = this.createROIMaskData(image);
+				if (data == null) return 0;
 
 				var thresholds = image.colorThreshold;
 				var rMin = parseInt(thresholds.r.min);
@@ -23999,51 +24119,6 @@
 					}
 				}
 				return count;
-			}
-		}]);
-
-		return FeatureCircleROI;
-	}(_featureRoi2.default);
-
-	exports.default = FeatureCircleROI;
-
-/***/ },
-/* 194 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var FeatureROI = function () {
-		function FeatureROI() {
-			_classCallCheck(this, FeatureROI);
-
-			this.x = null;
-			this.y = null;
-			this.area = null;
-			this.pixelCount = null;
-			this.pixelData = null;
-			this.avgPixel = null;
-		}
-
-		_createClass(FeatureROI, [{
-			key: "createROI",
-			value: function createROI(event) {
-				this.x = event.offsetX;
-				this.y = event.offsetY;
-			}
-		}, {
-			key: "updateROIPosition",
-			value: function updateROIPosition(event) {
-				this.x = event.offsetX;
-				this.y = event.offsetY;
 			}
 		}]);
 
@@ -24135,6 +24210,133 @@
 
 /***/ },
 /* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _featureRoi = __webpack_require__(194);
+
+	var _featureRoi2 = _interopRequireDefault(_featureRoi);
+
+	var _featureTypes = __webpack_require__(192);
+
+	var _featureTypes2 = _interopRequireDefault(_featureTypes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FeatureCustomROI = function (_FeatureROI) {
+		_inherits(FeatureCustomROI, _FeatureROI);
+
+		function FeatureCustomROI() {
+			_classCallCheck(this, FeatureCustomROI);
+
+			var _this = _possibleConstructorReturn(this, (FeatureCustomROI.__proto__ || Object.getPrototypeOf(FeatureCustomROI)).call(this));
+
+			_this.type = _featureTypes2.default.CUSTOM;
+			_this.points = [];
+			_this.isClosedShape = false;
+			_this.pointBounds = 4;
+			return _this;
+		}
+
+		_createClass(FeatureCustomROI, [{
+			key: 'addPoint',
+			value: function addPoint(event) {
+				if (this.isClosedShape) return;
+
+				if (this.points.length == 0) // Add point
+					this.points.push({ x: event.offsetX, y: event.offsetY });else {
+					var p0 = this.points[0];
+					var p1 = { x: event.offsetX, y: event.offsetY };
+
+					if ((p1.x - p0.x) * (p1.x - p0.x) + (p1.y - p1.y) * (p1.y - p1.y) < this.pointBounds * this.pointBounds) {
+						// Close roi shape with orginal point
+						this.points.push(p0);
+						this.isClosedShape = true;
+					} else // Add point
+						this.points.push({ x: event.offsetX, y: event.offsetY });
+				}
+			}
+		}, {
+			key: 'updateROI',
+			value: function updateROI(event) {}
+		}, {
+			key: 'isPositionInROI',
+			value: function isPositionInROI(event) {}
+		}, {
+			key: 'getBoundingBox',
+			value: function getBoundingBox() {
+				var x = this.points.map(function (p) {
+					return p.x;
+				});
+				var y = this.points.map(function (p) {
+					return p.y;
+				});
+				var min = { x: Math.min.apply(Math, _toConsumableArray(x)), y: Math.min.apply(Math, _toConsumableArray(y)) };
+				var max = { x: Math.max.apply(Math, _toConsumableArray(x)), y: Math.max.apply(Math, _toConsumableArray(y)) };
+				return { sx: min.x, sy: min.y, width: max.x - min.x, height: max.y - min.y };
+			}
+		}, {
+			key: 'drawMaskROI',
+			value: function drawMaskROI(context, bounds) {
+				context.fillStyle = "#FFFFFF";
+
+				if (this.points.length > 1) {
+					context.moveTo(this.points[0].x - bounds.sx, this.points[0].y - bounds.sy);
+
+					this.points.forEach(function (point) {
+						context.lineTo(point.x - bounds.sx, point.y - bounds.sy);
+					});
+					context.fill();
+				}
+			}
+		}, {
+			key: 'createROIMaskData',
+			value: function createROIMaskData(image) {
+				if (this.points.length <= 2) return null;
+
+				// Create a copy of image and get pixel data within the bounding box
+				var canvas = document.createElement('canvas');
+				canvas.width = image.width;
+				canvas.height = image.height;
+				var context = canvas.getContext('2d');
+				context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
+				var bounds = this.getBoundingBox();
+				var imageData = context.getImageData(bounds.sx, bounds.sy, bounds.width, bounds.height);
+				var data = imageData.data;
+
+				// Create ROI Mask and get pixel data
+				var canvasMask = document.createElement('canvas');
+				canvasMask.width = bounds.width;
+				canvasMask.height = bounds.height;
+				var contextMask = canvasMask.getContext('2d');
+				this.drawMaskROI(contextMask, bounds);
+				var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
+				return { img: data, mask: mask.data };
+			}
+		}]);
+
+		return FeatureCustomROI;
+	}(_featureRoi2.default);
+
+	exports.default = FeatureCustomROI;
+
+/***/ },
+/* 197 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24150,6 +24352,7 @@
 		ROI: 'roi',
 		ROI_UPDATE_POSITION: 'roi_position',
 		ROI_UPDATE_RADIUS: 'roi_radius',
+		CUSTOM_ROI: 'custom_roi',
 		CONTRAST: 'contrast',
 		THRESHOLD: 'threshold',
 		THRESHOLD_EYEDROPPER: 'threshold_eyedropper'
@@ -24158,7 +24361,7 @@
 	exports.default = CanvasModes;
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24169,7 +24372,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _canvasModes = __webpack_require__(196);
+	var _canvasModes = __webpack_require__(197);
 
 	var _canvasModes2 = _interopRequireDefault(_canvasModes);
 
@@ -24238,6 +24441,17 @@
 						var onHandles = _this2.featureManager.clickedOnFeatureHandles();
 						if (onHandles) _this2.canvasMode = _canvasModes2.default.ROI_UPDATE_RADIUS;else _this2.canvasMode = _canvasModes2.default.ROI_UPDATE_POSITION;
 					}
+				}), _defineProperty(_actions2, _canvasModes2.default.CUSTOM_ROI, function () {
+					event = _this2.canvasDraw.removeOffsetAndZoom(event);
+
+					if (_this2.featureManager.activeFeature == null) {
+						_this2.featureManager.createFeature(event, _featureTypes2.default.CUSTOM);
+						_this2.featureManager.activeFeature.addPoint(event);
+					} else {
+						_this2.featureManager.activeFeature.addPoint(event);
+					}
+					_this2.featureManager.updateActiveFeature(event);
+					_this2.canvasDraw.drawImage();
 				}), _defineProperty(_actions2, _canvasModes2.default.THRESHOLD_EYEDROPPER, function () {
 					if (_this2.thresholdMode == _thresholdModes2.default.COLOR) {
 						var colorPixel = _this2.getPixelData(event);
@@ -24278,7 +24492,7 @@
 	exports.default = ViewerEvents;
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -24586,7 +24800,7 @@
 
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24605,7 +24819,7 @@
 
 	var _viewerStore2 = _interopRequireDefault(_viewerStore);
 
-	var _imageFileStore = __webpack_require__(200);
+	var _imageFileStore = __webpack_require__(201);
 
 	var _imageFileStore2 = _interopRequireDefault(_imageFileStore);
 
@@ -24711,7 +24925,7 @@
 	exports.default = ViewerFilePanel;
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24722,11 +24936,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _events = __webpack_require__(198);
+	var _events = __webpack_require__(199);
 
 	var _events2 = _interopRequireDefault(_events);
 
-	var _file = __webpack_require__(201);
+	var _file = __webpack_require__(202);
 
 	var _file2 = _interopRequireDefault(_file);
 
@@ -24778,7 +24992,7 @@
 	exports.default = new ImageFileStore();
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24789,7 +25003,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _fileDicom = __webpack_require__(202);
+	var _fileDicom = __webpack_require__(203);
 
 	var _fileDicom2 = _interopRequireDefault(_fileDicom);
 
@@ -24878,7 +25092,7 @@
 	exports.default = File;
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24889,7 +25103,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _dicomParser = __webpack_require__(203);
+	var _dicomParser = __webpack_require__(204);
 
 	var _dicomParser2 = _interopRequireDefault(_dicomParser);
 
@@ -25004,7 +25218,7 @@
 	exports.default = FileDICOM;
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, Buffer) {/*! dicom-parser - v1.7.4 - 2016-08-18 | (c) 2014 Chris Hafey | https://github.com/chafey/dicomParser */
@@ -25084,7 +25298,7 @@
 	                // http://stackoverflow.com/questions/4224606/how-to-check-whether-a-script-is-running-under-node-js
 	                else if (typeof module !== 'undefined' && this.module !== module) {
 	                    // inflate it
-	                    var zlib = __webpack_require__(209);
+	                    var zlib = __webpack_require__(210);
 	                    var deflatedBuffer = dicomParser.sharedCopy(byteArray, position, byteArray.length - position);
 	                    var inflatedBuffer = zlib.inflateRawSync(deflatedBuffer);
 
@@ -27690,10 +27904,10 @@
 	    return dicomParser;
 	}));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(204)(module), __webpack_require__(205).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(205)(module), __webpack_require__(206).Buffer))
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -27709,7 +27923,7 @@
 
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, global) {/*!
@@ -27722,9 +27936,9 @@
 
 	'use strict'
 
-	var base64 = __webpack_require__(206)
-	var ieee754 = __webpack_require__(207)
-	var isArray = __webpack_require__(208)
+	var base64 = __webpack_require__(207)
+	var ieee754 = __webpack_require__(208)
+	var isArray = __webpack_require__(209)
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -29502,10 +29716,10 @@
 	  return val !== val // eslint-disable-line no-self-compare
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(205).Buffer, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(206).Buffer, (function() { return this; }())))
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -29620,7 +29834,7 @@
 
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -29710,7 +29924,7 @@
 
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -29721,7 +29935,7 @@
 
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -29745,11 +29959,11 @@
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	var Transform = __webpack_require__(210);
+	var Transform = __webpack_require__(211);
 
-	var binding = __webpack_require__(233);
+	var binding = __webpack_require__(234);
 	var util = __webpack_require__(184);
-	var assert = __webpack_require__(245).ok;
+	var assert = __webpack_require__(246).ok;
 
 	// zlib doesn't provide these, so kludge them in following the same
 	// const naming scheme zlib uses.
@@ -30335,17 +30549,17 @@
 	util.inherits(InflateRaw, Zlib);
 	util.inherits(Unzip, Zlib);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(205).Buffer, __webpack_require__(8)))
-
-/***/ },
-/* 210 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(211)
-
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(206).Buffer, __webpack_require__(8)))
 
 /***/ },
 /* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(212)
+
+
+/***/ },
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -30414,11 +30628,11 @@
 
 	module.exports = Transform;
 
-	var Duplex = __webpack_require__(212);
+	var Duplex = __webpack_require__(213);
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -30560,7 +30774,7 @@
 
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -30601,12 +30815,12 @@
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
-	var Readable = __webpack_require__(215);
-	var Writable = __webpack_require__(232);
+	var Readable = __webpack_require__(216);
+	var Writable = __webpack_require__(233);
 
 	util.inherits(Duplex, Readable);
 
@@ -30656,7 +30870,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
@@ -30767,10 +30981,10 @@
 	  return Object.prototype.toString.call(o);
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(205).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(206).Buffer))
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -30799,7 +31013,7 @@
 
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -30826,17 +31040,17 @@
 	module.exports = Readable;
 
 	/*<replacement>*/
-	var isArray = __webpack_require__(216);
+	var isArray = __webpack_require__(217);
 	/*</replacement>*/
 
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(205).Buffer;
+	var Buffer = __webpack_require__(206).Buffer;
 	/*</replacement>*/
 
 	Readable.ReadableState = ReadableState;
 
-	var EE = __webpack_require__(198).EventEmitter;
+	var EE = __webpack_require__(199).EventEmitter;
 
 	/*<replacement>*/
 	if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -30844,18 +31058,18 @@
 	};
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(217);
+	var Stream = __webpack_require__(218);
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
 	var StringDecoder;
 
 
 	/*<replacement>*/
-	var debug = __webpack_require__(231);
+	var debug = __webpack_require__(232);
 	if (debug && debug.debuglog) {
 	  debug = debug.debuglog('stream');
 	} else {
@@ -30867,7 +31081,7 @@
 	util.inherits(Readable, Stream);
 
 	function ReadableState(options, stream) {
-	  var Duplex = __webpack_require__(212);
+	  var Duplex = __webpack_require__(213);
 
 	  options = options || {};
 
@@ -30928,14 +31142,14 @@
 	  this.encoding = null;
 	  if (options.encoding) {
 	    if (!StringDecoder)
-	      StringDecoder = __webpack_require__(224).StringDecoder;
+	      StringDecoder = __webpack_require__(225).StringDecoder;
 	    this.decoder = new StringDecoder(options.encoding);
 	    this.encoding = options.encoding;
 	  }
 	}
 
 	function Readable(options) {
-	  var Duplex = __webpack_require__(212);
+	  var Duplex = __webpack_require__(213);
 
 	  if (!(this instanceof Readable))
 	    return new Readable(options);
@@ -31038,7 +31252,7 @@
 	// backwards compatibility.
 	Readable.prototype.setEncoding = function(enc) {
 	  if (!StringDecoder)
-	    StringDecoder = __webpack_require__(224).StringDecoder;
+	    StringDecoder = __webpack_require__(225).StringDecoder;
 	  this._readableState.decoder = new StringDecoder(enc);
 	  this._readableState.encoding = enc;
 	  return this;
@@ -31757,7 +31971,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -31766,7 +31980,7 @@
 
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -31792,15 +32006,15 @@
 
 	module.exports = Stream;
 
-	var EE = __webpack_require__(198).EventEmitter;
-	var inherits = __webpack_require__(214);
+	var EE = __webpack_require__(199).EventEmitter;
+	var inherits = __webpack_require__(215);
 
 	inherits(Stream, EE);
-	Stream.Readable = __webpack_require__(218);
-	Stream.Writable = __webpack_require__(227);
-	Stream.Duplex = __webpack_require__(228);
-	Stream.Transform = __webpack_require__(229);
-	Stream.PassThrough = __webpack_require__(230);
+	Stream.Readable = __webpack_require__(219);
+	Stream.Writable = __webpack_require__(228);
+	Stream.Duplex = __webpack_require__(229);
+	Stream.Transform = __webpack_require__(230);
+	Stream.PassThrough = __webpack_require__(231);
 
 	// Backwards-compat with node 0.4.x
 	Stream.Stream = Stream;
@@ -31899,24 +32113,24 @@
 
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = __webpack_require__(219);
-	exports.Stream = __webpack_require__(217);
+	/* WEBPACK VAR INJECTION */(function(process) {exports = module.exports = __webpack_require__(220);
+	exports.Stream = __webpack_require__(218);
 	exports.Readable = exports;
-	exports.Writable = __webpack_require__(223);
-	exports.Duplex = __webpack_require__(222);
-	exports.Transform = __webpack_require__(225);
-	exports.PassThrough = __webpack_require__(226);
+	exports.Writable = __webpack_require__(224);
+	exports.Duplex = __webpack_require__(223);
+	exports.Transform = __webpack_require__(226);
+	exports.PassThrough = __webpack_require__(227);
 	if (!process.browser && process.env.READABLE_STREAM === 'disable') {
-	  module.exports = __webpack_require__(217);
+	  module.exports = __webpack_require__(218);
 	}
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -31943,17 +32157,17 @@
 	module.exports = Readable;
 
 	/*<replacement>*/
-	var isArray = __webpack_require__(220);
+	var isArray = __webpack_require__(221);
 	/*</replacement>*/
 
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(205).Buffer;
+	var Buffer = __webpack_require__(206).Buffer;
 	/*</replacement>*/
 
 	Readable.ReadableState = ReadableState;
 
-	var EE = __webpack_require__(198).EventEmitter;
+	var EE = __webpack_require__(199).EventEmitter;
 
 	/*<replacement>*/
 	if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -31961,18 +32175,18 @@
 	};
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(217);
+	var Stream = __webpack_require__(218);
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
 	var StringDecoder;
 
 
 	/*<replacement>*/
-	var debug = __webpack_require__(221);
+	var debug = __webpack_require__(222);
 	if (debug && debug.debuglog) {
 	  debug = debug.debuglog('stream');
 	} else {
@@ -31984,7 +32198,7 @@
 	util.inherits(Readable, Stream);
 
 	function ReadableState(options, stream) {
-	  var Duplex = __webpack_require__(222);
+	  var Duplex = __webpack_require__(223);
 
 	  options = options || {};
 
@@ -32045,14 +32259,14 @@
 	  this.encoding = null;
 	  if (options.encoding) {
 	    if (!StringDecoder)
-	      StringDecoder = __webpack_require__(224).StringDecoder;
+	      StringDecoder = __webpack_require__(225).StringDecoder;
 	    this.decoder = new StringDecoder(options.encoding);
 	    this.encoding = options.encoding;
 	  }
 	}
 
 	function Readable(options) {
-	  var Duplex = __webpack_require__(222);
+	  var Duplex = __webpack_require__(223);
 
 	  if (!(this instanceof Readable))
 	    return new Readable(options);
@@ -32155,7 +32369,7 @@
 	// backwards compatibility.
 	Readable.prototype.setEncoding = function(enc) {
 	  if (!StringDecoder)
-	    StringDecoder = __webpack_require__(224).StringDecoder;
+	    StringDecoder = __webpack_require__(225).StringDecoder;
 	  this._readableState.decoder = new StringDecoder(enc);
 	  this._readableState.encoding = enc;
 	  return this;
@@ -32874,7 +33088,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -32883,13 +33097,13 @@
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -32930,12 +33144,12 @@
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
-	var Readable = __webpack_require__(219);
-	var Writable = __webpack_require__(223);
+	var Readable = __webpack_require__(220);
+	var Writable = __webpack_require__(224);
 
 	util.inherits(Duplex, Readable);
 
@@ -32985,7 +33199,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -33016,18 +33230,18 @@
 	module.exports = Writable;
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(205).Buffer;
+	var Buffer = __webpack_require__(206).Buffer;
 	/*</replacement>*/
 
 	Writable.WritableState = WritableState;
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(217);
+	var Stream = __webpack_require__(218);
 
 	util.inherits(Writable, Stream);
 
@@ -33038,7 +33252,7 @@
 	}
 
 	function WritableState(options, stream) {
-	  var Duplex = __webpack_require__(222);
+	  var Duplex = __webpack_require__(223);
 
 	  options = options || {};
 
@@ -33126,7 +33340,7 @@
 	}
 
 	function Writable(options) {
-	  var Duplex = __webpack_require__(222);
+	  var Duplex = __webpack_require__(223);
 
 	  // Writable ctor is applied to Duplexes, though they're not
 	  // instanceof Writable, they're instanceof Readable.
@@ -33469,7 +33683,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -33493,7 +33707,7 @@
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	var Buffer = __webpack_require__(205).Buffer;
+	var Buffer = __webpack_require__(206).Buffer;
 
 	var isBufferEncoding = Buffer.isEncoding
 	  || function(encoding) {
@@ -33696,7 +33910,7 @@
 
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -33765,11 +33979,11 @@
 
 	module.exports = Transform;
 
-	var Duplex = __webpack_require__(222);
+	var Duplex = __webpack_require__(223);
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -33911,7 +34125,7 @@
 
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -33941,11 +34155,11 @@
 
 	module.exports = PassThrough;
 
-	var Transform = __webpack_require__(225);
+	var Transform = __webpack_require__(226);
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
 	util.inherits(PassThrough, Transform);
@@ -33963,24 +34177,17 @@
 
 
 /***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(223)
-
-
-/***/ },
 /* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(222)
+	module.exports = __webpack_require__(224)
 
 
 /***/ },
 /* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(225)
+	module.exports = __webpack_require__(223)
 
 
 /***/ },
@@ -33992,12 +34199,19 @@
 
 /***/ },
 /* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(227)
+
+
+/***/ },
+/* 232 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -34028,18 +34242,18 @@
 	module.exports = Writable;
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(205).Buffer;
+	var Buffer = __webpack_require__(206).Buffer;
 	/*</replacement>*/
 
 	Writable.WritableState = WritableState;
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(213);
-	util.inherits = __webpack_require__(214);
+	var util = __webpack_require__(214);
+	util.inherits = __webpack_require__(215);
 	/*</replacement>*/
 
-	var Stream = __webpack_require__(217);
+	var Stream = __webpack_require__(218);
 
 	util.inherits(Writable, Stream);
 
@@ -34050,7 +34264,7 @@
 	}
 
 	function WritableState(options, stream) {
-	  var Duplex = __webpack_require__(212);
+	  var Duplex = __webpack_require__(213);
 
 	  options = options || {};
 
@@ -34138,7 +34352,7 @@
 	}
 
 	function Writable(options) {
-	  var Duplex = __webpack_require__(212);
+	  var Duplex = __webpack_require__(213);
 
 	  // Writable ctor is applied to Duplexes, though they're not
 	  // instanceof Writable, they're instanceof Readable.
@@ -34481,14 +34695,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process, Buffer) {var msg = __webpack_require__(234);
-	var zstream = __webpack_require__(235);
-	var zlib_deflate = __webpack_require__(236);
-	var zlib_inflate = __webpack_require__(241);
-	var constants = __webpack_require__(244);
+	/* WEBPACK VAR INJECTION */(function(process, Buffer) {var msg = __webpack_require__(235);
+	var zstream = __webpack_require__(236);
+	var zlib_deflate = __webpack_require__(237);
+	var zlib_inflate = __webpack_require__(242);
+	var constants = __webpack_require__(245);
 
 	for (var key in constants) {
 	  exports[key] = constants[key];
@@ -34721,10 +34935,10 @@
 
 	exports.Zlib = Zlib;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(205).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(206).Buffer))
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -34743,7 +34957,7 @@
 
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -34778,16 +34992,16 @@
 
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils   = __webpack_require__(237);
-	var trees   = __webpack_require__(238);
-	var adler32 = __webpack_require__(239);
-	var crc32   = __webpack_require__(240);
-	var msg     = __webpack_require__(234);
+	var utils   = __webpack_require__(238);
+	var trees   = __webpack_require__(239);
+	var adler32 = __webpack_require__(240);
+	var crc32   = __webpack_require__(241);
+	var msg     = __webpack_require__(235);
 
 	/* Public constants ==========================================================*/
 	/* ===========================================================================*/
@@ -36639,7 +36853,7 @@
 
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36747,13 +36961,13 @@
 
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 
-	var utils = __webpack_require__(237);
+	var utils = __webpack_require__(238);
 
 	/* Public constants ==========================================================*/
 	/* ===========================================================================*/
@@ -37955,7 +38169,7 @@
 
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37993,7 +38207,7 @@
 
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38040,17 +38254,17 @@
 
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 
-	var utils         = __webpack_require__(237);
-	var adler32       = __webpack_require__(239);
-	var crc32         = __webpack_require__(240);
-	var inflate_fast  = __webpack_require__(242);
-	var inflate_table = __webpack_require__(243);
+	var utils         = __webpack_require__(238);
+	var adler32       = __webpack_require__(240);
+	var crc32         = __webpack_require__(241);
+	var inflate_fast  = __webpack_require__(243);
+	var inflate_table = __webpack_require__(244);
 
 	var CODES = 0;
 	var LENS = 1;
@@ -39584,7 +39798,7 @@
 
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -39916,13 +40130,13 @@
 
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 
-	var utils = __webpack_require__(237);
+	var utils = __webpack_require__(238);
 
 	var MAXBITS = 15;
 	var ENOUGH_LENS = 852;
@@ -40249,7 +40463,7 @@
 
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40305,7 +40519,7 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -40802,7 +41016,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40821,23 +41035,25 @@
 
 	var _viewerStore2 = _interopRequireDefault(_viewerStore);
 
-	var _canvasModes = __webpack_require__(196);
+	var _canvasModes = __webpack_require__(197);
 
 	var _canvasModes2 = _interopRequireDefault(_canvasModes);
 
-	var _pixelPanel = __webpack_require__(247);
+	var _pixelPanel = __webpack_require__(248);
 
 	var _pixelPanel2 = _interopRequireDefault(_pixelPanel);
 
-	var _roiPanel = __webpack_require__(248);
+	var _roiPanel = __webpack_require__(249);
 
 	var _roiPanel2 = _interopRequireDefault(_roiPanel);
 
-	var _thresholdPanel = __webpack_require__(249);
+	var _thresholdPanel = __webpack_require__(250);
 
 	var _thresholdPanel2 = _interopRequireDefault(_thresholdPanel);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -40866,9 +41082,15 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var canvasMode = _viewerStore2.default.getCanvasMode();
-				var activeROI = canvasMode == _canvasModes2.default.ROI || canvasMode == _canvasModes2.default.ROI_UPDATE_POSITION || canvasMode == _canvasModes2.default.ROI_UPDATE_RADIUS ? 'active' : '';
-				var activeThreshold = canvasMode == _canvasModes2.default.THRESHOLD || canvasMode == _canvasModes2.default.THRESHOLD_EYEDROPPER ? 'active' : '';
+				var _options, _options2;
+
+				var mode = _viewerStore2.default.getCanvasMode();
+
+				var options = (_options = {}, _defineProperty(_options, _canvasModes2.default.ROI, 'active'), _defineProperty(_options, _canvasModes2.default.ROI_UPDATE_POSITION, 'active'), _defineProperty(_options, _canvasModes2.default.ROI_UPDATE_RADIUS, 'active'), _defineProperty(_options, _canvasModes2.default.CUSTOM_ROI, 'active'), _options);
+				var activeROI = options[mode] || '';
+
+				options = (_options2 = {}, _defineProperty(_options2, _canvasModes2.default.THRESHOLD, 'active'), _defineProperty(_options2, _canvasModes2.default.THRESHOLD_EYEDROPPER, 'active'), _options2);
+				var activeThreshold = options[mode] || '';
 
 				var selectROI = _viewerStore2.default.setCanvasMode.bind(_viewerStore2.default, _canvasModes2.default.ROI);
 				var selectThreshold = _viewerStore2.default.setCanvasMode.bind(_viewerStore2.default, _canvasModes2.default.THRESHOLD);
@@ -40915,7 +41137,7 @@
 	exports.default = ViewerInfoPanel;
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41008,7 +41230,7 @@
 	exports.default = PixelPanel;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41072,6 +41294,127 @@
 				this.setState({ features: _viewerStore2.default.getFeatures() });
 			}
 		}, {
+			key: 'getROI',
+			value: function getROI(feature, index) {
+				var FeatureTypes = _viewerStore2.default.getFeatureTypes();
+				if (feature.type == FeatureTypes.CIRCLE) {
+					return this.getCircleROIComponent(feature, index);
+				} else if (feature.type == FeatureTypes.CUSTOM) {
+					return this.getCustomROIComponent(feature, index);
+				} else return _react2.default.createElement(
+					'div',
+					null,
+					' Error '
+				);
+			}
+		}, {
+			key: 'getCircleROIComponent',
+			value: function getCircleROIComponent(feature, index) {
+				return _react2.default.createElement(
+					'div',
+					{ key: index, className: 'feature-item' },
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'label',
+							null,
+							' X: ',
+							Math.round(feature.x),
+							' '
+						),
+						_react2.default.createElement(
+							'label',
+							null,
+							' Y: ',
+							Math.round(feature.y),
+							' '
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'label',
+							null,
+							' Radius: ',
+							feature.radius.toFixed(0),
+							' '
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'label',
+							null,
+							' Average Value: ',
+							feature.avgPixel.toFixed(1),
+							' '
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'label',
+							null,
+							' Pixel Count: ',
+							feature.pixelCount,
+							' '
+						)
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'icon-button', onClick: this.handleDeleteFeature.bind(this, index) },
+						_react2.default.createElement(
+							'i',
+							{ className: 'material-icons' },
+							'close'
+						)
+					)
+				);
+			}
+		}, {
+			key: 'getCustomROIComponent',
+			value: function getCustomROIComponent(feature, index) {
+				return _react2.default.createElement(
+					'div',
+					{ key: index, className: 'feature-item' },
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'label',
+							null,
+							' Average Value: ',
+							feature.avgPixel.toFixed(1),
+							' '
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'label',
+							null,
+							' Pixel Count: ',
+							feature.pixelCount,
+							' '
+						)
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'icon-button', onClick: this.handleDeleteFeature.bind(this, index) },
+						_react2.default.createElement(
+							'i',
+							{ className: 'material-icons' },
+							'close'
+						)
+					)
+				);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 
@@ -41086,70 +41429,7 @@
 					{ className: 'roi-panel' },
 					this.state.features.length == 0 ? infoBox : null,
 					this.state.features.map(function (feature, index) {
-						return _react2.default.createElement(
-							'div',
-							{ key: index, className: 'feature-item' },
-							_react2.default.createElement(
-								'div',
-								null,
-								_react2.default.createElement(
-									'label',
-									null,
-									' X: ',
-									Math.round(feature.x),
-									' '
-								),
-								_react2.default.createElement(
-									'label',
-									null,
-									' Y: ',
-									Math.round(feature.y),
-									' '
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								null,
-								_react2.default.createElement(
-									'label',
-									null,
-									' Radius: ',
-									feature.radius.toFixed(0),
-									' '
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								null,
-								_react2.default.createElement(
-									'label',
-									null,
-									' Average Value: ',
-									feature.avgPixel.toFixed(1),
-									' '
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								null,
-								_react2.default.createElement(
-									'label',
-									null,
-									' Pixel Count: ',
-									feature.pixelCount,
-									' '
-								)
-							),
-							_react2.default.createElement(
-								'button',
-								{ className: 'icon-button', onClick: this.handleDeleteFeature.bind(this, index) },
-								_react2.default.createElement(
-									'i',
-									{ className: 'material-icons' },
-									'close'
-								)
-							)
-						);
+						return this.getROI(feature, index);
 					}.bind(this))
 				);
 			}
@@ -41161,7 +41441,7 @@
 	exports.default = ROIPanel;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41389,7 +41669,7 @@
 	exports.default = ThresholdPanel;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
