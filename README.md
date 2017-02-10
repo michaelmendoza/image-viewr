@@ -1,6 +1,6 @@
-# WebImage Viewer - A image processing analysis tool
+# Image Viewr - A image processing analysis tool
 
-A web framework/library which uses html canvas to load/display images and do basic images processing
+A web framework/library which uses html canvas to load/display images and do basic image processing
 
 ## Getting Started
 
