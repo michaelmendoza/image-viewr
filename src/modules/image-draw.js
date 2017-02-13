@@ -130,10 +130,10 @@ var ImageDraw = function() {
 		} 
 		else {
 			this.context.lineWidth = 1;
-			this.context.strokeStyle = '#AAAAAA';
-			this.context.fillStyle = '#AAAAAA';
+			this.context.strokeStyle = '#CCCCCC';
+			this.context.fillStyle = '#CCCCCC';
 		}
-		
+
 		roi.points.forEach(function(point) {
 			this.context.beginPath();
 			var r = 2;

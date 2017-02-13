@@ -45,10 +45,20 @@ class FeatureCustomROI extends FeatureROI {
 	}
 
 	isPositionInROI(event) {
+		// Check points
+		var isOnPoint = this.isOnPoint(event);
+		if(isOnPoint)
+			return true;
+
+		// Check ROI mask
+		return this.isOnMask(event);
+	}
+	
+	isOnPoint(event) {
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var click = new Point(x,y);
-		
+
 		var closestPoint = null;
 		this.points.forEach((point) => {
 			if(click.isOnPoint(point.x, point.y)) {
@@ -59,7 +69,25 @@ class FeatureCustomROI extends FeatureROI {
 		this.activePoint = closestPoint;
 		return this.activePoint != null;
 	}
-	
+
+	isOnMask(event) {
+		var x = event.offsetX;
+		var y = event.offsetY;
+		var bounds = this.getBoundingBox();
+		var mask = this.createMaskROI();
+
+		if(x < bounds.sx || bounds.sx + bounds.width < x || y < bounds.sy || bounds.sy + bounds.height < y)
+			return false;
+
+		var xStride = 4;
+		var yStride = 4 * bounds.width;
+		x = x - bounds.sx;
+		y = y - bounds.sy;
+		var value = mask.data[y * yStride + x * xStride];
+		if(value == 255) return true;
+		else return false;
+	}
+
 	getBoundingBox() {
 		var x = this.points.map((p) => { return p.x; });
 		var y = this.points.map((p) => { return p.y; });
@@ -79,6 +107,22 @@ class FeatureCustomROI extends FeatureROI {
 			});
 			context.fill();
 		}
+	}
+
+	createMaskROI() {
+		if(this.points.length <= 2)
+			return null;
+
+		var bounds = this.getBoundingBox();
+
+		// Create ROI Mask and get pixel data
+		var canvasMask = document.createElement('canvas');
+		canvasMask.width = bounds.width;
+		canvasMask.height = bounds.height;
+		var contextMask = canvasMask.getContext('2d');
+		this.drawMaskROI(contextMask, bounds);
+		var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
+		return mask;
 	}
 
 	createROIMaskData(image) {
