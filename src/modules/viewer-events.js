@@ -37,7 +37,7 @@ class ViewerEvents {
 
 			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => {
 				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.updateActiveFeaturePoint(event, 0);
+				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
 			},
 
@@ -86,9 +86,10 @@ class ViewerEvents {
 					this.canvasMode = CanvasModes.CUSTOM_ROI_ADD_POINT;
 				}
 				else {
-					
-					// Check on point
-					var onHandles = this.featureManager.clickedOnFeatureHandles(event);
+					// Check on point handles
+					var onFeature = this.featureManager.hoverOnFeature(event);
+					if(onFeature.activePoint != null)
+						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POINT;
 				}	
 
 				this.canvasDraw.drawImage();
@@ -130,9 +131,15 @@ class ViewerEvents {
 				this.canvasDraw.drawImage();
 				this.canvasMode = CanvasModes.ROI;
 			},
+			
 			[CanvasModes.ROI_UPDATE_POSITION]: () => {
 				this.canvasDraw.drawImage();
 				this.canvasMode = CanvasModes.ROI
+			},
+
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => {
+				this.canvasDraw.drawImage();
+				this.canvasMode = CanvasModes.CUSTOM_ROI;
 			}
 		};
 

@@ -135,8 +135,12 @@ var ImageDraw = function() {
 		}
 
 		roi.points.forEach(function(point) {
-			this.context.beginPath();
 			var r = 2;
+			if(point == roi.activePoint) {
+				r = 6;
+			}
+
+			this.context.beginPath();
 			this.context.arc(point.x, point.y, r, 0, 2*Math.PI);
 			this.context.fill();
 		}.bind(this))

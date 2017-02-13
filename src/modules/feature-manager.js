@@ -71,23 +71,12 @@ class FeatureManager {
 		this.features.splice(index, 1);
 	}
 
-	clickedOnFeatureHandles(event) {
-		if(FeatureTypes.CIRCLE) {
-			var pixel = this.viewer.pixel;
-			if(pixel.r == 77 && pixel.g == 249 && pixel.b == 77) // Green - #4DF94D
-				return true;
-			else
-				return false;			
-		} else if(FeatureTypes.CUSTOM) {
-			var x = event.offsetX;
-			var y = event.offsetY;
-			var points = this.activeFeature.points;
-			this.activeFeatureHandle = points.findIndex((point)=> {
-				return (x - point.x) * (x - point.x) + (y - point.y) * (y - point.y) < 4;
-			})
-			console.log('point:' + this.activeFeatureHandle);
-		}
-
+	clickedOnFeatureHandles(event) { 
+		var pixel = this.viewer.pixel;
+		if(pixel.r == 77 && pixel.g == 249 && pixel.b == 77) // Green - #4DF94D
+			return true;
+		else
+			return false;
 	}
 
 	updateActiveFeature(event) {
@@ -110,10 +99,6 @@ class FeatureManager {
 			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(this.viewer.canvasDraw);	
 		else 
 			this.activeFeature.pixelCount = 0;	
-	}
-
-	updateActiveFeaturePoint(event, index) {
-
 	}
 
 	drawAllFeatures() {

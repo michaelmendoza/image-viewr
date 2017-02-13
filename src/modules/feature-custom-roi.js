@@ -40,7 +40,13 @@ class FeatureCustomROI extends FeatureROI {
 	}
 
 	updateROI(event) {
+		if(this.activePoint != null) {
+			this.activePoint.x = event.offsetX;
+			this.activePoint.y = event.offsetY;
+		}
+	}
 
+	updateROIPosition(event) {
 
 	}
 
