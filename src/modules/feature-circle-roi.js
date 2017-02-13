@@ -37,7 +37,6 @@ class FeatureCircleROI extends FeatureROI {
 	}
 
 	drawMaskROI(context) {
-		//context2.clearRect(0,0,canvas2.width, canvas2.height);
 		var x = this.radius;
 		var y = this.radius;
 		var r = this.radius;

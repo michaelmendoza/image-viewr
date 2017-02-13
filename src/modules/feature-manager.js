@@ -12,6 +12,7 @@ class FeatureManager {
 		this.context = this.canvas.getContext('2d');	
 
 		this.activeFeature = null;
+		this.activeFeatureHandle = null;
 		this.features = [];
 	}
 
@@ -30,6 +31,19 @@ class FeatureManager {
 			this.activeFeature = null;
 		else
 			this.activeFeature = this.features[activeFeatureIndex];
+	}
+
+	hoverOnFeature(event) {
+		var hoverFeature = null;
+		this.features.forEach(function(feature) {
+			feature.isHover = false;
+			if(feature.isPositionInROI(event)) {
+				hoverFeature = feature;
+				hoverFeature.isHover = true;
+			}
+		})
+
+		return hoverFeature;
 	}
 
 	createFeature(event, type) {
@@ -57,12 +71,23 @@ class FeatureManager {
 		this.features.splice(index, 1);
 	}
 
-	clickedOnFeatureHandles() {
-		var pixel = this.viewer.pixel;
-		if(pixel.r == 77 && pixel.g == 249 && pixel.b == 77) // Green - #4DF94D
-			return true;
-		else
-			return false;
+	clickedOnFeatureHandles(event) {
+		if(FeatureTypes.CIRCLE) {
+			var pixel = this.viewer.pixel;
+			if(pixel.r == 77 && pixel.g == 249 && pixel.b == 77) // Green - #4DF94D
+				return true;
+			else
+				return false;			
+		} else if(FeatureTypes.CUSTOM) {
+			var x = event.offsetX;
+			var y = event.offsetY;
+			var points = this.activeFeature.points;
+			this.activeFeatureHandle = points.findIndex((point)=> {
+				return (x - point.x) * (x - point.x) + (y - point.y) * (y - point.y) < 4;
+			})
+			console.log('point:' + this.activeFeatureHandle);
+		}
+
 	}
 
 	updateActiveFeature(event) {
@@ -85,6 +110,10 @@ class FeatureManager {
 			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(this.viewer.canvasDraw);	
 		else 
 			this.activeFeature.pixelCount = 0;	
+	}
+
+	updateActiveFeaturePoint(event, index) {
+
 	}
 
 	drawAllFeatures() {

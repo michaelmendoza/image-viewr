@@ -8,6 +8,9 @@ class FeatureROI {
 		this.pixelCount = 0;
 		this.pixelData = null;
 		this.avgPixel = 0;		
+
+		this.activePoint = null;
+		this.isHover = false;
 	}
 
 	createROI(event) {

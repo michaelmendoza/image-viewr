@@ -27,6 +27,24 @@ class ViewerEvents {
 				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeaturePosition(event);
 				this.canvasDraw.drawImage();
+			},
+
+			[CanvasModes.CUSTOM_ROI]: () => {
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				var hoverFeature = this.featureManager.hoverOnFeature(event);
+				this.canvasDraw.drawImage();
+			},
+
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => {
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				this.featureManager.updateActiveFeaturePoint(event, 0);
+				this.canvasDraw.drawImage();
+			},
+
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { 
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				this.featureManager.updateActiveFeaturePosition(event);
+				this.canvasDraw.drawImage();
 			}
 		};
 
@@ -60,14 +78,27 @@ class ViewerEvents {
 
 			[CanvasModes.CUSTOM_ROI]: () => {
 				event = this.canvasDraw.removeOffsetAndZoom(event);
-				
+				this.featureManager.setActiveFeature(event);
+
 				if(this.featureManager.activeFeature == null) {
 					this.featureManager.createFeature(event, FeatureTypes.CUSTOM);
 					this.featureManager.activeFeature.addPoint(event);
+					this.canvasMode = CanvasModes.CUSTOM_ROI_ADD_POINT;
 				}
 				else {
-					this.featureManager.activeFeature.addPoint(event);
-				}
+					
+					// Check on point
+					var onHandles = this.featureManager.clickedOnFeatureHandles(event);
+				}	
+
+				this.canvasDraw.drawImage();
+			},
+
+			[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { 
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				this.featureManager.activeFeature.addPoint(event);
+				if(this.featureManager.activeFeature.isClosedShape) 
+					this.canvasMode = CanvasModes.CUSTOM_ROI;
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
 			},

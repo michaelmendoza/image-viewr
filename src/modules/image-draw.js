@@ -122,12 +122,20 @@ var ImageDraw = function() {
 	}
 
 	this.drawCustomROI = (roi) => {
-		this.context.lineWidth = 2;
-		this.context.strokeStyle = '#EEEEEE';
 
+		if(roi.isHover) {
+			this.context.lineWidth = 2;
+			this.context.strokeStyle = '#FFFFFF';			
+			this.context.fillStyle = '#FFFFFF';
+		} 
+		else {
+			this.context.lineWidth = 1;
+			this.context.strokeStyle = '#AAAAAA';
+			this.context.fillStyle = '#AAAAAA';
+		}
+		
 		roi.points.forEach(function(point) {
 			this.context.beginPath();
-			this.context.fillStyle = '#EEEEEE';
 			var r = 2;
 			this.context.arc(point.x, point.y, r, 0, 2*Math.PI);
 			this.context.fill();

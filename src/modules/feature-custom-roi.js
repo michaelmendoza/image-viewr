@@ -1,12 +1,14 @@
 
 import FeatureROI from './feature-roi.js';
 import FeatureTypes from './feature-types.js';
+import Point from './point.js';
 
 class FeatureCustomROI extends FeatureROI {
 	constructor() {
 		super();
 		this.type = FeatureTypes.CUSTOM;
 		this.points = [];
+
 		this.isClosedShape = false;
 		this.pointBounds = 4;
 	}
@@ -15,28 +17,47 @@ class FeatureCustomROI extends FeatureROI {
 		if(this.isClosedShape)
 			return;
 
-		if(this.points.length == 0) // Add point
-			this.points.push({x:event.offsetX, y:event.offsetY});
+		if(this.points.length == 0) { 
+			// Add point
+			var point = new Point(event.offsetX, event.offsetY);
+			this.points.push(point);
+		}
 		else {
-			var p0 = this.points[0];
-			var p1 = { x:event.offsetX, y:event.offsetY };
+			var click = { x:event.offsetX, y:event.offsetY };
+			var point = new Point(this.points[0].x, this.points[0].y);
 
-			if( (p1.x - p0.x) * (p1.x - p0.x) + (p1.y - p1.y) * (p1.y - p1.y) < this.pointBounds * this.pointBounds) {
-				// Close roi shape with orginal point
-				this.points.push(p0);
+			if( point.isOnPoint(click.x, click.y) ) {
+				// Close roi shape with original point
+				this.points.push(point);
 				this.isClosedShape = true;
 			}
-			else // Add point
-				this.points.push({x:event.offsetX, y:event.offsetY});
+			else {
+				// Add point 
+				var point = new Point(event.offsetX, event.offsetY);
+				this.points.push(point);
+			}
 		}
 	}
 
 	updateROI(event) {
 
+
 	}
 
 	isPositionInROI(event) {
+		var x = event.offsetX;
+		var y = event.offsetY;
+		var click = new Point(x,y);
+		
+		var closestPoint = null;
+		this.points.forEach((point) => {
+			if(click.isOnPoint(point.x, point.y)) {
+				closestPoint = point;
+			}
+		})
 
+		this.activePoint = closestPoint;
+		return this.activePoint != null;
 	}
 	
 	getBoundingBox() {
