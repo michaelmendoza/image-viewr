@@ -101,17 +101,32 @@ var ImageDraw = function() {
 	}
 
 	this.drawCircleROI = (roi) => {
+
+		var lineWidth;
+		if(roi.isHover) {
+			var lineWidth = 4;
+			this.context.strokeStyle = '#FFFFFF';			
+			this.context.fillStyle = '#FFFFFF';
+		} 
+		else {
+			var lineWidth = 4;
+			this.context.strokeStyle = roi.color;
+			this.context.fillStyle = roi.color;
+		}
+		
 		var x = roi.x * this.zoom + this.panX;
 		var y = roi.y * this.zoom + this.panY;
 		var r = roi.radius * this.zoom;
 
-		var lineWidth = 5;
 		r = Math.max(r - (lineWidth / 2), 0);
 		this.context.lineWidth = lineWidth;
 		this.context.beginPath();
-		this.context.strokeStyle = '#4DF94D';
 		this.context.arc(x, y, r, 0, 2*Math.PI);
 		this.context.stroke();
+
+		this.context.globalAlpha = 0.5;
+		this.context.fill();
+		this.context.globalAlpha = 1.0;
 	}
 
 	this.drawRectROI = (roi) => {
@@ -130,10 +145,11 @@ var ImageDraw = function() {
 		} 
 		else {
 			this.context.lineWidth = 1;
-			this.context.strokeStyle = '#CCCCCC';
-			this.context.fillStyle = '#CCCCCC';
+			this.context.strokeStyle = roi.color;
+			this.context.fillStyle = roi.color;
 		}
 
+		// Draw Points
 		roi.points.forEach(function(point) {
 			var r = 2;
 			if(point == roi.activePoint) {
@@ -144,7 +160,9 @@ var ImageDraw = function() {
 			this.context.arc(point.x, point.y, r, 0, 2*Math.PI);
 			this.context.fill();
 		}.bind(this))
-
+		
+		// Draw Outline and ROI Fill
+		this.context.fillStyle = roi.color;
 		if(roi.points.length > 1) {
 			this.context.moveTo(roi.points[0].x, roi.points[0].y);
 

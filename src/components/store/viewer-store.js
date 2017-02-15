@@ -59,6 +59,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadFile(file);
 	}
 
+	drawImage() {
+		this.viewer.drawImage();
+	}
+
 	drawColorThreshold(colorThreshold) {
 		this.viewer.drawColorThreshold(colorThreshold);
 	}

@@ -90,6 +90,8 @@ class ViewerEvents {
 					var onFeature = this.featureManager.hoverOnFeature(event);
 					if(onFeature.activePoint != null)
 						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POINT;
+					else
+						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POSITION;
 				}	
 
 				this.canvasDraw.drawImage();
@@ -138,6 +140,12 @@ class ViewerEvents {
 			},
 
 			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => {
+				this.canvasDraw.drawImage();
+				this.canvasMode = CanvasModes.CUSTOM_ROI;
+			},
+
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => {
+				this.featureManager.updateActiveFeaturePosition(null);
 				this.canvasDraw.drawImage();
 				this.canvasMode = CanvasModes.CUSTOM_ROI;
 			}

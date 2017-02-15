@@ -6,11 +6,11 @@ import Point from './point.js';
 class FeatureCustomROI extends FeatureROI {
 	constructor() {
 		super();
+		this.name = 'Custom ROI';
 		this.type = FeatureTypes.CUSTOM;
 		this.points = [];
 
 		this.isClosedShape = false;
-		this.pointBounds = 4;
 	}
 
 	addPoint(event) {
@@ -39,28 +39,28 @@ class FeatureCustomROI extends FeatureROI {
 		}
 	}
 
-	updateROI(event) {
-		if(this.activePoint != null) {
-			this.activePoint.x = event.offsetX;
-			this.activePoint.y = event.offsetY;
+	drawMaskROI(context, bounds) {
+		context.fillStyle = "#FFFFFF";
+
+		if(this.points.length > 1) {
+			context.moveTo(this.points[0].x - bounds.sx, this.points[0].y - bounds.sy);
+
+			this.points.forEach(function(point) {
+				context.lineTo(point.x - bounds.sx, point.y - bounds.sy);
+			});
+			context.fill();
 		}
 	}
 
-	updateROIPosition(event) {
-
-	}
-
-	isPositionInROI(event) {
-		// Check points
-		var isOnPoint = this.isOnPoint(event);
-		if(isOnPoint)
-			return true;
-
-		// Check ROI mask
-		return this.isOnMask(event);
+	getBoundingBox() {
+		var x = this.points.map((p) => { return p.x; });
+		var y = this.points.map((p) => { return p.y; });
+		var min = { x:Math.min(...x), y: Math.min(...y) };
+		var max = { x:Math.max(...x), y: Math.max(...y) };
+		return { sx:min.x, sy:min.y, width:max.x-min.x, height:max.y-min.y };
 	}
 	
-	isOnPoint(event) {
+	isOnHandle(event) {
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var click = new Point(x,y);
@@ -76,11 +76,11 @@ class FeatureCustomROI extends FeatureROI {
 		return this.activePoint != null;
 	}
 
-	isOnMask(event) {
+	isOnMask(event) { 
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var bounds = this.getBoundingBox();
-		var mask = this.createMaskROI();
+		var mask = this.createMaskData();
 
 		if(x < bounds.sx || bounds.sx + bounds.width < x || y < bounds.sy || bounds.sy + bounds.height < y)
 			return false;
@@ -89,70 +89,53 @@ class FeatureCustomROI extends FeatureROI {
 		var yStride = 4 * bounds.width;
 		x = x - bounds.sx;
 		y = y - bounds.sy;
-		var value = mask.data[y * yStride + x * xStride];
+		var value = mask[y * yStride + x * xStride];
 		if(value == 255) return true;
 		else return false;
 	}
 
-	getBoundingBox() {
-		var x = this.points.map((p) => { return p.x; });
-		var y = this.points.map((p) => { return p.y; });
-		var min = { x:Math.min(...x), y: Math.min(...y) };
-		var max = { x:Math.max(...x), y: Math.max(...y) };
-		return { sx:min.x, sy:min.y, width:max.x-min.x, height:max.y-min.y };
+	isOnROI(event) {
+		// Check points
+		var isOnHandle = this.isOnHandle(event);
+		if(isOnHandle)
+			return true;
+
+		// Check ROI mask
+		return this.isOnMask(event);
 	}
 
-	drawMaskROI(context, bounds) {
-		context.fillStyle = "#FFFFFF";
-
-		if(this.points.length > 1) {
-			context.moveTo(this.points[0].x - bounds.sx, this.points[0].y - bounds.sy);
-
-			this.points.forEach(function(point) {
-				context.lineTo(point.x - bounds.sx, point.y - bounds.sy);
-			});
-			context.fill();
+	update(event) {
+		// Update Active Point
+		if(this.activePoint != null) {
+			this.activePoint.x = event.offsetX;
+			this.activePoint.y = event.offsetY;
 		}
 	}
 
-	createMaskROI() {
-		if(this.points.length <= 2)
-			return null;
+	updatePosition(event) {
+		if(event == null) {
+			this.isDrag = false;
+			return;
+		}
 
-		var bounds = this.getBoundingBox();
+		var x = event.offsetX;
+		var y = event.offsetY;
 
-		// Create ROI Mask and get pixel data
-		var canvasMask = document.createElement('canvas');
-		canvasMask.width = bounds.width;
-		canvasMask.height = bounds.height;
-		var contextMask = canvasMask.getContext('2d');
-		this.drawMaskROI(contextMask, bounds);
-		var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
-		return mask;
-	}
+		if(this.isDrag) {
 
-	createROIMaskData(image) {
-		if(this.points.length <= 2)
-			return null;
+			this.points.forEach((point)=> {
+				point.x += x - this.x;
+				point.y += y - this.y;
+			})
 
-		// Create a copy of image and get pixel data within the bounding box
-		var canvas = document.createElement('canvas');
-		canvas.width = image.width;
-		canvas.height = image.height;
-		var context = canvas.getContext('2d');
-		context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
-		var bounds = this.getBoundingBox();
-		var imageData = context.getImageData(bounds.sx, bounds.sy, bounds.width, bounds.height);
-		var data = imageData.data;
-
-		// Create ROI Mask and get pixel data
-		var canvasMask = document.createElement('canvas');
-		canvasMask.width = bounds.width;
-		canvasMask.height = bounds.height;
-		var contextMask = canvasMask.getContext('2d');
-		this.drawMaskROI(contextMask, bounds);
-		var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
-		return { img:data, mask:mask.data };
+			this.x = x;
+			this.y = y;
+		}
+		else {
+			this.isDrag = true;
+			this.x = x;
+			this.y = y;
+		}
 	}
 
 }
