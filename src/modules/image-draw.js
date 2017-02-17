@@ -102,6 +102,7 @@ var ImageDraw = function() {
 
 	this.drawCircleROI = (roi) => {
 
+		// Set draw styles
 		var lineWidth;
 		if(roi.isHover) {
 			var lineWidth = 4;
@@ -113,11 +114,13 @@ var ImageDraw = function() {
 			this.context.strokeStyle = roi.color;
 			this.context.fillStyle = roi.color;
 		}
-		
+
+		// Transform to global coordinates
 		var x = roi.x * this.zoom + this.panX;
 		var y = roi.y * this.zoom + this.panY;
 		var r = roi.radius * this.zoom;
 
+		// Render 
 		r = Math.max(r - (lineWidth / 2), 0);
 		this.context.lineWidth = lineWidth;
 		this.context.beginPath();
@@ -138,6 +141,7 @@ var ImageDraw = function() {
 
 	this.drawCustomROI = (roi) => {
 
+		// Set draw styles
 		if(roi.isHover) {
 			this.context.lineWidth = 2;
 			this.context.strokeStyle = '#FFFFFF';			
@@ -149,8 +153,13 @@ var ImageDraw = function() {
 			this.context.fillStyle = roi.color;
 		}
 
+		// Transform points to global coordinates
+		var points = roi.points.map(function(point) {
+			return { x:point.x * this.zoom + this.panX, y:point.y * this.zoom + this.panY };
+		}.bind(this));
+
 		// Draw Points
-		roi.points.forEach(function(point) {
+		points.forEach(function(point) {
 			var r = 2;
 			if(point == roi.activePoint) {
 				r = 6;
@@ -160,13 +169,13 @@ var ImageDraw = function() {
 			this.context.arc(point.x, point.y, r, 0, 2*Math.PI);
 			this.context.fill();
 		}.bind(this))
-		
-		// Draw Outline and ROI Fill
-		this.context.fillStyle = roi.color;
-		if(roi.points.length > 1) {
-			this.context.moveTo(roi.points[0].x, roi.points[0].y);
 
-			roi.points.forEach(function(point) {
+		// Render Outline and ROI Fill
+		this.context.fillStyle = roi.color;
+		if(points.length > 1) {
+			this.context.moveTo(points[0].x, points[0].y);
+
+			points.forEach(function(point) {
 				this.context.lineTo(point.x, point.y);
 			}.bind(this));
 			this.context.stroke();
@@ -177,7 +186,6 @@ var ImageDraw = function() {
 			this.context.fill();
 			this.context.globalAlpha = 1.0;
 		}
-
 	}
 
 }
