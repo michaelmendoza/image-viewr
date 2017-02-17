@@ -17,6 +17,12 @@ class ViewerEvents {
 				this.panImage(event);
 			},
 
+			[CanvasModes.ROI]: () => {
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				var hoverFeature = this.featureManager.hoverOnFeature(event);
+				this.canvasDraw.drawImage();
+			},
+
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
 				event = this.canvasDraw.removeOffsetAndZoom(event);
 				this.featureManager.updateActiveFeature(event);
@@ -67,12 +73,19 @@ class ViewerEvents {
 					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
 					this.featureManager.createFeature(event, FeatureTypes.CIRCLE);					
 				}
-				else {
-					var onHandles = this.featureManager.clickedOnFeatureHandles();
+				else if(this.featureManager.activeFeature.type == FeatureTypes.CIRCLE){
+					var onHandles = this.featureManager.isOnActiveFeatureHandles(event);
 					if(onHandles)
 						this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
 					else
 						this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
+				}
+				else if(this.featureManager.activeFeature.type == FeatureTypes.CUSTOM) {
+					var onFeature = this.featureManager.hoverOnFeature(event);
+					if(onFeature.activePoint != null)
+						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POINT;
+					else
+						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POSITION;		
 				}
 			},
 
@@ -85,14 +98,20 @@ class ViewerEvents {
 					this.featureManager.activeFeature.addPoint(event);
 					this.canvasMode = CanvasModes.CUSTOM_ROI_ADD_POINT;
 				}
-				else {
-					// Check on point handles
+				else if(this.featureManager.activeFeature.type == FeatureTypes.CIRCLE ) {
+					var onHandles = this.featureManager.isOnActiveFeatureHandles(event);
+					if(onHandles)
+						this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
+					else
+						this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
+				}	
+				else if(this.featureManager.activeFeature.type == FeatureTypes.CUSTOM) {
 					var onFeature = this.featureManager.hoverOnFeature(event);
 					if(onFeature.activePoint != null)
 						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POINT;
 					else
-						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POSITION;
-				}	
+						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POSITION;					
+				}
 
 				this.canvasDraw.drawImage();
 			},

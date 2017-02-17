@@ -8,6 +8,8 @@ class FeatureCircleROI extends FeatureROI {
 		this.name = 'Circle ROI';
 		this.type = FeatureTypes.CIRCLE;
 		this.radius = null;
+		this.handleSize = 4;
+		this.handleIsActive = false;
 	}
 	
 	drawMaskROI(context) {
@@ -28,7 +30,20 @@ class FeatureCircleROI extends FeatureROI {
 		return { sx:sx, sy:sy, width:width, height:height };
 	}
 
-	isOnROI(event) { 
+	isOnHandle(event) {
+		var x = event.offsetX - this.x; 	// x distance from radius
+		var y = event.offsetY - this.y; 	// y distance form radius
+		var r = Math.sqrt(x * x + y * y); // r distance in polar coordinates
+
+		if(this.radius - this.handleSize <= r && r <= this.radius + this.handleSize)
+			this.handleIsActive = true;
+		else
+			this.handleIsActive = false;
+
+		return this.handleIsActive;
+	}
+
+	isOnMask(event) {
 		if(this.radius == null)
 			return false;
 
@@ -37,6 +52,15 @@ class FeatureCircleROI extends FeatureROI {
 		var xCheck = (this.x - this.radius) <= x && x <= (this.x + this.radius);
 		var yCheck = (this.y - this.radius) <= y && y <= (this.y + this.radius);
 		return xCheck && yCheck;
+	}
+
+	isOnROI(event) { 
+		// Check points
+		if(this.isOnHandle(event))
+			return true;
+
+		// Check ROI mask
+		return this.isOnMask(event);
 	}
 
 	update(event) {

@@ -105,12 +105,12 @@ var ImageDraw = function() {
 		// Set draw styles
 		var lineWidth;
 		if(roi.isHover) {
-			var lineWidth = 4;
+			lineWidth = 4;
 			this.context.strokeStyle = '#FFFFFF';			
-			this.context.fillStyle = '#FFFFFF';
+			this.context.fillStyle = roi.color;
 		} 
 		else {
-			var lineWidth = 4;
+			lineWidth = 2;
 			this.context.strokeStyle = roi.color;
 			this.context.fillStyle = roi.color;
 		}

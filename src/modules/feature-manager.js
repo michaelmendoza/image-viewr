@@ -16,14 +16,6 @@ class FeatureManager {
 		this.features = [];
 	}
 
-	clickedOnFeatureHandles(event) { 
-		var pixel = this.viewer.pixel;
-		if(pixel.r == 255 && pixel.g == 0 && pixel.b == 0)
-			return true;
-		else
-			return false;
-	}
-
 	createFeature(event, type) {
 		// Create Feature and set as active feature
 		if(type == FeatureTypes.CIRCLE) {
@@ -61,6 +53,10 @@ class FeatureManager {
 
 	getActiveFeature() {
 		return this.activeFeature;
+	}
+
+	isOnActiveFeatureHandles(event) {
+		return this.activeFeature.isOnHandle(event);
 	}
 
 	hoverOnFeature(event) {

@@ -12,9 +12,9 @@ class FeatureROI {
 		this.pixelData = null;
 		this.avgPixel = 0;		
 
-		this.activePoint = null;
-		this.isHover = false;
-		this.isDrag = false;
+		this.activePoint = null; 	// Handle Point is active
+		this.isHover = false;			// Mouse is hovering on ROI
+		this.isDrag = false;			// ROI is being dragged
 	}
 
 	create(event) {
