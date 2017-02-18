@@ -8,53 +8,31 @@ import ThresholdModes from './threshold-modes.js';
  */
 class ViewerEvents {
 
-	handleMouseMove(event) {
+	handleMouseMove(event) { 
 		this.getPixelData(event);
 
-		var actions = {
-
-			[CanvasModes.PAN_UPDATE]: () => {
-				this.panImage(event);
-			},
-
-			[CanvasModes.ROI]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				var hoverFeature = this.featureManager.hoverOnFeature(event);
-				this.canvasDraw.drawImage();
-			},
-
-			[CanvasModes.ROI_UPDATE_RADIUS]: () => { 
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.updateActiveFeature(event);
-				this.canvasDraw.drawImage();
-			},
-
-			[CanvasModes.ROI_UPDATE_POSITION]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.updateActiveFeaturePosition(event);
-				this.canvasDraw.drawImage();
-			},
-
-			[CanvasModes.CUSTOM_ROI]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				var hoverFeature = this.featureManager.hoverOnFeature(event);
-				this.canvasDraw.drawImage();
-			},
-
-			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.updateActiveFeature(event);
-				this.canvasDraw.drawImage();
-			},
-
-			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { 
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.updateActiveFeaturePosition(event);
-				this.canvasDraw.drawImage();
-			}
+		var canvas_actions = {
+			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); }
 		};
 
-		(actions[this.canvasMode] || this.defaultAction)();
+		var roi_actions = {
+			[CanvasModes.ROI]: () => { this.featureManager.hoverOnFeature(event); },
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.featureManager.updateActiveFeature(event); },
+			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
+			[CanvasModes.CUSTOM_ROI]: () => { this.featureManager.hoverOnFeature(event); },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.featureManager.updateActiveFeature(event); },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); }
+		};
+
+		var roi_action = () => {
+			event = this.canvasDraw.removeOffsetAndZoom(event);
+			roi_actions[this.canvasMode]();
+			this.canvasDraw.drawImage();
+		}
+
+		var a = canvas_actions[this.canvasMode];
+		var b = roi_actions[this.canvasMode] ? roi_action : null;
+		(a || b || this.defaultAction)();
 		this.onMouseMove();
 	}
 
@@ -71,22 +49,11 @@ class ViewerEvents {
 
 				if(this.featureManager.activeFeature == null) {
 					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
-					this.featureManager.createFeature(event, FeatureTypes.CIRCLE);					
+					this.featureManager.createFeature(event, FeatureTypes.CIRCLE);
+					this.canvasDraw.drawImage();			
 				}
-				else if(this.featureManager.activeFeature.type == FeatureTypes.CIRCLE){
-					var onHandles = this.featureManager.isOnActiveFeatureHandles(event);
-					if(onHandles)
-						this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
-					else
-						this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
-				}
-				else if(this.featureManager.activeFeature.type == FeatureTypes.CUSTOM) {
-					var onFeature = this.featureManager.hoverOnFeature(event);
-					if(onFeature.activePoint != null)
-						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POINT;
-					else
-						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POSITION;		
-				}
+				else 
+					this.canvasMode = this.featureManager.clickOnActiveFeature(event);
 			},
 
 			[CanvasModes.CUSTOM_ROI]: () => {
@@ -97,23 +64,10 @@ class ViewerEvents {
 					this.featureManager.createFeature(event, FeatureTypes.CUSTOM);
 					this.featureManager.activeFeature.addPoint(event);
 					this.canvasMode = CanvasModes.CUSTOM_ROI_ADD_POINT;
+					this.canvasDraw.drawImage();
 				}
-				else if(this.featureManager.activeFeature.type == FeatureTypes.CIRCLE ) {
-					var onHandles = this.featureManager.isOnActiveFeatureHandles(event);
-					if(onHandles)
-						this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
-					else
-						this.canvasMode = CanvasModes.ROI_UPDATE_POSITION;
-				}	
-				else if(this.featureManager.activeFeature.type == FeatureTypes.CUSTOM) {
-					var onFeature = this.featureManager.hoverOnFeature(event);
-					if(onFeature.activePoint != null)
-						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POINT;
-					else
-						this.canvasMode = CanvasModes.CUSTOM_ROI_UPDATE_POSITION;					
-				}
-
-				this.canvasDraw.drawImage();
+				else 
+					this.canvasMode = this.featureManager.clickOnActiveFeature(event);
 			},
 
 			[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { 
@@ -139,38 +93,21 @@ class ViewerEvents {
 	}
 
 	handleMouseUp() {
-		var actions = {
+		var canvas_actions = {
+			[CanvasModes.PAN_UPDATE]: () => { this.canvasMode = CanvasModes.PAN; this.stopPanImage(event); }
+		};
 
-			[CanvasModes.PAN_UPDATE]: () => {
-				this.canvasMode = CanvasModes.PAN;
-				this.stopPanImage(event);
-			},
-
-			[CanvasModes.ROI_UPDATE_RADIUS]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.updateActiveFeature(event);
-				this.canvasDraw.drawImage();
-				this.canvasMode = CanvasModes.ROI;
-			},
-			
-			[CanvasModes.ROI_UPDATE_POSITION]: () => {
-				this.canvasDraw.drawImage();
-				this.canvasMode = CanvasModes.ROI
-			},
-
-			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => {
-				this.canvasDraw.drawImage();
-				this.canvasMode = CanvasModes.CUSTOM_ROI;
-			},
-
-			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => {
-				this.featureManager.updateActiveFeaturePosition(null);
-				this.canvasDraw.drawImage();
+		var roi_actions = {
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.canvasMode = CanvasModes.ROI; },
+			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.canvasMode = CanvasModes.ROI },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { 
+				this.featureManager.updatePosition(null); 
 				this.canvasMode = CanvasModes.CUSTOM_ROI;
 			}
 		};
 
-		(actions[this.canvasMode] || this.defaultAction)();
+		(canvas_actions[this.canvasMode] || roi_actions[this.canvasMode] || this.defaultAction)();
 	}
 
 }

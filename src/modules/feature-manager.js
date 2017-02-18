@@ -1,4 +1,5 @@
 
+import CanvasModes from './canvas-modes.js';
 import FeatureTypes from './feature-types.js';
 import FeatureCircleROI from './feature-circle-roi.js';
 import FeatureRectangleROI from './feature-rectangle-roi.js';
@@ -85,6 +86,23 @@ class FeatureManager {
 			this.activeFeature = this.features[activeFeatureIndex];
 	}
 
+	clickOnActiveFeature(event) {
+		if(this.activeFeature.type == FeatureTypes.CIRCLE) {
+			var onHandles = this.isOnActiveFeatureHandles(event);
+			if(onHandles)
+				return CanvasModes.ROI_UPDATE_RADIUS;
+			else
+				return CanvasModes.ROI_UPDATE_POSITION;
+		}
+		else if(this.activeFeature.type == FeatureTypes.CUSTOM) {
+			var onFeature = this.hoverOnFeature(event);
+			if(onFeature.activePoint != null)
+				return CanvasModes.CUSTOM_ROI_UPDATE_POINT;
+			else
+				return CanvasModes.CUSTOM_ROI_UPDATE_POSITION;		
+		}
+	}
+
 	updateActiveFeature(event) {
 		this.activeFeature.update(event);
 		this.updateActiveFeatureData();
@@ -100,7 +118,10 @@ class FeatureManager {
 			this.activeFeature.pixelCount = 0;
 	}
 
-	updateActiveFeaturePosition(event) {
+	/**
+	 * Updates active feature position
+	 */
+	updatePosition(event) {
 		this.activeFeature.updatePosition(event);
 		this.updateActiveFeatureData();
 	}
