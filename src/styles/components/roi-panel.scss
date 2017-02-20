@@ -12,7 +12,6 @@
 
 	.roi-item {
 		border-bottom: 1px solid #E1E2E4;
-		margin-bottom: 10px;
 		padding: 10px;
 		position: relative;
 		text-align: left;
@@ -104,7 +103,12 @@
 	}
 
 	.roi-label {
+		color: $grey;
 		font-size: 12px;
+
+		&:hover {
+			border-bottom: none;
+		}
 	}
 
 }
