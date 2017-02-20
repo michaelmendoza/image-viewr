@@ -48,7 +48,7 @@ class ROIPanelItem extends React.Component {
 
 			<ul className='roi-lable-list layout-row layout-wrap'>
 				<li className='roi-label flex-50'>
-					<label> Area: {feature.pixelCount} </label>
+					<label> Area: {feature.area} </label>
 				</li>
 				<li className='roi-label flex-50'>
 					<label> Pixels: {feature.pixelCount} </label>

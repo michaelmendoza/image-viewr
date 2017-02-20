@@ -115,6 +115,7 @@ class FeatureManager {
 		this.activeFeature.max = minmax.max;
 		this.activeFeature.mean = this.activeFeature.getMean(img);
 		this.activeFeature.stdDev = this.activeFeature.getStdDev(img);
+		this.activeFeature.area = this.activeFeature.getArea(img);
 
 		if(this.viewer.thresholdMode == ThresholdModes.GREY)
 			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(img);

@@ -116,6 +116,21 @@ class FeatureROI {
 		return Math.sqrt(variance);
 	}	
 
+	getArea(image) {
+		var data = this.createROIMaskData(image);
+		if(data == null)
+			return 0;
+		
+		var count = 0;
+		for (var i = 0; i < data.img.length; i += 4) {
+			var avg = (data.img[i] + data.img[i+1] + data.img[i+2]) / 3;
+			if(data.mask[i] == 255) {
+				count += 1;
+			}
+		}
+		return count;
+	}
+
 	getColorThresholdPixelCount(image) { 
 		var data = this.createROIMaskData(image);
 		if(data == null)
