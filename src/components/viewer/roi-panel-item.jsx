@@ -45,15 +45,27 @@ class ROIPanelItem extends React.Component {
 				{ this.state.show ? <div className='roi-colorpicker'> {picker} {pickerBG} </div> : null }
 				<label> { feature.name } </label>
 			</h4>
-			<div className='roi-label'>
-				<label> Area: {feature.area.toFixed(1)} </label>
-			</div>
-			<div className='roi-label'>
-				<label> Mean: {feature.avgPixel.toFixed(1)} </label>
-			</div>
-			<div className='roi-label'>
-				<label> # Pixels: {feature.pixelCount} </label>
-			</div>
+
+			<ul className='roi-lable-list layout-row layout-wrap'>
+				<li className='roi-label flex-50'>
+					<label> Area: {feature.pixelCount} </label>
+				</li>
+				<li className='roi-label flex-50'>
+					<label> Pixels: {feature.pixelCount} </label>
+				</li>				
+				<li className='roi-label flex-50'>
+					<label> Mean: {feature.mean.toFixed(1)} </label>
+				</li>
+				<li className='roi-label flex-50'>
+					<label> StdDev: {feature.stdDev.toFixed(1)} </label>
+				</li>
+				<li className='roi-label flex-50'>
+					<label> Min: {feature.min.toFixed(1)} </label>
+				</li>
+				<li className='roi-label flex-50'>
+					<label> Max: {feature.max.toFixed(1)} </label>
+				</li>				
+			</ul>
 
 			<button className={'icon-button'} onClick={this.handleDelete.bind(this)}> 
 				<i className='material-icons'>close</i> 

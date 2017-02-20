@@ -8,9 +8,13 @@ class FeatureROI {
 		this.x = null;
 		this.y = null;
 		this.area = 0;
+		this.mean = 0;
+		this.stdDev = 0;
+		this.min = 0;
+		this.max = 0;
 		this.pixelCount = 0;
+
 		this.pixelData = null;
-		this.avgPixel = 0;		
 
 		this.activePoint = null; 	// Handle Point is active
 		this.isHover = false;			// Mouse is hovering on ROI
@@ -56,18 +60,61 @@ class FeatureROI {
 		return { img:imageData, mask:maskData };
 	}
 
-	getAveragePixelValue(image) {
+	getMinMax(image) {
 		var data = this.createROIMaskData(image);
 		if(data == null)
 			return 0;
 
-		var total = 0;
+		var min = 255;
+		var max = 0;
+		for (var i = 0; i < data.img.length; i += 4) {
+			if(data.mask[i] == 255) {
+				var value = (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
+				if(value < min)
+					min = value;
+				if(value > max)
+					max = value;
+			}
+		}
+
+		return { min:min, max:max };
+	}
+
+	getMean(image) {
+		var data = this.createROIMaskData(image);
+		if(data == null)
+			return 0;
+
+		var sum = 0;
 		for (var i = 0; i < data.img.length; i += 4) {
 			if(data.mask[i] == 255)
-				total += (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
+				sum += (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
 		}
-		return total / (data.img.length / 4);
+		return sum / (data.img.length / 4);
 	}
+
+	getStdDev(image) {
+		var data = this.createROIMaskData(image);
+		if(data == null)
+			return 0;
+
+		var sum = 0;
+		var sum2 = 0;
+		for (var i = 0; i < data.img.length; i += 4) {
+			if(data.mask[i] == 255) {
+				var value =  (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
+				sum += value;
+				sum2 += value * value;
+			}
+		}
+
+		var N = (data.img.length / 4);
+		var mean = sum / N;
+		var mean2 = sum2 / N;
+
+		var variance = mean2 - mean * mean;
+		return Math.sqrt(variance);
+	}	
 
 	getColorThresholdPixelCount(image) { 
 		var data = this.createROIMaskData(image);

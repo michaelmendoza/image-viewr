@@ -109,11 +109,17 @@ class FeatureManager {
 	}	
 
 	updateActiveFeatureData() {
-		this.activeFeature.avgPixel = this.activeFeature.getAveragePixelValue(this.viewer.canvasDraw);
+		var img = this.viewer.canvasDraw;
+		var minmax = this.activeFeature.getMinMax(img)
+		this.activeFeature.min = minmax.min;
+		this.activeFeature.max = minmax.max;
+		this.activeFeature.mean = this.activeFeature.getMean(img);
+		this.activeFeature.stdDev = this.activeFeature.getStdDev(img);
+
 		if(this.viewer.thresholdMode == ThresholdModes.GREY)
-			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(this.viewer.canvasDraw);
+			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(img);
 		else if(this.viewer.thresholdMode = ThresholdModes.COLOR)
-			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(this.viewer.canvasDraw);	
+			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(img);	
 		else
 			this.activeFeature.pixelCount = 0;
 	}
