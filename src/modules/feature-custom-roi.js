@@ -55,8 +55,8 @@ class FeatureCustomROI extends FeatureROI {
 	getBoundingBox() { 
 		var x = this.points.map((p) => { return p.x; });
 		var y = this.points.map((p) => { return p.y; });
-		var min = { x:Math.round(Math.min(...x)), y:Math.round(Math.min(...y)) };
-		var max = { x:Math.round(Math.max(...x)), y:Math.round(Math.max(...y)) };
+		var min = { x:Math.min(...x), y:Math.min(...y) };
+		var max = { x:Math.max(...x), y:Math.max(...y) };
 		return { sx:min.x, sy:min.y, width:max.x-min.x, height:max.y-min.y };
 	}
 	
@@ -85,7 +85,7 @@ class FeatureCustomROI extends FeatureROI {
 			return false;
 
 		var xStride = 4;
-		var yStride = 4 * bounds.width;
+		var yStride = Math.floor(4 * bounds.width);
 		x = Math.round(x - bounds.sx);
 		y = Math.round(y - bounds.sy);
 		var mask = this.createMaskData();

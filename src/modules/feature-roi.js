@@ -42,10 +42,10 @@ class FeatureROI {
 
 	createMaskData() {
 		var bounds = this.getBoundingBox();
-		
+
 		var canvasMask = document.createElement('canvas');
-		canvasMask.width = bounds.width;
-		canvasMask.height = bounds.height;
+		canvasMask.width = Math.floor(bounds.width);
+		canvasMask.height = Math.floor(bounds.height);
 		var contextMask = canvasMask.getContext('2d');
 		this.drawMaskROI(contextMask, bounds);
 		var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
