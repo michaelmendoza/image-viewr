@@ -20,7 +20,10 @@ class ViewerInfoPanel extends React.Component {
 			[CanvasModes.ROI]:'active',
 			[CanvasModes.ROI_UPDATE_POSITION]:'active',
 			[CanvasModes.ROI_UPDATE_RADIUS]:'active',
-			[CanvasModes.CUSTOM_ROI]:'active'
+			[CanvasModes.CUSTOM_ROI]:'active',
+			[CanvasModes.CUSTOM_ROI_ADD_POINT]: 'active',
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: 'active',
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: 'active'
 		};
 		var activeROI = options[mode] || '';
 		

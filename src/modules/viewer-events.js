@@ -90,6 +90,7 @@ class ViewerEvents {
 		};
 
 		(actions[this.canvasMode] || this.defaultAction)();
+		this.onCanvasModeChange();
 	}
 
 	handleMouseUp() {

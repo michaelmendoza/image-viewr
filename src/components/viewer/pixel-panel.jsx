@@ -6,7 +6,7 @@ class PixelPanel extends React.Component {
 	constructor() {
 		super();
 		this.getPixelData = this.getPixelData.bind(this);
-		this.state = { pixel:{x:'-', y:'-', value:'-'} };
+		this.state = { pixel: {x:'-', y:'-', value:'-'} };
 	}
 
 	componentDidMount() {

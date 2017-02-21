@@ -64,13 +64,14 @@ class Viewer extends ViewerEvents {
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var file = this.canvasDraw.file;
-		if(file == null)
-			return null;
+		if(file == null) {
+			this.pixel = { x:x, y:y, value:'-'};
+			return this.pixel;			
+		} 
 
 		var zoom = this.canvasDraw.zoom;
 		var offsetX = this.canvasDraw.panX;
 		var offsetY = this.canvasDraw.panY;
-
 		var pixelData = file.pixelData;
 		if(pixelData !== undefined) {
 			x = Math.round((x - offsetX) / zoom);
@@ -79,14 +80,14 @@ class Viewer extends ViewerEvents {
 			var width = file.width;
 			var height = file.height;
 			this.pixel = { x:x, y:y, value:pixelData[x + y * width] };
-			return this.pixel;
 		}
 		else {
 			var data = this.context.getImageData(x, y, 1, 1).data;
 			var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
 			this.pixel = { x:x, y:y, r:data[0], g:data[1], b:data[2], value:greyValue };
-			return this.pixel;			
 		}
+
+		return this.pixel;
 	}
 
 	setCanvasMode(mode) {

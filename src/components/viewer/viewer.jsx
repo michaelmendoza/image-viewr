@@ -83,10 +83,10 @@ class Viewer extends React.Component {
 		var pixelButtonClass = mode == modes.PIXEL ? 'active' : '';
 		var panButtonClass = mode == modes.PAN || mode == modes.PAN_UPDATE ? 'active' : '';
 		var roiButtonClass = mode == modes.ROI || mode == modes.ROI_UPDATE_POSITION || mode == modes.ROI_UPDATE_RADIUS ? 'active' : '';
-		var customRoiButtonClass = mode == modes.CUSTOM_ROI ? 'active' : '';
+		var customRoiButtonClass = mode == modes.CUSTOM_ROI || mode == modes.CUSTOM_ROI_ADD_POINT || mode == modes.CUSTOM_ROI_UPDATE_POINT || mode == modes.CUSTOM_ROI_UPDATE_POSITION ? 'active' : '';
 		var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
 		var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
-
+		
 		return (
 			<div className='viewer-container'>
 				<div className='viewer-header layout-row' > 
