@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.41', 'Date:Feb 21th, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.42', 'Date:Feb 21th, 2016');
 
 /***/ },
 /* 1 */
@@ -24628,8 +24628,8 @@
 				var y = this.points.map(function (p) {
 					return p.y;
 				});
-				var min = { x: Math.min.apply(Math, _toConsumableArray(x)), y: Math.min.apply(Math, _toConsumableArray(y)) };
-				var max = { x: Math.max.apply(Math, _toConsumableArray(x)), y: Math.max.apply(Math, _toConsumableArray(y)) };
+				var min = { x: Math.round(Math.min.apply(Math, _toConsumableArray(x))), y: Math.round(Math.min.apply(Math, _toConsumableArray(y))) };
+				var max = { x: Math.round(Math.max.apply(Math, _toConsumableArray(x))), y: Math.round(Math.max.apply(Math, _toConsumableArray(y))) };
 				return { sx: min.x, sy: min.y, width: max.x - min.x, height: max.y - min.y };
 			}
 		}, {
@@ -24655,14 +24655,14 @@
 				var x = event.offsetX;
 				var y = event.offsetY;
 				var bounds = this.getBoundingBox();
-				var mask = this.createMaskData();
 
 				if (x < bounds.sx || bounds.sx + bounds.width < x || y < bounds.sy || bounds.sy + bounds.height < y) return false;
 
 				var xStride = 4;
 				var yStride = 4 * bounds.width;
-				x = x - bounds.sx;
-				y = y - bounds.sy;
+				x = Math.round(x - bounds.sx);
+				y = Math.round(y - bounds.sy);
+				var mask = this.createMaskData();
 				var value = mask[y * yStride + x * xStride];
 				if (value == 255) return true;else return false;
 			}

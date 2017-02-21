@@ -52,15 +52,15 @@ class FeatureCustomROI extends FeatureROI {
 		}
 	}
 
-	getBoundingBox() {
+	getBoundingBox() { 
 		var x = this.points.map((p) => { return p.x; });
 		var y = this.points.map((p) => { return p.y; });
-		var min = { x:Math.min(...x), y: Math.min(...y) };
-		var max = { x:Math.max(...x), y: Math.max(...y) };
+		var min = { x:Math.round(Math.min(...x)), y:Math.round(Math.min(...y)) };
+		var max = { x:Math.round(Math.max(...x)), y:Math.round(Math.max(...y)) };
 		return { sx:min.x, sy:min.y, width:max.x-min.x, height:max.y-min.y };
 	}
 	
-	isOnHandle(event) {
+	isOnHandle(event) { 
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var click = new Point(x,y);
@@ -80,15 +80,15 @@ class FeatureCustomROI extends FeatureROI {
 		var x = event.offsetX;
 		var y = event.offsetY;
 		var bounds = this.getBoundingBox();
-		var mask = this.createMaskData();
 
 		if(x < bounds.sx || bounds.sx + bounds.width < x || y < bounds.sy || bounds.sy + bounds.height < y)
 			return false;
 
 		var xStride = 4;
 		var yStride = 4 * bounds.width;
-		x = x - bounds.sx;
-		y = y - bounds.sy;
+		x = Math.round(x - bounds.sx);
+		y = Math.round(y - bounds.sy);
+		var mask = this.createMaskData();
 		var value = mask[y * yStride + x * xStride];
 		if(value == 255) return true;
 		else return false;
