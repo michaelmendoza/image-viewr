@@ -111,6 +111,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.zoomOut();
 	}
 
+	setZoom(zoomValue) {
+		this.viewer.setZoom(zoomValue);
+	}
+
 	zoomReset() {
 		this.viewer.zoomReset();
 	}

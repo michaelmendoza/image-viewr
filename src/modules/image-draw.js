@@ -9,6 +9,10 @@ var ImageDraw = function() {
 
 	this.drawImage = () => {
 
+		// Check there is an image to draw
+		if(this.img == null)
+			return;
+
 		// Clear Image
 		this.clear();
 

@@ -147,6 +147,10 @@ class Viewer extends ViewerEvents {
 		this.canvasDraw.zoomOut();
 	}
 	
+	setZoom(zoomValue) {
+		this.canvasDraw.setZoom(zoomValue);
+	}
+
 	zoomReset() {
 		this.canvasDraw.zoomReset();
 	}

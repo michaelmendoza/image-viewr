@@ -43,6 +43,12 @@ var ImageControls = function() {
 		this.drawImage();
 	}
 
+	this.setZoom = (zoomValue) => {
+		this.zoom = zoomValue;
+		this.clear();
+		this.drawImage();
+	}
+
 	this.zoomReset = () => {
 		this.zoom = 1;
 		this.panX = 0;

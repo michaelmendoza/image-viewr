@@ -6,7 +6,7 @@ class Viewer extends React.Component {
 
 	constructor() {
 		super();
-		this.state = { canvasMode:null };
+		this.state = { canvasMode:null, zoomStep:10.0 };
 	}
 
 	componentDidMount() {
@@ -57,6 +57,15 @@ class Viewer extends React.Component {
 		ViewerStore.zoomOut();
 	}
 
+	handleZoomChange( event ) {
+		this.setState({ zoomStep: event.target.value });
+
+		const ZOOM_STEP = 0.1;
+		var zoomValue = this.state.zoomStep * ZOOM_STEP; 
+		console.log(zoomValue);
+		ViewerStore.setZoom(zoomValue);
+	};
+
 	handleZoomReset() {
 		ViewerStore.zoomReset();
 	}
@@ -70,7 +79,7 @@ class Viewer extends React.Component {
 		var customRoiButtonClass = mode == modes.CUSTOM_ROI ? 'active' : '';
 		var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
 		var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
-		
+
 		return (
 			<div className='viewer-container'>
 				<div className='viewer-header layout-row' > 
@@ -82,8 +91,11 @@ class Viewer extends React.Component {
 					</div>
 					<div className='icons-right flex'>
 						<button className='icon-button' onClick={this.handleZoomReset}> <i className='material-icons'>location_searching</i> </button>
+						<button className='icon-button' onClick={this.handleZoomOut}> <i className='material-icons'>zoom_out</i> </button>						
+						<span className='zoom-slider'>
+							<input type="range" name="zoom" value={this.state.zoomStep} min={1} max={40} onChange={this.handleZoomChange.bind(this)} />
+						</span>
 						<button className='icon-button' onClick={this.handleZoomIn}> <i className='material-icons'>zoom_in</i> </button>
-						<button className='icon-button' onClick={this.handleZoomOut}> <i className='material-icons'>zoom_out</i> </button>
 					</div>
 				</div>
 				<div className='viewer' id='image-viewer' ref='Viewer'> </div>
