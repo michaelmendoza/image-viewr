@@ -154,6 +154,13 @@ class Viewer extends ViewerEvents {
 	zoomReset() {
 		this.canvasDraw.zoomReset();
 	}
+
+	setViewportSize(width, height) {
+		this.width = width;
+		this.height = height;
+		this.canvas.width = this.width;
+		this.canvas.height = this.height;
+	}
 }
 
 export default Viewer;

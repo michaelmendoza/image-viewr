@@ -7,7 +7,6 @@
 	canvas {
 		cursor: hand;
 		cursor: pointer;
-
 		height: 100%;
 	}
 
@@ -40,8 +39,15 @@
 	}
 
 	.viewer {
-		width: 100%;
-		height: 600px;
+		position: absolute;
+		top: 148px;
+		left: 380px;
+		right: 380px;
+		bottom: 20px;
+		min-width: 590px;
+
+		//width: 100%;
+		//height: 600px;
 		box-shadow: $box-shadow-z1;
 		margin: 0 auto 0 auto;
 		overflow: hidden; 

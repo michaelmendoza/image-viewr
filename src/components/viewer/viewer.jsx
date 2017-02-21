@@ -21,7 +21,14 @@ class Viewer extends React.Component {
 
 		ViewerStore.on('canvasmode', () => {
 			this.setState({ canvasMode:ViewerStore.getCanvasMode() });
-		})	 		
+		})	 	
+
+		window.addEventListener('resize', function(event){
+		  var width = this.refs.Viewer.offsetWidth;
+			var height = this.refs.Viewer.offsetHeight;
+		  ViewerStore.setViewportSize(width, height);
+		  ViewerStore.drawImage();
+		}.bind(this));			
 	}
 
 	handleSelectPanMode() {

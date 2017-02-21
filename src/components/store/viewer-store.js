@@ -21,6 +21,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };
 	}
 
+	setViewportSize(width, height) {
+		this.viewer.setViewportSize(width, height);
+	}
+
 	getCanvas() {
 		return this.viewer;
 	}
