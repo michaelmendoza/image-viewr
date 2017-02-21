@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.43', 'Date:Feb 21th, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.44', 'Date:Feb 21th, 2016');
 
 /***/ },
 /* 1 */
@@ -22089,7 +22089,6 @@
 
 				var ZOOM_STEP = 0.1;
 				var zoomValue = this.state.zoomStep * ZOOM_STEP;
-				console.log(zoomValue);
 				_viewerStore2.default.setZoom(zoomValue);
 			}
 		}, {
@@ -23954,6 +23953,10 @@
 		}, {
 			key: 'deleteFeature',
 			value: function deleteFeature(index) {
+				if (this.features[index] == this.activeFeature) {
+					this.activeFeature = null;
+				}
+
 				this.features.splice(index, 1);
 			}
 		}, {
@@ -24796,116 +24799,143 @@
 		}
 
 		_createClass(ViewerEvents, [{
+			key: 'fixCanvasMode',
+			value: function fixCanvasMode() {
+				var _this = this;
+
+				// Fix Canvas Movde if not active feature
+				if (this.featureManager.activeFeature == null) {
+					var _roi_actions;
+
+					var roi_actions = (_roi_actions = {}, _defineProperty(_roi_actions, _canvasModes2.default.ROI_UPDATE_RADIUS, function () {
+						_this.canvasMode = _canvasModes2.default.ROI;
+					}), _defineProperty(_roi_actions, _canvasModes2.default.ROI_UPDATE_POSITION, function () {
+						_this.canvasMode = _canvasModes2.default.ROI;
+					}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI_ADD_POINT, function () {
+						_this.canvasMode = _canvasModes2.default.CUSTOM_ROI;
+					}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI_UPDATE_POINT, function () {
+						_this.canvasMode = _canvasModes2.default.CUSTOM_ROI;
+					}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI_UPDATE_POSITION, function () {
+						_this.canvasMode = _canvasModes2.default.CUSTOM_ROI;
+					}), _roi_actions);
+
+					(roi_actions[this.canvasMode] || this.defaultAction)();
+				}
+			}
+		}, {
 			key: 'handleMouseMove',
 			value: function handleMouseMove(event) {
-				var _this = this,
-				    _roi_actions;
-
-				this.getPixelData(event);
+				var _this2 = this,
+				    _roi_actions2;
 
 				var canvas_actions = _defineProperty({}, _canvasModes2.default.PAN_UPDATE, function () {
-					_this.panImage(event);
+					_this2.panImage(event);
 				});
 
-				var roi_actions = (_roi_actions = {}, _defineProperty(_roi_actions, _canvasModes2.default.ROI, function () {
-					_this.featureManager.hoverOnFeature(event);
-				}), _defineProperty(_roi_actions, _canvasModes2.default.ROI_UPDATE_RADIUS, function () {
-					_this.featureManager.updateActiveFeature(event);
-				}), _defineProperty(_roi_actions, _canvasModes2.default.ROI_UPDATE_POSITION, function () {
-					_this.featureManager.updatePosition(event);
-				}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI, function () {
-					_this.featureManager.hoverOnFeature(event);
-				}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI_UPDATE_POINT, function () {
-					_this.featureManager.updateActiveFeature(event);
-				}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI_UPDATE_POSITION, function () {
-					_this.featureManager.updatePosition(event);
-				}), _defineProperty(_roi_actions, _canvasModes2.default.THRESHOLD, function () {
-					_this.featureManager.hoverOnFeature(event);
-				}), _roi_actions);
+				var roi_actions = (_roi_actions2 = {}, _defineProperty(_roi_actions2, _canvasModes2.default.ROI, function () {
+					_this2.featureManager.hoverOnFeature(event);
+				}), _defineProperty(_roi_actions2, _canvasModes2.default.ROI_UPDATE_RADIUS, function () {
+					_this2.featureManager.updateActiveFeature(event);
+				}), _defineProperty(_roi_actions2, _canvasModes2.default.ROI_UPDATE_POSITION, function () {
+					_this2.featureManager.updatePosition(event);
+				}), _defineProperty(_roi_actions2, _canvasModes2.default.CUSTOM_ROI, function () {
+					_this2.featureManager.hoverOnFeature(event);
+				}), _defineProperty(_roi_actions2, _canvasModes2.default.CUSTOM_ROI_UPDATE_POINT, function () {
+					_this2.featureManager.updateActiveFeature(event);
+				}), _defineProperty(_roi_actions2, _canvasModes2.default.CUSTOM_ROI_UPDATE_POSITION, function () {
+					_this2.featureManager.updatePosition(event);
+				}), _defineProperty(_roi_actions2, _canvasModes2.default.THRESHOLD, function () {
+					_this2.featureManager.hoverOnFeature(event);
+				}), _roi_actions2);
 
 				var roi_action = function roi_action() {
-					event = _this.canvasDraw.removeOffsetAndZoom(event);
-					roi_actions[_this.canvasMode]();
-					_this.canvasDraw.drawImage();
+					event = _this2.canvasDraw.removeOffsetAndZoom(event);
+					roi_actions[_this2.canvasMode]();
+					_this2.canvasDraw.drawImage();
 				};
 
+				this.getPixelData(event);
+				this.fixCanvasMode();
 				var a = canvas_actions[this.canvasMode];
 				var b = roi_actions[this.canvasMode] ? roi_action : null;
-				(a || b || this.defaultAction)();
+				var c = this.defaultAction;
+				(a || b || c)();
 				this.onMouseMove();
 			}
 		}, {
 			key: 'handleMouseDown',
 			value: function handleMouseDown(event) {
-				var _this2 = this,
+				var _this3 = this,
 				    _actions;
 
 				var actions = (_actions = {}, _defineProperty(_actions, _canvasModes2.default.PAN, function () {
-					_this2.canvasMode = _canvasModes2.default.PAN_UPDATE;
-					_this2.panImage(event);
+					_this3.canvasMode = _canvasModes2.default.PAN_UPDATE;
+					_this3.panImage(event);
 				}), _defineProperty(_actions, _canvasModes2.default.ROI, function () {
-					event = _this2.canvasDraw.removeOffsetAndZoom(event);
-					_this2.featureManager.setActiveFeature(event);
+					event = _this3.canvasDraw.removeOffsetAndZoom(event);
+					_this3.featureManager.setActiveFeature(event);
 
-					if (_this2.featureManager.activeFeature == null) {
-						_this2.canvasMode = _canvasModes2.default.ROI_UPDATE_RADIUS;
-						_this2.featureManager.createFeature(event, _featureTypes2.default.CIRCLE);
-						_this2.canvasDraw.drawImage();
-					} else _this2.canvasMode = _this2.featureManager.clickOnActiveFeature(event);
+					if (_this3.featureManager.activeFeature == null) {
+						_this3.canvasMode = _canvasModes2.default.ROI_UPDATE_RADIUS;
+						_this3.featureManager.createFeature(event, _featureTypes2.default.CIRCLE);
+						_this3.canvasDraw.drawImage();
+					} else _this3.canvasMode = _this3.featureManager.clickOnActiveFeature(event);
 				}), _defineProperty(_actions, _canvasModes2.default.CUSTOM_ROI, function () {
-					event = _this2.canvasDraw.removeOffsetAndZoom(event);
-					_this2.featureManager.setActiveFeature(event);
+					event = _this3.canvasDraw.removeOffsetAndZoom(event);
+					_this3.featureManager.setActiveFeature(event);
 
-					if (_this2.featureManager.activeFeature == null) {
-						_this2.featureManager.createFeature(event, _featureTypes2.default.CUSTOM);
-						_this2.featureManager.activeFeature.addPoint(event);
-						_this2.canvasMode = _canvasModes2.default.CUSTOM_ROI_ADD_POINT;
-						_this2.canvasDraw.drawImage();
-					} else _this2.canvasMode = _this2.featureManager.clickOnActiveFeature(event);
+					if (_this3.featureManager.activeFeature == null) {
+						_this3.featureManager.createFeature(event, _featureTypes2.default.CUSTOM);
+						_this3.featureManager.activeFeature.addPoint(event);
+						_this3.canvasMode = _canvasModes2.default.CUSTOM_ROI_ADD_POINT;
+						_this3.canvasDraw.drawImage();
+					} else _this3.canvasMode = _this3.featureManager.clickOnActiveFeature(event);
 				}), _defineProperty(_actions, _canvasModes2.default.CUSTOM_ROI_ADD_POINT, function () {
-					event = _this2.canvasDraw.removeOffsetAndZoom(event);
-					_this2.featureManager.activeFeature.addPoint(event);
-					if (_this2.featureManager.activeFeature.isClosedShape) _this2.canvasMode = _canvasModes2.default.CUSTOM_ROI;
-					_this2.featureManager.updateActiveFeature(event);
-					_this2.canvasDraw.drawImage();
+					event = _this3.canvasDraw.removeOffsetAndZoom(event);
+					_this3.featureManager.activeFeature.addPoint(event);
+					if (_this3.featureManager.activeFeature.isClosedShape) _this3.canvasMode = _canvasModes2.default.CUSTOM_ROI;
+					_this3.featureManager.updateActiveFeature(event);
+					_this3.canvasDraw.drawImage();
 				}), _defineProperty(_actions, _canvasModes2.default.THRESHOLD, function () {
-					event = _this2.canvasDraw.removeOffsetAndZoom(event);
-					_this2.featureManager.setActiveFeature(event);
+					event = _this3.canvasDraw.removeOffsetAndZoom(event);
+					_this3.featureManager.setActiveFeature(event);
 
-					if (_this2.featureManager.activeFeature != null) _this2.canvasMode = _this2.featureManager.clickOnActiveFeature(event);
+					if (_this3.featureManager.activeFeature != null) _this3.canvasMode = _this3.featureManager.clickOnActiveFeature(event);
 				}), _defineProperty(_actions, _canvasModes2.default.THRESHOLD_EYEDROPPER, function () {
-					if (_this2.thresholdMode == _thresholdModes2.default.COLOR) {
-						var colorPixel = _this2.getPixelData(event);
-						_this2.drawColorThresholdWithPixel(colorPixel);
-						_this2.onSettingsChange();
-						_this2.canvasMode = _canvasModes2.default.THRESHOLD;
+					if (_this3.thresholdMode == _thresholdModes2.default.COLOR) {
+						var colorPixel = _this3.getPixelData(event);
+						_this3.drawColorThresholdWithPixel(colorPixel);
+						_this3.onSettingsChange();
+						_this3.canvasMode = _canvasModes2.default.THRESHOLD;
 					}
 				}), _actions);
 
+				this.fixCanvasMode();
 				(actions[this.canvasMode] || this.defaultAction)();
 				this.onCanvasModeChange();
 			}
 		}, {
 			key: 'handleMouseUp',
 			value: function handleMouseUp() {
-				var _this3 = this,
-				    _roi_actions2;
+				var _this4 = this,
+				    _roi_actions3;
 
 				var canvas_actions = _defineProperty({}, _canvasModes2.default.PAN_UPDATE, function () {
-					_this3.canvasMode = _canvasModes2.default.PAN;_this3.stopPanImage(event);
+					_this4.canvasMode = _canvasModes2.default.PAN;_this4.stopPanImage(event);
 				});
 
-				var roi_actions = (_roi_actions2 = {}, _defineProperty(_roi_actions2, _canvasModes2.default.ROI_UPDATE_RADIUS, function () {
-					_this3.canvasMode = _canvasModes2.default.ROI;
-				}), _defineProperty(_roi_actions2, _canvasModes2.default.ROI_UPDATE_POSITION, function () {
-					_this3.canvasMode = _canvasModes2.default.ROI;
-				}), _defineProperty(_roi_actions2, _canvasModes2.default.CUSTOM_ROI_UPDATE_POINT, function () {
-					_this3.canvasMode = _canvasModes2.default.CUSTOM_ROI;
-				}), _defineProperty(_roi_actions2, _canvasModes2.default.CUSTOM_ROI_UPDATE_POSITION, function () {
-					_this3.featureManager.updatePosition(null);
-					_this3.canvasMode = _canvasModes2.default.CUSTOM_ROI;
-				}), _roi_actions2);
+				var roi_actions = (_roi_actions3 = {}, _defineProperty(_roi_actions3, _canvasModes2.default.ROI_UPDATE_RADIUS, function () {
+					_this4.canvasMode = _canvasModes2.default.ROI;
+				}), _defineProperty(_roi_actions3, _canvasModes2.default.ROI_UPDATE_POSITION, function () {
+					_this4.canvasMode = _canvasModes2.default.ROI;
+				}), _defineProperty(_roi_actions3, _canvasModes2.default.CUSTOM_ROI_UPDATE_POINT, function () {
+					_this4.canvasMode = _canvasModes2.default.CUSTOM_ROI;
+				}), _defineProperty(_roi_actions3, _canvasModes2.default.CUSTOM_ROI_UPDATE_POSITION, function () {
+					_this4.featureManager.updatePosition(null);
+					_this4.canvasMode = _canvasModes2.default.CUSTOM_ROI;
+				}), _roi_actions3);
 
+				this.fixCanvasMode();
 				(canvas_actions[this.canvasMode] || roi_actions[this.canvasMode] || this.defaultAction)();
 			}
 		}]);

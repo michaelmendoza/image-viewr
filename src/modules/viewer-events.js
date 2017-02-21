@@ -8,8 +8,22 @@ import ThresholdModes from './threshold-modes.js';
  */
 class ViewerEvents {
 
+	fixCanvasMode() {
+		// Fix Canvas Movde if not active feature
+		if(this.featureManager.activeFeature == null) {
+			var roi_actions = {
+				[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.canvasMode = CanvasModes.ROI; },
+				[CanvasModes.ROI_UPDATE_POSITION]: () => { this.canvasMode = CanvasModes.ROI; },
+				[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; },
+				[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; },
+				[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; }
+			};		
+
+			(roi_actions[this.canvasMode] || this.defaultAction)();
+		}
+	}
+	
 	handleMouseMove(event) { 
-		this.getPixelData(event);
 
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); }
@@ -20,6 +34,7 @@ class ViewerEvents {
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.featureManager.updateActiveFeature(event); },
 			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
 			[CanvasModes.CUSTOM_ROI]: () => { this.featureManager.hoverOnFeature(event); },
+			//[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { },
 			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.featureManager.updateActiveFeature(event); },
 			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
 			[CanvasModes.THRESHOLD]: () => { this.featureManager.hoverOnFeature(event); }
@@ -31,13 +46,17 @@ class ViewerEvents {
 			this.canvasDraw.drawImage();
 		}
 
+		this.getPixelData(event);
+		this.fixCanvasMode();
 		var a = canvas_actions[this.canvasMode];
 		var b = roi_actions[this.canvasMode] ? roi_action : null;
-		(a || b || this.defaultAction)();
+		var c = this.defaultAction;
+		(a || b || c)();
 		this.onMouseMove();
 	}
 
 	handleMouseDown(event) {
+
 		var actions = {
 			[CanvasModes.PAN]: () => {
 				this.canvasMode = CanvasModes.PAN_UPDATE;
@@ -98,6 +117,7 @@ class ViewerEvents {
 			}
 		};
 
+		this.fixCanvasMode();
 		(actions[this.canvasMode] || this.defaultAction)();
 		this.onCanvasModeChange();
 	}
@@ -117,6 +137,7 @@ class ViewerEvents {
 			}
 		};
 
+		this.fixCanvasMode();
 		(canvas_actions[this.canvasMode] || roi_actions[this.canvasMode] || this.defaultAction)();
 	}
 

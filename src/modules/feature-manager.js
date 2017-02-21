@@ -39,6 +39,10 @@ class FeatureManager {
 	}
 
 	deleteFeature(index) {
+		if(this.features[index] == this.activeFeature) {
+			this.activeFeature = null;
+		}
+		
 		this.features.splice(index, 1);
 	}
 

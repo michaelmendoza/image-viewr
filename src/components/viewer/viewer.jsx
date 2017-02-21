@@ -69,7 +69,6 @@ class Viewer extends React.Component {
 
 		const ZOOM_STEP = 0.1;
 		var zoomValue = this.state.zoomStep * ZOOM_STEP; 
-		console.log(zoomValue);
 		ViewerStore.setZoom(zoomValue);
 	};
 
@@ -86,7 +85,7 @@ class Viewer extends React.Component {
 		var customRoiButtonClass = mode == modes.CUSTOM_ROI || mode == modes.CUSTOM_ROI_ADD_POINT || mode == modes.CUSTOM_ROI_UPDATE_POINT || mode == modes.CUSTOM_ROI_UPDATE_POSITION ? 'active' : '';
 		var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
 		var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
-		
+
 		return (
 			<div className='viewer-container'>
 				<div className='viewer-header layout-row' > 
