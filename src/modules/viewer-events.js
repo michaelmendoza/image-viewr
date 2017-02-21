@@ -21,7 +21,8 @@ class ViewerEvents {
 			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
 			[CanvasModes.CUSTOM_ROI]: () => { this.featureManager.hoverOnFeature(event); },
 			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.featureManager.updateActiveFeature(event); },
-			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); }
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
+			[CanvasModes.THRESHOLD]: () => { this.featureManager.hoverOnFeature(event); }
 		};
 
 		var roi_action = () => {
@@ -77,6 +78,14 @@ class ViewerEvents {
 					this.canvasMode = CanvasModes.CUSTOM_ROI;
 				this.featureManager.updateActiveFeature(event);
 				this.canvasDraw.drawImage();
+			},
+
+			[CanvasModes.THRESHOLD]: () => {
+				event = this.canvasDraw.removeOffsetAndZoom(event);
+				this.featureManager.setActiveFeature(event);
+
+				if(this.featureManager.activeFeature != null)
+					this.canvasMode = this.featureManager.clickOnActiveFeature(event);
 			},
 
 			[CanvasModes.THRESHOLD_EYEDROPPER]: () => {

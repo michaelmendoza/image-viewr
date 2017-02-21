@@ -56,7 +56,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('Image Viewer -', 'Version: 0.0.40', 'Date:Feb 21th, 2016');
+	console.log('Image Viewer -', 'Version: 0.0.41', 'Date:Feb 21th, 2016');
 
 /***/ },
 /* 1 */
@@ -24819,6 +24819,8 @@
 					_this.featureManager.updateActiveFeature(event);
 				}), _defineProperty(_roi_actions, _canvasModes2.default.CUSTOM_ROI_UPDATE_POSITION, function () {
 					_this.featureManager.updatePosition(event);
+				}), _defineProperty(_roi_actions, _canvasModes2.default.THRESHOLD, function () {
+					_this.featureManager.hoverOnFeature(event);
 				}), _roi_actions);
 
 				var roi_action = function roi_action() {
@@ -24866,6 +24868,11 @@
 					if (_this2.featureManager.activeFeature.isClosedShape) _this2.canvasMode = _canvasModes2.default.CUSTOM_ROI;
 					_this2.featureManager.updateActiveFeature(event);
 					_this2.canvasDraw.drawImage();
+				}), _defineProperty(_actions, _canvasModes2.default.THRESHOLD, function () {
+					event = _this2.canvasDraw.removeOffsetAndZoom(event);
+					_this2.featureManager.setActiveFeature(event);
+
+					if (_this2.featureManager.activeFeature != null) _this2.canvasMode = _this2.featureManager.clickOnActiveFeature(event);
 				}), _defineProperty(_actions, _canvasModes2.default.THRESHOLD_EYEDROPPER, function () {
 					if (_this2.thresholdMode == _thresholdModes2.default.COLOR) {
 						var colorPixel = _this2.getPixelData(event);
