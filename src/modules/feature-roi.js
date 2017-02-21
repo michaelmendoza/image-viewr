@@ -1,9 +1,11 @@
 
+import Colors from './colors.js';
+
 class FeatureROI {
 
 	constructor() {
 		this.name = '';
-		this.color = '#FF0000';
+		this.color = Colors.getColor();
 
 		this.x = null;
 		this.y = null;
@@ -120,7 +122,7 @@ class FeatureROI {
 		var data = this.createROIMaskData(image);
 		if(data == null)
 			return 0;
-		
+
 		var count = 0;
 		for (var i = 0; i < data.img.length; i += 4) {
 			var avg = (data.img[i] + data.img[i+1] + data.img[i+2]) / 3;
