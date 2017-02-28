@@ -7,6 +7,7 @@ import ThresholdModes from './threshold-modes.js';
 
 // Partial Classes
 import ViewerEvents from './viewer-events.js';
+import ViewerKeyEvents from './viewer-key-events.js';
 
 /**
  * Canvas based image viewer
@@ -41,6 +42,9 @@ class Viewer extends ViewerEvents {
 		this.canvas.onmousemove = this.handleMouseMove.bind(this);
 		this.canvas.onmousedown = this.handleMouseDown.bind(this);
 		this.canvas.onmouseup = this.handleMouseUp.bind(this);
+
+		this.keyEvents = new ViewerKeyEvents(this);
+		window.addEventListener('keydown', this.keyEvents.keydown.bind(this));
 	}
 
 	getActiveFeature() {
@@ -134,6 +138,10 @@ class Viewer extends ViewerEvents {
 
 	panImage(event) {
 		this.canvasDraw.panImage(event);
+	}
+
+	panImageFixedAmount(x, y) {
+		this.canvasDraw.panImageFixedAmount(x, y);
 	}
 
 	stopPanImage() {

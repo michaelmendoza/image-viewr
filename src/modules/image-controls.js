@@ -5,8 +5,19 @@ const ZOOM_STEP = 0.1;
 
 var ImageControls = function() {
 
+	this.transform = (point) => {}
+
+	this.inverseTransform = (point) => {}
+	
 	this.removeOffsetAndZoom = (event) => {
 		return { offsetX: (event.offsetX - this.panX) / this.zoom , offsetY: (event.offsetY - this.panY) / this.zoom  };
+	}
+
+	this.panImageFixedAmount = (x, y) => { 
+		this.panX += x;
+		this.panY += y;
+		this.clear();
+		this.drawImage();			
 	}
 
 	this.panImage = (event) => {
