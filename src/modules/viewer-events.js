@@ -141,6 +141,13 @@ class ViewerEvents {
 		(canvas_actions[this.canvasMode] || roi_actions[this.canvasMode] || this.defaultAction)();
 	}
 
+	handleMouseWheel(event) {
+		var indexMove = event.wheelDelta > 0 ? 1 : -1;
+
+		if(this.canvasDraw.file.type == 'dicom-3d') 
+			this.canvasDraw.loadFileInFileSet(indexMove);
+	}
+
 }
 
 export default ViewerEvents;

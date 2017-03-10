@@ -42,6 +42,7 @@ class Viewer extends ViewerEvents {
 		this.canvas.onmousemove = this.handleMouseMove.bind(this);
 		this.canvas.onmousedown = this.handleMouseDown.bind(this);
 		this.canvas.onmouseup = this.handleMouseUp.bind(this);
+		this.canvas.onmousewheel = this.handleMouseWheel.bind(this);
 
 		this.keyEvents = new ViewerKeyEvents(this);
 		window.addEventListener('keydown', this.keyEvents.keydown.bind(this));

@@ -24,6 +24,20 @@ var ImageLoad = function() {
 		}
 	}
 
+	this.loadFileInFileSet = (indexMove) => {
+		
+			var index = this.file.activeIndex + indexMove;
+			index = index < 0 ? 0 : index;
+			index = index >= this.file.fileset.length ? this.file.fileset.length - 1 : index;
+			this.file.activeIndex = index;
+
+			this.img = new Image();
+			this.img = this.file.fileset[index].img;
+			this.width = this.img.width;
+			this.height = this.img.height;
+			this.drawImage();
+	}
+
 }
 
 export default ImageLoad;
