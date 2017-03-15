@@ -7,14 +7,55 @@ var ImageDraw = function() {
 		this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
 	}	
 
+	this.createDICOM_Img = (file) => {
+
+		var canvas = document.createElement('canvas');
+		canvas.width = file.width;
+		canvas.height = file.height;
+
+    var context = canvas.getContext('2d');
+    var pixelData = file.pixelData;
+    var numPixels = file.width * file.height;
+		var resolution = this.imageContrast.resolution;
+		var imageData = context.getImageData(0, 0, file.width, file.height);
+
+		for(var i = 0; i < numPixels; i++) {
+			var value = this.imageContrast.map(pixelData[i]) * 255 / resolution;
+			imageData.data[4*i] = value;
+			imageData.data[4*i+1] = value;
+			imageData.data[4*i+2] = value;
+			imageData.data[4*i+3] = 255;
+		}
+		context.putImageData(imageData, 0, 0);
+		var dataURL = canvas.toDataURL();     
+
+		var img = document.createElement('img');
+		img.src = dataURL;
+		return img;
+	}
+
+	this.createImg = () => {
+		if(this.file.type == 'dicom') {
+			this.img = this.createDICOM_Img(this.file);
+		}
+		else if(this.file.type == 'dicom-3d') {
+			this.img = this.createDICOM_Img(this.file.getActiveFile());
+		}
+		else // Not a DICOM file, and the img should already exist
+			return;
+	}
+
 	this.drawImage = () => {
 
 		// Check there is an image to draw
 		if(this.img == null)
 			return;
 
-		// Clear Image
+		// Clear Image on Canvas
 		this.clear();
+
+		// Create new Img for DICOMs
+		this.createImg(); 
 
 		// Draw scaled/translated Image
 		var sx = 0;
@@ -28,7 +69,7 @@ var ImageDraw = function() {
 		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 		
 		// Constrast
-		this.drawGreyConstrastImage();
+		//this.drawGreyConstrastImage();
 
 		// Thresholding
 		if(this.viewer.thresholdMode == ThresholdModes.GREY)

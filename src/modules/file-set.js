@@ -13,6 +13,10 @@ class FileSet {
 		this.readDICOMs();
 	}
 
+	getActiveFile() {
+		return this.fileset[this.activeIndex];
+	}
+
 	isLoaded() {
 		this.loadedCount++;
 		if(this.loadedCount == this.files.length) {

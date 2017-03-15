@@ -12,9 +12,9 @@ class ImageContrast {
 		this.width += event.x;
 		console.log(event, this.level, this.width);
 	}
-	
-	map() {
 
+	map(value) {
+		return this.contrastLUT(value);
 	}
 
 	contrastLUT(value) {

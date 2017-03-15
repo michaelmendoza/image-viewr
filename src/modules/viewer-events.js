@@ -29,7 +29,10 @@ class ViewerEvents {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
 			[CanvasModes.CONTRAST]: () => { 
 				if(this.canvasDraw.editImageContrast) {
-					this.canvasDraw.imageContrast.setContrast({ x:event.movementX, y:event.movementY });
+					var sensitivity = 4;
+					var x = event.movementX * sensitivity;
+					var y = event.movementY * sensitivity;
+					this.canvasDraw.imageContrast.setContrast({ x:x, y:y });
 					this.canvasDraw.drawImage();
 				}
 			}			
