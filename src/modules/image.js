@@ -3,6 +3,7 @@ import mixin from 'mixin';
 import ImageDraw from './image-draw.js';
 import ImageControls from './image-controls.js';
 import ImageLoad from './image-load.js';
+import ImageContrast from './image-contrast.js';
 
 class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 	constructor(viewer) {
@@ -34,6 +35,9 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 			g: { min:0, max:255 },
 			b: { min:0, max:255 }
 		};
+
+		this.imageContrast = new ImageContrast();
+		this.editImageContrast = false;
 	}
 	
 	setColorPixelOffset(offset) {

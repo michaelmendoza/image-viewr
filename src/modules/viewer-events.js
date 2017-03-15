@@ -26,7 +26,13 @@ class ViewerEvents {
 	handleMouseMove(event) { 
 
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); }
+			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
+			[CanvasModes.CONTRAST]: () => { 
+				if(this.canvasDraw.editImageContrast) {
+					this.canvasDraw.imageContrast.setContrast({ x:event.movementX, y:event.movementY });
+					this.canvasDraw.drawImage();
+				}
+			}			
 		};
 
 		var roi_actions = {
@@ -61,6 +67,10 @@ class ViewerEvents {
 			[CanvasModes.PAN]: () => {
 				this.canvasMode = CanvasModes.PAN_UPDATE;
 				this.panImage(event);
+			},
+
+			[CanvasModes.CONTRAST]: () => {
+				this.canvasDraw.editImageContrast = true;
 			},
 
 			[CanvasModes.ROI]: () => {
@@ -115,6 +125,7 @@ class ViewerEvents {
 					this.canvasMode = CanvasModes.THRESHOLD
 				}
 			}
+
 		};
 
 		this.fixCanvasMode();
@@ -124,7 +135,8 @@ class ViewerEvents {
 
 	handleMouseUp() {
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { this.canvasMode = CanvasModes.PAN; this.stopPanImage(event); }
+			[CanvasModes.PAN_UPDATE]: () => { this.canvasMode = CanvasModes.PAN; this.stopPanImage(event); },
+			[CanvasModes.CONTRAST]: () => { this.canvasDraw.editImageContrast = false; }
 		};
 
 		var roi_actions = {

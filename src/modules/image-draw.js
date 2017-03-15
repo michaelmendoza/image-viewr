@@ -27,6 +27,9 @@ var ImageDraw = function() {
 		var dHeight = Math.round(this.height * this.zoom);
 		this.context.drawImage(this.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 		
+		// Constrast
+		this.drawGreyConstrastImage();
+
 		// Thresholding
 		if(this.viewer.thresholdMode == ThresholdModes.GREY)
 			this.drawMinThreshold(this.minThreshold);
@@ -64,6 +67,19 @@ var ImageDraw = function() {
 	var data = imageData.data;
 	for (var i = 0; i < data.length; i += 4) {
 		var avg = (data[i] + data[i +1] + data[i +2]) / 3;
+		data[i]     = avg; // red
+		data[i + 1] = avg; // green
+		data[i + 2] = avg; // blue
+		}
+	this.context.putImageData(imageData, 0, 0);		
+	}
+
+	this.drawGreyConstrastImage = () => {
+	var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+	var data = imageData.data;
+	for (var i = 0; i < data.length; i += 4) {
+		var avg = (data[i] + data[i +1] + data[i +2]) / 3;
+		avg = this.imageContrast.contrastLUT(avg);
 		data[i]     = avg; // red
 		data[i + 1] = avg; // green
 		data[i + 2] = avg; // blue

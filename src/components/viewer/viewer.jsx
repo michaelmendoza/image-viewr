@@ -90,6 +90,7 @@ class Viewer extends React.Component {
 			<div className='viewer-container'>
 				<div className='viewer-header layout-row' > 
 					<div className='icons-left flex'> 
+						<button className={'icon-button contrast ' + contrastButtonClass} onClick={this.handleSelectConstrastMode}> <i className='material-icons'>tonality</i> </button>
 						<button className={'icon-button pan ' + panButtonClass}       onClick={this.handleSelectPanMode}> <i className='material-icons'>pan_tool</i> </button>
 						<button className={'icon-button '     + roiButtonClass}       onClick={this.handleSelectROIMode}> <i className='material-icons'>bubble_chart</i> </button>																		
 						<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleSelectCustomROI} > <i className='material-icons'>edit_mode</i> </button>
