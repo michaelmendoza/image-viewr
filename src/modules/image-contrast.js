@@ -25,19 +25,9 @@ class ImageContrast {
 		var level = this.level;
 		var min = level - width / 2.0;
 		var max = level + width / 2.0;
-
-		min = min < 0 ? 0 : min;
-		max = max > this.resolution ? this.resolution : max;
 	
-		var output;
-		if(value <= min)
-			output = 0;
-		else if(value >= max)
-			output = this.resolution;
-		else {
-			output = (this.resolution / width) * (value + (0.5 * width) - level);
-		}
-
+		//var output = (this.resolution / width) * (value + level - (0.5 * width) );
+		var output = (this.resolution / width) * (value - min);
 		output = output < 0 ? 0 : output;
 		output = output > this.resolution ? this.resolution : output;
 		return output;

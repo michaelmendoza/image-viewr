@@ -22,8 +22,8 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 		this.isPanning = false;
 		this.startPanX = null;
 		this.startPanY = null;
-		this.panX = null;
-		this.panY = null;
+		this.panX = 0;
+		this.panY = 0;
 
 		this.minThreshold = 0;
 		this.maxThreshold = 255;

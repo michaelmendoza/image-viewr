@@ -77,13 +77,19 @@ class Viewer extends ViewerEvents {
 		var zoom = this.canvasDraw.zoom;
 		var offsetX = this.canvasDraw.panX;
 		var offsetY = this.canvasDraw.panY;
-		var pixelData = file.pixelData;
+
+		var pixelData = undefined;
+		if(file.type == 'dicom')
+			pixelData = file.pixelData;
+		else if(file.type == 'dicom-3d')
+			pixelData = file.getActiveFile().pixelData;
+		
 		if(pixelData !== undefined) {
 			x = Math.round((x - offsetX) / zoom);
 			y = Math.round((y - offsetY) / zoom);
-
-			var width = file.width;
-			var height = file.height;
+			
+			var width = file.img.width;
+			var height = file.img.height;
 			this.pixel = { x:x, y:y, value:pixelData[x + y * width] };
 		}
 		else {
