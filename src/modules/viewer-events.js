@@ -32,7 +32,7 @@ class ViewerEvents {
 					var sensitivity = 4;
 					var x = event.movementX * sensitivity;
 					var y = event.movementY * sensitivity;
-					this.canvasDraw.imageContrast.setContrast({ x:x, y:y });
+					this.canvasDraw.imageContrast.setContrastWithMouse({ x:x, y:y });
 					this.canvasDraw.drawImage();
 				}
 			}			

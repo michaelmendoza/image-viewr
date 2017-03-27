@@ -9,18 +9,17 @@ var ImageLoad = function() {
 			this.img = file.img;
 			this.width = this.img.width;
 			this.height = this.img.height;
+			
+			// Auto-contrast for dicom files
+			if(file.type == 'dicom')
+				this.imageContrast.autoContrast(file.pixelData, file.numPixels);
+			else if(file.type == 'dicom-3d')
+				this.imageContrast.autoContrast(file.fileset[0].pixelData, file.fileset[0].numPixels);
+			
 			this.drawImage();
 		}
 		else {
-			this.img = new Image();
-			this.img.onload = function() {
-				var context = this.context;
-				this.width = this.img.width;
-				this.height = this.img.height;
-				this.img.crossOrigin = "Anonymous";
-				this.drawImage();
-			}.bind(this)
-			this.img.src = file.filename;
+			console.log("Error: File doesn't have image data");
 		}
 	}
 

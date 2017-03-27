@@ -1,5 +1,6 @@
 
 import ThresholdModes from './threshold-modes.js';
+import ImageHistogram from './image-histogram.js';
 
 var ImageDraw = function() {
 
@@ -18,6 +19,8 @@ var ImageDraw = function() {
     var numPixels = file.width * file.height;
 		var resolution = this.imageContrast.resolution;
 		var imageData = context.getImageData(0, 0, file.width, file.height);
+
+		var histogram = new ImageHistogram(pixelData, numPixels, 4096);
 
 		for(var i = 0; i < numPixels; i++) {
 			var value = this.imageContrast.map(pixelData[i]) * 255 / resolution;
@@ -120,7 +123,7 @@ var ImageDraw = function() {
 	var data = imageData.data;
 	for (var i = 0; i < data.length; i += 4) {
 		var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-		avg = this.imageContrast.contrastLUT(avg);
+		avg = this.imageContrast.map(avg); 
 		data[i]     = avg; // red
 		data[i + 1] = avg; // green
 		data[i + 2] = avg; // blue

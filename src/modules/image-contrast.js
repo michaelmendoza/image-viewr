@@ -7,10 +7,27 @@ class ImageContrast {
 		this.resolution = 4096;
 	}
 
-	setContrast(event) {
+	setContrast(level, width) {
+		this.level = level;
+		this.width = width;
+	}
+
+	setContrastWithMouse(event) {
 		this.level += event.y;
 		this.width += event.x;
-		console.log(event, this.level, this.width);
+	}
+
+	autoContrast(pixelData, pixelCount) {
+		var minValue = 4096.0;
+		var maxValue = 0.0;
+		for(var i = 0; i < pixelCount; i++) {
+			var value = pixelData[i];
+			value > maxValue ? maxValue = value : null;
+			value < minValue ? minValue = value : null;
+		}
+
+		this.width = maxValue - minValue;
+		this.level = minValue + (this.width / 2);
 	}
 
 	map(value) {
@@ -26,7 +43,6 @@ class ImageContrast {
 		var min = level - width / 2.0;
 		var max = level + width / 2.0;
 	
-		//var output = (this.resolution / width) * (value + level - (0.5 * width) );
 		var output = (this.resolution / width) * (value - min);
 		output = output < 0 ? 0 : output;
 		output = output > this.resolution ? this.resolution : output;
