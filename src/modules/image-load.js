@@ -14,7 +14,7 @@ var ImageLoad = function() {
 			if(file.type == 'dicom')
 				this.imageContrast.autoContrast(file.pixelData, file.numPixels);
 			else if(file.type == 'dicom-3d')
-				this.imageContrast.autoContrast(file.fileset[0].pixelData, file.fileset[0].numPixels);
+				this.imageContrast.autoContrast3D(file.fileset);
 			
 			this.drawImage();
 		}

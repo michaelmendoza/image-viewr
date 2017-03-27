@@ -30,6 +30,23 @@ class ImageContrast {
 		this.level = minValue + (this.width / 2);
 	}
 
+	autoContrast3D(fileSet) { 
+		var minValue = 4096.0;
+		var maxValue = 0.0;
+
+		for(var i = 0; i < fileSet.length; i++) {
+			var pixelCount = fileSet[i].numPixels;
+			for(var j = 0; j < pixelCount; j++) {
+				var value = fileSet[i].pixelData[j];
+				value > maxValue ? maxValue = value : null;
+				value < minValue ? minValue = value : null;
+			}
+		}
+
+		this.width = maxValue - minValue;
+		this.level = minValue + (this.width / 2);
+	}
+
 	map(value) {
 		return this.contrastLUT(value);
 	}
