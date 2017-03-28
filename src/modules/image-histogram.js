@@ -7,7 +7,7 @@ class ImageHistogram {
 		this.maxValue = maxValue;
 		this.createHistogram();
 	}
-
+	
 	createHistogram(binCount = 100) {		
 		this.binCount = binCount;
 		this.step = this.maxValue / this.binCount;

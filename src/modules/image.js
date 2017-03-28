@@ -22,8 +22,8 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 		this.isPanning = false;
 		this.startPanX = null;
 		this.startPanY = null;
-		this.panX = 0;
-		this.panY = 0;
+		this.panX = 0; // TODO: Rename to offsetX
+		this.panY = 0; // TODO: Rename to offsetY
 
 		this.minThreshold = 0;
 		this.maxThreshold = 255;
@@ -72,6 +72,33 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 
 	setMaxThreshold(maxThreshold) {
 		this.maxThreshold = minThreshold;
+	}
+
+	getPixelData(x, y) {
+		var pixel = { x:x, y:y, value:'-'};
+		if(this.file == null) {
+			return pixel;			
+		} 
+
+		var pixelData = undefined;
+		if(this.file.type == 'dicom')
+			pixelData = this.file.pixelData;
+		else if(this.file.type == 'dicom-3d')
+			pixelData = this.file.getActiveFile().pixelData;
+		
+		if(pixelData !== undefined) {
+			x = Math.round((x - this.panX) / this.zoom);
+			y = Math.round((y - this.panY) / this.zoom);
+			var width = this.file.img.width;
+			pixel = { x:x, y:y, value:pixelData[x + y * width] };
+		}
+		else {
+			var data = this.context.getImageData(x, y, 1, 1).data;
+			var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
+			pixel = { x:x, y:y, r:data[0], g:data[1], b:data[2], value:greyValue };
+		}
+
+		return pixel;
 	}
 
 }

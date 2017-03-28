@@ -103,6 +103,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.setThresholdMode(thresholdMode);
 	}
 
+	getViewMode() {
+		return this.viewer.viewMode;
+	}
+	
 	selectPanMode() {
 		this.viewer.selectPanMode();
 	}

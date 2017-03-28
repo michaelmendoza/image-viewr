@@ -28,10 +28,16 @@ class FileSet {
 	readDICOMs() {
 		this.loadedCount = 0;
 		this.fileset = [];
+		this.pixelData = [];
 		for(var i = 0; i < this.files.length; i++) {
 			var file = new File(this.files[i], this.isLoaded.bind(this));
 			this.fileset.push(file);
-		}
+			this.pixelData.push(file.pixelData);
+		}	
+
+		this.width = this.fileset[0].width;
+		this.height = this.fileset[0].height;
+		this.depth = this.loadedCount;
 	}
 }
 

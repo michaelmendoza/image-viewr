@@ -4,6 +4,7 @@ import Image from './image.js';
 import FeatureManager from './feature-manager.js';
 import CanvasModes from './canvas-modes.js';
 import ThresholdModes from './threshold-modes.js';
+import ViewModes from './view-modes';
 
 // Partial Classes
 import ViewerEvents from './viewer-events.js';
@@ -33,6 +34,7 @@ class Viewer extends ViewerEvents {
 		// Modes/Settings
 		this.canvasMode = CanvasModes.PAN;
 		this.thresholdMode = ThresholdModes.NONE;
+		this.viewMode = ViewModes._2D;
 
 		// Canvas Event Listeners/Handler
 		this.defaultAction = () => {};
@@ -46,6 +48,26 @@ class Viewer extends ViewerEvents {
 
 		this.keyEvents = new ViewerKeyEvents(this);
 		window.addEventListener('keydown', this.keyEvents.keydown.bind(this));
+	}
+
+	setup3DViews(axialView, sagittalView, coronalView) {
+		this.axialView = {};
+		this.axialView.canvas = document.createElement('canvas');
+		this.axialView.context = this.axialView.canvas.getContext('2d');
+		this.axialView.canvas.width = axialView.width;
+		this.axialView.canvas.height = axialView.height;
+
+		this.sagittalView = {};
+		this.sagittalView.canvas = document.createElement('canvas');
+		this.sagittalView.context = this.sagittalView.canvas.getContext('2d');
+		this.sagittalView.canvas.width = sagittalView.width;
+		this.sagittalView.canvas.height = sagittalView.height;
+
+		this.coronalView = {};
+		this.coronalView.canvas = document.createElement('canvas');
+		this.coronalView.context = this.coronalView.canvas.getContext('2d');
+		this.coronalView.context.width = coronalView.width;
+		this.coronalView.context.height = coronalView.height;		
 	}
 
 	getActiveFeature() {
@@ -66,38 +88,7 @@ class Viewer extends ViewerEvents {
 	}
 
 	getPixelData(event) {
-		var x = event.offsetX;
-		var y = event.offsetY;
-		var file = this.canvasDraw.file;
-		if(file == null) {
-			this.pixel = { x:x, y:y, value:'-'};
-			return this.pixel;			
-		} 
-
-		var zoom = this.canvasDraw.zoom;
-		var offsetX = this.canvasDraw.panX;
-		var offsetY = this.canvasDraw.panY;
-
-		var pixelData = undefined;
-		if(file.type == 'dicom')
-			pixelData = file.pixelData;
-		else if(file.type == 'dicom-3d')
-			pixelData = file.getActiveFile().pixelData;
-		
-		if(pixelData !== undefined) {
-			x = Math.round((x - offsetX) / zoom);
-			y = Math.round((y - offsetY) / zoom);
-			
-			var width = file.img.width;
-			var height = file.img.height;
-			this.pixel = { x:x, y:y, value:pixelData[x + y * width] };
-		}
-		else {
-			var data = this.context.getImageData(x, y, 1, 1).data;
-			var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
-			this.pixel = { x:x, y:y, r:data[0], g:data[1], b:data[2], value:greyValue };
-		}
-
+		this.pixel = this.canvasDraw.getPixelData(event.offsetX, event.offsetY);
 		return this.pixel;
 	}
 
@@ -118,6 +109,10 @@ class Viewer extends ViewerEvents {
 	setThresholdMode(mode) {
 		this.thresholdMode = mode;
 		this.drawImage();
+	}
+
+	setViewMode(mode) {
+		this.viewMode = mode;
 	}
 
 	loadFile(file) {
