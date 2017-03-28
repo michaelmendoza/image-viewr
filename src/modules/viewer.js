@@ -70,6 +70,33 @@ class Viewer extends ViewerEvents {
 		this.coronalView.context.height = coronalView.height;		
 	}
 
+	/*** Modes ***/
+
+	setCanvasMode(mode) {
+		this.canvasMode = mode;
+		this.onCanvasModeChange();
+	}
+
+	setThresholdMode(mode) {
+		this.thresholdMode = mode;
+		this.drawImage();
+	}
+	
+	setViewMode(mode) {
+		this.viewMode = mode;
+	}
+
+	/*** Resize ***/
+	
+	setViewportSize(width, height) {
+		this.width = width;
+		this.height = height;
+		this.canvas.width = this.width;
+		this.canvas.height = this.height;
+	}
+
+	/*** Features ***/
+
 	getActiveFeature() {
 		return this.featureManager.activeFeature;
 	}
@@ -83,41 +110,7 @@ class Viewer extends ViewerEvents {
 		this.drawImage();
 	}
 
-	getImageParameters() {
-		return this.canvasDraw;
-	}
-
-	getPixelData(event) {
-		this.pixel = this.canvasDraw.getPixelData(event.offsetX, event.offsetY);
-		return this.pixel;
-	}
-
-	setCanvasMode(mode) {
-		this.canvasMode = mode;
-		this.onCanvasModeChange();
-	}
-
-	getColorPixelOffset() {
-		return this.canvasDraw.colorPixelOffset;
-	}
-
-	setColorPixelOffset(offset) {
-		this.canvasDraw.setColorPixelOffset(offset);
-		this.drawImage();
-	}
-
-	setThresholdMode(mode) {
-		this.thresholdMode = mode;
-		this.drawImage();
-	}
-
-	setViewMode(mode) {
-		this.viewMode = mode;
-	}
-
-	loadFile(file) {
-		this.canvasDraw.loadFile(file);
-	}
+	/*** Image ***/
 
 	drawImage() {
 		this.canvasDraw.drawImage();
@@ -138,12 +131,38 @@ class Viewer extends ViewerEvents {
 		this.drawImage();
 	}
 
+	getImageParameters() {
+		return this.canvasDraw;
+	}
+
+	getPixelData(event) {
+		this.pixel = this.canvasDraw.getPixelData(event.offsetX, event.offsetY);
+		return this.pixel;
+	}
+
+	getColorPixelOffset() {
+		return this.canvasDraw.colorPixelOffset;
+	}
+
+	loadFile(file) {
+		this.canvasDraw.loadFile(file);
+	}
+
+	setColorPixelOffset(offset) {
+		this.canvasDraw.setColorPixelOffset(offset);
+		this.drawImage();
+	}
+
 	panImage(event) {
 		this.canvasDraw.panImage(event);
 	}
 
 	panImageFixedAmount(x, y) {
 		this.canvasDraw.panImageFixedAmount(x, y);
+	}
+
+	setZoom(zoomValue) {
+		this.canvasDraw.setZoom(zoomValue);
 	}
 
 	stopPanImage() {
@@ -158,19 +177,8 @@ class Viewer extends ViewerEvents {
 		this.canvasDraw.zoomOut();
 	}
 	
-	setZoom(zoomValue) {
-		this.canvasDraw.setZoom(zoomValue);
-	}
-
 	zoomReset() {
 		this.canvasDraw.zoomReset();
-	}
-
-	setViewportSize(width, height) {
-		this.width = width;
-		this.height = height;
-		this.canvas.width = this.width;
-		this.canvas.height = this.height;
 	}
 }
 
