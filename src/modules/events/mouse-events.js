@@ -1,12 +1,12 @@
 
-import CanvasModes from './canvas-modes.js';
-import FeatureTypes from './feature-types.js';
-import ThresholdModes from './threshold-modes.js';
+import CanvasModes from '../modes/canvas-modes.js';
+import FeatureTypes from '../modes/feature-types.js';
+import ThresholdModes from '../modes/threshold-modes.js';
 
 /**
  * Canvas based image viewer
  */
-class ViewerEvents {
+class MouseEvents {
 
 	fixCanvasMode() {
 		// Fix Canvas Movde if not active feature
@@ -165,5 +165,5 @@ class ViewerEvents {
 
 }
 
-export default ViewerEvents;
+export default MouseEvents;
 

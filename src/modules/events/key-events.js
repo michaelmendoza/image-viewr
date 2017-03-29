@@ -1,5 +1,5 @@
 
-class ViewerKeyEvents {
+class KeyEvents {
 
 	keydown(event) {
 		var keyCode = event.keyCode;
@@ -43,5 +43,5 @@ class ViewerKeyEvents {
 	}
 }
 
-export default ViewerKeyEvents;
+export default KeyEvents;
 

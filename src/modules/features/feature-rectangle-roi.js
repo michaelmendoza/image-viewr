@@ -1,6 +1,6 @@
 
 import FeatureROI from './feature-roi.js';
-import FeatureTypes from './feature-types.js';
+import FeatureTypes from '../modes/feature-types.js';
 
 class FeatureRectangleROI extends FeatureROI {
 	constructor() {

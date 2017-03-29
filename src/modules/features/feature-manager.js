@@ -1,10 +1,10 @@
 
-import CanvasModes from './canvas-modes.js';
-import FeatureTypes from './feature-types.js';
+import CanvasModes from '../modes/canvas-modes.js';
+import FeatureTypes from '../modes/feature-types.js';
 import FeatureCircleROI from './feature-circle-roi.js';
 import FeatureRectangleROI from './feature-rectangle-roi.js';
 import FeatureCustomROI from './feature-custom-roi.js';
-import ThresholdModes from './threshold-modes.js';
+import ThresholdModes from '../modes/threshold-modes.js';
 
 class FeatureManager { 
 	constructor(viewer) {

@@ -1,7 +1,7 @@
 
 import FeatureROI from './feature-roi.js';
-import FeatureTypes from './feature-types.js';
-import Point from './point.js';
+import FeatureTypes from '../modes/feature-types.js';
+import Point from '../utils/point.js';
 
 class FeatureCustomROI extends FeatureROI {
 	constructor() {

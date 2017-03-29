@@ -1,5 +1,5 @@
 
-import Colors from './colors.js';
+import Colors from '../utils/colors.js';
 
 class FeatureROI {
 

@@ -1,19 +1,19 @@
 "use strict";
 
-import Image from './image.js';
-import FeatureManager from './feature-manager.js';
-import CanvasModes from './canvas-modes.js';
-import ThresholdModes from './threshold-modes.js';
-import ViewModes from './view-modes';
+import Image from './canvas/image.js';
+import FeatureManager from './features/feature-manager.js';
+import CanvasModes from './modes/canvas-modes.js';
+import ThresholdModes from './modes/threshold-modes.js';
+import ViewModes from './modes/view-modes';
 
 // Partial Classes
-import ViewerEvents from './viewer-events.js';
-import ViewerKeyEvents from './viewer-key-events.js';
+import MouseEvents from './events/mouse-events.js';
+import KeyEvents from './events/key-events.js';
 
 /**
  * Canvas based image viewer
  */
-class Viewer extends ViewerEvents {
+class Viewer extends MouseEvents {
 
 	constructor(width, height) {
 		super();
@@ -46,7 +46,7 @@ class Viewer extends ViewerEvents {
 		this.canvas.onmouseup = this.handleMouseUp.bind(this);
 		this.canvas.onmousewheel = this.handleMouseWheel.bind(this);
 
-		this.keyEvents = new ViewerKeyEvents(this);
+		this.keyEvents = new KeyEvents(this);
 		window.addEventListener('keydown', this.keyEvents.keydown.bind(this));
 	}
 

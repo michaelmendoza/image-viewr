@@ -1,6 +1,6 @@
 import React from 'react';
 import ViewerStore from '../store/viewer-store.js';
-import CanvasModes from '../../modules/canvas-modes.js';
+import CanvasModes from '../../modules/modes/canvas-modes.js';
 import PixelPanel from './pixel-panel.jsx';
 import ROIPanel from './roi-panel.jsx';
 import ThresholdPanel from './threshold-panel.jsx';

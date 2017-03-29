@@ -1,5 +1,5 @@
 
-import ThresholdModes from './threshold-modes.js';
+import ThresholdModes from '../modes/threshold-modes.js';
 import ImageHistogram from './image-histogram.js';
 
 var ImageDraw = function() {

@@ -1,7 +1,7 @@
 
 import EventEmitter from 'events';
-import File from '../../modules/file.js';
-import FileSet from '../../modules/file-set.js';
+import File from '../../modules/loader/file.js';
+import FileSet from '../../modules/loader/file-set.js';
 
 class ImageFileStore extends EventEmitter {
 
