@@ -1,5 +1,9 @@
  
 class CanvasPixel {
+
+	constructor() {
+		this.data = { x:x, y:y, value:'-'};
+	}
 	
 	getPixelData(canvas, x, y) {
 		var context = canvas.context;
@@ -8,6 +12,7 @@ class CanvasPixel {
 
 		var pixel = { x:x, y:y, value:'-'};
 		if(file == null) {
+			this.data = pixel;
 			return pixel;			
 		} 
 
@@ -28,7 +33,8 @@ class CanvasPixel {
 			var greyValue = Math.round((data[0] + data[1] + data[2]) / 3);
 			pixel = { x:x, y:y, r:data[0], g:data[1], b:data[2], value:greyValue };
 		}
-		
+
+		this.data = pixel;
 		return pixel;
 	}
 

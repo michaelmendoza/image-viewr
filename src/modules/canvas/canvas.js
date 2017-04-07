@@ -5,6 +5,7 @@ import CanvasDraw import './canvas-draw.js';
 import CanvasPixel import './canvas-pixel.js';
 import CanvasShapes import './canvas-shapes.js';
 import CanvasThreshold import './canvas-threshold.js';
+import FeatureManager import '../features/feature-manager.js';
 import ImageContrast import './image-contrast.js';
 import ImageLoad import './image-load.js';
 
@@ -33,6 +34,7 @@ class Canvas {
 		this.draw = new CanvasDraw();
 		this.contrast = new ImageContrast();
 		this.controls = new CanvasControls();
+		this.features = new FeatureManager(this);
 		this.load = new ImageLoad();
 		this.pixel = new CanvasPixel();
 		this.shapes = new CanvasShapes();
@@ -111,7 +113,7 @@ class Canvas {
 	/*** Pixel ***/
 
 	getPixelData(x, y) {
-		this.pixel.getPixelData(this, x, y);
+		return this.pixel.getPixelData(this, x, y);
 	}
 
 	/*** Resize ***/

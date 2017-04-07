@@ -4,7 +4,7 @@ import ImageHistogram from './image-histogram.js';
 import Viewr from '../viewr.js';
 
 class CanvasDraw {
-	
+
 	clear(canvas) {
 		var context = canvas.context;
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,7 +62,7 @@ class CanvasDraw {
 
 		// Clear Image on Canvas
 		this.clear(canvas);
-		
+
 		// Create new Img for DICOMs
 		canvas.img = this.createImg(canvas); 
 
@@ -84,7 +84,7 @@ class CanvasDraw {
 			threshold.drawColorThreshold(threshold.colorThreshold);
 		
 		// Draw Features - TODO - Draw Features
-		//this.viewer.featureManager.drawAllFeatures();
+		this.features.drawAllFeatures();
 	}
 
 	drawInvertedImage(canvas) {
