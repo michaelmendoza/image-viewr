@@ -9,6 +9,9 @@ class Viewr {
  	constructor() {
  		super();
  		
+ 		this.Canvas = Canvas;
+ 		this.Loader = Loader;
+ 		
  		this.modes = {
  			canvas: CanvasModes.PAN;
  			threshold: ThresholdModes.NONE;
@@ -19,10 +22,14 @@ class Viewr {
  			
  		}
 
- 		this.Canvas = Canvas;
- 		this.Loader = Loader;
+ 		this.canvasList = [];
+ 		this.loadedFiles = [];
  	}
 
+ 	setMode(modeType, mode) {		
+ 		this.modes[modeType] = mode;
+ 	}
+ 	
  }
 
  export default new Viewr();

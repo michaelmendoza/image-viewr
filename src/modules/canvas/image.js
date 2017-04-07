@@ -74,7 +74,7 @@ class _Image extends mixin(ImageDraw, mixin(ImageLoad, ImageControls)) {
 		this.maxThreshold = minThreshold;
 	}
 
-	getPixelData(x, y) {
+	getPixelData(x, y) { 
 		var pixel = { x:x, y:y, value:'-'};
 		if(this.file == null) {
 			return pixel;			
