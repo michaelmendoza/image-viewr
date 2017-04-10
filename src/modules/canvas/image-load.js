@@ -2,7 +2,7 @@
 var ImageLoad = function(canvas) { 
 
 	this.loadFile = (file) => {
-		
+
 		canvas.file = file;
 
 		if(file.img != null) {

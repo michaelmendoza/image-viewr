@@ -1,4 +1,8 @@
 
+const MAIN_ZOOM = 0.2;
+const MAX_ZOOM = 4;
+const ZOOM_STEP = 0.1;
+
 class CanvasControls { 
 	constructor() { 
 		this.zoom = 1;

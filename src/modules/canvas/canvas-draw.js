@@ -7,7 +7,7 @@ class CanvasDraw {
 
 	clear(canvas) {
 		var context = canvas.context;
-		context.clearRect(0, 0, canvas.width, canvas.height);
+		context.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
 	}	
 
 	createImg(canvas) { 
