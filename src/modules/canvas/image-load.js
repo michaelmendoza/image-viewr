@@ -1,3 +1,5 @@
+import Viewr from '../viewr.js';
+import ViewModes from '../modes/view-modes.js';
 
 var ImageLoad = function(canvas) { 
 
@@ -13,8 +15,10 @@ var ImageLoad = function(canvas) {
 			// Auto-contrast for dicom files
 			if(file.type == 'dicom')
 				canvas.contrast.autoContrast(file.pixelData, file.numPixels);
-			else if(file.type == 'dicom-3d')
+			else if(file.type == 'dicom-3d') {
 				canvas.contrast.autoContrast3D(file.fileset);
+				Viewr.setMode('view', ViewModes._3D);
+			}
 			
 			canvas.drawImage();
 		}

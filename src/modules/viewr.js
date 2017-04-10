@@ -14,7 +14,7 @@ class Viewr {
  		this.modes = {
  			canvas: CanvasModes.PAN,
  			threshold: ThresholdModes.NONE,
- 			view: ViewModes._2D
+ 			view: ViewModes._3D
  		}
 
  		this.settings = {

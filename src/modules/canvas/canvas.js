@@ -55,6 +55,11 @@ class Canvas {
 		this.onSettingsChange = () => {};
 	}
 
+	addCanvasToElement(elementId) {
+	 	var element = document.getElementById(elementId);
+		element.appendChild(this.canvas);
+	}
+
 	/*** Draw ***/
 
 	drawImage() {
@@ -141,6 +146,7 @@ class Canvas {
 		this.height = height;
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
+		this.drawImage();
 	}
 
 	/*** Shapes ***/

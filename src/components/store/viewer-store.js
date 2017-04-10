@@ -2,6 +2,7 @@ import Viewr from '../../modules/viewr.js';
 import CanvasModes from '../../modules/modes/canvas-modes.js';
 import FeatureTypes from '../../modules/modes/feature-types.js';
 import ThresholdModes from '../../modules/modes/threshold-modes.js';
+import ViewModes from '../../modules/modes/view-modes.js';
 import EventEmitter from 'events';
 
 class ViewerStore extends EventEmitter {
@@ -14,12 +15,19 @@ class ViewerStore extends EventEmitter {
 		this.loadFile = this.loadFile.bind(this);
 	}
 
-	setupViewer(width, height) {
+	setupViewer(info) {
 		Viewr.onModeChange = () => { this.emit('canvasmode'); };
 
-		this.viewer = new Viewr.Canvas(width, height);
+		this.viewer = new Viewr.Canvas(info[0].width, info[0].height);
+		this.viewer2 = new Viewr.Canvas(info[1].width, info[1].height);
+		this.viewer3 = new Viewr.Canvas(info[2].width, info[2].height);
+
+		this.viewer.addCanvasToElement(info[0].id);
+		this.viewer2.addCanvasToElement(info[1].id);
+		this.viewer3.addCanvasToElement(info[2].id);
+
 		this.viewer.onMouseMove = () => { this.emit('mousemove'); }; 
-		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };
+		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };		
 	}
 
 	setViewportSize(width, height) { 
@@ -60,6 +68,8 @@ class ViewerStore extends EventEmitter {
 
 	loadFile(file) {
 		this.viewer.loadFile(file);
+		this.viewer2.loadFile(file);
+		this.viewer3.loadFile(file);
 	}
 
 	drawImage() {
@@ -102,7 +112,15 @@ class ViewerStore extends EventEmitter {
 		Viewr.setMode('threshold', thresholdMode);
 	}
 
-	getViewMode(viewMode) {
+	getViewMode() {
+		return Viewr.modes.view;
+	}
+
+	getViewModes() {
+		return ViewModes;
+	}
+
+	setViewMode(viewMode) {
 		Viewr.setMode('view', viewMode);
 	}
 	
