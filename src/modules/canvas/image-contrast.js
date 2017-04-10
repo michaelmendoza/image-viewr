@@ -1,10 +1,12 @@
 
 class ImageContrast {
-	
+
 	constructor() {
 		this.level = 2048.0;
 		this.width = 4096.0;
 		this.resolution = 4096;
+
+		this.inEdit = false;
 	}
 
 	setContrast(level, width) {

@@ -22,10 +22,10 @@ class FeatureROI {
 		this.isHover = false;			// Mouse is hovering on ROI
 		this.isDrag = false;			// ROI is being dragged
 	}
-
-	create(event) {
-		this.x = event.offsetX;
-		this.y = event.offsetY;
+	
+	create(point) {
+		this.x = point.x;
+		this.y = point.y;
 	}
 
 	createImageData(image) {
@@ -138,7 +138,7 @@ class FeatureROI {
 		if(data == null)
 			return 0;
 
-		var thresholds = image.colorThreshold;
+		var thresholds = image.threshold.colorThreshold;
 		var rMin = parseInt(thresholds.r.min);
 		var rMax = parseInt(thresholds.r.max);
 		var gMin = parseInt(thresholds.g.min);
@@ -163,7 +163,7 @@ class FeatureROI {
 		var count = 0;
 		for (var i = 0; i < data.img.length; i += 4) {
 			var avg = (data.img[i] + data.img[i+1] + data.img[i+2]) / 3;
-			if(data.mask[i] == 255 && avg > parseInt(image.minThreshold)) {
+			if(data.mask[i] == 255 && avg > parseInt(image.threshold.minThreshold)) {
 				count += 1;
 			}
 		}

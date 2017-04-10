@@ -1,6 +1,6 @@
 
 class CanvasShapes {
-	
+
 	drawCircle(canvas, roi) { 
 		var controls = canvas.controls;
 		var context = canvas.context;
@@ -37,14 +37,14 @@ class CanvasShapes {
 
 	drawRect(canvas, roi) {
 		var context = canavs.context;
-		
+
 		context.lineWidth = 5;
 		context.strokeStyle = '#4DF94D';
 		context.rect(roi.x,roi.y,roi.width,roi.height);
 		context.stroke();
 	}
 
-	drawCustom(canvas, roi) {
+	drawCustomShape(canvas, roi) {
 		var context = canvas.context;
 		var controls = canvas.controls;
 
@@ -62,9 +62,9 @@ class CanvasShapes {
 
 		// Transform points to global coordinates
 		var points = roi.points.map(function(point) {
-			return { x:point.x * canvas.zoom + canvas.panX, y:point.y * canvas.zoom + canvas.panY };
+			return controls.inverseTransform(point);
 		});
-
+		
 		// Draw Points
 		points.forEach(function(point) {
 			var r = 2;

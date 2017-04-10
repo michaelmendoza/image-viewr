@@ -1,22 +1,21 @@
 
 // Canvas Modules
-import CanvasControls import './canvas-controls.js';
-import CanvasDraw import './canvas-draw.js';
-import CanvasPixel import './canvas-pixel.js';
-import CanvasShapes import './canvas-shapes.js';
-import CanvasThreshold import './canvas-threshold.js';
-import FeatureManager import '../features/feature-manager.js';
-import ImageContrast import './image-contrast.js';
-import ImageLoad import './image-load.js';
+import CanvasControls from './canvas-controls.js';
+import CanvasDraw from './canvas-draw.js';
+import CanvasPixel from './canvas-pixel.js';
+import CanvasShapes from './canvas-shapes.js';
+import CanvasThreshold from './canvas-threshold.js';
+import FeatureManager from '../features/feature-manager.js';
+import ImageContrast from './image-contrast.js';
+import ImageLoad from './image-load.js';
 
 // Canvas Events
-import KeyEvents from './events/key-events.js';
-import MouseEvents from './events/mouse-events.js';
+import KeyEvents from '../events/key-events.js';
+import MouseEvents from '../events/mouse-events.js';
 
 class Canvas { 
 
 	constructor(width, height) {
-		super();
 
 		// Canvas Properties 
 		this.canvas = document.createElement('canvas');
@@ -35,7 +34,7 @@ class Canvas {
 		this.contrast = new ImageContrast();
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
-		this.load = new ImageLoad();
+		this.load = new ImageLoad(this);
 		this.pixel = new CanvasPixel();
 		this.shapes = new CanvasShapes();
 		this.threshold = new CanvasThreshold();
@@ -43,6 +42,7 @@ class Canvas {
 		// Event Listeners
 		var keyEvents = new KeyEvents();
 		var mouseEvents = new MouseEvents();
+		this.fixCanvasMode = mouseEvents.fixCanvasMode.bind(this);
 		this.canvas.onmousemove = mouseEvents.handleMouseMove.bind(this);
 		this.canvas.onmousedown = mouseEvents.handleMouseDown.bind(this);
 		this.canvas.onmouseup = mouseEvents.handleMouseUp.bind(this);
@@ -52,7 +52,6 @@ class Canvas {
 		// OnChange EventHandlers
 		this.defaultAction = () => {};
 		this.onMouseMove = () => {};
-		this.onCanvasModeChange = () => {};
 		this.onSettingsChange = () => {};
 	}
 
@@ -104,10 +103,29 @@ class Canvas {
 		this.draw.drawImage(this);
 	}
 
+	/*** Features ***/
+
+	getActiveFeature() {
+		return this.features.activeFeature;
+	}
+
+	getFeatures() {
+		return this.features.features;
+	}
+
+	deleteFeature(index) {
+		this.features.deleteFeature(index);
+		this.drawImage();
+	}
+
 	/*** Load ***/
 
 	loadFile(file) {
 		this.load.loadFile(file);
+	}
+
+	loadFile3D(indexMove) {
+		this.load.loadFileInFileSet(indexMove);
 	}
 
 	/*** Pixel ***/
@@ -125,25 +143,43 @@ class Canvas {
 		this.canvas.height = this.height;
 	}
 
+	/*** Shapes ***/
+
+	drawCircle(roi) {
+		this.shapes.drawCircle(this, roi);
+	}
+
+	drawCustomShape(roi) {
+		this.shapes.drawCustomShape(this, roi);
+	}
+
 	/*** Threshold ***/
 
-	drawColorThreshold(colorThreshold) {
-		this.threshold.setColorThreshold(colorThreshold);
-		this.draw.drawImage(this);
+	drawColorThreshold() {
+		this.threshold.drawColorThreshold(this);
 	}
 
-	drawColorThresholdWithPixel(colorPixel) {
-		this.threshold.setColorThresholdWithPixel(colorPixel);
-		this.draw.drawImage(this);
-	}
-
-	drawMinThreshold(minThreshold) {
-		this.threshold.setMinThreshold(minThreshold);
-		this.draw.drawImage(this);
+	drawMinThreshold() {
+		this.threshold.drawMinThreshold(this);
 	}
 
 	getColorPixelOffset() {
 		return this.threshold.colorPixelOffset;
+	}
+
+	setColorThreshold(colorThreshold) {
+		this.threshold.setColorThreshold(colorThreshold);
+		this.draw.drawImage(this);		
+	}
+
+	setColorThresholdWithPixel(colorPixel) {
+		this.threshold.setColorThresholdWithPixel(colorPixel);
+		this.draw.drawImage(this);		
+	}
+
+	setMinThreshold(minThreshold) {
+		this.threshold.setMinThreshold(minThreshold);
+		this.draw.drawImage(this);
 	}
 
 	setColorPixelOffset(offset) {

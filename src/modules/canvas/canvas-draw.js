@@ -10,19 +10,21 @@ class CanvasDraw {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 	}	
 
-	createImg(canvas) {
-		if(this.file.type == 'dicom') {
-			return this.createImgDICOM(canvas, this.file);
+	createImg(canvas) { 
+		var file = canvas.file;
+
+		if(file.type == 'dicom') {
+			return this.createImgDICOM(canvas, file);
 		}
-		else if(this.file.type == 'dicom-3d') {
-			return this.createImgDICOM(canvas, this.file.getActiveFile());
+		else if(file.type == 'dicom-3d') {
+			return this.createImgDICOM(canvas, file.getActiveFile());
 		}
 		else // Not a DICOM file, and the img should already exist
 			return canvas.img;
 	}
 
 	createImgDICOM(_canvas, file) {
-		var constast = _canvas.constrast;
+		var contrast = _canvas.contrast;
 
 		var canvas = document.createElement('canvas');
 		canvas.width = file.width;
@@ -31,13 +33,13 @@ class CanvasDraw {
     var context = canvas.getContext('2d');
     var pixelData = file.pixelData;
     var numPixels = file.width * file.height;
-		var resolution = this.imageContrast.resolution;
+		var resolution = contrast.resolution;
 		var imageData = context.getImageData(0, 0, file.width, file.height);
 
 		var histogram = new ImageHistogram(pixelData, numPixels, 4096);
 
 		for(var i = 0; i < numPixels; i++) {
-			var value = this.imageContrast.map(pixelData[i]) * 255 / resolution;
+			var value = contrast.map(pixelData[i]) * 255 / resolution;
 			imageData.data[4*i] = value;
 			imageData.data[4*i+1] = value;
 			imageData.data[4*i+2] = value;
@@ -79,12 +81,12 @@ class CanvasDraw {
 
 		// Thresholding
 		if(Viewr.modes.threshold == ThresholdModes.GREY)
-			threshold.drawMinThreshold(threshold.minThreshold);
+			canvas.drawMinThreshold();
 		else if(Viewr.modes.threshold == ThresholdModes.COLOR)
-			threshold.drawColorThreshold(threshold.colorThreshold);
+			canvas.drawColorThreshold();
 		
 		// Draw Features - TODO - Draw Features
-		this.features.drawAllFeatures();
+		canvas.features.drawAllFeatures();
 	}
 
 	drawInvertedImage(canvas) {

@@ -2,9 +2,9 @@
 class CanvasPixel {
 
 	constructor() {
-		this.data = { x:x, y:y, value:'-'};
+		this.data = { x:'-', y:'-', value:'-'};
 	}
-	
+
 	getPixelData(canvas, x, y) {
 		var context = canvas.context;
 		var controls = canvas.controls;
@@ -23,8 +23,9 @@ class CanvasPixel {
 			pixelData = file.getActiveFile().pixelData;
 		
 		if(pixelData !== undefined) {
-			x = Math.round((x - controls.panX) / controls.zoom);
-			y = Math.round((y - controls.panY) / controls.zoom);
+			var point = controls.transform({x,y});
+			x = Math.round(point.x); 
+			y = Math.round(point.y);
 			var width = file.img.width;
 			pixel = { x:x, y:y, value:pixelData[x + y * width] };
 		}

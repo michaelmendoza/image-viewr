@@ -29,10 +29,10 @@ class FeatureCircleROI extends FeatureROI {
 		var height = 2 * this.radius;
 		return { sx:sx, sy:sy, width:width, height:height };
 	}
-
-	isOnHandle(event) {
-		var x = event.offsetX - this.x; 	// x distance from radius
-		var y = event.offsetY - this.y; 	// y distance form radius
+	
+	isOnHandle(point) {
+		var x = point.x - this.x; 	// x distance from radius
+		var y = point.y - this.y; 	// y distance form radius
 		var r = Math.sqrt(x * x + y * y); // r distance in polar coordinates
 
 		if(this.radius - this.handleSize <= r && r <= this.radius + this.handleSize)
@@ -43,37 +43,37 @@ class FeatureCircleROI extends FeatureROI {
 		return this.handleIsActive;
 	}
 
-	isOnMask(event) {
+	isOnMask(point) {
 		if(this.radius == null)
 			return false;
 
-		var x = event.offsetX;
-		var y = event.offsetY;		
+		var x = point.x;
+		var y = point.y;		
 		var xCheck = (this.x - this.radius) <= x && x <= (this.x + this.radius);
 		var yCheck = (this.y - this.radius) <= y && y <= (this.y + this.radius);
 		return xCheck && yCheck;
 	}
 
-	isOnROI(event) { 
+	isOnROI(point) { 
 		// Check points
-		if(this.isOnHandle(event))
+		if(this.isOnHandle(point))
 			return true;
 
 		// Check ROI mask
-		return this.isOnMask(event);
+		return this.isOnMask(point);
 	}
 
-	update(event) {
-		var x = event.offsetX;
-		var y = event.offsetY;
+	update(point) {
+		var x = point.x;
+		var y = point.y;
 		var dx = Math.abs(this.x - x);
 		var dy = Math.abs(this.y - y);
 		this.radius = Math.sqrt(dx*dx + dy*dy);
 	}
 
-	updatePosition(event) {
-		this.x = event.offsetX;
-		this.y = event.offsetY;
+	updatePosition(point) {
+		this.x = point.x;
+		this.y = point.y;
 	}
 
 }

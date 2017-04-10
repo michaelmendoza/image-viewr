@@ -5,13 +5,11 @@ import FeatureCircleROI from './feature-circle-roi.js';
 import FeatureRectangleROI from './feature-rectangle-roi.js';
 import FeatureCustomROI from './feature-custom-roi.js';
 import ThresholdModes from '../modes/threshold-modes.js';
+import Viewr from '../viewr.js';
 
 class FeatureManager { 
-	constructor(viewer) {
-		this.viewer = viewer;
-		this.canvas = viewer.canvas;
-		this.context = this.canvas.getContext('2d');	
-
+	constructor(canvas) {
+		this.canvas = canvas;
 		this.activeFeature = null;
 		this.activeFeatureHandle = null;
 		this.features = [];
@@ -47,12 +45,13 @@ class FeatureManager {
 	}
 
 	drawAllFeatures() {
-		var context = this.context;
+		var canvas = this.canvas;
+
 		this.features.forEach(function(feature) {
 			if(feature.type == FeatureTypes.CIRCLE)
-				this.viewer.canvasDraw.drawCircleROI(feature);
+				canvas.drawCircle(feature);
 			else if(feature.type == FeatureTypes.CUSTOM)
-				this.viewer.canvasDraw.drawCustomROI(feature);
+				canvas.drawCustomShape(feature);
 		}.bind(this))
 	} 
 
@@ -112,19 +111,19 @@ class FeatureManager {
 		this.updateActiveFeatureData();
 	}	
 
-	updateActiveFeatureData() {
-		var img = this.viewer.canvasDraw;
-		var minmax = this.activeFeature.getMinMax(img)
+	updateActiveFeatureData() { 
+		var canvas = this.canvas;
+		var minmax = this.activeFeature.getMinMax(canvas)
 		this.activeFeature.min = minmax.min;
 		this.activeFeature.max = minmax.max;
-		this.activeFeature.mean = this.activeFeature.getMean(img);
-		this.activeFeature.stdDev = this.activeFeature.getStdDev(img);
-		this.activeFeature.area = this.activeFeature.getArea(img);
+		this.activeFeature.mean = this.activeFeature.getMean(canvas);
+		this.activeFeature.stdDev = this.activeFeature.getStdDev(canvas);
+		this.activeFeature.area = this.activeFeature.getArea(canvas);
 
-		if(this.viewer.thresholdMode == ThresholdModes.GREY)
-			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(img);
-		else if(this.viewer.thresholdMode = ThresholdModes.COLOR)
-			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(img);	
+		if(Viewr.modes.threshold == ThresholdModes.GREY)
+			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(canvas);
+		else if(Viewr.modes.threshold = ThresholdModes.COLOR)
+			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(canvas);	
 		else
 			this.activeFeature.pixelCount = 0;
 	}

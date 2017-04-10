@@ -14,8 +14,10 @@ class CanvasThreshold {
 		};
 	}
 
-	drawMinThreshold(canvas, minThreshold) {
+	drawMinThreshold(canvas) {
 		var context = canvas.context;
+		var minThreshold = this.minThreshold;
+		
 		var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 		var data = imageData.data;
 		for (var i = 0; i < data.length; i += 4) {
@@ -29,7 +31,8 @@ class CanvasThreshold {
 		context.putImageData(imageData, 0, 0);		
 	}
 
-	drawColorThreshold(canvas, colorThresholds) {
+	drawColorThreshold(canvas) {
+		var colorThresholds = this.colorThreshold;
 		var rMin = colorThresholds.r.min;
 		var rMax = colorThresholds.r.max;
 		var gMin = colorThresholds.g.min;

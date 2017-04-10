@@ -13,28 +13,22 @@ class FeatureCustomROI extends FeatureROI {
 		this.isClosedShape = false;
 	}
 
-	addPoint(event) {
+	addPoint(point) {
 		if(this.isClosedShape)
 			return;
 
-		if(this.points.length == 0) { 
-			// Add point
-			var point = new Point(event.offsetX, event.offsetY);
-			this.points.push(point);
+		if(this.points.length == 0) {  
+			this.points.push(point); // Add point
 		}
 		else {
-			var click = { x:event.offsetX, y:event.offsetY };
-			var point = new Point(this.points[0].x, this.points[0].y);
-
-			if( point.isOnPoint(click.x, click.y) ) {
-				// Close roi shape with original point
-				this.points.push(point);
+			// Close shape if click on starting point
+			var startPt = new Point(this.points[0].x, this.points[0].y);
+			if( startPt.isOnPoint(point.x, point.y) ) {
+				this.points.push(startPt);
 				this.isClosedShape = true;
 			}
 			else {
-				// Add point 
-				var point = new Point(event.offsetX, event.offsetY);
-				this.points.push(point);
+				this.points.push(point); // Add point 
 			}
 		}
 	}
@@ -60,9 +54,9 @@ class FeatureCustomROI extends FeatureROI {
 		return { sx:min.x, sy:min.y, width:max.x-min.x, height:max.y-min.y };
 	}
 	
-	isOnHandle(event) { 
-		var x = event.offsetX;
-		var y = event.offsetY;
+	isOnHandle(point) { 
+		var x = point.x;
+		var y = point.y;
 		var click = new Point(x,y);
 
 		var closestPoint = null;
@@ -76,9 +70,9 @@ class FeatureCustomROI extends FeatureROI {
 		return this.activePoint != null;
 	}
 
-	isOnMask(event) { 
-		var x = event.offsetX;
-		var y = event.offsetY;
+	isOnMask(point) { 
+		var x = point.x;
+		var y = point.y;
 		var bounds = this.getBoundingBox();
 
 		if(x < bounds.sx || bounds.sx + bounds.width < x || y < bounds.sy || bounds.sy + bounds.height < y)
@@ -94,32 +88,32 @@ class FeatureCustomROI extends FeatureROI {
 		else return false;
 	}
 
-	isOnROI(event) {
+	isOnROI(point) {
 		// Check points
-		var isOnHandle = this.isOnHandle(event);
+		var isOnHandle = this.isOnHandle(point);
 		if(isOnHandle)
 			return true;
 
 		// Check ROI mask
-		return this.isOnMask(event);
+		return this.isOnMask(point);
 	}
 
-	update(event) {
+	update(point) {
 		// Update Active Point
 		if(this.activePoint != null) {
-			this.activePoint.x = event.offsetX;
-			this.activePoint.y = event.offsetY;
+			this.activePoint.x = point.x;
+			this.activePoint.y = point.y;
 		}
 	}
 
-	updatePosition(event) {
-		if(event == null) {
+	updatePosition(point) {
+		if(point == null) {
 			this.isDrag = false;
 			return;
 		}
 
-		var x = event.offsetX;
-		var y = event.offsetY;
+		var x = point.x;
+		var y = point.y;
 
 		if(this.isDrag) {
 

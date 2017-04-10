@@ -2,6 +2,7 @@
 import CanvasModes from '../modes/canvas-modes.js';
 import FeatureTypes from '../modes/feature-types.js';
 import ThresholdModes from '../modes/threshold-modes.js';
+import Viewr from '../viewr.js';
 
 /**
  * Canvas based image viewer
@@ -10,16 +11,16 @@ class MouseEvents {
 
 	fixCanvasMode() {
 		// Fix Canvas Movde if not active feature
-		if(this.featureManager.activeFeature == null) {
+		if(this.features.activeFeature == null) {
 			var roi_actions = {
-				[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.canvasMode = CanvasModes.ROI; },
-				[CanvasModes.ROI_UPDATE_POSITION]: () => { this.canvasMode = CanvasModes.ROI; },
-				[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; },
-				[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; },
-				[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; }
+				[CanvasModes.ROI_UPDATE_RADIUS]: () => { Viewr.modes.canvas = CanvasModes.ROI; },
+				[CanvasModes.ROI_UPDATE_POSITION]: () => { Viewr.modes.canvas = CanvasModes.ROI; },
+				[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { Viewr.modes.canvas = CanvasModes.CUSTOM_ROI; },
+				[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { Viewr.modes.canvas = CanvasModes.CUSTOM_ROI; },
+				[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { Viewr.modes.canvas = CanvasModes.CUSTOM_ROI; }
 			};		
 
-			(roi_actions[this.canvasMode] || this.defaultAction)();
+			(roi_actions[Viewr.modes.canvas] || this.defaultAction)();
 		}
 	}
 	
@@ -28,37 +29,36 @@ class MouseEvents {
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
 			[CanvasModes.CONTRAST]: () => { 
-				if(this.canvasDraw.editImageContrast) {
+				if(this.contrast.inEdit) {
 					var sensitivity = 4;
 					var x = event.movementX * sensitivity;
 					var y = event.movementY * sensitivity;
-					this.canvasDraw.imageContrast.setContrastWithMouse({ x:x, y:y });
-					this.canvasDraw.drawImage();
+					this.contrast.setContrastWithMouse({ x:x, y:y });
+					this.drawImage();
 				}
 			}			
-		};
+		}; 
 
 		var roi_actions = {
-			[CanvasModes.ROI]: () => { this.featureManager.hoverOnFeature(event); },
-			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.featureManager.updateActiveFeature(event); },
-			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
-			[CanvasModes.CUSTOM_ROI]: () => { this.featureManager.hoverOnFeature(event); },
-			//[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { },
-			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.featureManager.updateActiveFeature(event); },
-			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.featureManager.updatePosition(event); },
-			[CanvasModes.THRESHOLD]: () => { this.featureManager.hoverOnFeature(event); }
+			[CanvasModes.ROI]: () => { this.features.hoverOnFeature(event); },
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.features.updateActiveFeature(event); },
+			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.features.updatePosition(event); },
+			[CanvasModes.CUSTOM_ROI]: () => { this.features.hoverOnFeature(event); },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.features.updateActiveFeature(event); },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.features.updatePosition(event); },
+			[CanvasModes.THRESHOLD]: () => { this.features.hoverOnFeature(event); }
 		};
 
 		var roi_action = () => {
-			event = this.canvasDraw.removeOffsetAndZoom(event);
-			roi_actions[this.canvasMode]();
-			this.canvasDraw.drawImage();
+			event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
+			roi_actions[Viewr.modes.canvas]();
+			this.drawImage();
 		}
 
-		this.getPixelData(event);
+		this.getPixelData(event.offsetX, event.offsetY);
 		this.fixCanvasMode();
-		var a = canvas_actions[this.canvasMode];
-		var b = roi_actions[this.canvasMode] ? roi_action : null;
+		var a = canvas_actions[Viewr.modes.canvas];
+		var b = roi_actions[Viewr.modes.canvas] ? roi_action : null;
 		var c = this.defaultAction;
 		(a || b || c)();
 		this.onMouseMove();
@@ -68,56 +68,56 @@ class MouseEvents {
 
 		var actions = {
 			[CanvasModes.PAN]: () => {
-				this.canvasMode = CanvasModes.PAN_UPDATE;
+				Viewr.modes.canvas = CanvasModes.PAN_UPDATE;
 				this.panImage(event);
 			},
 
 			[CanvasModes.CONTRAST]: () => {
-				this.canvasDraw.editImageContrast = true;
+				this.contrast.inEdit = true;
 			},
 
-			[CanvasModes.ROI]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.setActiveFeature(event);
+			[CanvasModes.ROI]: () => { 
+				event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
+				this.features.setActiveFeature(event);
 
-				if(this.featureManager.activeFeature == null) {
-					this.canvasMode = CanvasModes.ROI_UPDATE_RADIUS;
-					this.featureManager.createFeature(event, FeatureTypes.CIRCLE);
-					this.canvasDraw.drawImage();			
+				if(this.features.activeFeature == null) {
+					Viewr.modes.canvas = CanvasModes.ROI_UPDATE_RADIUS;
+					this.features.createFeature(event, FeatureTypes.CIRCLE);
+					this.drawImage();			
 				}
 				else 
-					this.canvasMode = this.featureManager.clickOnActiveFeature(event);
+					Viewr.modes.canvas = this.features.clickOnActiveFeature(event);
 			},
 
 			[CanvasModes.CUSTOM_ROI]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.setActiveFeature(event);
+				event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
+				this.features.setActiveFeature(event);
 
-				if(this.featureManager.activeFeature == null) {
-					this.featureManager.createFeature(event, FeatureTypes.CUSTOM);
-					this.featureManager.activeFeature.addPoint(event);
-					this.canvasMode = CanvasModes.CUSTOM_ROI_ADD_POINT;
-					this.canvasDraw.drawImage();
+				if(this.features.activeFeature == null) {
+					this.features.createFeature(event, FeatureTypes.CUSTOM);
+					this.features.activeFeature.addPoint(event);
+					Viewr.modes.canvas = CanvasModes.CUSTOM_ROI_ADD_POINT;
+					this.drawImage();
 				}
 				else 
-					this.canvasMode = this.featureManager.clickOnActiveFeature(event);
+					Viewr.modes.canvas = this.features.clickOnActiveFeature(event);
 			},
 
 			[CanvasModes.CUSTOM_ROI_ADD_POINT]: () => { 
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.activeFeature.addPoint(event);
-				if(this.featureManager.activeFeature.isClosedShape) 
-					this.canvasMode = CanvasModes.CUSTOM_ROI;
-				this.featureManager.updateActiveFeature(event);
-				this.canvasDraw.drawImage();
+				event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
+				this.features.activeFeature.addPoint(event);
+				if(this.features.activeFeature.isClosedShape) 
+					Viewr.modes.canvas = CanvasModes.CUSTOM_ROI;
+				this.features.updateActiveFeature(event);
+				this.drawImage();
 			},
 
 			[CanvasModes.THRESHOLD]: () => {
-				event = this.canvasDraw.removeOffsetAndZoom(event);
-				this.featureManager.setActiveFeature(event);
+				event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
+				this.features.setActiveFeature(event);
 
-				if(this.featureManager.activeFeature != null)
-					this.canvasMode = this.featureManager.clickOnActiveFeature(event);
+				if(this.features.activeFeature != null)
+					Viewr.modes.canvas = this.features.clickOnActiveFeature(event);
 			},
 
 			[CanvasModes.THRESHOLD_EYEDROPPER]: () => {
@@ -125,42 +125,43 @@ class MouseEvents {
 					var colorPixel = this.getPixelData(event);
 					this.drawColorThresholdWithPixel(colorPixel);
 					this.onSettingsChange();
-					this.canvasMode = CanvasModes.THRESHOLD
+					Viewr.modes.canvas = CanvasModes.THRESHOLD
 				}
 			}
 
 		};
 
 		this.fixCanvasMode();
-		(actions[this.canvasMode] || this.defaultAction)();
-		this.onCanvasModeChange();
+		(actions[Viewr.modes.canvas] || this.defaultAction)();
+		Viewr.onModeChange();
 	}
 
 	handleMouseUp() {
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { this.canvasMode = CanvasModes.PAN; this.stopPanImage(event); },
-			[CanvasModes.CONTRAST]: () => { this.canvasDraw.editImageContrast = false; }
+			[CanvasModes.PAN_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.PAN; this.stopPanImage(event); },
+			[CanvasModes.CONTRAST]: () => { this.contrast.inEdit = false; }
 		};
 
 		var roi_actions = {
-			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.canvasMode = CanvasModes.ROI; },
-			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.canvasMode = CanvasModes.ROI },
-			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.canvasMode = CanvasModes.CUSTOM_ROI; },
+			[CanvasModes.ROI_UPDATE_RADIUS]: () => { Viewr.modes.canvas = CanvasModes.ROI; },
+			[CanvasModes.ROI_UPDATE_POSITION]: () => { Viewr.modes.canvas = CanvasModes.ROI },
+			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { Viewr.modes.canvas = CanvasModes.CUSTOM_ROI; },
 			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { 
-				this.featureManager.updatePosition(null); 
-				this.canvasMode = CanvasModes.CUSTOM_ROI;
+				this.features.updatePosition(null); 
+				Viewr.modes.canvas = CanvasModes.CUSTOM_ROI;
 			}
 		};
 
 		this.fixCanvasMode();
-		(canvas_actions[this.canvasMode] || roi_actions[this.canvasMode] || this.defaultAction)();
+		(canvas_actions[Viewr.modes.canvas] || roi_actions[Viewr.modes.canvas] || this.defaultAction)();
 	}
 
 	handleMouseWheel(event) {
-		var indexMove = event.wheelDelta > 0 ? 1 : -1;
+		if(this.file == null) return;
 
-		if(this.canvasDraw.file.type == 'dicom-3d') 
-			this.canvasDraw.loadFileInFileSet(indexMove);
+		var indexMove = event.wheelDelta > 0 ? 1 : -1;
+		if(this.file.type == 'dicom-3d') 
+			this.loadFile3D(indexMove);
 	}
 
 }

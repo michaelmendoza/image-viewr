@@ -1,5 +1,5 @@
 
-class CanvasControls {
+class CanvasControls { 
 	constructor() { 
 		this.zoom = 1;
 		this.panX = 0; // TODO: Rename to offsetX
@@ -26,13 +26,6 @@ class CanvasControls {
 		};
 	}
 	
-	removeOffsetAndZoom(event) {
-		return { 
-			offsetX: (event.offsetX - this.panX) / this.zoom,
-		 	offsetY: (event.offsetY - this.panY) / this.zoom  
-		 };
-	}
-
 	panImageFixedAmount(x, y) { 
 		this.panX += x;
 		this.panY += y;		

@@ -1,0 +1,6 @@
+
+class Loader {
+	constructor() {
+	
+	}
+}

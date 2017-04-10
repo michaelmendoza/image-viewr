@@ -1,4 +1,4 @@
-import Viewer from '../../modules/viewer.js';
+import Viewr from '../../modules/viewr.js';
 import CanvasModes from '../../modules/modes/canvas-modes.js';
 import FeatureTypes from '../../modules/modes/feature-types.js';
 import ThresholdModes from '../../modules/modes/threshold-modes.js';
@@ -15,28 +15,27 @@ class ViewerStore extends EventEmitter {
 	}
 
 	setupViewer(width, height) {
-		this.viewer = new Viewer(width, height);
-		this.viewer.onCanvasModeChange = () => { this.emit('canvasmode'); };
+		Viewr.onModeChange = () => { this.emit('canvasmode'); };
+
+		this.viewer = new Viewr.Canvas(width, height);
 		this.viewer.onMouseMove = () => { this.emit('mousemove'); }; 
 		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };
 	}
 
-	setViewportSize(width, height) {
+	setViewportSize(width, height) { 
 		this.viewer.setViewportSize(width, height);
 	}
 
-	getCanvas() {
+	getCanvas() { 
 		return this.viewer;
 	}
 
 	getCanvasMousePixel() {
-		return this.viewer.pixel;
+		return this.viewer.pixel.data;
 	}
 
 	getCanvasMode() {
-		if(this.viewer === undefined)
-			return null;
-		return this.viewer.canvasMode;
+		return Viewr.modes.canvas;
 	}
 
 	getCanvasModes() {
@@ -68,15 +67,15 @@ class ViewerStore extends EventEmitter {
 	}
 
 	drawColorThreshold(colorThreshold) {
-		this.viewer.drawColorThreshold(colorThreshold);
+		this.viewer.setColorThreshold(colorThreshold);
 	}
 
 	drawMinThreshold(minThreshold) {
-		this.viewer.drawMinThreshold(minThreshold);
+		this.viewer.setMinThreshold(minThreshold);
 	}
 
 	setCanvasMode(mode) {
-		this.viewer.setCanvasMode(mode);
+		Viewr.setMode('canvas', mode);
 	}
 
 	setColorPixelOffset(offset) {
@@ -88,23 +87,23 @@ class ViewerStore extends EventEmitter {
 	}
 
 	getColorThreshold() {
-		return this.viewer.getImageParameters().colorThreshold;
+		return this.viewer.threshold.colorThreshold;
 	}
 
 	getMinThreshold() {
-		return this.viewer.getImageParameters().minThreshold;
+		return this.viewer.threshold.minThreshold;
 	}
 
 	getThresholdMode() {
-		return this.viewer.thresholdMode;
+		return Viewr.modes.threshold;
 	}
 
 	setThresholdMode(thresholdMode) {
-		this.viewer.setThresholdMode(thresholdMode);
+		Viewr.setMode('threshold', thresholdMode);
 	}
 
-	getViewMode() {
-		return this.viewer.viewMode;
+	getViewMode(viewMode) {
+		Viewr.setMode('view', viewMode);
 	}
 	
 	selectPanMode() {
