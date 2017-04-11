@@ -59,6 +59,10 @@ class FileDICOM {
 		if(frameOffset >= dataSet.byteArray.length) {
 		  throw 'frame exceeds size of pixelData';
 		}
+		if(frameOffset + numPixels > dataSet.byteArray.length) {
+			console.log('Error: Invalid File Format, Uses compressed data.');
+		}
+
 		var pixelData = new Uint16Array(dataSet.byteArray.buffer, frameOffset, numPixels);
 
 		var canvas = document.createElement('canvas');

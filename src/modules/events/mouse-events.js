@@ -157,6 +157,9 @@ class MouseEvents {
 	}
 
 	handleMouseWheel(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
 		if(this.file == null) return;
 
 		var indexMove = event.wheelDelta > 0 ? 1 : -1;
