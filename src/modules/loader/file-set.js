@@ -17,10 +17,19 @@ class FileSet {
 		return this.fileset[this.activeIndex];
 	}
 
-	isLoaded() {
+	isLoaded() { 
 		this.loadedCount++;
 		if(this.loadedCount == this.files.length) {
 			this.img = this.fileset[0].img;
+			this.width = this.fileset[0].width;
+			this.height = this.fileset[0].height;		
+			this.depth = this.loadedCount;
+
+			this.pixelData = [];
+			for(var i = 0; i < this.files.length; i++) {
+				this.pixelData.push(this.fileset[i].pixelData);
+			}
+
 			this.fileLoadedCallback();			
 		}
 	}
@@ -28,17 +37,12 @@ class FileSet {
 	readDICOMs() {
 		this.loadedCount = 0;
 		this.fileset = [];
-		this.pixelData = [];
 		for(var i = 0; i < this.files.length; i++) {
 			var file = new File(this.files[i], this.isLoaded.bind(this));
 			this.fileset.push(file);
-			this.pixelData.push(file.pixelData);
 		}	
-
-		this.width = this.fileset[0].width;
-		this.height = this.fileset[0].height;
-		this.depth = this.loadedCount;
 	}
+	
 }
 
 export default FileSet;

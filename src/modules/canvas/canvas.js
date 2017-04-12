@@ -26,6 +26,7 @@ class Canvas {
 		this.canvas.height = height;
 		
 		// Image/File 
+		this.dimIndex = 0;
 		this.file = null;
 		this.img = null;
 

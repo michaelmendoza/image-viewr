@@ -17,13 +17,14 @@ class CanvasDraw {
 			return this.createImgDICOM(canvas, file);
 		}
 		else if(file.type == 'dicom-3d') {
-			return this.createImgDICOM(canvas, file.getActiveFile());
+			//return this.createImgDICOM(canvas, file.getActiveFile());
+			return this.createDicom3DImg(canvas);
 		}
 		else // Not a DICOM file, and the img should already exist
 			return canvas.img;
-	}
+	} 
 
-	createImgDICOM(_canvas, file) {
+	createImgDICOM(_canvas, file) { 
 		var contrast = _canvas.contrast;
 
 		var canvas = document.createElement('canvas');
@@ -45,6 +46,73 @@ class CanvasDraw {
 			imageData.data[4*i+2] = value;
 			imageData.data[4*i+3] = 255;
 		}
+		context.putImageData(imageData, 0, 0);
+		var dataURL = canvas.toDataURL();     
+
+		var img = document.createElement('img');
+		img.src = dataURL;
+		return img;
+	}
+
+	createDicom3DImg(_canvas) {
+		var file = _canvas.file;
+		var contrast = _canvas.contrast;
+		var dimIndex = _canvas.dimIndex;
+		var index = file.activeIndex;
+
+		var bounds = [
+			{ width: file.width, height: file.height }, // x, y
+			{ width: file.width, height: file.depth }, // x, z
+			{ width: file.height, height: file.depth }  // y, z
+		];
+		var width = bounds[dimIndex].width;
+		var height = bounds[dimIndex].height;
+
+		var canvas = document.createElement('canvas');
+		canvas.width = width;
+		canvas.height = height;
+		var context = canvas.getContext('2d');
+		var imageData = context.getImageData(0, 0, width, height);
+		var resolution = contrast.resolution;
+		var pixelData = file.pixelData;
+
+		if(dimIndex == 0) {	
+			var z = index;
+			var numPixels = width * height;
+			for(var i = 0; i < numPixels; i++) {
+				var value = contrast.map(pixelData[z][i]) * 255 / resolution;
+				imageData.data[4*i] = value;
+				imageData.data[4*i+1] = value;
+				imageData.data[4*i+2] = value;
+				imageData.data[4*i+3] = 255;
+			}
+		}
+		else if(dimIndex == 1) {
+			var i = 0;
+			var y = index;
+			for(var x = 0; x < file.width; x++)
+				for(var z = 0; z < file.depth; z++, i++) {
+					var value = contrast.map(pixelData[z][y * file.width + x]) * 255 / resolution;
+					imageData.data[4*i] = value;
+					imageData.data[4*i+1] = value;
+					imageData.data[4*i+2] = value;
+					imageData.data[4*i+3] = 255;
+				}
+					
+		}
+		else if(dimIndex == 2) {
+			var i = 0;
+			var x = index;
+			for(var y = 0; y < file.height; y++)
+				for(var z = 0; z < file.depth; z++, i++) {
+				var value = contrast.map(pixelData[z][y * file.width + x]) * 255 / resolution;
+					imageData.data[4*i] = value;
+					imageData.data[4*i+1] = value;
+					imageData.data[4*i+2] = value;
+					imageData.data[4*i+3] = 255;
+				}
+		}
+
 		context.putImageData(imageData, 0, 0);
 		var dataURL = canvas.toDataURL();     
 
