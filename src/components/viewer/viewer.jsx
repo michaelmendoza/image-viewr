@@ -7,10 +7,10 @@ class Viewer extends React.Component {
 	componentDidMount() {
 		var info = this.getViewerInfo();
 		ViewerStore.setupViewer(info);
-		
+
 		window.addEventListener('resize', function(event) {
-			var bounds = this.getViewerInfo();
-		  ViewerStore.setViewportSize(bounds[0].width, bounds[0].height);
+			var info = this.getViewerInfo();
+		  ViewerStore.setViewportSize(info);
 		}.bind(this));
 	}
 

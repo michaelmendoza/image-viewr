@@ -3,13 +3,19 @@ class CanvasShapes {
 
 	drawLine(canvas, line) {
 		var context = canvas.context;
+		var controls = canvas.controls;
 
-		context.lineWidth = 5;
+		var p1 = controls.inverseTransform({ x:line.x1, y:line.y1 });
+		var p2 = controls.inverseTransform({ x:line.x2, y:line.y2 });
+
+		context.lineWidth = 2;
 		context.strokeStyle = '#4DF94D';
 		context.beginPath();
-		context.moveTo(line.x1, line.y1);
-		context.lineTo(line.x2, line.y2);
+		context.moveTo(p1.x, p1.y);
+		context.lineTo(p2.x, p2.y);
+		context.globalAlpha = 0.9;
 		context.stroke();
+		context.globalAlpha = 1.0;
 	}
 
 	drawCircle(canvas, roi) { 

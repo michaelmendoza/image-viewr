@@ -5,9 +5,14 @@ class SliceSelect {
 		this.canvasY = canvasY;
 	}
 
+	drawSlices() { 
+		this.canvasX.drawImage();
+		this.canvasY.drawImage();
+	}
+
 	getSlices() {
-		var x = this.canvasX.file.activeIndex;
-		var y = this.canvasY.file.activeIndex;
+		var x = this.canvasX.sliceIndex;
+		var y = this.canvasY.sliceIndex;
 		return { x:x, y:y };
 	}
 }

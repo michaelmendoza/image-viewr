@@ -27,9 +27,12 @@ class Canvas {
 		this.canvas.height = height;
 		
 		// Image/File 
-		this.dimIndex = 0;
 		this.file = null;
 		this.img = null;
+
+		// 3D Data Options
+		this.dimIndex = 0;
+		this.sliceIndex = 0;
 
 		// Canvas Modules 
 		this.draw = new CanvasDraw();
@@ -161,7 +164,7 @@ class Canvas {
 	drawCustomShape(roi) {
 		this.shapes.drawCustomShape(this, roi);
 	}
-	
+
 	/*** Slice Selector ***/
 
 	setSliceSelect(canvasX, canvasY) {

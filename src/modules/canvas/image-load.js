@@ -18,9 +18,7 @@ var ImageLoad = function(canvas) {
 			else if(file.type == 'dicom-3d') {
 				canvas.contrast.autoContrast3D(file.fileset);
 				Viewr.setMode('view', ViewModes._3D);
-			}
-			
-			//canvas.drawImage();
+			}			
 		}
 		else {
 			console.log("Error: File doesn't have image data");
@@ -28,20 +26,18 @@ var ImageLoad = function(canvas) {
 	}
 
 	this.loadFileInFileSet = (indexMove) => {
-			
-			var dim = canvas.dimIndex;
-			var maxIndex = (dim == 0) ? canvas.file.depth : (dim == 1) ? canvas.file.height : canvas.file.width;
 
-			var index = canvas.file.activeIndex + indexMove;
-			index = index < 0 ? 0 : index;
-			index = index >= maxIndex ? maxIndex - 1 : index;
-			canvas.file.activeIndex = index;
+		var dim = canvas.dimIndex;
+		var maxIndex = (dim == 0) ? canvas.file.depth : (dim == 1) ? canvas.file.height : canvas.file.width;
 
-			//canvas.img = new Image();
-			//canvas.img = canvas.file.fileset[index].img;
-			//canvas.width = canvas.img.width;
-			//canvas.height = canvas.img.height;
-			canvas.drawImage();
+		var index = canvas.sliceIndex + indexMove;
+		index = index < 0 ? 0 : index;
+		index = index >= maxIndex ? maxIndex - 1 : index;
+		canvas.sliceIndex = index;
+
+		canvas.drawImage();
+		if(canvas.sliceSelect != null)
+			canvas.sliceSelect.drawSlices();
 	}
 
 }

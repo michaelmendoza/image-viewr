@@ -20,7 +20,7 @@ class CanvasPixel {
 		if(file.type == 'dicom')
 			pixelData = file.pixelData;
 		else if(file.type == 'dicom-3d')
-			pixelData = file.getActiveFile().pixelData;
+			pixelData = file.pixelData[canvas.sliceIndex];
 		
 		if(pixelData !== undefined) {
 			var point = controls.transform({x,y});

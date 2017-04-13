@@ -8,13 +8,7 @@ class FileSet {
 		this.img = null;
 		this.fileLoadedCallback = fileLoadedCallback;
 
-		this.activeIndex = 0;
-
 		this.readDICOMs();
-	}
-
-	getActiveFile() {
-		return this.fileset[this.activeIndex];
 	}
 
 	isLoaded() { 
@@ -42,7 +36,7 @@ class FileSet {
 			this.fileset.push(file);
 		}	
 	}
-	
+
 }
 
 export default FileSet;

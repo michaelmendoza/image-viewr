@@ -58,7 +58,7 @@ class CanvasDraw {
 		var file = _canvas.file;
 		var contrast = _canvas.contrast;
 		var dimIndex = _canvas.dimIndex;
-		var index = file.activeIndex;
+		var index = _canvas.sliceIndex;
 
 		var bounds = [
 			{ width: file.width, height: file.height }, // x, y
