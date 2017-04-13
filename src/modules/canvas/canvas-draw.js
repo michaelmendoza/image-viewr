@@ -136,12 +136,12 @@ class CanvasDraw {
 		canvas.img = this.createImg(canvas); 
 
 		// Draw scaled/translated Image
-		var sx = 0;
-		var sy = 0;
+		var sx = -controls.panX;
+		var sy = -controls.panY;
 		var sWidth = Math.round(canvas.width / controls.zoom);
 		var sHeight = Math.round(canvas.height / controls.zoom);
-		var dx = controls.panX;
-		var dy = controls.panY;
+		var dx = 0;
+		var dy = 0;
 		var dWidth = Math.round(canvas.width);
 		var dHeight = Math.round(canvas.height);
 		context.drawImage(canvas.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
