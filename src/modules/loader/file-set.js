@@ -11,6 +11,19 @@ class FileSet {
 		this.readDICOMs();
 	}
 
+	getBounds(dimIndex) { 
+		var bounds = [
+			{ width: this.width, height: this.height, dx: this.pixelSpacing.x, dy: this.pixelSpacing.y }, // x, y
+			{ width: this.depth, height: this.width, dx: this.sliceThickness, dy: this.pixelSpacing.x  }, // z, x
+			{ width: this.depth, height: this.height, dx: this.sliceThickness, dy: this.pixelSpacing.y }  // z, y
+		];
+		var width = bounds[dimIndex].width;
+		var height = bounds[dimIndex].height;
+		var dx = bounds[dimIndex].dx;
+		var dy = bounds[dimIndex].dy;
+		return { width:width, height:height, dx:dx, dy:dy };
+	} 
+
 	isLoaded() { 
 		this.loadedCount++;
 		if(this.loadedCount == this.files.length) {

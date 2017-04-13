@@ -6,6 +6,7 @@ const ZOOM_STEP = 0.1;
 class CanvasControls { 
 	constructor() { 
 		this.zoom = 1;
+		this.aspectRatio = 1; 
 		this.panX = 0; // TODO: Rename to offsetX
 		this.panY = 0; // TODO: Rename to offsetY
 
@@ -14,10 +15,14 @@ class CanvasControls {
 		this.startPanY = null;		
 	}
 
+	setAspectRatio(dx, dy) { 
+		this.aspectRatio = dx / dy;
+	} 
+
 	/** Transform point from world coordinates to local coordinates */
 	transform(point) { 
 		return { 
-			x: (point.x - this.panX) / this.zoom,
+			x: (point.x - this.panX) / this.zoom / this.aspectRatio,
 			y: (point.y - this.panY) / this.zoom  
 		};
 	}
@@ -25,7 +30,7 @@ class CanvasControls {
 	/** Transform point from local coordinates to world coordinates */
 	inverseTransform(point) { 
 		return { 
-			x: (point.x * this.zoom) + this.panX,
+			x: (point.x * this.zoom * this.aspectRatio) + this.panX,
 			y: (point.y * this.zoom) + this.panY 
 		};
 	}

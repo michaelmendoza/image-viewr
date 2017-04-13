@@ -9,7 +9,7 @@ class CanvasDraw {
 		var context = canvas.context;
 		context.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
 	}	
-	
+
 	createImg(canvas) { 
 		var file = canvas.file;
 
@@ -124,7 +124,7 @@ class CanvasDraw {
 		var context = canvas.context;
 		var controls = canvas.controls;
 		var threshold = canvas.threshold;
-		var aspectRatio = canvas.draw.getBounds(canvas).aspectRatio;
+		var aspectRatio = canvas.controls.aspectRatio;
 
 		// Check there is an image to draw
 		if(canvas.img == null)
@@ -158,21 +158,6 @@ class CanvasDraw {
 
 		// Feature - SliceLocations
 		this.drawSliceLocations(canvas);
-	}
-
-	getBounds(canvas) {
-		var file = canvas.file;
-		var dimIndex = canvas.dimIndex;
-		var bounds = [
-			{ width: file.width, height: file.height, aspectRatio: file.pixelSpacing.x / file.pixelSpacing.y }, // x, y
-			{ width: file.depth, height: file.width, aspectRatio: file.sliceThickness / file.pixelSpacing.x  }, // z, x
-			{ width: file.depth, height: file.height, aspectRatio: file.sliceThickness / file.pixelSpacing.y }  // z, y
-		];
-
-		var width = bounds[dimIndex].width;
-		var height = bounds[dimIndex].height;
-		var aspectRatio = bounds[dimIndex].aspectRatio;
-		return { width:width, height:height, aspectRatio:aspectRatio };
 	}
 
 	drawSliceLocations(canvas) {

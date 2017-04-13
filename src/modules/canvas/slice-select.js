@@ -25,11 +25,9 @@ class SliceSelect {
 	getSliceHandles() { 
 		var canvas = this.canvas;
 		var slices = this.getSlices();
-		var bounds = canvas.draw.getBounds(canvas);
-		var aspectRatio = bounds.aspectRatio;
-
+		var bounds = canvas.file.getBounds(canvas.dimIndex);
 		var line = { x1:slices.x , y1:0, x2:slices.x, y2:bounds.height, isHover:this.isOnHandle.x };
-		var line2 = { x1:0, y1:slices.y, x2:bounds.width * aspectRatio, y2:slices.y, isHover:this.isOnHandle.y };
+		var line2 = { x1:0, y1:slices.y, x2:bounds.width, y2:slices.y, isHover:this.isOnHandle.y };
 		return { line: line, line2: line2 };
 	}
 

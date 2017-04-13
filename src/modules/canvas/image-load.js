@@ -12,9 +12,11 @@ var ImageLoad = function(canvas) {
 			
 			// Auto-contrast for dicom files
 			if(file.type == 'dicom')
-				canvas.contrast.autoContrast(file.pixelData, file.numPixels);
+				canvas.contrast.autoContrast(file.pixelData, file.numPixels); 
 			else if(file.type == 'dicom-3d') {
+				var bounds = file.getBounds(canvas.dimIndex);
 				canvas.contrast.autoContrast3D(file.fileset);
+				canvas.controls.setAspectRatio(bounds.dx, bounds.dy);
 				Viewr.setMode('view', ViewModes._3D);
 			}			
 		}
@@ -27,7 +29,7 @@ var ImageLoad = function(canvas) {
 
 		if(indexMove == 0)
 			return;
-		
+
 		var dim = canvas.dimIndex;
 		var maxIndex = (dim == 0) ? canvas.file.depth : (dim == 1) ? canvas.file.height : canvas.file.width;
 

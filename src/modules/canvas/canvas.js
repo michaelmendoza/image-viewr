@@ -75,7 +75,7 @@ class Canvas {
 	/*** Controls ***/
 
 	autoZoomResize() {
-		var dataSize = this.draw.getBounds(this);
+		var dataSize = this.file.getBounds(this.dimIndex);
 		var viewportSize = { width: this.width, height: this.height };
 
 		var dx = (viewportSize.width / dataSize.width);
