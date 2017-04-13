@@ -8,6 +8,7 @@ import CanvasThreshold from './canvas-threshold.js';
 import FeatureManager from '../features/feature-manager.js';
 import ImageContrast from './image-contrast.js';
 import ImageLoad from './image-load.js';
+import SliceSelect from './slice-select.js';
 
 // Canvas Events
 import KeyEvents from '../events/key-events.js';
@@ -38,6 +39,7 @@ class Canvas {
 		this.load = new ImageLoad(this);
 		this.pixel = new CanvasPixel();
 		this.shapes = new CanvasShapes();
+		this.sliceSelect = null;
 		this.threshold = new CanvasThreshold();
 
 		// Event Listeners
@@ -158,6 +160,12 @@ class Canvas {
 
 	drawCustomShape(roi) {
 		this.shapes.drawCustomShape(this, roi);
+	}
+	
+	/*** Slice Selector ***/
+
+	setSliceSelect(canvasX, canvasY) {
+		this.sliceSelect = new SliceSelect(canvasX, canvasY);
 	}
 
 	/*** Threshold ***/

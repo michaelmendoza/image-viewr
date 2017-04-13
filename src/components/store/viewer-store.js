@@ -22,9 +22,17 @@ class ViewerStore extends EventEmitter {
 		this.viewer2 = new Viewr.Canvas(info[1].width, info[1].height);
 		this.viewer3 = new Viewr.Canvas(info[2].width, info[2].height);
 
+		this.viewer.dimIndex = 0;
+		this.viewer2.dimIndex = 1;
+		this.viewer3.dimIndex = 2;
+
 		this.viewer.addCanvasToElement(info[0].id);
 		this.viewer2.addCanvasToElement(info[1].id);
 		this.viewer3.addCanvasToElement(info[2].id);
+
+		this.viewer.setSliceSelect(this.viewer2, this.viewer3);
+		this.viewer2.setSliceSelect(this.viewer, this.viewer3);
+		this.viewer3.setSliceSelect(this.viewer, this.viewer2);
 
 		this.viewer.onMouseMove = () => { this.emit('mousemove'); }; 
 		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };		
@@ -70,6 +78,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadFile(file);
 		this.viewer2.loadFile(file);
 		this.viewer3.loadFile(file);
+
+		this.viewer.drawImage();
+		this.viewer2.drawImage();
+		this.viewer3.drawImage();
 	}
 
 	drawImage() {

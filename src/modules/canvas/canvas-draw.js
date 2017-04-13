@@ -62,8 +62,8 @@ class CanvasDraw {
 
 		var bounds = [
 			{ width: file.width, height: file.height }, // x, y
-			{ width: file.width, height: file.depth }, // x, z
-			{ width: file.height, height: file.depth }  // y, z
+			{ width: file.depth, height: file.width  }, // z, x
+			{ width: file.depth, height: file.height }  // z, y
 		];
 		var width = bounds[dimIndex].width;
 		var height = bounds[dimIndex].height;
@@ -91,19 +91,18 @@ class CanvasDraw {
 			var i = 0;
 			var y = index;
 			for(var x = 0; x < file.width; x++)
-				for(var z = 0; z < file.depth; z++, i++) {
+					for(var z = 0; z < file.depth; z++, i++)  {
 					var value = contrast.map(pixelData[z][y * file.width + x]) * 255 / resolution;
 					imageData.data[4*i] = value;
 					imageData.data[4*i+1] = value;
 					imageData.data[4*i+2] = value;
 					imageData.data[4*i+3] = 255;
-				}
-					
+				}	
 		}
 		else if(dimIndex == 2) {
 			var i = 0;
 			var x = index;
-			for(var y = 0; y < file.height; y++)
+				for(var y = 0; y < file.height; y++) 
 				for(var z = 0; z < file.depth; z++, i++) {
 				var value = contrast.map(pixelData[z][y * file.width + x]) * 255 / resolution;
 					imageData.data[4*i] = value;
@@ -153,8 +152,38 @@ class CanvasDraw {
 		else if(Viewr.modes.threshold == ThresholdModes.COLOR)
 			canvas.drawColorThreshold();
 		
-		// Draw Features - TODO - Draw Features
+		// Feature - ROIs
 		canvas.features.drawAllFeatures();
+
+		// Feature - SliceLocations
+		this.drawSliceLocations(canvas);
+	}
+
+	getBounds(canvas) {
+		var file = canvas.file;
+		var dimIndex = canvas.dimIndex;
+		var bounds = [
+			{ width: file.width, height: file.height }, // x, y
+			{ width: file.depth, height: file.width  }, // z, x
+			{ width: file.depth, height: file.height }  // z, y
+		];
+
+		var width = bounds[dimIndex].width;
+		var height = bounds[dimIndex].height;
+		return { width:width, height:height };
+	}
+
+	drawSliceLocations(canvas) {
+		if(canvas.sliceSelect == null)
+			return;
+
+		var slices = canvas.sliceSelect.getSlices();
+		var bounds = this.getBounds(canvas);
+
+		var line = { x1:slices.x , y1:0, x2:slices.x, y2:bounds.height };
+		canvas.shapes.drawLine(canvas, line);
+		var line2 = { x1:0, y1:slices.y, x2:bounds.width, y2:slices.y };
+		canvas.shapes.drawLine(canvas, line2);
 	}
 
 	drawInvertedImage(canvas) {

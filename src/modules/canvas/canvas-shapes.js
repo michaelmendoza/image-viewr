@@ -1,6 +1,17 @@
 
 class CanvasShapes {
 
+	drawLine(canvas, line) {
+		var context = canvas.context;
+
+		context.lineWidth = 5;
+		context.strokeStyle = '#4DF94D';
+		context.beginPath();
+		context.moveTo(line.x1, line.y1);
+		context.lineTo(line.x2, line.y2);
+		context.stroke();
+	}
+
 	drawCircle(canvas, roi) { 
 		var controls = canvas.controls;
 		var context = canvas.context;
@@ -64,7 +75,7 @@ class CanvasShapes {
 		var points = roi.points.map(function(point) {
 			return controls.inverseTransform(point);
 		});
-		
+
 		// Draw Points
 		points.forEach(function(point) {
 			var r = 2;

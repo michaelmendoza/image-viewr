@@ -20,7 +20,7 @@ var ImageLoad = function(canvas) {
 				Viewr.setMode('view', ViewModes._3D);
 			}
 			
-			canvas.drawImage();
+			//canvas.drawImage();
 		}
 		else {
 			console.log("Error: File doesn't have image data");
@@ -28,16 +28,19 @@ var ImageLoad = function(canvas) {
 	}
 
 	this.loadFileInFileSet = (indexMove) => {
-		
+			
+			var dim = canvas.dimIndex;
+			var maxIndex = (dim == 0) ? canvas.file.depth : (dim == 1) ? canvas.file.height : canvas.file.width;
+
 			var index = canvas.file.activeIndex + indexMove;
 			index = index < 0 ? 0 : index;
-			index = index >= canvas.file.fileset.length ? canvas.file.fileset.length - 1 : index;
+			index = index >= maxIndex ? maxIndex - 1 : index;
 			canvas.file.activeIndex = index;
 
-			canvas.img = new Image();
-			canvas.img = canvas.file.fileset[index].img;
-			canvas.width = canvas.img.width;
-			canvas.height = canvas.img.height;
+			//canvas.img = new Image();
+			//canvas.img = canvas.file.fileset[index].img;
+			//canvas.width = canvas.img.width;
+			//canvas.height = canvas.img.height;
 			canvas.drawImage();
 	}
 
