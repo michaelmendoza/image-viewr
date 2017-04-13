@@ -124,6 +124,7 @@ class CanvasDraw {
 		var context = canvas.context;
 		var controls = canvas.controls;
 		var threshold = canvas.threshold;
+		var aspectRatio = canvas.draw.getBounds(canvas).aspectRatio;
 
 		// Check there is an image to draw
 		if(canvas.img == null)
@@ -138,7 +139,7 @@ class CanvasDraw {
 		// Draw scaled/translated Image
 		var sx = -controls.panX;
 		var sy = -controls.panY;
-		var sWidth = Math.round(canvas.width / controls.zoom);
+		var sWidth = Math.round(canvas.width / controls.zoom / aspectRatio);
 		var sHeight = Math.round(canvas.height / controls.zoom);
 		var dx = 0;
 		var dy = 0;
@@ -163,14 +164,15 @@ class CanvasDraw {
 		var file = canvas.file;
 		var dimIndex = canvas.dimIndex;
 		var bounds = [
-			{ width: file.width, height: file.height }, // x, y
-			{ width: file.depth, height: file.width  }, // z, x
-			{ width: file.depth, height: file.height }  // z, y
+			{ width: file.width, height: file.height, aspectRatio: file.pixelSpacing.x / file.pixelSpacing.y }, // x, y
+			{ width: file.depth, height: file.width, aspectRatio: file.sliceThickness / file.pixelSpacing.x  }, // z, x
+			{ width: file.depth, height: file.height, aspectRatio: file.sliceThickness / file.pixelSpacing.y }  // z, y
 		];
 
 		var width = bounds[dimIndex].width;
 		var height = bounds[dimIndex].height;
-		return { width:width, height:height };
+		var aspectRatio = bounds[dimIndex].aspectRatio;
+		return { width:width, height:height, aspectRatio:aspectRatio };
 	}
 
 	drawSliceLocations(canvas) {

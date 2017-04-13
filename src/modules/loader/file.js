@@ -49,7 +49,8 @@ class File {
 			this.width = dicom.width;
 			this.height = dicom.height;
 			this.numPixels = dicom.numPixels;
-			this.pixelData = dicom.pixelData;			
+			this.pixelData = dicom.pixelData;		
+			this.header = dicom.header;	
 			this.fileLoadedCallback();
 		}
 		reader.readAsArrayBuffer(file);

@@ -19,6 +19,12 @@ class FileSet {
 			this.height = this.fileset[0].height;		
 			this.depth = this.loadedCount;
 
+			this.pixelSpacing = this.fileset[0].header.pixelSpacing;
+			this.pixelSpacing = this.pixelSpacing.split('\\');
+			this.pixelSpacing = { x: parseFloat(this.pixelSpacing[0]), y: parseFloat(this.pixelSpacing[1]) };
+			this.sliceThickness = this.fileset[0].header.sliceThickness;
+			this.sliceThickness = parseFloat(this.sliceThickness);
+
 			this.pixelData = [];
 			for(var i = 0; i < this.files.length; i++) {
 				this.pixelData.push(this.fileset[i].pixelData);

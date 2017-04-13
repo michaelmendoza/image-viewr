@@ -25,10 +25,14 @@ var ImageLoad = function(canvas) {
 
 	this.loadFileInFileSet = (indexMove) => {
 
+		if(indexMove == 0)
+			return;
+		
 		var dim = canvas.dimIndex;
 		var maxIndex = (dim == 0) ? canvas.file.depth : (dim == 1) ? canvas.file.height : canvas.file.width;
 
 		var index = canvas.sliceIndex + indexMove;
+		//index = index % (maxIndex - 1);
 		index = index < 0 ? 0 : index;
 		index = index >= maxIndex ? maxIndex - 1 : index;
 		canvas.sliceIndex = index;
