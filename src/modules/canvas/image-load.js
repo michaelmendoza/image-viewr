@@ -9,8 +9,8 @@ var ImageLoad = function(canvas) {
 
 		if(file.img != null) {
 			canvas.img = file.img;
-			canvas.width = canvas.img.width;
-			canvas.height = canvas.img.height;
+			//canvas.width = canvas.img.width;
+			//canvas.height = canvas.img.height;
 			
 			// Auto-contrast for dicom files
 			if(file.type == 'dicom')

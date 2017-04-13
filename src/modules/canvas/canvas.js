@@ -74,6 +74,18 @@ class Canvas {
 
 	/*** Controls ***/
 
+	autoZoomResize() {
+		var dataSize = this.draw.getBounds(this);
+		var viewportSize = { width: this.width, height: this.height };
+
+		var dx = (viewportSize.width / dataSize.width);
+		var dy = (viewportSize.height / dataSize.height);
+
+		if(dx < 1.0) {
+			this.controls.zoom = 1 / dx;
+		}
+	}
+
 	panImage(event) {
 		this.controls.panImage(event);
 		this.draw.clear(this);

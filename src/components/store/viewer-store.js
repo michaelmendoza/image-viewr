@@ -81,6 +81,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer2.loadFile(file);
 		this.viewer3.loadFile(file);
 
+		//this.viewer.autoZoomResize();
+		//this.viewer2.autoZoomResize();
+		//this.viewer3.autoZoomResize();
+
 		this.viewer.drawImage();
 		this.viewer2.drawImage();
 		this.viewer3.drawImage();
