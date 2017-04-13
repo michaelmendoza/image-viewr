@@ -12,7 +12,7 @@ class CanvasShapes {
 			context.lineWidth = 4;
 		else
 			context.lineWidth = 2;
-
+		
 		context.strokeStyle = '#4DF94D';
 		context.beginPath();
 		context.moveTo(p1.x, p1.y);
@@ -40,8 +40,9 @@ class CanvasShapes {
 		}
 
 		// Transform to global coordinates
-		var x = roi.x * controls.zoom + controls.panX;
-		var y = roi.y * controls.zoom + controls.panY;
+		var pt = controls.inverseTransform({ x:roi.x, y:roi.y });
+		var x = pt.x;
+		var y = pt.y;
 		var r = roi.radius * controls.zoom;
 
 		// Render 

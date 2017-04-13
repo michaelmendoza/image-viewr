@@ -30,7 +30,7 @@ class SliceSelect {
 		var line2 = { x1:0, y1:slices.y, x2:bounds.width, y2:slices.y, isHover:this.isOnHandle.y };
 		return { line: line, line2: line2 };
 	}
-
+	
 	isOnSliceHandle(point) { 
 		var onHandleX = false;
 		var onHandleY = false;
@@ -45,9 +45,9 @@ class SliceSelect {
 
 	selectSlice(point) {
 		if(this.isOnHandle.x)
-			this.canvasX.sliceIndex = point.x;
+			this.canvasX.sliceIndex = Math.round(point.x);
 		else if(this.isOnHandle.y)
-			this.canvasY.sliceIndex = point.y;
+			this.canvasY.sliceIndex = Math.round(point.y);
 
 		this.drawSliceImages();
 	}

@@ -9,7 +9,7 @@ class CanvasControls {
 		this.aspectRatio = 1; 
 		this.panX = 0; // TODO: Rename to offsetX
 		this.panY = 0; // TODO: Rename to offsetY
-
+		
 		this.isPanning = false;
 		this.startPanX = null;
 		this.startPanY = null;		
