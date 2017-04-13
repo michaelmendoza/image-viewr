@@ -8,7 +8,11 @@ class CanvasShapes {
 		var p1 = controls.inverseTransform({ x:line.x1, y:line.y1 });
 		var p2 = controls.inverseTransform({ x:line.x2, y:line.y2 });
 
-		context.lineWidth = 2;
+		if(line.isHover)
+			context.lineWidth = 4;
+		else
+			context.lineWidth = 2;
+
 		context.strokeStyle = '#4DF94D';
 		context.beginPath();
 		context.moveTo(p1.x, p1.y);
@@ -16,7 +20,7 @@ class CanvasShapes {
 		context.globalAlpha = 0.9;
 		context.stroke();
 		context.globalAlpha = 1.0;
-	}
+	} 
 
 	drawCircle(canvas, roi) { 
 		var controls = canvas.controls;

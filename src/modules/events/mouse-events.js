@@ -40,6 +40,8 @@ class MouseEvents {
 		}; 
 
 		var roi_actions = {
+			[CanvasModes.PAN]: () => { this.isOnSliceHandle(event); },
+			[CanvasModes.PAN_SLICE_UPDATE]: () => { this.selectSlice(event); },
 			[CanvasModes.ROI]: () => { this.features.hoverOnFeature(event); },
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { this.features.updateActiveFeature(event); },
 			[CanvasModes.ROI_UPDATE_POSITION]: () => { this.features.updatePosition(event); },
@@ -68,8 +70,15 @@ class MouseEvents {
 
 		var actions = {
 			[CanvasModes.PAN]: () => {
-				Viewr.modes.canvas = CanvasModes.PAN_UPDATE;
-				this.panImage(event);
+				var point = this.controls.transform({ x:event.offsetX, y:event.offsetY });
+				if(this.isOnSliceHandle(point)) {
+					Viewr.modes.canvas = CanvasModes.PAN_SLICE_UPDATE;
+					this.selectSlice(point);
+				}
+				else {
+					Viewr.modes.canvas = CanvasModes.PAN_UPDATE;
+					this.panImage(event);
+				}
 			},
 
 			[CanvasModes.CONTRAST]: () => {
@@ -143,6 +152,7 @@ class MouseEvents {
 		};
 
 		var roi_actions = {
+			[CanvasModes.PAN_SLICE_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.PAN; },
 			[CanvasModes.ROI_UPDATE_RADIUS]: () => { Viewr.modes.canvas = CanvasModes.ROI; },
 			[CanvasModes.ROI_UPDATE_POSITION]: () => { Viewr.modes.canvas = CanvasModes.ROI },
 			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { Viewr.modes.canvas = CanvasModes.CUSTOM_ROI; },

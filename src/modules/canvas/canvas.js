@@ -139,7 +139,7 @@ class Canvas {
 	deleteFeature(index) {
 		this.features.deleteFeature(index);
 		this.drawImage();
-	}
+	} 
 
 	/*** Load ***/
 
@@ -178,6 +178,17 @@ class Canvas {
 	}
 
 	/*** Slice Selector ***/
+
+	isOnSliceHandle(point) { 
+		if(this.sliceSelect != null)
+			return this.sliceSelect.isOnSliceHandle(point);
+		else
+			return false;
+	}
+
+	selectSlice(point) {
+		this.sliceSelect.selectSlice(point);
+	}
 
 	setSliceSelect(canvasX, canvasY) {
 		this.sliceSelect = new SliceSelect(this, canvasX, canvasY);

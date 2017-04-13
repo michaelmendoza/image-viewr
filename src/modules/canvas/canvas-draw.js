@@ -9,7 +9,7 @@ class CanvasDraw {
 		var context = canvas.context;
 		context.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
 	}	
-
+	
 	createImg(canvas) { 
 		var file = canvas.file;
 

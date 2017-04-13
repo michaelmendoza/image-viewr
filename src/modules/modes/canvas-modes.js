@@ -3,6 +3,7 @@ var CanvasModes = {
 	PIXEL: 'pixel',
 	PAN: 'pan',
 	PAN_UPDATE: 'pan_update',
+	PAN_SLICE_UPDATE: 'pan_slice_update',
 	ROI: 'roi',
 	ROI_UPDATE_POSITION: 'roi_position',
 	ROI_UPDATE_RADIUS: 'roi_radius',

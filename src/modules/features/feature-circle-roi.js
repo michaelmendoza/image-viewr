@@ -31,8 +31,8 @@ class FeatureCircleROI extends FeatureROI {
 	}
 	
 	isOnHandle(point) {
-		var x = point.x - this.x; 	// x distance from radius
-		var y = point.y - this.y; 	// y distance form radius
+		var x = point.x - this.x; // x distance from radius
+		var y = point.y - this.y; // y distance form radius
 		var r = Math.sqrt(x * x + y * y); // r distance in polar coordinates
 
 		if(this.radius - this.handleSize <= r && r <= this.radius + this.handleSize)
