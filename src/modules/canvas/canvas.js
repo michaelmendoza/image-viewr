@@ -81,8 +81,8 @@ class Canvas {
 		var dx = (viewportSize.width / dataSize.width);
 		var dy = (viewportSize.height / dataSize.height);
 
-		if(dx < 1.0) {
-			this.controls.zoom = 1 / dx;
+		if(dy < 1.0) {
+			this.controls.zoom = dy;
 		}
 	}
 
