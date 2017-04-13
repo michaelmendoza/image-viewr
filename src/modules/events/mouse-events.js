@@ -162,7 +162,6 @@ class MouseEvents {
 
 		if(this.file == null) return;
 
-		//var indexMove = event.wheelDelta > 0 ? 1 : -1;
 		var indexMove = Math.round(event.wheelDelta / 20.0);
 		if(this.file.type == 'dicom-3d') 
 			this.loadFile3D(indexMove);

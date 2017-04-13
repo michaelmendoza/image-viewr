@@ -39,7 +39,7 @@ var ImageLoad = function(canvas) {
 
 		canvas.drawImage();
 		if(canvas.sliceSelect != null)
-			canvas.sliceSelect.drawSlices();
+			canvas.sliceSelect.drawSliceImages();
 	}
 
 }

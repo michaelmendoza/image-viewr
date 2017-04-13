@@ -179,13 +179,9 @@ class CanvasDraw {
 		if(canvas.sliceSelect == null)
 			return;
 
-		var slices = canvas.sliceSelect.getSlices();
-		var bounds = this.getBounds(canvas);
-
-		var line = { x1:slices.x , y1:0, x2:slices.x, y2:bounds.height };
-		canvas.shapes.drawLine(canvas, line);
-		var line2 = { x1:0, y1:slices.y, x2:bounds.width, y2:slices.y };
-		canvas.shapes.drawLine(canvas, line2);
+		var handles = canvas.sliceSelect.getSliceHandles();
+		canvas.shapes.drawLine(canvas, handles.line);
+		canvas.shapes.drawLine(canvas, handles.line2);
 	}
 
 	drawInvertedImage(canvas) {

@@ -180,7 +180,7 @@ class Canvas {
 	/*** Slice Selector ***/
 
 	setSliceSelect(canvasX, canvasY) {
-		this.sliceSelect = new SliceSelect(canvasX, canvasY);
+		this.sliceSelect = new SliceSelect(this, canvasX, canvasY);
 	}
 
 	/*** Threshold ***/
