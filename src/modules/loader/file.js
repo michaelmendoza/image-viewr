@@ -44,6 +44,7 @@ class File {
 		var reader = new FileReader();
 		reader.onload = (event) => {
 			var dicom = new FileDICOM(event);
+			this.dicom = dicom;
 			this.type = 'dicom';
 			this.img = dicom.img;			
 			this.width = dicom.width;

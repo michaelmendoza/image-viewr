@@ -64,23 +64,31 @@ class FileDICOM {
 		}
 
 		var pixelData = new Uint16Array(dataSet.byteArray.buffer, frameOffset, numPixels);
+		
+		this.header = header;
+		this.width = columns;
+		this.height = rows;
+		this.numPixels = numPixels;
+		this.pixelData = pixelData;
+	}
 
+	createImg() {
 		var canvas = document.createElement('canvas');
-		canvas.width = columns;
-		canvas.height = rows;
+		canvas.width = this.width;
+		canvas.height = this.height;
 
     var context = canvas.getContext('2d');
-    var numPixels = columns * rows;
-		var imageData = context.getImageData(0, 0, columns, rows);
+    var numPixels = this.width * this.height;
+		var imageData = context.getImageData(0, 0, this.width, this.height);
 
 		var maxValue = 0;
 		for(var i = 0; i < numPixels; i++) {
-			maxValue = maxValue >= pixelData[i] ? maxValue : pixelData[i];
+			maxValue = maxValue >= this.pixelData[i] ? maxValue : this.pixelData[i];
 		}
 		var resolution = maxValue; //Math.pow(2,bitsStored);
 
 		for(var i = 0; i < numPixels; i++) {
-			var value = (pixelData[i] * 255)/resolution;
+			var value = (this.pixelData[i] * 255) / resolution;
 			imageData.data[4*i] = value;
 			imageData.data[4*i+1] = value;
 			imageData.data[4*i+2] = value;
@@ -91,13 +99,9 @@ class FileDICOM {
 
 		var img = document.createElement('img');
 		img.src = dataURL;
-		
-		this.header = header;
+
 		this.img = img;
-		this.width = columns;
-		this.height = rows;
-		this.numPixels = numPixels;
-		this.pixelData = pixelData;
+		return img;
 	}
 
 	getPixelFormat(dataSet) {
