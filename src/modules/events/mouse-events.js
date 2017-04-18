@@ -26,7 +26,7 @@ class MouseEvents {
 	
 	handleMouseMove(event) { 
 
-		console.log('Mouse Move - Mode: ' + Viewr.modes.canvas);
+		//console.log('Mouse Move - Mode: ' + Viewr.modes.canvas);
 
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
@@ -70,7 +70,7 @@ class MouseEvents {
 
 	handleMouseDown(event) {
 
-		console.log('Mouse Down - Mode: ' + Viewr.modes.canvas);
+		//console.log('Mouse Down - Mode: ' + Viewr.modes.canvas);
 
 		var actions = {
 			[CanvasModes.PAN]: () => {

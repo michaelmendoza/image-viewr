@@ -32,6 +32,9 @@ class SliceSelect {
 	}
 	
 	isOnSliceHandle(point) { 
+		if(this.canvas.file.type != 'dicom-3d')
+			return;
+
 		var onHandleX = false;
 		var onHandleY = false;
 		var handles = this.getSliceHandles();

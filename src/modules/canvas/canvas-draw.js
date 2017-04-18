@@ -235,6 +235,9 @@ class CanvasDraw {
 	}
 
 	drawSliceLocations(canvas) {
+		if(canvas.file.type != 'dicom-3d')
+			return;
+
 		if(canvas.sliceSelect == null)
 			return;
 

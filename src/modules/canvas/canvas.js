@@ -81,6 +81,9 @@ class Canvas {
 	/*** Controls ***/
 
 	autoZoomResize() {
+		if(this.file.type != 'dicom-3d')
+			return;
+		
 		var dataSize = this.file.getBounds(this.dimIndex);
 		var viewportSize = { width: this.width, height: this.height };
 

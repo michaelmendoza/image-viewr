@@ -10,9 +10,13 @@ var ImageLoad = function(canvas) {
 		if(file.img != null) {
 			canvas.img = file.img;
 			
+			if(file.type == 'png' || file.type == 'jpeg')
+				Viewr.setMode('view', ViewModes._2D);
 			// Auto-contrast for dicom files
-			if(file.type == 'dicom')
-				canvas.contrast.autoContrast(file.pixelData, file.numPixels); 
+			if(file.type == 'dicom') {
+				canvas.contrast.autoContrast(file.pixelData, file.numPixels);
+				Viewr.setMode('view', ViewModes._2D);
+			}
 			else if(file.type == 'dicom-3d') {
 				var bounds = file.getBounds(canvas.dimIndex);
 				canvas.contrast.autoContrast3D(file.fileset);
