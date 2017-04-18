@@ -22,6 +22,16 @@ class CanvasShapes {
 		context.globalAlpha = 1.0;
 	} 
 
+	drawCircleMask(context, roi) {
+		var x = roi.x;
+		var y = roi.y;
+		var r = roi.radius;
+		context.beginPath();
+		context.fillStyle = "#FFFFFF";
+		context.arc(x, y, r, 0, 2*Math.PI);
+		context.fill();
+	}
+
 	drawCircle(canvas, roi) { 
 		var controls = canvas.controls;
 		var context = canvas.context;
@@ -64,6 +74,19 @@ class CanvasShapes {
 		context.strokeStyle = '#4DF94D';
 		context.rect(roi.x,roi.y,roi.width,roi.height);
 		context.stroke();
+	}
+
+	drawCustomShapeMask(context, roi) {
+		context.fillStyle = "#FFFFFF";
+		
+		if(roi.points.length > 1) {
+			context.moveTo(roi.points[0].x, roi.points[0].y);
+
+			roi.points.forEach(function(point) {
+				context.lineTo(point.x, point.y);
+			});
+			context.fill();
+		}
 	}
 
 	drawCustomShape(canvas, roi) {

@@ -9,13 +9,15 @@ class ROIPanel extends React.Component {
 		this.getFeatures = this.getFeatures.bind(this);
 		this.state = { features: ViewerStore.getFeatures() };
 	}
-
+	
 	componentDidMount() {
   	ViewerStore.on('mousemove', this.getFeatures);
+  	ViewerStore.on('feature-update', this.getFeatures);
 	}
 
 	componentWillUnmount() {
 	  ViewerStore.removeListener('mousemove', this.getFeatures);
+	  ViewerStore.removeListener('feature-update', this.getFeatures);
 	}
 
 	getFeatures() {
@@ -35,9 +37,13 @@ class ROIPanel extends React.Component {
 	}
 
 	getROI(feature, index) {
+		var sliceIndex = ViewerStore.getSliceIndex();
 		var FeatureTypes = ViewerStore.getFeatureTypes();
 		if(feature.type == FeatureTypes.CIRCLE || feature.type == FeatureTypes.CUSTOM) {
-			return <ROIPanelItem
+			if(feature.sliceIndex != sliceIndex)
+				return null;
+			else
+				return <ROIPanelItem
 								key={index}
 								feature={feature} 
 								index={index} 

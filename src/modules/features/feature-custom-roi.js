@@ -32,7 +32,7 @@ class FeatureCustomROI extends FeatureROI {
 			}
 		}
 	}
-
+	
 	drawMaskROI(context, bounds) {
 		context.fillStyle = "#FFFFFF";
 

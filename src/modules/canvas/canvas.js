@@ -9,6 +9,7 @@ import FeatureManager from '../features/feature-manager.js';
 import ImageContrast from './image-contrast.js';
 import ImageLoad from './image-load.js';
 import SliceSelect from './slice-select.js';
+import VolumeRender from './volume-render.js';
 
 // Canvas Events
 import KeyEvents from '../events/key-events.js';
@@ -35,7 +36,7 @@ class Canvas {
 		this.sliceIndex = 0;
 
 		// Canvas Modules 
-		this.draw = new CanvasDraw();
+		this.draw = new CanvasDraw(); 
 		this.contrast = new ImageContrast();
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
@@ -44,6 +45,7 @@ class Canvas {
 		this.shapes = new CanvasShapes();
 		this.sliceSelect = null;
 		this.threshold = new CanvasThreshold();
+		this.volumeRender = new VolumeRender();
 
 		// Event Listeners
 		var keyEvents = new KeyEvents();
@@ -70,6 +72,10 @@ class Canvas {
 
 	drawImage() {
 		this.draw.drawImage(this);
+	}
+
+	drawTile3DImage() {
+		return this.draw.drawTile3DImage(this);
 	}
 
 	/*** Controls ***/

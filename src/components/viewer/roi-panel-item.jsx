@@ -43,9 +43,9 @@ class ROIPanelItem extends React.Component {
 			<h4 className='roi-title'>
 				<div className = 'roi-colorbox' style={{ backgroundColor: this.state.color }} onClick={this.handleShow.bind(this)}></div>
 				{ this.state.show ? <div className='roi-colorpicker'> {picker} {pickerBG} </div> : null }
-				<label> { feature.name } </label>
+				<label> { feature.name + ' - ' + feature.sliceIndex }  </label>
 			</h4>
-
+			
 			<ul className='roi-lable-list layout-row layout-wrap'>
 				<li className='roi-label flex-50'>
 					<label> Area: {feature.area} </label>

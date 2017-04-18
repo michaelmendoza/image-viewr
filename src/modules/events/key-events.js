@@ -1,5 +1,25 @@
 
+import Viewr from '../viewr.js';
+
 class KeyEvents {
+
+	keydownSliceSelect(event) {
+		var keyCode = event.keyCode;
+
+		if(keyCode == '37') { // Left Arrow
+			if(this.file.type == 'dicom-3d')
+				this.loadFile3D(-1);
+			return;
+		} 
+
+		else if(keyCode == '39') { // Right Arrow
+			if(this.file.type == 'dicom-3d')
+				this.loadFile3D(1);
+			return;
+		}
+
+		Viewr.onFeatureUpdate();
+	}
 
 	keydown(event) {
 		var keyCode = event.keyCode;

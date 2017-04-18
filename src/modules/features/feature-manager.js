@@ -32,6 +32,7 @@ class FeatureManager {
 		}
 
 		feature.create(event);
+		feature.sliceIndex = this.canvas.sliceIndex;
 		this.features.push(feature);
 		this.activeFeature = feature;
 	}
@@ -48,6 +49,9 @@ class FeatureManager {
 		var canvas = this.canvas;
 
 		this.features.forEach(function(feature) {
+			if(feature.sliceIndex != canvas.sliceIndex)
+				return;
+
 			if(feature.type == FeatureTypes.CIRCLE)
 				canvas.drawCircle(feature);
 			else if(feature.type == FeatureTypes.CUSTOM)
@@ -77,8 +81,12 @@ class FeatureManager {
 	}
 
 	setActiveFeature(event) {
+		var sliceIndex = this.canvas.sliceIndex;
 		var activeFeatureIndex = null;
 		this.features.forEach(function(feature, index) {
+			if(feature.sliceIndex != sliceIndex)
+				return;
+
 			if(feature.isOnROI(event))
 				activeFeatureIndex = index;
 		})
@@ -134,6 +142,30 @@ class FeatureManager {
 	updatePosition(event) {
 		this.activeFeature.updatePosition(event);
 		this.updateActiveFeatureData();
+	}
+
+	getFeatureMask(sliceIndex) {
+		var sliceFeature = null;
+		this.features.forEach((feature) => {
+			sliceFeature = feature.sliceIndex == sliceIndex ? feature : sliceFeature;
+		})
+
+		if(sliceFeature == null)
+			return null;
+
+		var width = this.canvas.file.width;
+		var height = this.canvas.file.height;
+		var canvas = document.createElement('canvas');
+		canvas.width = width;
+		canvas.height = height;
+		var context = canvas.getContext('2d');
+		
+		if(sliceFeature.type == FeatureTypes.CIRCLE)
+			this.canvas.shapes.drawCircleMask(context, sliceFeature);
+		else if(sliceFeature.type == FeatureTypes.CUSTOM)
+			this.canvas.shapes.drawCustomShapeMask(context, sliceFeature);
+
+		return context.getImageData(0, 0, width, height);
 	}
 
 }

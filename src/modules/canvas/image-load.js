@@ -18,7 +18,14 @@ var ImageLoad = function(canvas) {
 				canvas.contrast.autoContrast3D(file.fileset);
 				canvas.controls.setAspectRatio(bounds.dx, bounds.dy);
 				Viewr.setMode('view', ViewModes._3D);
-			}			
+
+				if(canvas.dimIndex == 0) 
+					canvas.sliceIndex = Math.floor(file.depth / 2);
+				else if(canvas.dimIndex == 1)
+					canvas.sliceIndex = Math.floor(file.height / 2);
+				else if(canvas.dimIndex == 2)
+					canvas.sliceIndex = Math.floor(file.width / 2);
+			} 
 		}
 		else {
 			console.log("Error: File doesn't have image data");

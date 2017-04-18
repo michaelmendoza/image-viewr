@@ -5,6 +5,8 @@ import ThresholdModes from '../../modules/modes/threshold-modes.js';
 import ViewModes from '../../modules/modes/view-modes.js';
 import EventEmitter from 'events';
 
+import KeyEvents from '../../modules/events/key-events.js'; 
+
 class ViewerStore extends EventEmitter {
 
 	constructor() {
@@ -17,6 +19,7 @@ class ViewerStore extends EventEmitter {
 
 	setupViewer(info) {
 		Viewr.onModeChange = () => { this.emit('canvasmode'); };
+		Viewr.onFeatureUpdate = () => { this.emit('feature-update')};
 
 		this.viewer = new Viewr.Canvas(info[0].width, info[0].height);
 		this.viewer2 = new Viewr.Canvas(info[1].width, info[1].height);
@@ -36,6 +39,14 @@ class ViewerStore extends EventEmitter {
 
 		this.viewer.onMouseMove = () => { this.emit('mousemove'); }; 
 		this.viewer.onSettingsChange = () => { this.emit('settings_update'); };		
+
+		var keyEvents = new KeyEvents();
+		window.onkeydown = keyEvents.keydownSliceSelect.bind(this.viewer);
+	}
+
+	setupVolumeRenderer(elementID) { 
+		var img = this.viewer.drawTile3DImage();
+		this.viewer.volumeRender.render(elementID, img);
 	}
 
 	setViewportSize(info) { 
@@ -50,6 +61,14 @@ class ViewerStore extends EventEmitter {
 
 	getCanvasMousePixel() {
 		return this.viewer.pixel.data;
+	}
+
+	getSliceIndex() {
+		return this.viewer.sliceIndex;
+	}
+
+	updateAlphaFactor(alphaFactor) {
+		this.viewer.volumeRender.updateAlphaFactor(alphaFactor);
 	}
 
 	getCanvasMode() {
@@ -148,18 +167,26 @@ class ViewerStore extends EventEmitter {
 
 	zoomIn() {
 		this.viewer.zoomIn();
+		this.viewer2.zoomIn();
+		this.viewer3.zoomIn();
 	}
 
 	zoomOut() {
 		this.viewer.zoomOut();
+		this.viewer2.zoomOut();
+		this.viewer3.zoomOut();				
 	}
 
 	setZoom(zoomValue) {
 		this.viewer.setZoom(zoomValue);
+		this.viewer2.setZoom(zoomValue);
+		this.viewer3.setZoom(zoomValue);
 	}
 
 	zoomReset() {
 		this.viewer.zoomReset();
+		this.viewer2.zoomReset();
+		this.viewer3.zoomReset();
 	}
 
 }

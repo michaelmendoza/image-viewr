@@ -24,7 +24,8 @@ class Viewr {
  		this.canvasList = [];
  		this.loadedFiles = [];
 
- 		this.onModeChange = () => {}
+ 		this.onModeChange = () => {};
+ 		this.onFeatureUpdate = () => {};
  	}
 
  	setMode(modeType, mode) {		

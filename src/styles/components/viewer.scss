@@ -63,26 +63,39 @@
 			width: 100%;
 			height: 100%;
 
-			&.multiple-views {
-				width: 50%;
+			&.volume-view {
+				display: none;
+			}
+
+			.primary-viewer-pane {
+				width: 100%;
+				height: 100%;
+
+				&.multiple-views {
+					width: 50%;
+				}
+			}
+
+			.viewer-pane {
+				display: none;
+				height: 100%;
+
+				&.multiple-views, &.volume-view {
+					display: block;
+					width: 25%;
+					border-left: 2px solid $off-white;
+				}			
 			}
 		}
 
-		.viewer-secondary {
+		.viewer-volume-renderer {
 			display: none;
-			height: 100%;
 
-			.viewer-pane {
-				border-bottom: 2px solid $off-white;
-				height: 50%;
-				width: 100%;
-				&:last-of-type { border-bottom: none; }
-			}
-
-			&.multiple-views {
+			&.volume-view {
 				display: block;
-				border-left: 2px solid $off-white;
-			}
+				width: 100%;
+				height: 100%;
+			}			
 		}
 	}
 

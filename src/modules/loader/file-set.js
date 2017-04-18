@@ -26,12 +26,12 @@ class FileSet {
 
 	isLoaded() { 
 		this.loadedCount++;
-		if(this.loadedCount == this.files.length) {
+		if(this.loadedCount == this.files.length) { 
 			this.width = this.fileset[0].width;
 			this.height = this.fileset[0].height;		
 			this.depth = this.loadedCount;
 			this.img = this.fileset[Math.floor(this.depth / 2)].dicom.createImg();
-			
+
 			this.pixelSpacing = this.fileset[0].header.pixelSpacing;
 			this.pixelSpacing = this.pixelSpacing.split('\\');
 			this.pixelSpacing = { x: parseFloat(this.pixelSpacing[0]), y: parseFloat(this.pixelSpacing[1]) };
