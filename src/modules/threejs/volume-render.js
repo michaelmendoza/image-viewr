@@ -5,6 +5,13 @@ import Shaders from './shaders.js';
 
 var VolumeRenderThreeJS = function(renderProps) {
 
+	renderProps.imageTexture = THREE.ImageUtils.loadTexture('/src/modules/threejs/foottest.png' );
+	renderProps.imageTexture.generateMipmaps = false; 
+	renderProps.imageTexture.minFilter = THREE.LinearFilter;
+	renderProps.imageTexture.magFilter = THREE.LinearFilter;
+	VolumeRender(renderProps);
+
+	/*
 	var image = document.createElement('img');
 	var imageTexture = new THREE.Texture(image);
 	image.src = renderProps.imgURL;
@@ -19,6 +26,7 @@ var VolumeRenderThreeJS = function(renderProps) {
 
 		VolumeRender(renderProps);
 	}
+	*/
 }
 
 var VolumeRender = function(renderProps) {

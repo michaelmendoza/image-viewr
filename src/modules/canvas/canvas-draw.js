@@ -5,10 +5,21 @@ import Viewr from '../viewr.js';
 
 class CanvasDraw {
 
-	clear(canvas) {
-		var context = canvas.context;
-		context.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
-	}	
+	drawImage(canvas) {
+
+		// Check there is an image to draw
+		if(canvas.img == null)
+			return;
+
+		// Create new Img for DICOMs
+		canvas.img = this.createImg(canvas); 
+
+		// Draw Image to Canvas
+		if(canvas.file.type == 'png' || canvas.file.type == 'jpeg')
+			this.drawImageOnCanvas(canvas);
+		else
+			canvas.img.onload = () => { this.drawImageOnCanvas(canvas); };
+	}
 
 	createImg(canvas) { 
 		var file = canvas.file;
@@ -23,6 +34,41 @@ class CanvasDraw {
 		else // Not a DICOM file, and the img should already exist
 			return canvas.img;
 	} 
+
+	drawImageOnCanvas(canvas) {
+		var context = canvas.context;
+		var controls = canvas.controls;
+		var threshold = canvas.threshold;
+		var aspectRatio = canvas.controls.aspectRatio;
+
+		// Draw scaled/translated Image
+		var sx = -controls.panX;
+		var sy = -controls.panY;
+		var sWidth = Math.round(canvas.width / controls.zoom / aspectRatio);
+		var sHeight = Math.round(canvas.height / controls.zoom);
+		var dx = 0;
+		var dy = 0;
+		var dWidth = Math.round(canvas.width);
+		var dHeight = Math.round(canvas.height);
+		context.drawImage(canvas.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+
+		// Thresholding
+		if(Viewr.modes.threshold == ThresholdModes.GREY)
+			canvas.drawMinThreshold();
+		else if(Viewr.modes.threshold == ThresholdModes.COLOR)
+			canvas.drawColorThreshold();
+		
+		// Feature - ROIs
+		canvas.features.drawAllFeatures();
+
+		// Feature - SliceLocations
+		this.drawSliceLocations(canvas); 
+	}
+
+	clear(canvas) {
+		var context = canvas.context;
+		context.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
+	}	
 
 	createImgDICOM(_canvas, file) { 
 		var contrast = _canvas.contrast;
@@ -51,7 +97,7 @@ class CanvasDraw {
 
 		var img = document.createElement('img');
 		img.src = dataURL;
-		return img;
+		return img; 
 	}
 
 	createDicom3DImg(_canvas) {
@@ -150,11 +196,18 @@ class CanvasDraw {
 		for(var z = 0; z < depth; z++) {	
 			var numPixels = width * height;
 
-			var featureMask = _canvas.features.getFeatureMask(z);
+			//var featureMask = _canvas.features.getFeatureMask(z);
 
 			// Create 2D slice with constrast map with alpha value equal to grey image value
 			for(var i = 0; i < numPixels; i++) {
 
+				var value = contrast.map(pixelData[z][i]) * 255 / resolution;
+				imageData.data[4*i] = value;
+				imageData.data[4*i+1] = value;
+				imageData.data[4*i+2] = value;
+				imageData.data[4*i+3] = value;
+				
+				/*
 				// Get feature mask value
 				var maskValue = 255;
 				if(useMask)
@@ -175,7 +228,7 @@ class CanvasDraw {
 					imageData.data[4*i+2] = 0.0;
 					imageData.data[4*i+3] = 0.0;	
 				}
-
+				*/
 			}
 			
 			// Create dataURL of 2D Slice
@@ -191,47 +244,9 @@ class CanvasDraw {
 			tileContext.drawImage(img, 0, 0, width, height, dx, dy, dWidth, dHeight);
 		}
 
-		return tileCanvas.toDataURL();;
-	}
+		document.write('<img src="' + tileCanvas.toDataURL() + '" width="4096" height="4096"/>');
 
-	drawImage(canvas) {
-		var context = canvas.context;
-		var controls = canvas.controls;
-		var threshold = canvas.threshold;
-		var aspectRatio = canvas.controls.aspectRatio;
-
-		// Check there is an image to draw
-		if(canvas.img == null)
-			return;
-
-		// Clear Image on Canvas
-		this.clear(canvas);
-
-		// Create new Img for DICOMs
-		canvas.img = this.createImg(canvas); 
-
-		// Draw scaled/translated Image
-		var sx = -controls.panX;
-		var sy = -controls.panY;
-		var sWidth = Math.round(canvas.width / controls.zoom / aspectRatio);
-		var sHeight = Math.round(canvas.height / controls.zoom);
-		var dx = 0;
-		var dy = 0;
-		var dWidth = Math.round(canvas.width);
-		var dHeight = Math.round(canvas.height);
-		context.drawImage(canvas.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-
-		// Thresholding
-		if(Viewr.modes.threshold == ThresholdModes.GREY)
-			canvas.drawMinThreshold();
-		else if(Viewr.modes.threshold == ThresholdModes.COLOR)
-			canvas.drawColorThreshold();
-		
-		// Feature - ROIs
-		canvas.features.drawAllFeatures();
-
-		// Feature - SliceLocations
-		this.drawSliceLocations(canvas);
+		return tileCanvas.toDataURL();
 	}
 
 	drawSliceLocations(canvas) {

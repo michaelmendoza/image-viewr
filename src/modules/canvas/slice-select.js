@@ -32,6 +32,8 @@ class SliceSelect {
 	}
 	
 	isOnSliceHandle(point) { 
+		if(this.canvas.file == null)
+			return;
 		if(this.canvas.file.type != 'dicom-3d')
 			return;
 

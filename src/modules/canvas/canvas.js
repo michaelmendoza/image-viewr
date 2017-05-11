@@ -70,6 +70,10 @@ class Canvas {
 
 	/*** Draw ***/
 
+	clear() {
+		this.draw.clear(this);
+	}
+
 	drawImage() {
 		this.draw.drawImage(this);
 	}

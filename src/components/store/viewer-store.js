@@ -45,7 +45,8 @@ class ViewerStore extends EventEmitter {
 	}
 
 	setupVolumeRenderer(elementID) { 
-		var img = this.viewer.drawTile3DImage();
+		//var img = this.viewer.drawTile3DImage();
+		var img = null;
 		this.viewer.volumeRender.render(elementID, img);
 	}
 
@@ -103,6 +104,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.autoZoomResize();
 		this.viewer2.autoZoomResize();
 		this.viewer3.autoZoomResize();
+		
+		this.viewer.clear();
+		this.viewer2.clear();
+		this.viewer3.clear();
 
 		this.viewer.drawImage();
 		this.viewer2.drawImage();
