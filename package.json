@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "webpack; node server/server.js",
-    "test": "webpack-dev-server"
+    "test": "webpack-dev-server",
+    "postinstall": "webpack"
   },
   "dependencies": {
     "dicom-parser": "^1.7.4",

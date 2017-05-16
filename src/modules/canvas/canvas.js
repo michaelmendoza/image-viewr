@@ -67,7 +67,7 @@ class Canvas {
 	 	var element = document.getElementById(elementId);
 		element.appendChild(this.canvas);
 	}
-
+	
 	/*** Draw ***/
 
 	clear() {
