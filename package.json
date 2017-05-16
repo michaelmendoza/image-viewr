@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack; node server/server.js",
     "test": "webpack-dev-server",
-    "postinstall": "webpack"
+    "postinstall": "./node_modules/webpack/bin/webpack.js"
   },
   "dependencies": {
     "dicom-parser": "^1.7.4",
