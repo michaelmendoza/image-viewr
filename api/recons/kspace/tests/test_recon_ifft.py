@@ -78,7 +78,10 @@ class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
 
     def test_result_matches_matlab(self) :
         image = self.kspace.IFT()
-        matlab = numpy.zeros((3, 3, 3))
+        matlab = numpy.array([
+            [[2+0j, -0.5-0.288675134594813j, -0.5+0.288675134594813j ], [0,0,0], [0,0,0] ],
+            [[0,0,0], [0,0,0], [0,0,0] ],
+            [[0,0,0], [0,0,0], [0,0,0] ] ])
         isCloseEnough = numpy.allclose(self.kspace.image, matlab)
         self.assertTrue(isCloseEnough)
 

@@ -1,4 +1,5 @@
 import numpy
+import pyfftw
 import time
 
 class kSpace(object) :
@@ -31,15 +32,31 @@ class kSpace(object) :
     # Recon Methods:
     def IFT(self) :
         if len(self.data.shape) is 2 :
+            
+           # Try the numpy:
             tas = time.time()
             self.image = numpy.fft.ifft2(self.data)
             tas = time.time() - tas
-            print("2D IFFT computed in: ", tas)
+            print("numpy 2D IFFT computed in: ", tas)
+            
+            # try the fftw:
+            tas = time.time()
+            self.image = pyfftw.interfaces.numpy_fft.ifft2(self.data)
+            tas = time.time() - tas
+            print("fftw 2D IFFT computed in: ", tas)
+            
         else :
+            # try the numpy:
             tas = time.time()
             self.image = numpy.fft.ifftn(self.data)
             tas = time.time() - tas
-            print("3D IFFT computed in: ", tas)
+            print("numpy 3D IFFT computed in: ", tas)
+
+            # try the fftw:
+            tas = time.time()
+            self.image = pyfftw.interfaces.numpy_fft.ifftn(self.data)
+            tas = time.time() - tas
+            print("fftw 3D IFFT computed in: ", tas)
             
     def ellipticalRecon(self) :
         print("Perform elliptical model recon")
