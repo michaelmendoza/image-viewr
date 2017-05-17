@@ -26,7 +26,13 @@ class Canvas {
 		this.height = height;
 		this.canvas.width = width;
 		this.canvas.height = height;
-		
+
+		// Layers
+		this.roiCanvas = document.createElement('canvas');
+		this.roiContext = this.roiCanvas.getContext('2d');
+		this.roiCanvas.width = width;
+		this.roiCanvas.height = height;
+	
 		// Image/File 
 		this.file = null;
 		this.img = null;
