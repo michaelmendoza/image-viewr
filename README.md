@@ -11,4 +11,4 @@ $ npm install
 $ npm test
 ```sh
 
-Your app should be now running on [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
+Your app should be now running on [http://localhost:8080/](http://localhost:8080/)
