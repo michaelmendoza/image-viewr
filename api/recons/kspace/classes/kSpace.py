@@ -1,26 +1,11 @@
 import numpy
 import pyfftw
 import time
+import sys
+sys.path.insert(0, '../../')
+from IBasis import IBasis
 
-class kSpace(object) :
-    # Getter and setter for image reconstruction validation:
-    def get_image(self) :
-        if self._image is None :
-            raise ValueError("Data must be reconstructed before an image is available!")
-        else :
-            return self._image
-
-    def set_image(self, image) :
-        self._image = image
-
-    # Member variables:
-    image = property(get_image, set_image)
-    
-    # Constructor:
-    def __init__(self, initialData) :
-        self.data = self.validateData(initialData)
-        self._image = None
-
+class kSpace(IBasis) :
     # Methods:
     def validateData(self, data) :
         if type(data) is not numpy.ndarray :
@@ -30,36 +15,45 @@ class kSpace(object) :
         return data
 
     # Recon Methods:
-    def IFT(self) :
-        if len(self.data.shape) is 2 :
+    def recon(self, option = "default") :
+
+        # Default reconstruction method is a stright inverse Fourier Transform:
+        if option is "default" :
+            print("Default IFFT reconstruction running...")
             
-           # Try the numpy:
-            tas = time.time()
-            self.image = numpy.fft.ifft2(self.data)
-            tas = time.time() - tas
-            print("numpy 2D IFFT computed in: ", tas)
-            
-            # try the fftw:
-            tas = time.time()
-            self.image = pyfftw.interfaces.numpy_fft.ifft2(self.data)
-            tas = time.time() - tas
-            print("fftw 2D IFFT computed in: ", tas)
-            
+            if len(self.data.shape) is 2 :
+                # Try the numpy:
+                tas = time.time()
+                self.image = numpy.fft.ifft2(self.data)
+                tas = time.time() - tas
+                print("numpy 2D IFFT computed in: ", tas)
+                
+                # try the fftw:
+                tas = time.time()
+                self.image = pyfftw.interfaces.numpy_fft.ifft2(self.data)
+                tas = time.time() - tas
+                print("fftw 2D IFFT computed in: ", tas)
+                
+            else :
+                # try the numpy:
+                tas = time.time()
+                self.image = numpy.fft.ifftn(self.data)
+                tas = time.time() - tas
+                print("numpy 3D IFFT computed in: ", tas)
+                
+                # try the fftw:
+                tas = time.time()
+                self.image = pyfftw.interfaces.numpy_fft.ifftn(self.data)
+                tas = time.time() - tas
+                print("fftw 3D IFFT computed in: ", tas)
+
+            return(self.image)
+
+        elif option is "elliptical" :
+            print("Perform elliptical model recon")
+            return numpy.zeros(self.data.shape)
+        elif option is "spiral" :
+            print("Perform spiral recon")
+            return numpy.zeros(self.data.shape)
         else :
-            # try the numpy:
-            tas = time.time()
-            self.image = numpy.fft.ifftn(self.data)
-            tas = time.time() - tas
-            print("numpy 3D IFFT computed in: ", tas)
-
-            # try the fftw:
-            tas = time.time()
-            self.image = pyfftw.interfaces.numpy_fft.ifftn(self.data)
-            tas = time.time() - tas
-            print("fftw 3D IFFT computed in: ", tas)
-            
-    def ellipticalRecon(self) :
-        print("Perform elliptical model recon")
-
-    def spiralRecon(self) :
-        print("Perform spiral recon")
+            raise ValueError("Must reconstruct with valid option!")

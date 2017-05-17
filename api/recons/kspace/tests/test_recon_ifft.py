@@ -19,6 +19,7 @@ class Simple2DkSpaceTestCase(unittest.TestCase) :
 
 class Simple3DkSpaceTestCase(unittest.TestCase) :
     def setUp(self) :
+        # Try making larger arrays for ifftn benchmarking:
         self.kspace = kSpace(numpy.array([
             [ [1, 2, 3], [1, 2, 3], [1, 2, 3] ],
             [ [1, 2, 3], [1, 2, 3], [1, 2, 3] ],
@@ -47,7 +48,7 @@ class Inverse2DFTReconstructionTestCase(Simple2DkSpaceTestCase) :
             image = self.kspace.image
 
     def test_result_matches_matlab(self) :
-        image = self.kspace.IFT()
+        image = self.kspace.recon()
         matlab = numpy.array([
             [3+0j, -0.5-0.688190960235587j, -0.5-0.162459848116453j, -0.5+0.162459848116453j, -0.5+0.688190960235587j],
             [0+0j, 0+0j, 0+0j, 0+0j, 0+0j],
@@ -77,7 +78,7 @@ class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
             image = self.kspace.image
 
     def test_result_matches_matlab(self) :
-        image = self.kspace.IFT()
+        image = self.kspace.recon()
         matlab = numpy.array([
             [[2+0j, -0.5-0.288675134594813j, -0.5+0.288675134594813j ], [0,0,0], [0,0,0] ],
             [[0,0,0], [0,0,0], [0,0,0] ],
@@ -85,6 +86,26 @@ class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
         isCloseEnough = numpy.allclose(self.kspace.image, matlab)
         self.assertTrue(isCloseEnough)
 
-            
+
+class GeneralIFTReconstructionTestCase(Simple3DkSpaceTestCase) :
+    def test_recon_option_default(self) :
+        image1 = self.kspace.recon("default")
+        image2 = self.kspace.recon()
+        self.assertTrue(numpy.allclose(image1, image2))
+
+    def test_recon_option_elliptical(self) :
+        image1 = self.kspace.recon("elliptical")
+        image2 = self.kspace.recon()
+        self.assertFalse(numpy.allclose(image1, image2))
+
+    def test_recon_option_spiral(self) :
+        image1 = self.kspace.recon("spiral")
+        image2 = self.kspace.recon()
+        self.assertFalse(numpy.allclose(image1, image2))
+
+    def test_recon_invalid_option(self) :
+        with self.assertRaises(ValueError) :
+            image = self.kspace.recon("eliptical")
+        
 if __name__ == '__main__' :
     unittest.main()
