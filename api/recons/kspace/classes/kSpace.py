@@ -1,8 +1,10 @@
 import numpy
 import pyfftw
 import time
+import os
+ibasis = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sys
-sys.path.insert(0, '../../')
+sys.path.insert(0, ibasis)
 from IBasis import IBasis
 
 class kSpace(IBasis) :
@@ -20,33 +22,11 @@ class kSpace(IBasis) :
         # Default reconstruction method is a stright inverse Fourier Transform:
         if option is "default" :
             print("Default IFFT reconstruction running...")
-            
             if len(self.data.shape) is 2 :
-                # Try the numpy:
-                tas = time.time()
-                self.image = numpy.fft.ifft2(self.data)
-                tas = time.time() - tas
-                print("numpy 2D IFFT computed in: ", tas)
-                
-                # try the fftw:
-                tas = time.time()
-                self.image = pyfftw.interfaces.numpy_fft.ifft2(self.data)
-                tas = time.time() - tas
-                print("fftw 2D IFFT computed in: ", tas)
-                
+                self.image = pyfftw.interfaces.numpy_fft.ifft2(self.data)  
             else :
-                # try the numpy:
-                tas = time.time()
-                self.image = numpy.fft.ifftn(self.data)
-                tas = time.time() - tas
-                print("numpy 3D IFFT computed in: ", tas)
-                
-                # try the fftw:
-                tas = time.time()
                 self.image = pyfftw.interfaces.numpy_fft.ifftn(self.data)
-                tas = time.time() - tas
-                print("fftw 3D IFFT computed in: ", tas)
-
+                
             return(self.image)
 
         elif option is "elliptical" :

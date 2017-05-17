@@ -19,7 +19,6 @@ class Simple2DkSpaceTestCase(unittest.TestCase) :
 
 class Simple3DkSpaceTestCase(unittest.TestCase) :
     def setUp(self) :
-        # Try making larger arrays for ifftn benchmarking:
         self.kspace = kSpace(numpy.array([
             [ [1, 2, 3], [1, 2, 3], [1, 2, 3] ],
             [ [1, 2, 3], [1, 2, 3], [1, 2, 3] ],
@@ -27,7 +26,11 @@ class Simple3DkSpaceTestCase(unittest.TestCase) :
     def tearDown(self) :
         self.kspace = None
             
-
+class Random3DkSpaceTestCase(unittest.TestCase) :
+    def setUp(self) :
+        self.kspace = kSpace(numpy.random.rand(256,256,256))
+    def tearDown(self) :
+        self.kspace = None
         
 class Zeros2DkSpaceTestCase(unittest.TestCase) :
     def setUp(self) :
@@ -70,7 +73,6 @@ class ValidationTestCases(Zeros3DkSpaceTestCase) :
         self.assertEqual(self.kspace.data.shape, (5, 5, 5))
         with self.assertRaises(ValueError) :
             kspace = kSpace(numpy.zeros((1)))
-            
 
 class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
     def test_image_is_not_accessible_before_recon(self) :
@@ -85,7 +87,6 @@ class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
             [[0,0,0], [0,0,0], [0,0,0] ] ])
         isCloseEnough = numpy.allclose(self.kspace.image, matlab)
         self.assertTrue(isCloseEnough)
-
 
 class GeneralIFTReconstructionTestCase(Simple3DkSpaceTestCase) :
     def test_recon_option_default(self) :
@@ -106,6 +107,6 @@ class GeneralIFTReconstructionTestCase(Simple3DkSpaceTestCase) :
     def test_recon_invalid_option(self) :
         with self.assertRaises(ValueError) :
             image = self.kspace.recon("eliptical")
-        
+            
 if __name__ == '__main__' :
     unittest.main()
