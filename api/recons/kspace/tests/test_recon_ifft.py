@@ -1,6 +1,6 @@
 import unittest
 import numpy
-import Image
+from PIL import Image
 
 import sys
 sys.path.insert(0, '../')
@@ -98,8 +98,8 @@ class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
         isCloseEnough = numpy.allclose(self.kspace.image, matlab)
         self.assertTrue(isCloseEnough)
 
-class EllipticalReconstructionTestCase(SimpleEllipticalTestCase) :
-    pass
+#class EllipticalReconstructionTestCase(SimpleEllipticalTestCase) :
+#    pass
         
 class GeneralIFTReconstructionTestCase(Simple3DkSpaceTestCase) :
     def test_recon_option_default(self) :

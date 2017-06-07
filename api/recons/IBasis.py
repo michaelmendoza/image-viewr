@@ -51,5 +51,5 @@ class IBasis(object) :
         if self._image is None :
             raise ValueError("Must call recon before reconstructed data is available!")
         else :
-            plt.imshow(abs(self._image))
+            plt.imshow(abs(self._image), cmap=plt.get_cmap('gray'))
             plt.show()

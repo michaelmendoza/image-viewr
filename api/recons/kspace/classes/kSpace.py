@@ -1,6 +1,6 @@
 import numpy
 import pyfftw
-import time
+#import time
 import os
 ibasis = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sys
