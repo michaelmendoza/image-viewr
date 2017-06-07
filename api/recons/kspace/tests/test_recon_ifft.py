@@ -1,6 +1,6 @@
 import unittest
 import numpy
-import scipy
+import Image
 
 import sys
 sys.path.insert(0, '../')
@@ -44,6 +44,16 @@ class Zeros3DkSpaceTestCase(unittest.TestCase) :
         self.kspace = kSpace(numpy.zeros((5, 5, 5)))
     def tearDown(self) :
         self.kspace = None
+
+class ShowImageTestCase(unittest.TestCase) :
+    def test_show_reconstructed_image(self) :
+        data = Image.open('sampledata/Shepp_logan.png')
+        data = data.convert('L')
+        data = numpy.array(data)
+        data = numpy.fft.fft2(data)
+        kspace = kSpace(data)
+        kspace.recon()
+        kspace.show()
         
 class Inverse2DFTReconstructionTestCase(Simple2DkSpaceTestCase) :
     def test_image_is_not_accessible_before_recon(self) :
@@ -88,6 +98,9 @@ class Inverse3DFTReconstructionTestCase(Simple3DkSpaceTestCase) :
         isCloseEnough = numpy.allclose(self.kspace.image, matlab)
         self.assertTrue(isCloseEnough)
 
+class EllipticalReconstructionTestCase(SimpleEllipticalTestCase) :
+    pass
+        
 class GeneralIFTReconstructionTestCase(Simple3DkSpaceTestCase) :
     def test_recon_option_default(self) :
         image1 = self.kspace.recon("default")

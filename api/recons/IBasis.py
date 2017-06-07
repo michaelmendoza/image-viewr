@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
+import matplotlib.pyplot as plt
 
 ####################################################
-## Create an interface for all basis classes:
+## An interface for all basis classes:
 # Properties:
 #    'data'
 #        This property is the raw data that you load
@@ -16,6 +17,9 @@ from abc import ABCMeta, abstractmethod
 #        This method performs the reconstruction.
 #        **kwargs are the options needed to perform
 #        the reconstruction.
+#    'show()'
+#        This method generates a plot from the
+#        image. Mostly for debugging.
 ####################################################
 
 class IBasis(object) :
@@ -42,3 +46,10 @@ class IBasis(object) :
     @abstractmethod
     def recon(self, **kwargs):
         raise NotImplementedError("All Bases should implement a recon method!")
+
+    def show(self) :
+        if self._image is None :
+            raise ValueError("Must call recon before reconstructed data is available!")
+        else :
+            plt.imshow(abs(self._image))
+            plt.show()
