@@ -15,7 +15,7 @@ class File {
 		}
 		readers[file.type]();
 	}
-
+	
 	readPNG(file) {
 		var reader = new FileReader();
 		reader.onload = (event) => { 
@@ -27,7 +27,7 @@ class File {
 		}
 		reader.readAsDataURL(file);
 	}		
-
+	
 	readJPEG(file) {
 		var reader = new FileReader();
 		reader.onload = (event) => {

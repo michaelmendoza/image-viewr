@@ -3,7 +3,7 @@ import EventEmitter from 'events';
 import File from '../../modules/loader/file.js';
 import FileSet from '../../modules/loader/file-set.js';
 
-class ImageFileStore extends EventEmitter {
+class ImageFileStore extends EventEmitter { 
 
 	constructor() {
 		super();
@@ -12,7 +12,7 @@ class ImageFileStore extends EventEmitter {
 		this.getLoadedFiles = this.getLoadedFiles.bind(this);
 		this.readFile = this.readFile.bind(this);
 	}
-
+	
 	getLoadedFiles() {
 		return this.files;
 	}
