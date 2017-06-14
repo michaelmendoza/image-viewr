@@ -1,13 +1,9 @@
 
 var express = require('express');
-var mongoose = require('mongoose');
 var app = express();
 var path = require('path');
-var port = process.env.PORT || 3000;
 
-//Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/imageviewr';
-mongoose.connect(mongoDB);
+var port = process.env.PORT || 3000;
 
 // set up access to index.html
 app.use(express.static(path.join(__dirname, '../build')));
@@ -17,10 +13,10 @@ app.get('/', function(req, res) {
 });
 
 // set up the RESTful API, handler methods are defined in api.js
-var api = require('./controllers/api.js');
-app.get('/api', api.list);
-app.get('/api/create', api.create);
-app.get('/api/delete', api.delete);
+app.get('/api', function(req, res) {
+	console.log('API - No cluster data found.')
+	res.send(["Hello API here! Roger roger!"]);
+});
 
 app.listen(port);
-console.log("App with Data listening on port " + port);
+console.log("App listening on port " + port);
