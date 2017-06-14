@@ -32,7 +32,7 @@ class Random3DkSpaceTestCase(unittest.TestCase) :
     def tearDown(self) :
         self.kspace = None
         
-class Zeros2DkSpaceTestCase(unittest.TestCase) :
+nclass Zeros2DkSpaceTestCase(unittest.TestCase) :
     def setUp(self) :
         self.kspace = kSpace(numpy.zeros((5, 5)))
 
