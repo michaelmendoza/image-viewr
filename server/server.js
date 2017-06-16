@@ -22,5 +22,10 @@ app.get('/api', api.list);
 app.get('/api/create', api.create);
 app.get('/api/delete', api.delete);
 
+// image API, handler methods are defined in image.js
+var image = require('./controllers/image.js');
+app.get('/api/image/add', image.add);
+
+
 app.listen(port);
 console.log("App with Data listening on port " + port);
