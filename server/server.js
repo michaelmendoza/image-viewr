@@ -3,7 +3,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
 var path = require('path');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 var formidable = require('express-formidable');
 
 //Set up default mongoose connection
@@ -15,6 +15,11 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.get('/', function(req, res) {
 	console.log('Getting index.html');
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
+
+app.get('/tools', function(req, res) {
+	console.log('Getting tools.html');
+  res.sendFile(path.join(__dirname, '../build', 'tools.html'));
 });
 
 // set up the RESTful API, handler methods are defined in api.js

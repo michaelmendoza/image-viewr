@@ -4,6 +4,9 @@ A web framework/library which uses html canvas to load/display images and do bas
 
 ## Getting Started
 
+Make to to install zmq with brew (for macOS)
+Add packages to python: Using pip install zerorpc
+
 Make sure you have NodeJS
 
 ```sh
