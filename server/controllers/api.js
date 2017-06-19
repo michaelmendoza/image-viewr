@@ -28,14 +28,14 @@ exports.create = function(req, res) {
 	var users = new Users();
 	var usernames = [];
 	for(var i = 0; i < count; i++) {
-		usernames.push('user-'+i);			
+		usernames.push('user-'+i);
 	} 
 	users.usernames = usernames;
 	
-  users.save(function(err, data) {
-  	console.log('Saving Data ...');
-  	res.send('Saving Data ...');
-  })
+	users.save(function(err, data) {
+		console.log('Saving Data ...');
+		res.send('Saving Data ...');
+	})
 
 }
 
