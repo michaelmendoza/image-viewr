@@ -1,6 +1,6 @@
 
 /* The IMAGE controller
-   Exports 1 method:
+   Exports methods:
    * add - Sends an array of images to the python server to add, waits for and returns the result
 */
 
@@ -41,7 +41,7 @@ function getAllImages(reqFiles) {
 /**
  * Adds an array of images together and then returns the results
  */
-exports.add = function(req, res) {
+exports.add = function (req, res) {
 	"use strict";
 
 	// Make sure we have at least two images to add:
@@ -59,11 +59,11 @@ exports.add = function(req, res) {
 			client.connect("tcp://127.0.0.1:4242");
 
 			client.invoke("add", images, function(error, pyres, more) {
-				console.log('node image/add: recieving something!');
+				console.log('node image/add: recieving result of add!');
 
 				if (error) {
 					res.writeHead(500, { 'Content-Type': 'image/png' });
-					res.write(err);
+					res.write(error);
 					res.end();
 					return;
 				}

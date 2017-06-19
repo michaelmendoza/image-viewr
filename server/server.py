@@ -9,7 +9,7 @@ from api.basic.Basic import Basic
 class ImageService (object) :
 	def add (self, images) :
 		res = Basic.add(images)
-		print(__file__ + ': returning something!')
+		print(__file__ + ': Sending result of add...')
 		return res
 
 # Create the server:
