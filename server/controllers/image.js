@@ -42,13 +42,22 @@ function getAllImages(reqFiles) {
  * Adds an array of images together and then returns the results
  */
 exports.add = function(req, res) {
+	"use strict";
 
-	var client = new zerorpc.Client();
-	client.connect("tcp://127.0.0.1:4242");
+	// Make sure we have at least two images to add:
+	if (Object.keys(req.files).length < 2) {
+		let message = 'We can only add 2 or more images!';
+		console.log(message);
+		res.send(message);
+		return;
+	}
 
 	getAllImages(req.files).then(
 		// Promise resolved:
 		function(images) {
+			var client = new zerorpc.Client();
+			client.connect("tcp://127.0.0.1:4242");
+
 			client.invoke("add", images, function(error, pyres, more) {
 				console.log('node image/add: recieving something!');
 
@@ -65,7 +74,7 @@ exports.add = function(req, res) {
 		},
 		// Promise failed:
 		function(err) {
-			console.log('Whoops, error dude.  Bummer.');
+			console.log('Whoops, error uploading your images. Bummer dude.');
 		}
 	);
 }
