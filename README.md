@@ -4,14 +4,47 @@ A web framework/library which uses html canvas to load/display images and do bas
 
 ## Getting Started
 
-Make to to install zmq with brew (for macOS)
-Add packages to python: Using pip install zerorpc
+### Setup local environment
 
-Make sure you have NodeJS
+For Mac: 
+Install Homebrew (https://brew.sh/)
+Install zmq with brew (for macOS): 
+```brew install zmq```
+```brew install pkg-config```
 
-```sh
-$ npm install
-$ npm test
-```sh
+For All:
+Add python dependencies: 
+```pip install zerorpc```
 
-Your app should be now running on [http://localhost:8080/](http://localhost:8080/)
+Install NodeJS/NPM (https://nodejs.org/)
+
+Install Webpack
+```npm install -g webpack```
+
+### Run simple local environment
+
+```
+npm install
+npm test
+```
+
+Your app should be now running on http://localhost:3000/
+
+### Setup for running local python server
+
+Install Mongodb
+For Mac:
+Install mongo 
+brew install mongo
+Set up data directory 
+mkdir -p /data/db
+Run mongo
+mongod
+
+Start Server
+cd server
+./start-server.sh
+
+Your app should be now running on http://localhost:3001/
+
+
