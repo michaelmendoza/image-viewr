@@ -9,17 +9,23 @@ A web framework/library which uses html canvas to load/display images and do bas
 For Mac: 
 Install Homebrew (https://brew.sh/)
 Install zmq with brew (for macOS): 
-```brew install zmq```
-```brew install pkg-config```
+```
+brew install zmq
+brew install pkg-config
+```
 
 For All:
 Add python dependencies: 
-```pip install zerorpc```
+```
+pip install zerorpc
+```
 
 Install NodeJS/NPM (https://nodejs.org/)
 
 Install Webpack
-```npm install -g webpack```
+```
+npm install -g webpack
+```
 
 ### Run simple local environment
 
@@ -35,11 +41,17 @@ Your app should be now running on http://localhost:3000/
 Install Mongodb
 For Mac:
 Install mongo 
+```
 brew install mongo
+```
 Set up data directory 
+```
 mkdir -p /data/db
+```
 Run mongo
+```
 mongod
+```
 
 Start Server
 cd server
