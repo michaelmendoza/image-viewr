@@ -26,4 +26,71 @@
 			}
 		}
 	}
+
+	.rightSide, .leftSide {
+		display: inline-flex;
+		width: 50%;
+
+		.result {
+			position: absolute;
+		}
+
+		.previews img {
+			width: 75px;
+			display: block;
+			margin: 5px;
+		}
+	}
+
+	.input-container {
+		padding: 20px;
+
+		label {
+			display: block;
+		}
+
+		input {
+			margin-left: 10px;
+		}
+
+		.inputfile {
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+		}
+
+		.inputfile + label {
+			color: #9162e4;
+			border: 1px solid #9162e4;
+			background-color: #FFF;
+			display: inline-block;
+			padding: 10px;
+			transition: all .25s;
+		}
+
+		.inputfile:focus + label,
+		.inputfile + label:hover {
+			color: #280680;
+			border-color: #280680;
+			cursor: pointer;
+			transition: all .25s;
+		}
+
+		.submit-button {
+			background-color: #9162e4;
+			color: #FFF;
+			border: none;
+			padding: 10px;
+			transition: all .25s;
+		}
+
+		.submit-button:hover,
+		.submit-button:focus {
+			background-color: #280680;
+			transition: all .25s;
+		}
+	}
 }
