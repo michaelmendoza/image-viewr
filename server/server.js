@@ -29,9 +29,9 @@ app.get('/api/create', api.create);
 app.get('/api/delete', api.delete);
 
 // image API, handler methods are defined in image.js
-// app.use(formidable());
 var image = require('./controllers/image.js');
 app.post('/api/image/add', image.add);
+app.post('/api/image/sos', image.sos);
 
 
 app.listen(port);

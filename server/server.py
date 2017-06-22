@@ -12,6 +12,11 @@ class ImageService (object) :
 		print(__file__ + ': Sending result of add...')
 		return res
 
+	def sos (self, images) :
+		res = Basic.sos(images)
+		print(__file__ + ': Sending result of sos...')
+		return res
+
 # Create the server:
 print(__file__ + ": Python server, binding to tcp://0.0.0.0:4242")
 s = zerorpc.Server(ImageService())
