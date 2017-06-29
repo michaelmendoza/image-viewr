@@ -177,7 +177,8 @@ class Canvas {
 	/*** Resize ***/
 	
 	autoZoomResize() {
-		if(this.file.type != 'dicom-3d')
+		// Only Dicoms support auto-zoom and resize
+		if(this.file.type != 'dicom' && this.file.type != 'dicom-3d')
 			return;
 		
 		var dataSize = this.file.getBounds(this.dimIndex);

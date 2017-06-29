@@ -52,6 +52,10 @@ class File {
 			this.numPixels = dicom.numPixels;
 			this.pixelData = dicom.pixelData;		
 			this.header = dicom.header;	
+			this.getBounds = (dimIndex) => { 
+				return { width: this.width, height: this.height };
+			}
+
 			this.fileLoadedCallback();
 		}
 		reader.readAsArrayBuffer(file);

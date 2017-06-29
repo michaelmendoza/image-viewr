@@ -10,7 +10,7 @@ class FileSet {
 
 		this.readDICOMs();
 	}
-
+	
 	getBounds(dimIndex) { 
 		var bounds = [
 			{ width: this.width, height: this.height, dx: this.pixelSpacing.x, dy: this.pixelSpacing.y }, // x, y
