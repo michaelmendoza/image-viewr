@@ -88,6 +88,10 @@ class Canvas {
 		return this.draw.drawTile3DImage(this);
 	}
 
+	createImg() { 
+		return this.draw.createImg(this);
+	}
+
 	/*** Controls ***/
 
 	autoZoomResize() {

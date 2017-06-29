@@ -6,34 +6,40 @@ var ImageLoad = function(canvas) {
 	this.loadFile = (file) => {
 
 		canvas.file = file;
-
-		if(file.img != null) {
-			canvas.img = file.img;
 			
-			if(file.type == 'png' || file.type == 'jpeg')
-				Viewr.setMode('view', ViewModes._2D);
-			// Auto-contrast for dicom files
-			if(file.type == 'dicom') {
-				canvas.contrast.autoContrast(file.pixelData, file.numPixels);
-				Viewr.setMode('view', ViewModes._2D);
-			}
-			else if(file.type == 'dicom-3d') {
-				var bounds = file.getBounds(canvas.dimIndex);
-				canvas.contrast.autoContrast3D(file.fileset);
-				canvas.controls.setAspectRatio(bounds.dx, bounds.dy);
-				Viewr.setMode('view', ViewModes._3D);
+		if(file.type == 'png' || file.type == 'jpeg') {
+			Viewr.setMode('view', ViewModes._2D);
+			canvas.img = file.img;
+		}
 
-				if(canvas.dimIndex == 0) 
-					canvas.sliceIndex = Math.floor(file.depth / 2);
-				else if(canvas.dimIndex == 1)
-					canvas.sliceIndex = Math.floor(file.height / 2);
-				else if(canvas.dimIndex == 2)
-					canvas.sliceIndex = Math.floor(file.width / 2);
-			} 
+		// Auto-contrast for dicom files
+		if(file.type == 'dicom') {
+			Viewr.setMode('view', ViewModes._2D);
+
+			canvas.contrast.autoContrast(file.pixelData, file.numPixels);
+			canvas.img = canvas.createImg();
+			canvas.img.onload = () => { canvas.clear(); canvas.drawImage(); };			
 		}
-		else {
-			console.log("Error: File doesn't have image data");
-		}
+
+		else if(file.type == 'dicom-3d') {
+			Viewr.setMode('view', ViewModes._3D);
+
+			var bounds = file.getBounds(canvas.dimIndex);
+			canvas.contrast.autoContrast3D(file.fileset);
+			canvas.controls.setAspectRatio(bounds.dx, bounds.dy);
+			canvas.autoZoomResize();
+			
+			if(canvas.dimIndex == 0) 
+				canvas.sliceIndex = Math.floor(file.depth / 2);
+			else if(canvas.dimIndex == 1)
+				canvas.sliceIndex = Math.floor(file.height / 2);
+			else if(canvas.dimIndex == 2)
+				canvas.sliceIndex = Math.floor(file.width / 2);
+			
+			canvas.img = canvas.createImg();
+			canvas.img.onload = () => { canvas.clear(); canvas.drawImage(); };
+		} 
+
 	}
 
 	this.loadFileInFileSet = (indexMove) => {
@@ -49,9 +55,13 @@ var ImageLoad = function(canvas) {
 		index = index >= maxIndex ? maxIndex - 1 : index;
 		canvas.sliceIndex = index;
 
-		canvas.drawImage();
-		if(canvas.sliceSelect != null)
-			canvas.sliceSelect.drawSliceImages();
+		canvas.img = canvas.createImg();
+		canvas.img.onload = () => { 
+			canvas.drawImage();
+			if(canvas.sliceSelect != null)
+				canvas.sliceSelect.drawSliceImages();
+		};
+	
 	}
 
 }

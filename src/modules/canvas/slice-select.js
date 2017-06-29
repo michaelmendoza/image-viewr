@@ -11,9 +11,18 @@ class SliceSelect {
 		this.activeHandle = null;
 	}
 
-	drawSliceImages() { 
-		this.canvasX.drawImage();
-		this.canvasY.drawImage();
+	drawSliceImages() {  
+		var canvasX = this.canvasX;
+		canvasX.img = canvasX.createImg();
+		canvasX.img.onload = () => { 
+			canvasX.drawImage();
+		}
+		
+		var canvasY = this.canvasY;
+		canvasY.img = canvasY.createImg();
+		canvasY.img.onload = () => { 
+			canvasY.drawImage();
+		}
 	}
 
 	getSlices() {
