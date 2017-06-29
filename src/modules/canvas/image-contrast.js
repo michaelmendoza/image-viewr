@@ -31,7 +31,7 @@ class ImageContrast {
 		this.width = maxValue - minValue;
 		this.level = minValue + (this.width / 2);
 	}
-
+	
 	autoContrast3D(fileSet) { 
 		var minValue = 4096.0;
 		var maxValue = 0.0;
