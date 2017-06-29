@@ -183,12 +183,11 @@ class Canvas {
 		var dataSize = this.file.getBounds(this.dimIndex);
 		var viewportSize = { width: this.width, height: this.height };
 
-		var dx = (viewportSize.width / dataSize.width);
+		var dx = (viewportSize.width / dataSize.width) / this.controls.aspectRatio;
 		var dy = (viewportSize.height / dataSize.height);
 
-		if(dy < 1.0) {
-			this.controls.zoom = dy;
-		}
+		var dz = dx < dy ? dx : dy;
+		this.controls.zoom = dz;
 	}
 
 	setViewportSize() { 
@@ -199,7 +198,7 @@ class Canvas {
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
 
-		//this.autoZoomResize();	
+		this.autoZoomResize();	
 	}
 
 	/*** Shapes ***/
