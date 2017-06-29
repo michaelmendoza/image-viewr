@@ -92,6 +92,10 @@ class Canvas {
 		return this.draw.createImg(this);
 	}
 
+	updateImage() {
+		this.draw.updateImage(this);
+	}
+
 	/*** Controls ***/
 
 	autoZoomResize() {

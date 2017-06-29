@@ -28,16 +28,15 @@ var ImageLoad = function(canvas) {
 			canvas.contrast.autoContrast3D(file.fileset);
 			canvas.controls.setAspectRatio(bounds.dx, bounds.dy);
 			canvas.autoZoomResize();
-			
+
 			if(canvas.dimIndex == 0) 
 				canvas.sliceIndex = Math.floor(file.depth / 2);
 			else if(canvas.dimIndex == 1)
 				canvas.sliceIndex = Math.floor(file.height / 2);
 			else if(canvas.dimIndex == 2)
 				canvas.sliceIndex = Math.floor(file.width / 2);
-			
-			canvas.img = canvas.createImg();
-			canvas.img.onload = () => { canvas.clear(); canvas.drawImage(); };
+
+			canvas.updateImage();
 		} 
 
 	}
@@ -55,13 +54,9 @@ var ImageLoad = function(canvas) {
 		index = index >= maxIndex ? maxIndex - 1 : index;
 		canvas.sliceIndex = index;
 
-		canvas.img = canvas.createImg();
-		canvas.img.onload = () => { 
-			canvas.drawImage();
-			if(canvas.sliceSelect != null)
-				canvas.sliceSelect.drawSliceImages();
-		};
-	
+		canvas.updateImage();
+		if(canvas.sliceSelect != null)
+			canvas.sliceSelect.drawSliceImages();	
 	}
 
 }
