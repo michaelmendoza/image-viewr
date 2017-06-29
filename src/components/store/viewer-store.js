@@ -17,13 +17,13 @@ class ViewerStore extends EventEmitter {
 		this.loadFile = this.loadFile.bind(this);
 	}
 
-	setupViewer(info) {
+	setupViewer(info) { 
 		Viewr.onModeChange = () => { this.emit('canvasmode'); };
 		Viewr.onFeatureUpdate = () => { this.emit('feature-update')};
 
-		this.viewer = new Viewr.Canvas(info[0].width, info[0].height);
-		this.viewer2 = new Viewr.Canvas(info[1].width, info[1].height);
-		this.viewer3 = new Viewr.Canvas(info[2].width, info[2].height);
+		this.viewer = new Viewr.Canvas(info[0].ref);
+		this.viewer2 = new Viewr.Canvas(info[1].ref);
+		this.viewer3 = new Viewr.Canvas(info[2].ref);
 
 		this.viewer.dimIndex = 0;  // z
 		this.viewer2.dimIndex = 1; // y
@@ -50,10 +50,14 @@ class ViewerStore extends EventEmitter {
 		this.viewer.volumeRender.render(elementID, img);
 	}
 
-	setViewportSize(info) { 
-		this.viewer.setViewportSize(info[0].width, info[0].height);
-		this.viewer2.setViewportSize(info[1].width, info[1].height);
-		this.viewer3.setViewportSize(info[2].width, info[2].height);
+	setViewportSize() { 
+		this.viewer.setViewportSize();
+		this.viewer2.setViewportSize();
+		this.viewer3.setViewportSize();
+
+		this.viewer.drawImage();
+		this.viewer2.drawImage();
+		this.viewer3.drawImage();		
 	}
 
 	getCanvas() { 
@@ -102,8 +106,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer3.loadFile(file);
 	}
 
-	drawImage() {
+	drawImage() { 
 		this.viewer.drawImage();
+		this.viewer2.drawImage();
+		this.viewer3.drawImage();
 	}
 
 	drawColorThreshold(colorThreshold) {

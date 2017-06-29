@@ -8,7 +8,7 @@ class Viewer extends React.Component {
 		var info = this.getViewerInfo();
 		ViewerStore.setupViewer(info);
 
-		ViewerStore.on('canvasmode', () => {
+		ViewerStore.on('canvasmode', () => { 
 			this.setState({});
 
 			var mode = ViewerStore.getViewMode();
@@ -18,16 +18,19 @@ class Viewer extends React.Component {
 		})
 
 		window.addEventListener('resize', function(event) {
-			var info = this.getViewerInfo();
-		  ViewerStore.setViewportSize(info);
+		  ViewerStore.setViewportSize();
 		}.bind(this));
+	}
+
+	componentDidUpdate() {
+		ViewerStore.setViewportSize();
 	}
 
 	getViewerInfo() {
 		return [
-			{ id:'image-viewer', width:this.refs.Viewer.offsetWidth, height:this.refs.Viewer.offsetHeight },
-			{ id:'image-viewer2', width:this.refs.Viewer2.offsetWidth, height:this.refs.Viewer2.offsetHeight },
-			{ id:'image-viewer3', width:this.refs.Viewer3.offsetWidth, height:this.refs.Viewer3.offsetHeight }
+			{ id:'image-viewer', ref:this.refs.Viewer },
+			{ id:'image-viewer2', ref:this.refs.Viewer2 },
+			{ id:'image-viewer3', ref:this.refs.Viewer3 }
 		];
 	}
 
@@ -36,7 +39,7 @@ class Viewer extends React.Component {
 		var modes = ViewerStore.getViewModes();
 		return (mode == modes._3D) ? 'multiple-views' : (mode == modes._3DVol) ? 'volume-view' : '';
 	}
-
+	
 	render() {
 		var viewClass = this.viewModeClass();
 		

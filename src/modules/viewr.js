@@ -28,7 +28,7 @@ class Viewr {
  		this.onFeatureUpdate = () => {};
  	}
 
- 	setMode(modeType, mode) {		
+ 	setMode(modeType, mode) {	
  		this.modes[modeType] = mode;
  		this.onModeChange();
  	}

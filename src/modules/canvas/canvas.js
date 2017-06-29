@@ -17,7 +17,12 @@ import MouseEvents from '../events/mouse-events.js';
 
 class Canvas { 
 
-	constructor(width, height) {
+	constructor(ref) {
+
+		// Parent Reference
+		this.ref = ref;
+		var width = ref.offsetWidth;
+		var height = ref.offsetHeight;
 
 		// Canvas Properties 
 		this.canvas = document.createElement('canvas');
@@ -98,21 +103,6 @@ class Canvas {
 
 	/*** Controls ***/
 
-	autoZoomResize() {
-		if(this.file.type != 'dicom-3d')
-			return;
-		
-		var dataSize = this.file.getBounds(this.dimIndex);
-		var viewportSize = { width: this.width, height: this.height };
-
-		var dx = (viewportSize.width / dataSize.width);
-		var dy = (viewportSize.height / dataSize.height);
-
-		if(dy < 1.0) {
-			this.controls.zoom = dy;
-		}
-	}
-
 	panImage(event) {
 		this.controls.panImage(event);
 		this.draw.clear(this);
@@ -186,12 +176,30 @@ class Canvas {
 
 	/*** Resize ***/
 	
-	setViewportSize(width, height) {
+	autoZoomResize() {
+		if(this.file.type != 'dicom-3d')
+			return;
+		
+		var dataSize = this.file.getBounds(this.dimIndex);
+		var viewportSize = { width: this.width, height: this.height };
+
+		var dx = (viewportSize.width / dataSize.width);
+		var dy = (viewportSize.height / dataSize.height);
+
+		if(dy < 1.0) {
+			this.controls.zoom = dy;
+		}
+	}
+
+	setViewportSize() { 
+		var width = this.ref.offsetWidth;
+		var height = this.ref.offsetHeight;		
 		this.width = width;
 		this.height = height;
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
-		this.drawImage();
+
+		//this.autoZoomResize();	
 	}
 
 	/*** Shapes ***/

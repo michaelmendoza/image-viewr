@@ -9,36 +9,38 @@ var ImageLoad = function(canvas) {
 			
 		if(file.type == 'png' || file.type == 'jpeg') {
 			Viewr.setMode('view', ViewModes._2D);
+			canvas.setViewportSize();
 			canvas.img = file.img;
+			canvas.drawImage();
 		}
-
+		
 		// Auto-contrast for dicom files
 		if(file.type == 'dicom') {
 			Viewr.setMode('view', ViewModes._2D);
-
 			canvas.contrast.autoContrast(file.pixelData, file.numPixels);
-			canvas.img = canvas.createImg();
-			canvas.img.onload = () => { canvas.clear(); canvas.drawImage(); };			
+			canvas.setViewportSize();
+			canvas.updateImage();			
 		}
 
-		else if(file.type == 'dicom-3d') {
+		else if(file.type == 'dicom-3d') { 
 			Viewr.setMode('view', ViewModes._3D);
-
 			var bounds = file.getBounds(canvas.dimIndex);
 			canvas.contrast.autoContrast3D(file.fileset);
 			canvas.controls.setAspectRatio(bounds.dx, bounds.dy);
-			canvas.autoZoomResize();
-
-			if(canvas.dimIndex == 0) 
-				canvas.sliceIndex = Math.floor(file.depth / 2);
-			else if(canvas.dimIndex == 1)
-				canvas.sliceIndex = Math.floor(file.height / 2);
-			else if(canvas.dimIndex == 2)
-				canvas.sliceIndex = Math.floor(file.width / 2);
-
+			canvas.setViewportSize();
+			this.loadDefaultDimIndices(file);
 			canvas.updateImage();
 		} 
 
+	}
+
+	this.loadDefaultDimIndices = (file) => {
+		if(canvas.dimIndex == 0) 
+			canvas.sliceIndex = Math.floor(file.depth / 2);
+		else if(canvas.dimIndex == 1)
+			canvas.sliceIndex = Math.floor(file.height / 2);
+		else if(canvas.dimIndex == 2)
+			canvas.sliceIndex = Math.floor(file.width / 2);
 	}
 
 	this.loadFileInFileSet = (indexMove) => {
