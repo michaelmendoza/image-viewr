@@ -4,12 +4,21 @@ import ViewerStore from '../store/viewer-store.js';
 
 class Viewer extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = { autozoom: false };
+	}
+
 	componentDidMount() {
 		var info = this.getViewerInfo();
 		ViewerStore.setupViewer(info);
 
-		ViewerStore.on('canvasmode', () => {
+		ViewerStore.Viewr.on('canvas-update', () => { 
 			this.setState({});
+		})
+
+		ViewerStore.Viewr.on('view-update', () => { 
+			this.setState({ autozoom: true });
 
 			var mode = ViewerStore.getViewMode();
 			var modes = ViewerStore.getViewModes();
@@ -18,16 +27,25 @@ class Viewer extends React.Component {
 		})
 
 		window.addEventListener('resize', function(event) {
-			var info = this.getViewerInfo();
-		  ViewerStore.setViewportSize(info);
+		  ViewerStore.setViewportSize();
+		  ViewerStore.autoZoomResize();	
 		}.bind(this));
+	}
+	
+	componentDidUpdate() {
+		ViewerStore.setViewportSize();
+		
+		if(this.state.autozoom) {
+			ViewerStore.autoZoomResize();
+			this.setState({ autozoom: false });		
+		}
 	}
 
 	getViewerInfo() {
 		return [
-			{ id:'image-viewer', width:this.refs.Viewer.offsetWidth, height:this.refs.Viewer.offsetHeight },
-			{ id:'image-viewer2', width:this.refs.Viewer2.offsetWidth, height:this.refs.Viewer2.offsetHeight },
-			{ id:'image-viewer3', width:this.refs.Viewer3.offsetWidth, height:this.refs.Viewer3.offsetHeight }
+			{ id:'image-viewer', ref:this.refs.Viewer },
+			{ id:'image-viewer2', ref:this.refs.Viewer2 },
+			{ id:'image-viewer3', ref:this.refs.Viewer3 }
 		];
 	}
 

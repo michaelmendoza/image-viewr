@@ -8,7 +8,7 @@ import ThresholdPanel from './threshold-panel.jsx';
 class ViewerInfoPanel extends React.Component {
 
 	componentDidMount() {
-		ViewerStore.on('canvasmode', () => {
+		ViewerStore.Viewr.on('canvas-update', () => {
 			this.setState({});
 		})	      
 	}

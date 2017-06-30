@@ -1,17 +1,17 @@
 
-import dicomParser from 'dicom-parser';
+import {parseDicom} from 'dicom-parser';
 
 class FileDICOM {
 
 	constructor(event) {
 		this.readDICOM(event);
 	}
-
+	
 	readDICOM(event) {
 		var frame = 0;
 		var arrayBuffer = event.target.result;
 		var byteArray = new Uint8Array(arrayBuffer);
-		var dataSet = dicomParser.parseDicom(byteArray);
+		var dataSet = parseDicom(byteArray);
 
 		var headerUIDs = {
 			patientId: 'x00100020',

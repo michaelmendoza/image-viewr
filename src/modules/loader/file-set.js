@@ -10,7 +10,7 @@ class FileSet {
 
 		this.readDICOMs();
 	}
-
+	
 	getBounds(dimIndex) { 
 		var bounds = [
 			{ width: this.width, height: this.height, dx: this.pixelSpacing.x, dy: this.pixelSpacing.y }, // x, y
@@ -33,8 +33,10 @@ class FileSet {
 			this.img = this.fileset[Math.floor(this.depth / 2)].dicom.createImg();
 
 			this.pixelSpacing = this.fileset[0].header.pixelSpacing;
-			this.pixelSpacing = this.pixelSpacing.split('\\');
-			this.pixelSpacing = { x: parseFloat(this.pixelSpacing[0]), y: parseFloat(this.pixelSpacing[1]) };
+			if(this.pixelSpacing !== undefined) {
+				this.pixelSpacing = this.pixelSpacing.split('\\');
+				this.pixelSpacing = { x: parseFloat(this.pixelSpacing[0]), y: parseFloat(this.pixelSpacing[1]) };				
+			} 
 			this.sliceThickness = this.fileset[0].header.sliceThickness;
 			this.sliceThickness = parseFloat(this.sliceThickness);
 

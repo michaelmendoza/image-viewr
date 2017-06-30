@@ -10,10 +10,10 @@ class SliceSelect {
 		this.isOnHandle = { x:false, y:false };
 		this.activeHandle = null;
 	}
-
-	drawSliceImages() { 
-		this.canvasX.drawImage();
-		this.canvasY.drawImage();
+	
+	drawSliceImages() {  
+		this.canvasX.updateImage();
+		this.canvasY.updateImage();
 	}
 
 	getSlices() {
@@ -21,7 +21,7 @@ class SliceSelect {
 		var y = this.canvasY.sliceIndex;
 		return { x:x, y:y };
 	}
-
+	
 	getSliceHandles() { 
 		var canvas = this.canvas;
 		var slices = this.getSlices();

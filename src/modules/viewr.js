@@ -4,10 +4,12 @@ import CanvasModes from './modes/canvas-modes.js';
 import Loader from './loader/loader.js';
 import ThresholdModes from './modes/threshold-modes.js';
 import ViewModes from './modes/view-modes';
+import EventEmitter from 'events';
 
-class Viewr {
+class Viewr extends EventEmitter{
 
- 	constructor() { 		
+ 	constructor() { 
+ 		super();
  		this.Canvas = Canvas;
  		this.Loader = Loader;
 
@@ -24,13 +26,18 @@ class Viewr {
  		this.canvasList = [];
  		this.loadedFiles = [];
 
- 		this.onModeChange = () => {};
  		this.onFeatureUpdate = () => {};
  	}
 
- 	setMode(modeType, mode) {		
+ 	setMode(modeType, mode) {	
  		this.modes[modeType] = mode;
- 		this.onModeChange();
+
+ 		if(modeType == 'canvas')
+ 			this.emit('canvas-update')
+ 		else if(modeType == 'threshold')
+ 			this.emit('threshold-update')
+ 		else if(modeType == 'view')
+ 			this.emit('view-update')
  	}
  }
 

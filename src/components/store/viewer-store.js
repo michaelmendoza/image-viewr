@@ -12,18 +12,19 @@ class ViewerStore extends EventEmitter {
 	constructor() {
 		super();
 
+		this.Viewr = Viewr;
+		
 		this.getCanvas = this.getCanvas.bind(this);
 		this.getCanvasModes = this.getCanvasModes.bind(this);
 		this.loadFile = this.loadFile.bind(this);
 	}
 
-	setupViewer(info) {
-		Viewr.onModeChange = () => { this.emit('canvasmode'); };
+	setupViewer(info) { 
 		Viewr.onFeatureUpdate = () => { this.emit('feature-update')};
 
-		this.viewer = new Viewr.Canvas(info[0].width, info[0].height);
-		this.viewer2 = new Viewr.Canvas(info[1].width, info[1].height);
-		this.viewer3 = new Viewr.Canvas(info[2].width, info[2].height);
+		this.viewer = new Viewr.Canvas(info[0].ref);
+		this.viewer2 = new Viewr.Canvas(info[1].ref);
+		this.viewer3 = new Viewr.Canvas(info[2].ref);
 
 		this.viewer.dimIndex = 0;  // z
 		this.viewer2.dimIndex = 1; // y
@@ -50,14 +51,28 @@ class ViewerStore extends EventEmitter {
 		this.viewer.volumeRender.render(elementID, img);
 	}
 
-	setViewportSize(info) { 
-		this.viewer.setViewportSize(info[0].width, info[0].height);
-		this.viewer2.setViewportSize(info[1].width, info[1].height);
-		this.viewer3.setViewportSize(info[2].width, info[2].height);
+	setViewportSize() { 
+		this.viewer.setViewportSize();
+		this.viewer2.setViewportSize();
+		this.viewer3.setViewportSize();
+
+		this.viewer.drawImage();
+		this.viewer2.drawImage();
+		this.viewer3.drawImage();		
 	}
+
+	autoZoomResize() {
+		this.viewer.autoZoomResize();
+		this.viewer2.autoZoomResize();	
+		this.viewer3.autoZoomResize();			
+	}	
 
 	getCanvas() { 
 		return this.viewer;
+	}
+
+	getFileType() { 
+		return this.viewer.getFileType();
 	}
 
 	getCanvasMousePixel() {
@@ -100,22 +115,12 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadFile(file);
 		this.viewer2.loadFile(file);
 		this.viewer3.loadFile(file);
+	}
 
-		this.viewer.autoZoomResize();
-		this.viewer2.autoZoomResize();
-		this.viewer3.autoZoomResize();
-		
-		this.viewer.clear();
-		this.viewer2.clear();
-		this.viewer3.clear();
-
+	drawImage() { 
 		this.viewer.drawImage();
 		this.viewer2.drawImage();
 		this.viewer3.drawImage();
-	}
-
-	drawImage() {
-		this.viewer.drawImage();
 	}
 
 	drawColorThreshold(colorThreshold) {
@@ -124,6 +129,8 @@ class ViewerStore extends EventEmitter {
 
 	drawMinThreshold(minThreshold) {
 		this.viewer.setMinThreshold(minThreshold);
+		this.viewer2.setMinThreshold(minThreshold);
+		this.viewer3.setMinThreshold(minThreshold);
 	}
 
 	setCanvasMode(mode) {
@@ -168,6 +175,10 @@ class ViewerStore extends EventEmitter {
 	
 	selectPanMode() {
 		this.viewer.selectPanMode();
+	}
+
+	getZoom() {
+		return this.viewer.getZoom();
 	}
 
 	zoomIn() {

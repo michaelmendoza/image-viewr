@@ -7,7 +7,7 @@ import Viewr from '../viewr.js';
 /**
  * Canvas based image viewer
  */
-class MouseEvents {
+class MouseEvents { 
 
 	fixCanvasMode() {
 		// Fix Canvas Movde if not active feature
@@ -27,7 +27,7 @@ class MouseEvents {
 	handleMouseMove(event) { 
 
 		//console.log('Mouse Move - Mode: ' + Viewr.modes.canvas);
-
+		
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
 			[CanvasModes.CONTRAST]: () => { 
@@ -36,7 +36,11 @@ class MouseEvents {
 					var x = event.movementX * sensitivity;
 					var y = event.movementY * sensitivity;
 					this.contrast.setContrastWithMouse({ x:x, y:y });
-					this.drawImage();
+
+					this.img = this.createImg();
+					this.img.onload = () => { 
+						this.drawImage();
+					}
 				}
 			}			
 		}; 
@@ -146,7 +150,7 @@ class MouseEvents {
 
 		this.fixCanvasMode();
 		(actions[Viewr.modes.canvas] || this.defaultAction)();
-		Viewr.onModeChange();
+		Viewr.emit('canvas-update');
 	}
 
 	handleMouseUp() {

@@ -2,7 +2,7 @@ import React from 'react';
 import ViewerStore from '../store/viewer-store.js';
 import ImageFileStore from '../store/image-file-store.js';
 
-class ViewerFilePanel extends React.Component {
+class ViewerFilePanel extends React.Component { 
 
 	constructor() {
 		super();

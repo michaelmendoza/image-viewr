@@ -1,6 +1,7 @@
 
 node_modules/
 build/bundle.js
+build/lib.js
 
 *.py~
 *.pyc

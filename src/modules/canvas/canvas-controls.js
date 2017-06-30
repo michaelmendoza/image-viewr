@@ -30,8 +30,8 @@ class CanvasControls {
 	/** Transform point from local coordinates to world coordinates */
 	inverseTransform(point) { 
 		return { 
-			x: (point.x * this.zoom * this.aspectRatio) + this.panX,
-			y: (point.y * this.zoom) + this.panY 
+			x: (point.x * this.aspectRatio + this.panX) * this.zoom,
+			y: (point.y + this.panY) * this.zoom
 		};
 	}
 	

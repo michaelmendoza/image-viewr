@@ -15,7 +15,7 @@ class File {
 		}
 		readers[file.type]();
 	}
-
+	
 	readPNG(file) {
 		var reader = new FileReader();
 		reader.onload = (event) => { 
@@ -27,7 +27,7 @@ class File {
 		}
 		reader.readAsDataURL(file);
 	}		
-
+	
 	readJPEG(file) {
 		var reader = new FileReader();
 		reader.onload = (event) => {
@@ -52,6 +52,10 @@ class File {
 			this.numPixels = dicom.numPixels;
 			this.pixelData = dicom.pixelData;		
 			this.header = dicom.header;	
+			this.getBounds = (dimIndex) => { 
+				return { width: this.width, height: this.height };
+			}
+
 			this.fileLoadedCallback();
 		}
 		reader.readAsArrayBuffer(file);

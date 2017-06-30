@@ -1,4 +1,7 @@
 
+// Viewr
+import Viewr from '../viewr.js';
+
 // Canvas Modules
 import CanvasControls from './canvas-controls.js';
 import CanvasDraw from './canvas-draw.js';
@@ -17,7 +20,12 @@ import MouseEvents from '../events/mouse-events.js';
 
 class Canvas { 
 
-	constructor(width, height) {
+	constructor(ref) {
+
+		// Parent Reference
+		this.ref = ref;
+		var width = ref.offsetWidth;
+		var height = ref.offsetHeight;
 
 		// Canvas Properties 
 		this.canvas = document.createElement('canvas');
@@ -88,21 +96,18 @@ class Canvas {
 		return this.draw.drawTile3DImage(this);
 	}
 
+	createImg() { 
+		return this.draw.createImg(this);
+	}
+
+	updateImage() {
+		this.draw.updateImage(this);
+	}
+
 	/*** Controls ***/
 
-	autoZoomResize() {
-		if(this.file.type != 'dicom-3d')
-			return;
-		
-		var dataSize = this.file.getBounds(this.dimIndex);
-		var viewportSize = { width: this.width, height: this.height };
-
-		var dx = (viewportSize.width / dataSize.width);
-		var dy = (viewportSize.height / dataSize.height);
-
-		if(dy < 1.0) {
-			this.controls.zoom = dy;
-		}
+	getZoom() { 
+		return this.controls.zoom;
 	}
 
 	panImage(event) {
@@ -162,6 +167,10 @@ class Canvas {
 
 	/*** Load ***/
 
+	getFileType() {
+		return this.file.type;
+	} 
+
 	loadFile(file) {
 		this.load.loadFile(file);
 	}
@@ -178,12 +187,32 @@ class Canvas {
 
 	/*** Resize ***/
 	
-	setViewportSize(width, height) {
+	autoZoomResize() {
+		// Only Dicoms support auto-zoom and resize
+		if(this.file.type != 'dicom' && this.file.type != 'dicom-3d')
+			return;
+		
+		var dataSize = this.file.getBounds(this.dimIndex);
+		var viewportSize = { width: this.width, height: this.height };
+
+		var dx = (viewportSize.width / dataSize.width) / this.controls.aspectRatio;
+		var dy = (viewportSize.height / dataSize.height);
+
+		var dz = dx < dy ? dx : dy;
+		this.controls.zoom = dz;
+		this.controls.panX = 0;
+		this.controls.panY = 0;
+
+		Viewr.emit('zoom-update');
+	}
+
+	setViewportSize() { 
+		var width = this.ref.offsetWidth;
+		var height = this.ref.offsetHeight;		
 		this.width = width;
 		this.height = height;
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
-		this.drawImage();
 	}
 
 	/*** Shapes ***/

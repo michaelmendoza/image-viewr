@@ -6,34 +6,30 @@ import Viewr from '../viewr.js';
 class CanvasDraw {
 
 	drawImage(canvas) {
-
 		// Check there is an image to draw
 		if(canvas.img == null)
 			return;
 
-		// Create new Img for DICOMs
-		canvas.img = this.createImg(canvas); 
-
-		// Draw Image to Canvas
-		if(canvas.file.type == 'png' || canvas.file.type == 'jpeg')
-			this.drawImageOnCanvas(canvas);
-		else
-			canvas.img.onload = () => { this.drawImageOnCanvas(canvas); };
+		this.drawImageOnCanvas(canvas);
 	}
 
 	createImg(canvas) { 
 		var file = canvas.file;
 
-		if(file.type == 'dicom') {
+		if(file.type == 'dicom')
 			return this.createImgDICOM(canvas, file);
-		}
-		else if(file.type == 'dicom-3d') {
-			//return this.createImgDICOM(canvas, file.getActiveFile());
+		else if(file.type == 'dicom-3d')
 			return this.createDicom3DImg(canvas);
-		}
 		else // Not a DICOM file, and the img should already exist
 			return canvas.img;
 	} 
+
+	updateImage(canvas) {
+		canvas.img = canvas.createImg();
+		canvas.img.onload = () => {
+			canvas.drawImage();
+		}
+	}
 
 	drawImageOnCanvas(canvas) {
 		var context = canvas.context;
