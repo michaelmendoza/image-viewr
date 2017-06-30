@@ -150,7 +150,7 @@ class MouseEvents {
 
 		this.fixCanvasMode();
 		(actions[Viewr.modes.canvas] || this.defaultAction)();
-		Viewr.onModeChange();
+		Viewr.emit('canvas-update');
 	}
 
 	handleMouseUp() {

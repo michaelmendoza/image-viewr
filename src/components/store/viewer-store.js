@@ -12,13 +12,14 @@ class ViewerStore extends EventEmitter {
 	constructor() {
 		super();
 
+		this.Viewr = Viewr;
+		
 		this.getCanvas = this.getCanvas.bind(this);
 		this.getCanvasModes = this.getCanvasModes.bind(this);
 		this.loadFile = this.loadFile.bind(this);
 	}
 
 	setupViewer(info) { 
-		Viewr.onModeChange = () => { this.emit('canvasmode'); };
 		Viewr.onFeatureUpdate = () => { this.emit('feature-update')};
 
 		this.viewer = new Viewr.Canvas(info[0].ref);
@@ -59,6 +60,12 @@ class ViewerStore extends EventEmitter {
 		this.viewer2.drawImage();
 		this.viewer3.drawImage();		
 	}
+
+	autoZoomResize() {
+		this.viewer.autoZoomResize();
+		this.viewer2.autoZoomResize();	
+		this.viewer3.autoZoomResize();			
+	}	
 
 	getCanvas() { 
 		return this.viewer;

@@ -4,12 +4,21 @@ import ViewerStore from '../store/viewer-store.js';
 
 class Viewer extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = { autozoom: false };
+	}
+
 	componentDidMount() {
 		var info = this.getViewerInfo();
 		ViewerStore.setupViewer(info);
 
-		ViewerStore.on('canvasmode', () => { 
+		ViewerStore.Viewr.on('canvas-update', () => { 
 			this.setState({});
+		})
+
+		ViewerStore.Viewr.on('view-update', () => { 
+			this.setState({ autozoom: true });
 
 			var mode = ViewerStore.getViewMode();
 			var modes = ViewerStore.getViewModes();
@@ -19,11 +28,17 @@ class Viewer extends React.Component {
 
 		window.addEventListener('resize', function(event) {
 		  ViewerStore.setViewportSize();
+		  ViewerStore.autoZoomResize();	
 		}.bind(this));
 	}
-
+	
 	componentDidUpdate() {
 		ViewerStore.setViewportSize();
+		
+		if(this.state.autozoom) {
+			ViewerStore.autoZoomResize();
+			this.setState({ autozoom: false });		
+		}
 	}
 
 	getViewerInfo() {
@@ -39,7 +54,7 @@ class Viewer extends React.Component {
 		var modes = ViewerStore.getViewModes();
 		return (mode == modes._3D) ? 'multiple-views' : (mode == modes._3DVol) ? 'volume-view' : '';
 	}
-	
+
 	render() {
 		var viewClass = this.viewModeClass();
 		

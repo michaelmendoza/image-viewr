@@ -9,7 +9,7 @@ class Viewer extends React.Component {
 	}
 
 	componentDidMount() { 
-		ViewerStore.on('canvasmode', () => {
+		ViewerStore.Viewr.on('canvas-update', () => {
 			this.setState({ canvasMode:ViewerStore.getCanvasMode() });
 		})
 	}
