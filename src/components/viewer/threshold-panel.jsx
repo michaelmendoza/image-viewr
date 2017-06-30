@@ -8,10 +8,6 @@ class ThresholdPanel extends React.Component {
 	constructor() {
 		super();
 
-		var thresholdMode = ViewerStore.getThresholdMode();
-		if(thresholdMode == ThresholdModes.NONE)
-			ViewerStore.setThresholdMode(ThresholdModes.GREY);
-
 		this.state = { 
 			colorThreshold: ViewerStore.getColorThreshold(),
 			colorPercent: ViewerStore.getColorPixelOffset(),
@@ -26,9 +22,10 @@ class ThresholdPanel extends React.Component {
 		}) 
 	}
 
-	handleModeChange(mode) {
+	handleModeChange(mode) { 
 		ViewerStore.setThresholdMode(mode);
 		this.setState({ thresholdMode:mode });
+		ViewerStore.drawImage();
 	}
 
 	handleSelectEyedropperMode() {
@@ -109,17 +106,35 @@ class ThresholdPanel extends React.Component {
 			{ this.renderSliderControl('Color Picker Window Size', this.state.colorPercent, 0, 200, this.handleColorPercentageChange.bind(this)) }
 		</section>
 
+		var fileType =  ViewerStore.getFileType();
+		var showColorOption = (fileType == 'dicom' || fileType == 'dicom-3d') ? false : true;
+
 		return (
 			<section className='threshold-panel'>
 
-				<div className='threshold-settings layout-row'>
+				<div className='threshold-settings layout-row'> 
 					<span className='settings-item'>
-						<input type='radio' value={ThresholdModes.COLOR}
-							checked={this.state.thresholdMode == ThresholdModes.COLOR} 
-							onChange={this.handleModeChange.bind(this, ThresholdModes.COLOR)}/> 
-						<label>Color</label>
+						<input type='radio' value={ThresholdModes.NONE}
+							checked={this.state.thresholdMode == ThresholdModes.NONE} 
+							onChange={this.handleModeChange.bind(this, ThresholdModes.NONE)}/> 
+						<label>None</label>
 					</span>
+
 					<span className='flex'></span>
+
+					{ 
+						showColorOption ? 
+						<span className='settings-item'>
+							<input type='radio' value={ThresholdModes.COLOR}
+								checked={this.state.thresholdMode == ThresholdModes.COLOR} 
+								onChange={this.handleModeChange.bind(this, ThresholdModes.COLOR)}/> 
+							<label>Color</label>
+						</span>
+						: null
+					}
+
+					<span className='flex'></span>
+					
 					<span className='settings-item'>
 						<input type='radio' value={ThresholdModes.GREY} 
 							checked={this.state.thresholdMode == ThresholdModes.GREY} 

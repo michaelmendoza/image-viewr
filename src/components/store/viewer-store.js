@@ -71,6 +71,10 @@ class ViewerStore extends EventEmitter {
 		return this.viewer;
 	}
 
+	getFileType() { 
+		return this.viewer.getFileType();
+	}
+
 	getCanvasMousePixel() {
 		return this.viewer.pixel.data;
 	}
@@ -125,6 +129,8 @@ class ViewerStore extends EventEmitter {
 
 	drawMinThreshold(minThreshold) {
 		this.viewer.setMinThreshold(minThreshold);
+		this.viewer2.setMinThreshold(minThreshold);
+		this.viewer3.setMinThreshold(minThreshold);
 	}
 
 	setCanvasMode(mode) {

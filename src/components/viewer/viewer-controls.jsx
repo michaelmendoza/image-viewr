@@ -43,7 +43,7 @@ class Viewer extends React.Component {
 	handleSelectThresholdMode() {
 		var modes = ViewerStore.getCanvasModes();
 		ViewerStore.setCanvasMode(modes.THRESHOLD);
-	}
+	}	
 
 	handleSelectVolumeView() {
 		var mode = ViewerStore.getViewMode();

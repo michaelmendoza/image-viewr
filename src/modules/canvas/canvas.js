@@ -167,6 +167,10 @@ class Canvas {
 
 	/*** Load ***/
 
+	getFileType() {
+		return this.file.type;
+	} 
+
 	loadFile(file) {
 		this.load.loadFile(file);
 	}
