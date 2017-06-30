@@ -5,6 +5,8 @@ import HeaderView from './header-view.jsx';
 import MainView from './main-view.jsx';
 import FooterView from './footer-view.jsx';
 
+import Tools from '../tools/tools.jsx';
+
 class AppView extends React.Component {
 
 	handleDragOver(event) {
@@ -19,13 +21,16 @@ class AppView extends React.Component {
 	}
 
 	render() {
-		return (
-			<section className='app-view' onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>  
+
+		var app = <section className='app-view' onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>  
 				<HeaderView></HeaderView>
 				<MainView></MainView>
 				<FooterView></FooterView>
 			</section>
-		);
+
+		var tools = <Tools></Tools>
+		var element = window.Debug.APITools ? tools : app;
+		return element;
 	}
 }
 

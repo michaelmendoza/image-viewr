@@ -3,5 +3,6 @@ node_modules/
 build/bundle.js
 build/lib.js
 
+npm-debug.log
 *.py~
 *.pyc
