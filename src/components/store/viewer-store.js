@@ -171,6 +171,10 @@ class ViewerStore extends EventEmitter {
 		this.viewer.selectPanMode();
 	}
 
+	getZoom() {
+		return this.viewer.getZoom();
+	}
+
 	zoomIn() {
 		this.viewer.zoomIn();
 		this.viewer2.zoomIn();

@@ -28,10 +28,10 @@ class Viewr extends EventEmitter{
 
  		this.onFeatureUpdate = () => {};
  	}
- 	
+
  	setMode(modeType, mode) {	
  		this.modes[modeType] = mode;
- 		
+
  		if(modeType == 'canvas')
  			this.emit('canvas-update')
  		else if(modeType == 'threshold')

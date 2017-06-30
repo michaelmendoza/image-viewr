@@ -1,4 +1,7 @@
 
+// Viewr
+import Viewr from '../viewr.js';
+
 // Canvas Modules
 import CanvasControls from './canvas-controls.js';
 import CanvasDraw from './canvas-draw.js';
@@ -103,6 +106,10 @@ class Canvas {
 
 	/*** Controls ***/
 
+	getZoom() { 
+		return this.controls.zoom;
+	}
+
 	panImage(event) {
 		this.controls.panImage(event);
 		this.draw.clear(this);
@@ -189,6 +196,10 @@ class Canvas {
 
 		var dz = dx < dy ? dx : dy;
 		this.controls.zoom = dz;
+		this.controls.panX = 0;
+		this.controls.panY = 0;
+
+		Viewr.emit('zoom-update');
 	}
 
 	setViewportSize() { 
