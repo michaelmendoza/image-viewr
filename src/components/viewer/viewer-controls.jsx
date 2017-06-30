@@ -90,6 +90,8 @@ class Viewer extends React.Component {
 		var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
 		var volumeViewButtonClass = this.is3DVolView() ? 'active' : '';
 
+		var volumeViewButton = <button className={'icon-button ' + volumeViewButtonClass} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
+		
 		return (
 			<section className='viewer-header layout-row' > 
 				<div className='icons-left flex'> 
@@ -99,7 +101,6 @@ class Viewer extends React.Component {
 					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleSelectCustomROI} > <i className='material-icons'>edit_mode</i> </button>
 					<button className={'icon-button '     + thresholdButtonClass} onClick={this.handleSelectThresholdMode}> <i className='material-icons'>equalizer</i> </button>	
 
-					<button className={'icon-button ' + volumeViewButtonClass} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
 				</div>
 				<div className='icons-right flex'>
 					<button className='icon-button' onClick={this.handleZoomReset}> <i className='material-icons'>location_searching</i> </button>
