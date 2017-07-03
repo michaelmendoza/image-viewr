@@ -1,1 +1,1 @@
-web: node server/simple-server.js 
+web: webpack; node server/simple-server.js 
