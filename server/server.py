@@ -18,7 +18,7 @@ class ImageService (object) :
 		return res
 
 # Create the server:
-port = int(os.environ.get('PORT', '4242'));
+port = str(os.environ.get('PORT', '4242'));
 print(__file__ + ": Python server, binding to tcp://0.0.0.0:" + port)
 s = zerorpc.Server(ImageService())
 s.bind("tcp://0.0.0.0:" + port)
