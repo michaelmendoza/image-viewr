@@ -38,3 +38,4 @@ app.post('/api/image/sos', image.sos);
 
 app.listen(port);
 console.log("App with Data listening on port " + port);
+
