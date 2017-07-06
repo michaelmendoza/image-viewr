@@ -49,7 +49,52 @@ button {
 		&.edit i {
 			width: 24px;
 		}
+	}
 
+&.nav-button { 
+		background-color: transparent;
+		border-radius: 0px;
+		display: inline-block;		
+		margin: 0px 0px;
+		padding: 12px 0px; //6px  6px 2px 6px;
+		width: 100%;
+
+		&:focus {
+			outline: none;
+			background-color: $blue;
+			color: $white;
+		}
+		
+		&:hover {
+			background-color: lighten($blue, 5%);
+			color: $white;
+		}
+
+		&.active {
+			background-color: $blue;
+			color: $white;
+		}
+
+		&.disabled {
+			cursor: not-allowed;
+   		color: rgba(50, 50, 50, 0.25);		
+		}
+	}	
+
+&.nav-button-disabled { 
+		background-color: transparent;
+		border-radius: 0px;
+		display: inline-block;		
+		margin: 0px 0px;
+		padding: 12px 0px; //6px  6px 2px 6px;
+		width: 100%;
+
+		cursor: not-allowed;
+   	color: rgba(50, 50, 50, 0.25);		
+
+		&:focus {
+			outline: none;
+		}
 	}
 
 }

@@ -40,11 +40,6 @@ class Viewer extends React.Component {
 		ViewerStore.setCanvasMode(modes.CONTRAST);
 	}
 
-	handleSelectThresholdMode() {
-		var modes = ViewerStore.getCanvasModes();
-		ViewerStore.setCanvasMode(modes.THRESHOLD);
-	}	
-
 	handleSelectVolumeView() {
 		var mode = ViewerStore.getViewMode();
 		var modes = ViewerStore.getViewModes();
@@ -98,7 +93,6 @@ class Viewer extends React.Component {
 		var roiButtonClass = mode == modes.ROI || mode == modes.ROI_UPDATE_POSITION || mode == modes.ROI_UPDATE_RADIUS ? 'active' : '';
 		var customRoiButtonClass = mode == modes.CUSTOM_ROI || mode == modes.CUSTOM_ROI_ADD_POINT || mode == modes.CUSTOM_ROI_UPDATE_POINT || mode == modes.CUSTOM_ROI_UPDATE_POSITION ? 'active' : '';
 		var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
-		var thresholdButtonClass = mode == modes.THRESHOLD ? 'active' : '';
 		var volumeViewButtonClass = this.is3DVolView() ? 'active' : '';
 
 		var volumeViewButton = <button className={'icon-button ' + volumeViewButtonClass} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
@@ -110,8 +104,7 @@ class Viewer extends React.Component {
 					<button className={'icon-button pan ' + panButtonClass}       onClick={this.handleSelectPanMode}> <i className='material-icons'>pan_tool</i> </button>
 					<button className={'icon-button '     + roiButtonClass}       onClick={this.handleSelectROIMode}> <i className='material-icons'>bubble_chart</i> </button>																		
 					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleSelectCustomROI} > <i className='material-icons'>edit_mode</i> </button>
-					<button className={'icon-button '     + thresholdButtonClass} onClick={this.handleSelectThresholdMode}> <i className='material-icons'>equalizer</i> </button>	
-
+					
 				</div>
 				<div className='icons-right flex'>
 					<button className='icon-button' onClick={this.handleZoomReset}> <i className='material-icons'>location_searching</i> </button>

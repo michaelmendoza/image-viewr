@@ -6,14 +6,14 @@ class ViewerFilePanel extends React.Component {
 
 	constructor() {
 		super();
-		this.state = { files:[] };
+		this.state = { files:ImageFileStore.getLoadedFiles() };
 
 		ImageFileStore.on('filesloaded', () => {
 			var files = ImageFileStore.getLoadedFiles();
 			this.setState({ files:files });
 		})		
 	}
-
+	
 	handleDragOver(event) {
 		event.stopPropagation();
 		event.preventDefault();
@@ -35,10 +35,10 @@ class ViewerFilePanel extends React.Component {
 		var defaultImage = <li onClick={this.handleSelectFile.bind(this, { filename:'../src/assets/image.png', img:null })}> 
 			<img src='../src/assets/image.png'/>
 		</li>
-
+		
 		return (
-			<section className='viewer-file-panel' onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>  
-				<h4> Image Files </h4>
+			<section className='viewer-file-panel panel' onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>  
+				<h4 className='panel-title'> <label> Image Files </label> </h4> 
 				<div>
 					<ul>
 						{

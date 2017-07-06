@@ -11,7 +11,7 @@ class ViewerStore extends EventEmitter {
 
 	constructor() {
 		super();
-
+		
 		this.Viewr = Viewr;
 		
 		this.getCanvas = this.getCanvas.bind(this);
@@ -43,6 +43,13 @@ class ViewerStore extends EventEmitter {
 
 		var keyEvents = new KeyEvents();
 		window.onkeydown = keyEvents.keydownSliceSelect.bind(this.viewer);
+	}
+
+	isFileLoaded() {
+		if(this.viewer)
+			return this.viewer.file != null;
+		else
+			return false;
 	}
 
 	setupVolumeRenderer(elementID) { 

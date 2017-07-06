@@ -3,6 +3,8 @@
 
 	@extend .flex;
 
+	margin: 0 20px; 
+
 	canvas {
 		cursor: hand;
 		cursor: pointer;
@@ -39,11 +41,15 @@
 
 	.viewer {
 		position: absolute;
-		top: 148px;
-		left: 380px;
-		right: 380px;
-		bottom: 40px;
+		top: 148px - 20px;
+		left: 380px + 60px;
+		right: 20px;
+		bottom: 20px;
 		min-width: 590px;
+
+		&.default {
+			left: 100px;
+		}
 
 		box-shadow: $box-shadow-z1;
 		margin: 0 auto 0 auto;
