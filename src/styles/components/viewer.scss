@@ -17,6 +17,16 @@
 		padding: 10px;
 	}
 
+	&.default { 
+		.viewer {
+			left: 100px;
+		}
+	}
+
+	&.image-node {
+		display: none;
+	}
+
 	.viewer-header {
 		background-color: $white;
 		border-radius: 4px;
@@ -54,10 +64,6 @@
 		right: 20px;
 		bottom: 20px;
 		min-width: 590px;
-
-		&.default {
-			left: 100px;
-		}
 
 		box-shadow: $box-shadow-z1;
 		margin: 0 auto 0 auto;

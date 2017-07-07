@@ -48,11 +48,11 @@ class Viewer extends React.Component {
 	}
 
 	handleVerticalView() {
-		ViewStateStore.setVertical()
+		ViewStateStore.setVertical();
 	}
 
 	handleHorizontalView() {
-		ViewStateStore.setHorizontal()
+		ViewStateStore.setHorizontal();
 	}
 
 	render() {

@@ -26,7 +26,7 @@ class Viewer extends React.Component {
 			if(mode == modes._3DVol)
 				ViewerStore.setupVolumeRenderer('volume-renderer');
 		})
-		
+
 		ViewStateStore.on('update', () => {
 			this.setState({ autozoom: true });
 		})
@@ -66,10 +66,10 @@ class Viewer extends React.Component {
 		var paneClasses = ViewStateStore.getViewerPaneClassArray();
 
 		return ( 
-			<div className='viewer-container'>
+			<div className = {'viewer-container ' + this.props.uistate}>
 				<ViewerControls></ViewerControls>
 
-				<section className={'viewer ' + this.props.uistate}> 
+				<section className='viewer'> 
 					<div className={'viewer-primary ' + viewerClass + " " + viewClass}>
 						<div className={'viewer-pane ' + paneClasses[0]} id='image-viewer' ref='Viewer'> </div>
 						<div className={'viewer-pane ' + paneClasses[1]} id='image-viewer2' ref='Viewer2'> </div>

@@ -8,12 +8,12 @@
 		this.views = ['hidden', 'vertical', 'horizontal'];
 		this.show = [true, true, true];
  	}
- 	
+
  	setVertical() { this.view = 'vertical'; this.emit('update'); }
 
  	setHorizontal() { this.view = 'horizontal'; this.emit('update'); }
 
- 	setHidden() { this.view = 'hidden'; this.emit('update'); }
+ 	setHidden() { this.view = 'hidden'; this.emit('update'); } 
 
  	togglePane(index) { this.show[index] = !this.show[index]; this.emit('update'); }
 

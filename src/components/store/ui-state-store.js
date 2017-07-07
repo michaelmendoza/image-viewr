@@ -1,5 +1,5 @@
 
-import ViewerStore from './viewer-store.js';
+import ViewerStore from './viewer-store.js'; 
 import EventEmitter from 'events';
 
 class UIStateStore extends EventEmitter {
