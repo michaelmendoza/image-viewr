@@ -1,5 +1,6 @@
 import React from 'react';
 import ViewerStore from '../store/viewer-store.js';
+import ViewStateStore from '../store/view-state-store.js';
 import ZoomControls from './zoom-controls.jsx';
 
 class Viewer extends React.Component {
@@ -8,7 +9,7 @@ class Viewer extends React.Component {
 		super();
 		this.state = { canvasMode:ViewerStore.getCanvasMode() };
 	}
-	
+
 	componentDidMount() { 
 		ViewerStore.Viewr.on('canvas-update', () => {
 			this.setState({ canvasMode:ViewerStore.getCanvasMode() });
@@ -37,6 +38,18 @@ class Viewer extends React.Component {
 		ViewerStore.updateAlphaFactor(event.target.value);
 	}
 
+	handleTogglePane() {
+		ViewStateStore.togglePane(this);
+	}
+
+	handleVerticalView() {
+		ViewStateStore.setVertical()
+	}
+
+	handleHorizontalView() {
+		ViewStateStore.setHorizontal()
+	}
+
 	render() {
 		var mode = this.state.canvasMode;
 		var modes = ViewerStore.getCanvasModes();
@@ -49,20 +62,23 @@ class Viewer extends React.Component {
 
 		var volumeViewButton = <button className={'icon-button ' + volumeViewButtonClass} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
 
-		return (
+		return ( 
 			<section className='viewer-header layout-row' > 
 				<div className='icons-left flex'> 
 					<button className={'icon-button contrast ' + contrastButtonClass} onClick={this.handleModeSelect.bind(modes.CONTRAST)}> <i className='material-icons'>tonality</i> </button>
 					<button className={'icon-button pan ' + panButtonClass}        onClick={this.handleModeSelect.bind(modes.PAN)}> <i className='material-icons'>pan_tool</i> </button>
 					<button className={'icon-button '     + roiButtonClass}        onClick={this.handleModeSelect.bind(modes.ROI)}> <i className='material-icons'>bubble_chart</i> </button>																		
 					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleModeSelect.bind(modes.CUSTOM_ROI)} > <i className='material-icons'>edit_mode</i> </button>
-					<button className={'icon-button'}> <i className='material-icons'>filter_1</i> </button>
-					<button className={'icon-button'}> <i className='material-icons'>filter_2</i> </button>
-					<button className={'icon-button'}> <i className='material-icons'>filter_3</i> </button>
-					<button className={'icon-button'}> <i className='material-icons'>view_week</i> </button>
-					<button className={'icon-button rotate'}> <i className='material-icons'>view_week</i> </button>
+				</div> 
 
-				</div>
+				<div className='icons-center flex'>
+					<button className={'icon-button'} onClick={this.handleTogglePane.bind(0)}> <i className='material-icons'>filter_1</i> </button>
+					<button className={'icon-button'} onClick={this.handleTogglePane.bind(1)}> <i className='material-icons'>filter_2</i> </button>
+					<button className={'icon-button'} onClick={this.handleTogglePane.bind(2)}> <i className='material-icons'>filter_3</i> </button>
+					<button className={'icon-button'} onClick={this.handleHorizontalView}> <i className='material-icons'>view_week</i> </button>
+					<button className={'icon-button rotate'} onClick={this.handleVerticalView}> <i className='material-icons'>view_week</i> </button>
+				</div>	
+
 				<div className='icons-right flex'>
 					<ZoomControls></ZoomControls>
 				</div>

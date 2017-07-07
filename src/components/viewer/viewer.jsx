@@ -1,6 +1,7 @@
 import React from 'react';
 import ViewerControls from './viewer-controls.jsx';
 import ViewerStore from '../store/viewer-store.js';
+import ViewStateStore from '../store/view-state-store.js';
 
 class Viewer extends React.Component {
 
@@ -24,6 +25,10 @@ class Viewer extends React.Component {
 			var modes = ViewerStore.getViewModes();
 			if(mode == modes._3DVol)
 				ViewerStore.setupVolumeRenderer('volume-renderer');
+		})
+		
+		ViewStateStore.on('update', () => {
+			this.setState({ autozoom: true });
 		})
 
 		window.addEventListener('resize', function(event) {
@@ -52,21 +57,23 @@ class Viewer extends React.Component {
 	viewModeClass() {
 		var mode = ViewerStore.getViewMode();
 		var modes = ViewerStore.getViewModes();
-		return (mode == modes._3D) ? 'multiple-views' : (mode == modes._3DVol) ? 'volume-view' : '';
+		return (mode == modes._3D) ? '' : (mode == modes._3DVol) ? 'volume-view' : '';
 	}
 
 	render() {
 		var viewClass = this.viewModeClass();
-		
-		return (
+		var viewerClass = ViewStateStore.getViewerClass();
+		var paneClasses = ViewStateStore.getViewerPaneClassArray();
+
+		return ( 
 			<div className='viewer-container'>
 				<ViewerControls></ViewerControls>
-				
+
 				<section className={'viewer ' + this.props.uistate}> 
-					<div className={'viewer-primary layout-row ' + viewClass}>
-						<div className={'primary-viewer-pane ' + viewClass} id='image-viewer' ref='Viewer'> </div>
-						<div className={'viewer-pane ' + viewClass}         id='image-viewer2' ref='Viewer2'> </div>
-						<div className={'viewer-pane ' + viewClass}         id='image-viewer3' ref='Viewer3'> </div>
+					<div className={'viewer-primary ' + viewerClass + " " + viewClass}>
+						<div className={'viewer-pane ' + paneClasses[0]} id='image-viewer' ref='Viewer'> </div>
+						<div className={'viewer-pane ' + paneClasses[1]} id='image-viewer2' ref='Viewer2'> </div>
+						<div className={'viewer-pane ' + paneClasses[2]} id='image-viewer3' ref='Viewer3'> </div>
 					</div>
 					
 					<div className={'viewer-volume-renderer ' + viewClass} id="volume-renderer">
