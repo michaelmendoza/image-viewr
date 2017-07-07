@@ -28,6 +28,12 @@ class UIStateStore extends EventEmitter {
 		if(!ViewerStore.isFileLoaded())
 			if(newState == 'layers' || newState == 'threshold')
 				return;
+		
+		setTimeout(function() { 
+			ViewerStore.autoZoomResize();
+			ViewerStore.clear();
+			ViewerStore.drawImage();
+		}, 1);
 
 		this.state = newState;
 		this.emit('state-update');

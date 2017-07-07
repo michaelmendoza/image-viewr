@@ -11,7 +11,7 @@ class ViewerStore extends EventEmitter {
 
 	constructor() {
 		super();
-		
+
 		this.Viewr = Viewr;
 		
 		this.getCanvas = this.getCanvas.bind(this);
@@ -122,6 +122,12 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadFile(file);
 		this.viewer2.loadFile(file);
 		this.viewer3.loadFile(file);
+	}
+
+	clear() {
+		this.viewer.clear();
+		this.viewer2.clear();
+		this.viewer3.clear();
 	}
 
 	drawImage() { 

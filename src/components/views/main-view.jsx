@@ -8,11 +8,11 @@ import UIStateStore from '../store/ui-state-store.js';
 class MainView extends React.Component {
 
 	componentDidMount() {
-		UIStateStore.on('state-update', () => {
+		UIStateStore.on('state-update', () => { 
 			this.setState({});
 		})
 	}
-	
+
 	render() {
 		var state = UIStateStore.getState();
 		var states = {

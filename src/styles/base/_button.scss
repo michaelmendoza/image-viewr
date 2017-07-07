@@ -49,6 +49,10 @@ button {
 		&.edit i {
 			width: 24px;
 		}
+
+		&.rotate i {
+			@include rotate(90);
+		}
 	}
 
 &.nav-button { 
