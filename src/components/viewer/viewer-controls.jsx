@@ -15,25 +15,7 @@ class Viewer extends React.Component {
 		})
 	}
 
-	handleSelectPanMode() {
-		var modes = ViewerStore.getCanvasModes();
-		ViewerStore.setCanvasMode(modes.PAN);
-	}
-
-	handleSelectROIMode() {
-		var modes = ViewerStore.getCanvasModes();
-		ViewerStore.setCanvasMode(modes.ROI);
-	}
-
-	handleSelectCustomROI() {
-		var modes = ViewerStore.getCanvasModes();
-		ViewerStore.setCanvasMode(modes.CUSTOM_ROI);
-	}
-
-	handleSelectConstrastMode() {
-		var modes = ViewerStore.getCanvasModes();
-		ViewerStore.setCanvasMode(modes.CONTRAST);
-	}
+	handleModeSelect() { ViewerStore.setCanvasMode(this); }
 
 	handleSelectVolumeView() {
 		var mode = ViewerStore.getViewMode();
@@ -70,10 +52,10 @@ class Viewer extends React.Component {
 		return (
 			<section className='viewer-header layout-row' > 
 				<div className='icons-left flex'> 
-					<button className={'icon-button contrast ' + contrastButtonClass} onClick={this.handleSelectConstrastMode}> <i className='material-icons'>tonality</i> </button>
-					<button className={'icon-button pan ' + panButtonClass}       onClick={this.handleSelectPanMode}> <i className='material-icons'>pan_tool</i> </button>
-					<button className={'icon-button '     + roiButtonClass}       onClick={this.handleSelectROIMode}> <i className='material-icons'>bubble_chart</i> </button>																		
-					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleSelectCustomROI} > <i className='material-icons'>edit_mode</i> </button>
+					<button className={'icon-button contrast ' + contrastButtonClass} onClick={this.handleModeSelect.bind(modes.CONTRAST)}> <i className='material-icons'>tonality</i> </button>
+					<button className={'icon-button pan ' + panButtonClass}        onClick={this.handleModeSelect.bind(modes.PAN)}> <i className='material-icons'>pan_tool</i> </button>
+					<button className={'icon-button '     + roiButtonClass}        onClick={this.handleModeSelect.bind(modes.ROI)}> <i className='material-icons'>bubble_chart</i> </button>																		
+					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleModeSelect.bind(modes.CUSTOM_ROI)} > <i className='material-icons'>edit_mode</i> </button>
 					<button className={'icon-button'}> <i className='material-icons'>filter_1</i> </button>
 					<button className={'icon-button'}> <i className='material-icons'>filter_2</i> </button>
 					<button className={'icon-button'}> <i className='material-icons'>filter_3</i> </button>
