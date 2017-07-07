@@ -8,7 +8,7 @@ import EventEmitter from 'events';
 import KeyEvents from '../../modules/events/key-events.js'; 
 
 class ViewerStore extends EventEmitter {
-
+	
 	constructor() {
 		super();
 
@@ -216,6 +216,14 @@ class ViewerStore extends EventEmitter {
 		this.viewer.zoomReset();
 		this.viewer2.zoomReset();
 		this.viewer3.zoomReset();
+	}
+
+	is2DView() {
+		return Viewr.modes.view == ViewModes._2D;
+	}
+
+	is3DView() {
+		return Viewr.modes.view == ViewModes._3D;
 	}
 
 }

@@ -1,5 +1,4 @@
- 
-import EventEmitter from 'events';
+ import EventEmitter from 'events';
 
  class ViewStateStore extends EventEmitter {
 
@@ -9,14 +8,24 @@ import EventEmitter from 'events';
 		this.views = ['hidden', 'vertical', 'horizontal'];
 		this.show = [true, true, true];
  	}
-
- 	setVertical() { this.view = 'vertical'; this.emit('update'); }
  	
+ 	setVertical() { this.view = 'vertical'; this.emit('update'); }
+
  	setHorizontal() { this.view = 'horizontal'; this.emit('update'); }
 
  	setHidden() { this.view = 'hidden'; this.emit('update'); }
 
  	togglePane(index) { this.show[index] = !this.show[index]; this.emit('update'); }
+
+ 	setTo2D() { 
+ 		this.show = [true, false, false];
+ 		this.emit('update');
+ 	}
+
+ 	setTo3D() { 
+ 		this.show = [true, true, true];
+ 		this.emit('update');
+ 	}
 
  	getToggleClass(index) {
  		return this.show[index] ? 'active' : '';

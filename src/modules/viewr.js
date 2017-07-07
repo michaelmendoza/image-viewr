@@ -31,7 +31,7 @@ class Viewr extends EventEmitter{
 
  		this.canvasList = [];
  		this.loadedFiles = [];
- 		
+
  		this.onFeatureUpdate = () => {};
  	}
 

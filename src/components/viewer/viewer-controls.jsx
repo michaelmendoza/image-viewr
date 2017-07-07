@@ -14,6 +14,11 @@ class Viewer extends React.Component {
 		ViewerStore.Viewr.on('canvas-update', () => {
 			this.setState({ canvasMode:ViewerStore.getCanvasMode() });
 		})
+		ViewerStore.Viewr.on('view-update', () => {
+			if(ViewerStore.is2DView()) ViewStateStore.setTo2D();
+			if(ViewerStore.is3DView()) ViewStateStore.setTo3D();
+			this.setState({});
+		})
 	}
 
 	handleModeSelect() { ViewerStore.setCanvasMode(this); }
@@ -62,6 +67,7 @@ class Viewer extends React.Component {
 		var volumeViewButton = <button className={'icon-button ' + volumeViewButtonClass} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
 
 		var view = ViewStateStore;
+		var showControlsClass = ViewerStore.is3DView() ? '' : 'hidden';
 
 		return ( 
 			<section className='viewer-header layout-row' > 
@@ -71,8 +77,8 @@ class Viewer extends React.Component {
 					<button className={'icon-button '     + roiButtonClass}        onClick={this.handleModeSelect.bind(modes.ROI)}> <i className='material-icons'>bubble_chart</i> </button>																		
 					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleModeSelect.bind(modes.CUSTOM_ROI)} > <i className='material-icons'>edit_mode</i> </button>
 				</div> 
-				
-				<div className='icons-center flex'>
+
+				<div className={'icons-center flex ' + showControlsClass}>
 					<button className={'toggle-button ' + view.getToggleClass(0)} onClick={this.handleTogglePane.bind(0)}> <i className='material-icons'>filter_1</i> </button>
 					<button className={'toggle-button ' + view.getToggleClass(1)} onClick={this.handleTogglePane.bind(1)}> <i className='material-icons'>filter_2</i> </button>
 					<button className={'toggle-button ' + view.getToggleClass(2)} onClick={this.handleTogglePane.bind(2)}> <i className='material-icons'>filter_3</i> </button>
