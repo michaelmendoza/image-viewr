@@ -13,6 +13,12 @@ class Viewr extends EventEmitter{
  		this.Canvas = Canvas;
  		this.Loader = Loader;
 
+ 		this.events = [
+	 		'canvas-update', 
+	 		'threshold-update', 
+	 		'view-update', 
+	 		'file-loaded'];
+
  		this.modes = {
  			canvas: CanvasModes.PAN,
  			threshold: ThresholdModes.NONE,

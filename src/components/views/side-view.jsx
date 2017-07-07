@@ -9,6 +9,9 @@ class SideView extends React.Component {
 		UIStateStore.on('state-update', () => {
 			this.setState({});
 		})
+		ViewerStore.Viewr.on('file-loaded', () => {
+			this.setState({})
+		}) 
 	} 
 
 	handleClick() {
