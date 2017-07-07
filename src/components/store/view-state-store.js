@@ -11,9 +11,24 @@ import EventEmitter from 'events';
  	}
 
  	setVertical() { this.view = 'vertical'; this.emit('update'); }
+ 	
  	setHorizontal() { this.view = 'horizontal'; this.emit('update'); }
+
  	setHidden() { this.view = 'hidden'; this.emit('update'); }
+
  	togglePane(index) { this.show[index] = !this.show[index]; this.emit('update'); }
+
+ 	getToggleClass(index) {
+ 		return this.show[index] ? 'active' : '';
+ 	}
+
+ 	getVerticalClass() {
+ 		return this.view == 'vertical' ? 'active' : '';
+ 	}
+
+ 	getHorizontalClass() {
+ 		return this.view == 'horizontal' ? 'active' : '';
+ 	}
 
  	getViewerClass() {
  		var options = {
@@ -35,7 +50,6 @@ import EventEmitter from 'events';
  		classes[2] = this.show[2] ? paneClass : 'hidden';
  		return classes;
  	} 
-
  }
 
  export default new ViewStateStore();

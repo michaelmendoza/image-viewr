@@ -101,5 +101,33 @@ button {
 		}
 	}
 
+&.toggle-button { 
+		background-color: transparent;
+		display: inline-block;		
+		margin: 6px 4px;
+		padding: 6px  6px 2px 6px;
+		color: $light-grey;
+
+		&:focus {
+			outline: none;
+		}
+		
+		&:hover {
+			color: $blue;
+		}
+
+		&.active {
+			color: $black;
+
+			&:hover {
+				color: $blue;
+			}			
+		}
+
+		&.rotate i {
+			@include rotate(90);
+		}		
+	}	
+
 }
 
