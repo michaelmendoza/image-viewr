@@ -13,7 +13,7 @@ class ZoomControls extends React.Component {
 	componentDidMount() { 
 		ViewerStore.Viewr.on('zoom-update', () => {
 			var zoom = ViewerStore.getZoom(); 
-			var zoomStep = zoomValue / ZOOM_STEP
+			var zoomStep = zoom / ZOOM_STEP
 			this.setState({ zoomStep:zoomStep });
 		}) 
 	}

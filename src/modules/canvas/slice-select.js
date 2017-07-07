@@ -11,7 +11,10 @@ class SliceSelect {
 		this.activeHandle = null;
 	}
 	
-	drawSliceImages() {  
+	/** 
+	 * Update slice images
+	 **/
+	update() {  
 		this.canvasX.updateImage();
 		this.canvasY.updateImage();
 	}
@@ -54,7 +57,7 @@ class SliceSelect {
 		else if(this.isOnHandle.y)
 			this.canvasY.sliceIndex = Math.round(point.y);
 
-		this.drawSliceImages();
+		this.update();
 	}
 }
 
