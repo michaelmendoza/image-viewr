@@ -2,6 +2,10 @@
 
 A web framework/library which uses html canvas to load/display images and do basic image processing
 
+## Live Example
+
+A live example of this library is located at https://image-viewr.herokuapp.com/
+
 ## Getting Started
 
 ### Setup local environment
