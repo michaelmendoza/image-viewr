@@ -15,7 +15,7 @@ class Add extends React.Component {
 	render() {
 		return <div>
 			<section className="leftSide">
-				<UploadForm name="Add" onSubmit={this.onSubmit} action="http://localhost:3001/api/image/add"></UploadForm>
+				<UploadForm name="Add" onSubmit={this.onSubmit} action="/api/image/add"></UploadForm>
 			</section>
 			<section className="rightSide">
 				<img className="result" />

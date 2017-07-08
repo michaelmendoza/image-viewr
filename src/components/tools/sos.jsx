@@ -15,7 +15,7 @@ class SOS extends React.Component {
 	render() {
 		return <div>
 			<section className="leftSide">
-				<UploadForm name="SOS" onSubmit={this.onSubmit} action="http://localhost:3001/api/image/sos"></UploadForm>
+				<UploadForm name="SOS" onSubmit={this.onSubmit} action="/api/image/sos"></UploadForm>
 			</section>
 			<section className="rightSide">
 				<img className="result" />

@@ -6,3 +6,5 @@ build/lib.js
 npm-debug.log
 *.py~
 *.pyc
+
+pyport

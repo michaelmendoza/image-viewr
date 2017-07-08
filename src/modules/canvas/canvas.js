@@ -51,7 +51,7 @@ class Canvas {
 
 		// Canvas Modules 
 		this.draw = new CanvasDraw(); 
-		this.contrast = new ImageContrast();
+		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
 		this.load = new ImageLoad(this);

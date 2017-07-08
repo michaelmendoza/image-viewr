@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var app = express();
 var path = require('path');
 var port = process.env.PORT || 3001;
-// var formidable = require('express-formidable');
+var fs = require('fs');
+var formidable = require('formidable');
 
 //Set up default mongoose connection
 //var mongoDB = 'mongodb://127.0.0.1/imageviewr';
@@ -31,9 +32,13 @@ app.get('/api/delete', api.delete);
 */
 
 // image API, handler methods are defined in image.js
-var image = require('./controllers/image.js');
-app.post('/api/image/add', image.add);
-app.post('/api/image/sos', image.sos);
+var image_server_port = fs.readFileSync('image_server_port', 'utf8');
+app.post('/api/image/add', function (req, res) {
+	res.redirect(307, 'http://127.0.0.1:' + image_server_port + req.path);
+});
+app.post('/api/image/sos', function (req, res) {
+	res.redirect(307, 'http://127.0.0.1:' + image_server_port + req.path);
+});
 
 
 app.listen(port);

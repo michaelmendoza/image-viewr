@@ -7,9 +7,9 @@
 
 var Users = require('../models/users.js');
 var mongoose = require('mongoose');
-var zerorpc = require("zerorpc");
 var fs = require("fs");
 var formidable = require('formidable');
+var PythonShell = require('python-shell');
 
 // make promise version of fs.readFile()
 fs.readFileAsync = function (filename) {
@@ -52,7 +52,8 @@ function getImages (req, res) {
 			req.files.push(file);
 		})
 		.on('error', function (err) {
-			next(err);
+			console.log(err);
+			reject(err);
 		})
 		.on('end', function () {
 			
@@ -74,21 +75,33 @@ function getImages (req, res) {
 	})
 }
 
+/*
+ * sendImages
+ * Take the user uploaded images, convert them to base64, send to python router, recieve result and send it back
+ */
 function sendImages (func, images) {
-	var client = new zerorpc.Client();
-	client.connect("tcp://127.0.0.1:4242");
+	let images_base64 = [];
+	images_base64.push(func);
+	images.forEach(function (im) {
+		images_base64.push(im.toString('base64'));
+	});
+
+	let options = {
+		scriptPath: 'api/basic',
+		args: images_base64
+	};
 
 	return new Promise((resolve, reject) => {
-		client.invoke(func, images, function(error, pyres, more) {
-			console.log('node image/' + func + ': recieving result of ' + func + '!');
-			if (error) {
-				reject(error);
+		PythonShell.run('router.py', options, function (err, results) {
+			if (err) {
+				reject(err);
 			}
 			else {
-				resolve(pyres);
+				console.log('Recieved image from Python script!');
+				resolve(results[0]);
 			}
 		});
-	})
+	});
 }
 
 /**
@@ -103,7 +116,8 @@ exports.add = function (req, res) {
 		})
 		.then(
 			function (pyres) {
-				res.writeHead(200 , { 'Content-Type': 'image/png' });
+				console.log('Sending response back to main server...');
+				res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
 				res.end(pyres,'base64');
 			},
 			function (error) {
@@ -126,7 +140,7 @@ exports.sos = function (req, res) {
 		})
 		.then(
 			function (pyres) {
-				res.writeHead(200 , { 'Content-Type': 'image/png' });
+				res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
 				res.end(pyres,'base64');
 			},
 			function (error) {

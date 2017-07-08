@@ -8,7 +8,7 @@ import EventEmitter from 'events';
 import KeyEvents from '../../modules/events/key-events.js'; 
 
 class ViewerStore extends EventEmitter {
-
+	
 	constructor() {
 		super();
 
@@ -43,6 +43,13 @@ class ViewerStore extends EventEmitter {
 
 		var keyEvents = new KeyEvents();
 		window.onkeydown = keyEvents.keydownSliceSelect.bind(this.viewer);
+	}
+
+	isFileLoaded() {
+		if(this.viewer)
+			return this.viewer.file != null;
+		else
+			return false;
 	}
 
 	setupVolumeRenderer(elementID) { 
@@ -115,6 +122,12 @@ class ViewerStore extends EventEmitter {
 		this.viewer.loadFile(file);
 		this.viewer2.loadFile(file);
 		this.viewer3.loadFile(file);
+	}
+
+	clear() {
+		this.viewer.clear();
+		this.viewer2.clear();
+		this.viewer3.clear();
 	}
 
 	drawImage() { 
@@ -203,6 +216,14 @@ class ViewerStore extends EventEmitter {
 		this.viewer.zoomReset();
 		this.viewer2.zoomReset();
 		this.viewer3.zoomReset();
+	}
+
+	is2DView() {
+		return Viewr.modes.view == ViewModes._2D;
+	}
+
+	is3DView() {
+		return Viewr.modes.view == ViewModes._3D;
 	}
 
 }

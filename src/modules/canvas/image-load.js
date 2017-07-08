@@ -6,6 +6,7 @@ var ImageLoad = function(canvas) {
 	this.loadFile = (file) => {
 
 		canvas.file = file;
+		Viewr.emit('file-loaded');
 			
 		if(file.type == 'png' || file.type == 'jpeg') {
 			Viewr.setMode('view', ViewModes._2D);
@@ -34,7 +35,7 @@ var ImageLoad = function(canvas) {
 
 	}
 
-	this.loadDefaultDimIndices = (file) => {
+	this.loadDefaultDimIndices = (file) => { 
 		if(canvas.dimIndex == 0) 
 			canvas.sliceIndex = Math.floor(file.depth / 2);
 		else if(canvas.dimIndex == 1)
@@ -58,7 +59,7 @@ var ImageLoad = function(canvas) {
 
 		canvas.updateImage();
 		if(canvas.sliceSelect != null)
-			canvas.sliceSelect.drawSliceImages();	
+			canvas.sliceSelect.update(); 
 	}
 
 }

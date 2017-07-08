@@ -25,8 +25,6 @@ class MouseEvents {
 	}
 	
 	handleMouseMove(event) { 
-
-		//console.log('Mouse Move - Mode: ' + Viewr.modes.canvas);
 		
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
@@ -37,10 +35,9 @@ class MouseEvents {
 					var y = event.movementY * sensitivity;
 					this.contrast.setContrastWithMouse({ x:x, y:y });
 
-					this.img = this.createImg();
-					this.img.onload = () => { 
-						this.drawImage();
-					}
+					this.updateImage();
+					if(this.sliceSelect != null)
+						this.sliceSelect.update();
 				}
 			}			
 		}; 
