@@ -31,7 +31,6 @@ class ROIPanel extends React.Component {
 		this.setState({ features: ViewerStore.getFeatures() });
 	}
 
-
 	handleFeatureChange(index) {
 		ViewerStore.drawImage();
 	}

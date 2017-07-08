@@ -8,7 +8,7 @@ class HeaderView extends React.Component {
 
 		return (
 			<section className='header-view layout-vertical-center' >  
-				<div className='flex'>Image Viewer</div>
+				<div className='flex'>Image Viewr</div>
 				<ul className='flex'>
 				</ul>
 			</section>

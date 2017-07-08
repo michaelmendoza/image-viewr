@@ -1,23 +1,11 @@
 
 .viewer-file-panel {
-	color: $black; 
-	background-color: $white; 
-	border-radius: 6px;	
-	box-shadow: $box-shadow-z1;
-	margin: 0px 40px;
+	margin: 0px 20px;
 	height: 80px;
 	padding: 0 20px;
 	text-align: center;
 	width: 300px;
 	min-height: 660px;
-	float: left;
-
-	h4 {
-		border-bottom: 1px solid $light-grey-border-color;
-		font-weight: normal;
-		margin: 0 0 10px 0;
-		padding: 10px;
-	}
 
 	ul {
 		text-align: left;

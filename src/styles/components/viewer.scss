@@ -1,8 +1,9 @@
 
 .viewer-container {
 
-	float: left;
-	width: calc(100% - 760px);
+	@extend .flex;
+
+	margin: 0 20px; 
 
 	canvas {
 		cursor: hand;
@@ -16,6 +17,16 @@
 		padding: 10px;
 	}
 
+	&.default { 
+		.viewer {
+			left: 100px;
+		}
+	}
+
+	&.image-node {
+		display: none;
+	}
+
 	.viewer-header {
 		background-color: $white;
 		border-radius: 4px;
@@ -23,8 +34,16 @@
 		margin-bottom: 20px;
 		padding: 0 10px;
 
+		.hidden {
+			display: none;
+		}
+
 		.icons-left {
 			text-align: left;
+		}
+
+		.icons-center {
+			text-align: center;
 		}
 
 		.icons-right {
@@ -40,14 +59,12 @@
 
 	.viewer {
 		position: absolute;
-		top: 148px;
-		left: 380px;
-		right: 380px;
-		bottom: 40px;
+		top: 148px - 20px;
+		left: 380px + 60px;
+		right: 20px;
+		bottom: 20px;
 		min-width: 590px;
 
-		//width: 100%;
-		//height: 600px;
 		box-shadow: $box-shadow-z1;
 		margin: 0 auto 0 auto;
 		overflow: hidden; 
@@ -59,7 +76,7 @@
 		background-size:60px 60px;
 		background-position:0 0, 30px 30px;
 
-		.viewer-primary {
+		.viewer-primary { 
 			width: 100%;
 			height: 100%;
 
@@ -67,24 +84,41 @@
 				display: none;
 			}
 
-			.primary-viewer-pane {
-				width: 100%;
-				height: 100%;
-
-				&.multiple-views {
-					width: 50%;
-				}
+			&.hidden {
+				display: none;
 			}
 
 			.viewer-pane {
-				display: none;
+				width: 100%;
 				height: 100%;
 
-				&.multiple-views, &.volume-view {
-					display: block;
-					width: 25%;
-					border-left: 2px solid $off-white;
-				}			
+				&.hidden {
+					display: none;
+				}
+			}
+
+			&.layout-row {
+				.two-panes {
+					width: 50%;
+					height: 100%;
+				}
+
+				.three-panes {
+					width: 33.3333%;
+					height: 100%;
+				}
+			}
+
+			&.layout-column {
+				.two-panes {
+					width: 100%;
+					height: 50%;
+				}
+
+				.three-panes {
+					width: 100%;
+					height: 33.3333%;
+				}
 			}
 		}
 

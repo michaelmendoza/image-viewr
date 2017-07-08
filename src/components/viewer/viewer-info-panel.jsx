@@ -14,31 +14,8 @@ class ViewerInfoPanel extends React.Component {
 	}
 
 	render() {
-		var mode = ViewerStore.getCanvasMode();
-
-		var options = {
-			[CanvasModes.ROI]:'active',
-			[CanvasModes.ROI_UPDATE_POSITION]:'active',
-			[CanvasModes.ROI_UPDATE_RADIUS]:'active',
-			[CanvasModes.CUSTOM_ROI]:'active',
-			[CanvasModes.CUSTOM_ROI_ADD_POINT]: 'active',
-			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: 'active',
-			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: 'active'
-		};
-		var activeROI = options[mode] || '';
-		
-		options = {
-			[CanvasModes.THRESHOLD]:'active',
-			[CanvasModes.THRESHOLD_EYEDROPPER]:'active'
-		}
-		var activeThreshold = options[mode] || '';
-
-		var selectROI = ViewerStore.setCanvasMode.bind(ViewerStore, CanvasModes.ROI);
-		var selectThreshold = ViewerStore.setCanvasMode.bind(ViewerStore, CanvasModes.THRESHOLD);
-
 		var pixelPanel = <PixelPanel></PixelPanel>
 		var roiPanel = <ROIPanel></ROIPanel>
-		var thresholdPanel = <ThresholdPanel></ThresholdPanel>
 
 		return (
 			<section className='viewer-info-panel'>  
@@ -47,12 +24,11 @@ class ViewerInfoPanel extends React.Component {
 				</section>
 
 				<section className='panel info-panel'>
-				<ul>
-					<li className={activeROI} 			onClick={selectROI}> ROI </li>
-					<li className={activeThreshold} onClick={selectThreshold}> Threshold </li>
-				</ul>
-				{ activeROI == 'active' ? roiPanel : null }
-				{ activeThreshold == 'active' ? thresholdPanel : null }
+				<h4 className='panel-title'>
+					<label> ROI Layers </label>
+				</h4>
+				
+				{ roiPanel }
 				</section>
 			</section>
 		);

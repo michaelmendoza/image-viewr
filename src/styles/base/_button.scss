@@ -50,7 +50,84 @@ button {
 			width: 24px;
 		}
 
+		&.rotate i {
+			@include rotate(90);
+		}
 	}
+
+&.nav-button { 
+		background-color: transparent;
+		border-radius: 0px;
+		display: inline-block;		
+		margin: 0px 0px;
+		padding: 12px 0px; //6px  6px 2px 6px;
+		width: 100%;
+
+		&:focus {
+			outline: none;
+			background-color: $blue;
+			color: $white;
+		}
+		
+		&:hover {
+			background-color: lighten($blue, 5%);
+			color: $white;
+		}
+
+		&.active {
+			background-color: $blue;
+			color: $white;
+		}
+
+		&.disabled {
+			cursor: not-allowed;
+   		color: rgba(50, 50, 50, 0.25);		
+		}
+	}	
+
+&.nav-button-disabled { 
+		background-color: transparent;
+		border-radius: 0px;
+		display: inline-block;		
+		margin: 0px 0px;
+		padding: 12px 0px; //6px  6px 2px 6px;
+		width: 100%;
+
+		cursor: not-allowed;
+   	color: rgba(50, 50, 50, 0.25);		
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+&.toggle-button { 
+		background-color: transparent;
+		display: inline-block;		
+		margin: 6px 4px;
+		padding: 6px  6px 2px 6px;
+		color: $light-grey;
+
+		&:focus {
+			outline: none;
+		}
+		
+		&:hover {
+			color: $blue;
+		}
+
+		&.active {
+			color: $black;
+
+			&:hover {
+				color: $blue;
+			}			
+		}
+
+		&.rotate i {
+			@include rotate(90);
+		}		
+	}	
 
 }
 

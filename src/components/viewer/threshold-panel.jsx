@@ -110,7 +110,11 @@ class ThresholdPanel extends React.Component {
 		var showColorOption = (fileType == 'dicom' || fileType == 'dicom-3d') ? false : true;
 
 		return (
-			<section className='threshold-panel'>
+			<section className='threshold-panel panel'>
+
+				<h4 className='panel-title'> 
+					<label> Threshold </label> 
+				</h4>
 
 				<div className='threshold-settings layout-row'> 
 					<span className='settings-item'>

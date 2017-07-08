@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import HeaderView from './header-view.jsx';
 import MainView from './main-view.jsx';
+import SideView from './side-view.jsx';
 import FooterView from './footer-view.jsx';
 
 import Tools from '../tools/tools.jsx';
@@ -15,7 +16,7 @@ class AppView extends React.Component {
 		event.dataTransfer.dropEffect = 'none';
 	}
 
-	handleDrop(event) {
+	handleDrop(event) { 
     event.stopPropagation();
 		event.preventDefault();
 	}
@@ -24,6 +25,7 @@ class AppView extends React.Component {
 
 		var app = <section className='app-view' onDragOver={this.handleDragOver.bind(this)} onDrop={this.handleDrop.bind(this)}>  
 				<HeaderView></HeaderView>
+				<SideView></SideView>
 				<MainView></MainView>
 				<FooterView></FooterView>
 			</section>
