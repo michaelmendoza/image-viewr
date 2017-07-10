@@ -31,8 +31,7 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2",
-    "zerorpc": "^0.9.7"
+    "webpack": "^1.13.2"
   },
   "engines": {
     "node": "6.5.0"
