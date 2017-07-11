@@ -8,8 +8,10 @@ var fs = require('fs');
 var formidable = require('formidable');
 
 //Set up default mongoose connection
+/*
 var mongoDB = 'mongodb://127.0.0.1/imageviewr';
 mongoose.connect(mongoDB);
+*/
 
 // set up access to index.html
 app.use(express.static(path.join(__dirname, '../build')));
@@ -24,10 +26,12 @@ app.get('/tools', function(req, res) {
 });
 
 // set up the RESTful API, handler methods are defined in api.js
+/*
 var api = require('./controllers/api.js');
 app.get('/api', api.list);
 app.get('/api/create', api.create);
 app.get('/api/delete', api.delete);
+*/
 
 // image API, handler methods are defined in image.js
 var image_server_port = fs.readFileSync('image_server_port', 'utf8');
