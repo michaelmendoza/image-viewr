@@ -4,8 +4,8 @@ import ImageFileStore from './image-file-store.js';
 
 class ImageNodeStore {
 	
-	createGraph() {
-		this.graph = new Graph('#image-node');
+	createGraph(props) {
+		this.graph = new Graph('#image-node', props);
 		this.graph.setImageLoader(ImageFileStore);
 	}
 
