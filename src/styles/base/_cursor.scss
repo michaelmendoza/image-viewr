@@ -1,0 +1,16 @@
+
+.pointer {
+	cursor: pointer;
+}
+
+.grab {
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+	cursor: grab;
+
+	&:active {
+		cursor: -moz-grabbing;
+		cursor: -webkit-grabbing;
+		cursor: grabbing;
+	}
+}
