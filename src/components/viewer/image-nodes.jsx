@@ -9,6 +9,7 @@ class ImageNodes extends React.Component {
 	}
 
 	componentDidMount() {
+		var ref = this.refs.ImageNode;
 		ImageNodeStore.createGraph();
 	}
 
@@ -17,7 +18,7 @@ class ImageNodes extends React.Component {
 		return (
 			<section className="image-nodes panel">
 					<ImageNodesControls></ImageNodesControls>
-					<div id='image-node' className='image-node-svg'></div>
+					<div id='image-node' className='image-node-svg' ref='ImageNode'></div>
 			</section>
 		);
 	}
