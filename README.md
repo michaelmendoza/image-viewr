@@ -2,23 +2,13 @@
 
 A web framework/library which uses html canvas to load/display images and do basic image processing
 
+## Live Example
+
+A live example of this library is located at https://image-viewr.herokuapp.com/
+
 ## Getting Started
 
 ### Setup local environment
-
-For Mac: 
-Install Homebrew (https://brew.sh/)
-Install zmq with brew (for macOS): 
-```
-brew install zmq
-brew install pkg-config
-```
-
-For All:
-Add python dependencies: 
-```
-pip install zerorpc
-```
 
 Install NodeJS/NPM (https://nodejs.org/)
 
@@ -36,27 +26,8 @@ npm test
 
 Your app should be now running on http://localhost:3000/
 
-### Setup for running local python server
-
-Install Mongodb
-For Mac:
-Install mongo 
-```
-brew install mongo
-```
-Set up data directory 
-```
-mkdir -p /data/db
-```
-Run mongo
-```
-mongod
-```
+### Setup for running local image-prcessing server
 
 Start Server
-cd server
-./start-server.sh
-
-Your app should be now running on http://localhost:3001/
-
+node server/image_server.js
 
