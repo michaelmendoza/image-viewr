@@ -69,7 +69,7 @@ class Viewer extends React.Component {
 			<div className = {'viewer-container ' + this.props.uistate}>
 				<ViewerControls></ViewerControls>
 
-				<section className='viewer'> 
+				<section className='viewer'>
 					<div className={'viewer-primary ' + viewerClass + " " + viewClass}>
 						<div className={'viewer-pane ' + paneClasses[0]} id='image-viewer' ref='Viewer'> </div>
 						<div className={'viewer-pane ' + paneClasses[1]} id='image-viewer2' ref='Viewer2'> </div>
