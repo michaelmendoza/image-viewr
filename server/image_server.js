@@ -12,10 +12,11 @@ fs.writeFile("image_server_port", port, function(err) {
     console.log("The port was saved!");
 });
 
-// set up the RESTful API
+// set up the RESTful API for images
 var image = require('./controllers/image.js');
 app.post('/api/image/add', image.add);
 app.post('/api/image/sos', image.sos);
+app.post('/api/image/customcode', image.customcode);
 
 
 app.listen(port);

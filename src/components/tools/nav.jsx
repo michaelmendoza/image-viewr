@@ -19,6 +19,7 @@ class Nav extends React.Component {
 			<ul >
 				<li onClick={this.changeTool.bind(this, 'add')}>Add</li>
 				<li onClick={this.changeTool.bind(this, 'sos')}>SOS</li>
+				<li onClick={this.changeTool.bind(this, 'customcode')}>Code</li>
 			</ul>
 		</section>
 	}
