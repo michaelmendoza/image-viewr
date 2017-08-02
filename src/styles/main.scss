@@ -5,6 +5,7 @@
 @import 'base/normalize';
 @import 'base/base';
 @import 'base/button';
+@import 'base/cursor';
 @import 'base/layout';
 @import 'base/media';
 @import 'base/panel';
@@ -22,6 +23,9 @@
 @import 'components/threshold-panel';
 @import 'components/viewer-file-panel';
 @import 'components/viewer-info-panel';
+@import 'components/viewer-stats-panel';
 @import 'components/viewer';
 
 @import 'components/api-tools';
+@import 'components/image-nodes';
+

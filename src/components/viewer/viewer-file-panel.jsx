@@ -27,6 +27,7 @@ class ViewerFilePanel extends React.Component {
 	}
 
 	handleSelectFile(file) {
+		ImageFileStore.setCurrentFile(file);
 		ViewerStore.loadFile(file);
 	}
 

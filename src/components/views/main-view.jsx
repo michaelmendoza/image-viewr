@@ -1,8 +1,10 @@
+import ImageNodes from '../viewer/image-nodes.jsx';
 import React from 'react';
 import ThresholdPanel from '../viewer/threshold-panel.jsx';
 import Viewer from '../viewer/viewer.jsx';
 import ViewerFilePanel from '../viewer/viewer-file-panel.jsx';
 import ViewerInfoPanel from '../viewer/viewer-info-panel.jsx';
+import ViewerStatsPanel from '../viewer/viewer-stats-panel.jsx';
 import UIStateStore from '../store/ui-state-store.js';
 
 class MainView extends React.Component {
@@ -18,8 +20,10 @@ class MainView extends React.Component {
 		var states = {
 			'default' : null,
 			'file' : <ViewerFilePanel></ViewerFilePanel>,
+			'stats': <ViewerStatsPanel></ViewerStatsPanel>,
 			'layers' : <ViewerInfoPanel></ViewerInfoPanel>,
-			'threshold' : <ThresholdPanel></ThresholdPanel>
+			'threshold' : <ThresholdPanel></ThresholdPanel>,
+			'image-node' : <ImageNodes></ImageNodes>
 		}
 		var element = states[state];
 
