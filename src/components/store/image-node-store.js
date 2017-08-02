@@ -12,6 +12,14 @@ class ImageNodeStore {
 	addNode(nodeType) {
 		this.graph.addNode(nodeType);
 	}
+
+	runGraph() {
+		this.graph.runGraph();
+	}
+
+	queryGraph() {
+		return this.graph.queryGraph();
+	}
 }
 
 export default new ImageNodeStore();

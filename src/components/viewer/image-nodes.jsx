@@ -13,7 +13,7 @@ class ImageNodes extends React.Component {
 		var props = { width: ref.offsetWidth, height: 660 };
 		ImageNodeStore.createGraph(props);
 	}
-
+	
 	render() {
 
 		return (
