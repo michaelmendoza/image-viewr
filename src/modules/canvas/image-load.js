@@ -8,7 +8,7 @@ var ImageLoad = function(canvas) {
 		canvas.file = file;
 		Viewr.emit('file-loaded');
 			
-		if(file.type == 'png' || file.type == 'jpeg') {
+		if(file.type == 'png' || file.type == 'jpeg' || file.type == 'image') {
 			Viewr.setMode('view', ViewModes._2D);
 			canvas.setViewportSize();
 			canvas.img = file.img;

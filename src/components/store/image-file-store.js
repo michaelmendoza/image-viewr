@@ -8,9 +8,18 @@ class ImageFileStore extends EventEmitter {
 	constructor() {
 		super();
 		this.files = [];
+		this.current = null;
 
 		this.getLoadedFiles = this.getLoadedFiles.bind(this);
 		this.readFile = this.readFile.bind(this);
+	}
+
+	setCurrentFile(file) {
+		this.current = file;
+	}
+
+	getCurrentFile() {
+		return this.current;
 	}
 
 	getLoadedFiles() {
@@ -44,6 +53,12 @@ class ImageFileStore extends EventEmitter {
 				this.files.push( file );
 			}
 		}
+	}
+
+	addImageFile(image) {
+		var file = { filename:'', type:"image", img:image };
+		this.files.push(file);	
+		this.emit('filesloaded'); 
 	}
 
 }
