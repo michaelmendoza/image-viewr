@@ -19,7 +19,7 @@ class SideView extends React.Component {
 	}
 
 	render() {
-		var disabled = ViewerStore.isFileLoaded() ? '' : '-disabled';
+		var disabled = ViewerStore.isLayersLoaded() ? '' : '-disabled';
 
 		return (
 			<section className='side-view'> 

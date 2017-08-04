@@ -42,7 +42,7 @@ class ViewerStatsPanel extends React.Component {
 				
 				<div className="labels">
 				{
-					this.getLabels().map((label) => { return label; })
+					this.getLabels()
 				}
 				</div>
 

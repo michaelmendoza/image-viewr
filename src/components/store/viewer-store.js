@@ -45,9 +45,9 @@ class ViewerStore extends EventEmitter {
 		window.onkeydown = keyEvents.keydownSliceSelect.bind(this.viewer);
 	}
 
-	isFileLoaded() {
+	isLayersLoaded() { 
 		if(this.viewer)
-			return this.viewer.file != null;
+			return this.viewer.layers.isLoaded();
 		else
 			return false;
 	}

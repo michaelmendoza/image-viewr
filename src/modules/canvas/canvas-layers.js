@@ -1,7 +1,6 @@
 
 import CanvasLayer from './canvas-layer.js';
 import Draw2D from './draw-2d.js';
-import DrawDicom from './draw-dicom.js';
 import Viewr from '../viewr.js';
 import ViewModes from '../modes/view-modes.js';
 
@@ -40,6 +39,10 @@ class CanvasLayers {
 		this.updateLayers();
 
 		Viewr.setMode('view', ViewModes._2D);
+	}
+
+	isLoaded() { 
+		return this.layers.length > 0;
 	}
 
 }

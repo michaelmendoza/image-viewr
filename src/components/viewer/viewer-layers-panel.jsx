@@ -5,8 +5,10 @@ class ViewerLayersPanel extends React.Component {
 
 	getLayers() {
 		var layers = ViewerStore.getLayers();
-		return layers.map((layer) => {
-			<div className='layer'> Layer </div>;
+
+		return layers.map((layer, index) => { 
+			var dataURL = layer.img.toDataURL();
+			return <div className='layer'> <img src={dataURL} /> Layer {index} </div>;
 		});
 	}
 
@@ -18,7 +20,9 @@ class ViewerLayersPanel extends React.Component {
 				</h4>
 				
 				<div className="layers">
-				{ this.getLayers() }
+				{ 
+					this.getLayers()
+				}
 				</div>
 				
 				</section>		

@@ -25,7 +25,7 @@ class UIStateStore extends EventEmitter {
 	}
 
 	setState(newState) {
-		if(!ViewerStore.isFileLoaded())
+		if(!ViewerStore.isLayersLoaded())
 			if(newState == 'layers' || newState == 'threshold')
 				return;
 		
