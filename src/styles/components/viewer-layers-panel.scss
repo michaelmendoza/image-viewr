@@ -1,0 +1,25 @@
+
+.viewer-layers-panel {
+	margin: 0px 20px;
+	padding: 0;
+	text-align: center;
+	width: 300px;
+	min-height: 600px;
+
+	.layers {
+		margin: 20px 20px 0 20px;
+		text-align: left;
+		overflow: auto;
+    white-space: nowrap;
+    font-size: 12px;
+	}
+	
+	.layer {
+		margin-bottom: 6px;
+		img {
+			width: 50px;
+			height: 50px;
+		}
+	}
+
+}
