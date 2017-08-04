@@ -59,6 +59,7 @@ class ViewerStore extends EventEmitter {
 	}
 
 	setViewportSize() { 
+		/*
 		this.viewer.setViewportSize();
 		this.viewer2.setViewportSize();
 		this.viewer3.setViewportSize();
@@ -66,12 +67,15 @@ class ViewerStore extends EventEmitter {
 		this.viewer.drawImage();
 		this.viewer2.drawImage();
 		this.viewer3.drawImage();		
+		*/
 	}
 
 	autoZoomResize() {
+		/*
 		this.viewer.autoZoomResize();
 		this.viewer2.autoZoomResize();	
-		this.viewer3.autoZoomResize();			
+		this.viewer3.autoZoomResize();	
+		*/		
 	}	
 
 	getCanvas() { 
@@ -124,8 +128,8 @@ class ViewerStore extends EventEmitter {
 
 	loadFile(file) {
 		this.viewer.loadFile(file);
-		this.viewer2.loadFile(file);
-		this.viewer3.loadFile(file);
+		//this.viewer2.loadFile(file);
+		//this.viewer3.loadFile(file);
 	}
 
 	clear() {

@@ -12,10 +12,10 @@ class DrawDicom {
 	createDicom2D(layer) { 
 		var contrast = layer.contrast;
 		var file = layer.file;
-		var canvas = layer.canvas;
+		var canvas = document.createElement('canvas');
 		canvas.width = file.width;
 		canvas.height = file.height;
-    var context = layer.context;
+    var context = canvas.getContext('2d');
     
     var pixelData = file.pixelData;
     var numPixels = file.width * file.height;
@@ -28,7 +28,7 @@ class DrawDicom {
 			imageData.data[4*i+1] = value;
 			imageData.data[4*i+2] = value;
 			imageData.data[4*i+3] = 255;
-		}
+		} 
 		context.putImageData(imageData, 0, 0);
 		return canvas; 
 	} 

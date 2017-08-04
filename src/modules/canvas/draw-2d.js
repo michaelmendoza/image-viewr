@@ -6,30 +6,20 @@ class Draw2D {
 	clear(layer) {
 		layer.context.clearRect(0, 0, layer.canvas.width, layer.canvas.height);
 	}	
-
-	/** Draws an image on HTML5 Canvas */ 
-	drawImage(layer) {
-		var image = layer.img;
-		if(!image) return;	// Check there is an Image to draw
-		this.draw(layer); // Draw Image
-	} 
-
-	/** Updates image on canvas. Creates new image if needed, and draws image on canvas. */
-	updateImage(layer) { 
-		layer.img = DrawDicom.createImage(layer);
-		this.drawImage(layer);
-	}
-
+	
 	/** Draws an image on HTML5 Canvas */
-	draw(layer) { 
+	drawImage(layer, image, opacity) { 
+		image = image || layer.img;
+		opacity = opacity || layer.opacity || 1.0;
+		if(!image) return;
+		
 		var context = layer.context;
 		var controls = layer.controls;
 		var threshold = layer.threshold;
 		var aspectRatio = layer.controls.aspectRatio;
-		var image = layer.img;
 		var width = layer.width || image.width;
 		var height = layer.height || image.height;
-
+		
 		// Draw scaled/translated Image
 		var sx = -controls.panX;
 		var sy = -controls.panY;
@@ -39,6 +29,8 @@ class Draw2D {
 		var dy = 0;
 		var dWidth = Math.round(width);
 		var dHeight = Math.round(height);
+
+		context.globalAlpha = opacity;
 		context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}
 

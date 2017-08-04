@@ -4,9 +4,11 @@ import CanvasControls from './canvas-controls.js';
 import CanvasLoader from './canvas-loader.js';
 import CanvasThreshold from './canvas-threshold.js';
 import Draw2D from './draw-2d.js';
+import DrawDicom from './draw-dicom.js';
 
 class CanvasLayer {
 
+	/** Initializes canvas layer */
 	constructor(file) { 
 		this.canvas = document.createElement('canvas');
 		this.context = this.canvas.getContext('2d');
@@ -25,6 +27,7 @@ class CanvasLayer {
 	}
 	
 	// TODO: Should be done on file level
+	/** AutoConstrast for maximum linear contrast */
 	autoContrast() {
 		var file = this.file;
 		if(file.type == 'dicom')
@@ -33,12 +36,11 @@ class CanvasLayer {
 			this.contrast.autoContrast3D(file.fileset);
 	}
 	
-	drawLayer() {
-		Draw2D.drawImage(this);
-	}
-
+	/** Creates new canvas with iamge data, Clears canvas, and draws image */
 	updateLayer() {
-		Draw2D.updateImage(this);
+		this.img = DrawDicom.createImage(this);
+		Draw2D.clear(this);
+		Draw2D.drawImage(this, this.img, 1.0);
 	}
 }
 

@@ -13,30 +13,30 @@ class CanvasLayers {
 		this.layers = [];
 	}
 
-	drawLayers() {
+	/** Takes layers and draws all layers and features in order */
+	drawLayers() { 
 		Draw2D.clear(this.parent);
-		this.layers.forEach((layer) => { 
-			layer.drawLayer();
-			Draw2D.drawImage(this.parent, layer.canvas);
+		this.layers.forEach((layer) => { 			
+			Draw2D.drawImage(this.parent, layer.canvas, layer.opacity);
 		})
 		this.parent.drawAllFeatures();
 	}
 
+	/** Updates layers and draws all layers and features in order */
 	updateLayers() {
 		Draw2D.clear(this.parent);
 		this.layers.forEach((layer) => { 
 			layer.updateLayer();
-
-			this.parent.img = layer.img; 
-			this.parent.file = layer.file; // Need to fix file dependance			
-			Draw2D.drawImage(this.parent);
+			Draw2D.drawImage(this.parent, layer.canvas, layer.opacity);
 		})
 		this.parent.drawAllFeatures();
 	} 
 	
 	loadFile(file) {
 		Viewr.emit('file-loaded');
-		this.layers.push(new CanvasLayer(file));
+		var layer = new CanvasLayer(file);
+		layer.opacity = 0.5;
+		this.layers.push(layer);
 		this.updateLayers();
 
 		Viewr.setMode('view', ViewModes._2D);

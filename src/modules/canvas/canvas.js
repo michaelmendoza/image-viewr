@@ -4,7 +4,6 @@ import Viewr from '../viewr.js';
 
 // Canvas Modules
 import CanvasControls from './canvas-controls.js';
-import CanvasDraw from './canvas-draw.js';
 import CanvasLayers from './canvas-layers.js';
 import CanvasPixel from './canvas-pixel.js';
 import CanvasShapes from './canvas-shapes.js';
@@ -39,13 +38,13 @@ class Canvas {
 		// Image/File 
 		this.file = null;
 		this.img = null;
+		this.opacity = 1.0;
 
 		// 3D Data Options
 		this.dimIndex = 0;
 		this.sliceIndex = 0;
 
 		// Canvas Modules 
-		this.draw = new CanvasDraw(); 
 		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
@@ -80,24 +79,18 @@ class Canvas {
 	
 	/*** Draw ***/
 
-	clear() {
-		this.draw.clear(this);
-	}
-
 	drawImage() {
-		this.draw.drawImage(this);
+		//this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	drawTile3DImage() {
-		return this.draw.drawTile3DImage(this);
-	}
-
-	createImg() { 
-		return this.draw.createImg(this);
+		//return this.draw.drawTile3DImage(this);
 	}
 
 	updateImage() {
-		this.draw.updateImage(this);
+		//this.draw.updateImage(this);
+		this.layers.updateLayers();
 	}
 
 	/*** Controls ***/
@@ -108,20 +101,17 @@ class Canvas {
 
 	panImage(event) {
 		this.controls.panImage(event);
-		this.draw.clear(this);
-		this.draw.drawImage(this);		
+		this.layers.drawLayers();		
 	}
 
 	panImageFixedAmount(x, y) {
 		this.controls.panImageFixedAmount(x, y);
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	setZoom(zoomValue) {
 		this.controls.setZoom(zoomValue);
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	stopPanImage() {
@@ -130,20 +120,17 @@ class Canvas {
 
 	zoomIn() {
 		this.controls.zoomIn();
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 	
 	zoomOut() {
 		this.controls.zoomOut();
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 	
 	zoomReset() {
 		this.controls.zoomReset();
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	/*** Features ***/
@@ -264,22 +251,22 @@ class Canvas {
 
 	setColorThreshold(colorThreshold) {
 		this.threshold.setColorThreshold(colorThreshold);
-		this.draw.drawImage(this);		
+		this.layers.drawLayers();		
 	}
 
 	setColorThresholdWithPixel(colorPixel) {
 		this.threshold.setColorThresholdWithPixel(colorPixel);
-		this.draw.drawImage(this);		
+		this.layers.drawLayers();		
 	}
 
 	setMinThreshold(minThreshold) {
 		this.threshold.setMinThreshold(minThreshold);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	setColorPixelOffset(offset) {
 		this.threshold.setColorPixelOffset(offset);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	} 
 }
 

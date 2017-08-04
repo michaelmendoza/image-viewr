@@ -47,4 +47,6 @@ class Viewr extends EventEmitter{
  	}
  }
 
- export default new Viewr();
+var viewr = new Viewr();
+window.viewr = viewr;
+export default new Viewr();
