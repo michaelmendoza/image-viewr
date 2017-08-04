@@ -13,7 +13,7 @@ class CanvasThreshold {
 			b: { min:0, max:255 }
 		};
 	}
-
+	
 	drawMinThreshold(canvas) {
 		var context = canvas.context;
 		var minThreshold = this.minThreshold;

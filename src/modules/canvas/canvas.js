@@ -5,6 +5,7 @@ import Viewr from '../viewr.js';
 // Canvas Modules
 import CanvasControls from './canvas-controls.js';
 import CanvasDraw from './canvas-draw.js';
+import CanvasLayers from './canvas-layers.js';
 import CanvasPixel from './canvas-pixel.js';
 import CanvasShapes from './canvas-shapes.js';
 import CanvasThreshold from './canvas-threshold.js';
@@ -34,12 +35,6 @@ class Canvas {
 		this.height = height;
 		this.canvas.width = width;
 		this.canvas.height = height;
-
-		// Layers
-		this.roiCanvas = document.createElement('canvas');
-		this.roiContext = this.roiCanvas.getContext('2d');
-		this.roiCanvas.width = width;
-		this.roiCanvas.height = height;
 	
 		// Image/File 
 		this.file = null;
@@ -54,6 +49,7 @@ class Canvas {
 		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
+		this.layers = new CanvasLayers(this);
 		this.load = new ImageLoad(this);
 		this.pixel = new CanvasPixel();
 		this.shapes = new CanvasShapes();
@@ -159,11 +155,20 @@ class Canvas {
 	getFeatures() {
 		return this.features.features;
 	}
+	
+	drawAllFeatures() {
+		this.features.drawAllFeatures();
+	}
 
 	deleteFeature(index) {
 		this.features.deleteFeature(index);
 		this.drawImage();
 	} 
+
+	/*** Layers ***/
+	getLayers() {
+		return this.layers.layers;
+	}
 
 	/*** Load ***/
 
@@ -172,7 +177,8 @@ class Canvas {
 	} 
 
 	loadFile(file) {
-		this.load.loadFile(file);
+		//this.load.loadFile(file);
+		this.layers.loadFile(file);
 	}
 
 	loadFile3D(indexMove) {

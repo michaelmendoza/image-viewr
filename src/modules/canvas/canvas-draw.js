@@ -48,6 +48,7 @@ class CanvasDraw {
 		var dHeight = Math.round(canvas.height);
 		context.drawImage(canvas.img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
+		/*
 		// Thresholding
 		if(Viewr.modes.threshold == ThresholdModes.GREY)
 			canvas.drawMinThreshold();
@@ -59,6 +60,7 @@ class CanvasDraw {
 
 		// Feature - SliceLocations
 		this.drawSliceLocations(canvas); 
+		*/
 	}
 
 	clear(canvas) {
@@ -68,11 +70,11 @@ class CanvasDraw {
 
 	createImgDICOM(_canvas, file) { 
 		var contrast = _canvas.contrast;
-
+		
 		var canvas = document.createElement('canvas');
 		canvas.width = file.width;
 		canvas.height = file.height;
-
+		
     var context = canvas.getContext('2d');
     var pixelData = file.pixelData;
     var numPixels = file.width * file.height;
@@ -89,11 +91,7 @@ class CanvasDraw {
 			imageData.data[4*i+3] = 255;
 		}
 		context.putImageData(imageData, 0, 0);
-		var dataURL = canvas.toDataURL();     
-
-		var img = document.createElement('img');
-		img.src = dataURL;
-		return img; 
+		return canvas;
 	}
 
 	createDicom3DImg(_canvas) {
