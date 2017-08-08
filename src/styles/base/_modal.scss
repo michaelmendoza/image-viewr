@@ -14,7 +14,7 @@
   left:0;
   top:0;
   background: rgba(0,0,0,0.6);
-  z-index:100;	
+  z-index:$z-modal;	
 }
 
 .modal-popup {
@@ -29,12 +29,12 @@
     //min-height: 500px; // 660px
     border-radius: 6px;
     background-color:#ffffff;
-    z-index:110;
+		z-index:$z-modal + 10;
 
     .modal-toolbar {
       color: $white;
       border-radius: 3px 3px 0 0;
-      background-color: $light-blue;
+      background-color: $blue;
       padding: 10px;
       h3 { 
       	display: inline-block;
