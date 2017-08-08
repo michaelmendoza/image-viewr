@@ -10,7 +10,14 @@ class ViewerLayerDetail extends React.Component {
 	constructor(props) {
 		super(props);
 		var layer = ViewerStore.getLayer(this.props.layerIndex);
-		this.state = { layer: layer, colormap: 'greys' };
+		this.state = { 
+			layer: layer, colormap: 'greys', 
+			opacity:100, xoffset:0, yoffset:0,  
+			level: layer.contrast.level,
+			width: layer.contrast.width,
+			min_threshold: layer.threshold.minThreshold,
+			max_threshold: layer.threshold.maxThreshold
+		};
 	}
 
 	componentDidMount() {
@@ -22,18 +29,30 @@ class ViewerLayerDetail extends React.Component {
 		this.state.layer.setColorMap(event.target.value, this.refs.colormap);
 	}
 
+	handleOpacity(value) {
+		this.setState({ opacity:value });
+		this.state.layer.setOpacity(value / 100.0);
+	}
+
 	render() {
 		var layer = this.state.layer;
 
 		return (
 			<section className='viewer-layer-detail'> 
 
-				<ul>
+				<ul>				
 					<li>
+						<Spacer/>
 						<img className='detail-thumbnail' src={layer.img.toDataURL()} /> 
-						 <span className='flex'></span> 
-						<label> Layer {this.props.layerIndex} </label>
+						<Spacer/> 
 					</li>
+
+					<h4> Info </h4>
+					<li>
+						<label> Name </label>
+						<Spacer/>
+						<label> Layer {this.props.layerIndex} </label>
+					</li>					
 					<li> 
 						<label>Color Map</label> <Spacer/>
 						<select value={this.state.colormap} onChange={this.handleColormap.bind(this)}>
@@ -43,16 +62,23 @@ class ViewerLayerDetail extends React.Component {
 					</li>
 					<li> <canvas ref='colormap' width='200' height='40'></canvas> </li>
 					<li> <label>Histogram</label> </li> 
+
+					<h4> Opacity </h4>
 					<li> <label>Visible</label> <Spacer/> <Toggle></Toggle> </li>
-					<li> <label>Opacity</label> <Spacer/> <Slider/>  </li>
-					<li> <label>Zoom</label> <Spacer/> <Slider/> </li>
+					<li> <label>Opacity</label> <Spacer/> 
+						<Slider min={0} max={100} value={this.state.opacity} onChange={this.handleOpacity.bind(this)}/> 
+						<label> {this.state.opacity} </label>
+					</li>
+					<li> <label>Min Threshold</label><Spacer/> <Slider/> </li>
+					<li> <label>Max Threshold</label><Spacer/> <Slider/> </li>		
+
+					<h4> Offsets </h4>					
 					<li> <label>X Offset</label> <Spacer/> <Slider/> </li>
 					<li> <label>Y Offset</label> <Spacer/> <Slider/> </li>
+
+					<h4>Contrast</h4>
 					<li> <label>Level</label> <Spacer/> <Slider/> </li>
 					<li> <label>Width</label> <Spacer/> <Slider/> </li>
-					<li> <label>Resolution</label><Spacer/> <Slider/> </li>
-					<li> <label>Min Threshold</label><Spacer/> <Slider/> </li>
-					<li> <label>Max Threshold</label><Spacer/> <Slider/> </li>					
 				</ul>
 
 			</section>

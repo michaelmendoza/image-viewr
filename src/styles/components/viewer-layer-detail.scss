@@ -1,9 +1,25 @@
 
 .viewer-layer-detail {
 
+	canvas {
+		margin-bottom: 10px;
+	}
+
+	img {
+		margin-bottom: 10px;
+	}
+
 	li {
 		@extend .layout-row;
 		margin-bottom: 6px;
+	}
+
+	h4 {
+		border-top: 1px solid #E1E2E4;
+		margin-top: 6px;
+		margin-bottom: 6px;
+    padding-top: 6px;
+    font-size: 14px;
 	}
 
 	select {
@@ -11,6 +27,6 @@
 	}
 
 	.detail-thumbnail {
-		height: 50px;
+		height: 100px;
 	}
 }

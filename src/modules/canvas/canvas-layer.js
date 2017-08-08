@@ -8,7 +8,7 @@ import Draw2D from './draw-2d.js';
 import DrawDicom from './draw-dicom.js';
 
 class CanvasLayer {
-
+	
 	/** Initializes canvas layer */
 	constructor(parent, file) { 
 		this.canvas = document.createElement('canvas');
@@ -40,7 +40,7 @@ class CanvasLayer {
 		else if(file.type == 'dicom-3d')
 			this.contrast.autoContrast3D(file.fileset);
 	}
-	
+
 	/** Creates new canvas with iamge data, Clears canvas, and draws image */
 	updateLayer() {
 		this.img = DrawDicom.createImage(this);
@@ -61,6 +61,12 @@ class CanvasLayer {
 	/** Renders a colorscale for current colormap */
 	renderColorscale(canvas) {
 		this.colorMap.renderColorscale(canvas);
+	}
+
+	setOpacity(value) {
+		this.opacity = value;
+		this.updateLayer();
+		this.parent.drawLayers();
 	}
 
 }

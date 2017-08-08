@@ -35,7 +35,6 @@ class CanvasLayers {
 		Viewr.emit('file-loaded');
 		var layer = new CanvasLayer(this, file);
 		layer.loadFile(file);
-		layer.opacity = 0.5;
 		this.layers.push(layer);
 		this.updateLayers();
 
