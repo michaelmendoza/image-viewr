@@ -1,4 +1,5 @@
 import DrawDicom from './draw-dicom.js';
+import DrawImage from './draw-image.js';
 
 class Draw2D { 
 	
@@ -32,6 +33,16 @@ class Draw2D {
 
 		context.globalAlpha = opacity;
 		context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+
+		this.drawColormap(layer, dWidth, dHeight);
+	}
+	
+	drawColormap(layer, width, height) {
+		if(!layer.colorMap || !layer.colorMap.isValid()) return;
+		
+		var imageData = layer.context.getImageData(0, 0, width, height);
+		DrawImage.toColormap(imageData, layer.colorMap);
+		layer.context.putImageData(imageData, 0, 0);
 	}
 
 	drawSliceLocations(canvas) {

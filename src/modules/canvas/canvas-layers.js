@@ -33,7 +33,7 @@ class CanvasLayers {
 	
 	loadFile(file) { 
 		Viewr.emit('file-loaded');
-		var layer = new CanvasLayer(file);
+		var layer = new CanvasLayer(this, file);
 		layer.loadFile(file);
 		layer.opacity = 0.5;
 		this.layers.push(layer);
@@ -43,7 +43,7 @@ class CanvasLayers {
 	}
 
 	addLayer() {
-		var layer = new CanvasLayer();
+		var layer = new CanvasLayer(this);
 		this.layers.push(layer);
 	}
 

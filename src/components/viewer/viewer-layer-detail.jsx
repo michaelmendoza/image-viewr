@@ -7,8 +7,23 @@ import ViewerStore from '../store/viewer-store.js';
 
 class ViewerLayerDetail extends React.Component {
 	
-	render() {
+	constructor(props) {
+		super(props);
 		var layer = ViewerStore.getLayer(this.props.layerIndex);
+		this.state = { layer: layer, colormap: 'greys' };
+	}
+
+	componentDidMount() {
+		this.state.layer.renderColorscale(this.refs.colormap);
+	}
+
+	handleColormap(event) {
+		this.setState({ colormap: event.target.value })
+		this.state.layer.setColorMap(event.target.value, this.refs.colormap);
+	}
+
+	render() {
+		var layer = this.state.layer;
 
 		return (
 			<section className='viewer-layer-detail'> 
@@ -21,11 +36,12 @@ class ViewerLayerDetail extends React.Component {
 					</li>
 					<li> 
 						<label>Color Map</label> <Spacer/>
-						<select>
-						  <option value="grey">GreyScale</option>
+						<select value={this.state.colormap} onChange={this.handleColormap.bind(this)}>
+						  <option value="greys">GreyScale</option>
 						  <option value="jet">Jet</option>
 						</select>
 					</li>
+					<li> <canvas ref='colormap' width='200' height='40'></canvas> </li>
 					<li> <label>Histogram</label> </li> 
 					<li> <label>Visible</label> <Spacer/> <Toggle></Toggle> </li>
 					<li> <label>Opacity</label> <Spacer/> <Slider/>  </li>
