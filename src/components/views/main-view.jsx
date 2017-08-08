@@ -1,4 +1,6 @@
 import ImageNodes from '../viewer/image-nodes.jsx';
+import Modal from '../shared/modal.jsx'; 
+import ModalStore from '../store/modal-store.js';
 import React from 'react';
 import ThresholdPanel from '../viewer/threshold-panel.jsx';
 import Viewer from '../viewer/viewer.jsx';
@@ -28,11 +30,13 @@ class MainView extends React.Component {
 			'image-node' : <ImageNodes></ImageNodes>
 		}
 		var element = states[state];
+		var showModal = true;
 
 		return (
-			<section className='main-view layout-row'>
+			<section className='main-view layout-row'> 
 				{ element }
-				<Viewer uistate={state}></Viewer>
+				<Viewer uistate={state}></Viewer> 
+				<Modal store={ModalStore} show='showModal' toggle='toggle' title='Modal Test'></Modal>
 			</section>
 		);
 	}

@@ -31,14 +31,20 @@ class CanvasLayers {
 		this.parent.drawAllFeatures();
 	} 
 	
-	loadFile(file) {
+	loadFile(file) { 
 		Viewr.emit('file-loaded');
 		var layer = new CanvasLayer(file);
+		layer.loadFile(file);
 		layer.opacity = 0.5;
 		this.layers.push(layer);
 		this.updateLayers();
 
 		Viewr.setMode('view', ViewModes._2D);
+	}
+
+	addLayer() {
+		var layer = new CanvasLayer();
+		this.layers.push(layer);
 	}
 
 	isLoaded() { 

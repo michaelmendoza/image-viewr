@@ -1,0 +1,16 @@
+
+.viewer-layer-detail {
+
+	li {
+		@extend .layout-row;
+		margin-bottom: 6px;
+	}
+
+	select {
+		width: 50%;
+	}
+
+	.detail-thumbnail {
+		height: 50px;
+	}
+}

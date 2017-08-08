@@ -86,6 +86,14 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.getLayers();
 	}
 
+	getLayer(index) { 
+		return this.viewer.getLayers()[index];
+	}
+
+	addLayer() {
+		this.viewer.addLayer();
+	}
+
 	getFileType() { 
 		return this.viewer.getFileType();
 	}

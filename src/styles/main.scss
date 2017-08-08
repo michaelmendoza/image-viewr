@@ -11,6 +11,8 @@
 @import 'base/panel';
 @import 'base/typography';
 @import 'base/modal';
+@import 'base/slider';
+@import 'base/toggle-switch';
 
 @import 'views/app-view';
 @import 'views/footer-view';
@@ -24,6 +26,7 @@
 @import 'components/viewer-file-panel';
 @import 'components/viewer-info-panel';
 @import 'components/viewer-layers-panel';
+@import 'components/viewer-layer-detail';
 @import 'components/viewer-stats-panel';
 @import 'components/viewer';
 

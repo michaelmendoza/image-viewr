@@ -153,6 +153,10 @@ class Canvas {
 	} 
 
 	/*** Layers ***/
+	addLayer() {
+		this.layers.addLayer();
+	}
+
 	getLayers() {
 		return this.layers.layers;
 	}

@@ -12,20 +12,23 @@ class CanvasLayer {
 	constructor(file) { 
 		this.canvas = document.createElement('canvas');
 		this.context = this.canvas.getContext('2d');
-		this.canvas.width = file.width;
-		this.canvas.height = file.height;
 
 		this.colorMap = null;
 		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
-		this.file = file;
+		this.file = null;
 		this.load = new CanvasLoader();
 		this.opacity = 1.0;		
 		this.threshold = new CanvasThreshold();
-
-		this.autoContrast();
 	}
 	
+	loadFile(file) {
+		this.file = file;
+		this.canvas.width = file.width;
+		this.canvas.height = file.height;		
+		this.autoContrast();
+	}
+
 	// TODO: Should be done on file level
 	/** AutoConstrast for maximum linear contrast */
 	autoContrast() {
@@ -35,7 +38,7 @@ class CanvasLayer {
 		else if(file.type == 'dicom-3d')
 			this.contrast.autoContrast3D(file.fileset);
 	}
-	
+
 	/** Creates new canvas with iamge data, Clears canvas, and draws image */
 	updateLayer() {
 		this.img = DrawDicom.createImage(this);
