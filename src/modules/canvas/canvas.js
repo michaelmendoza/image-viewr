@@ -153,8 +153,17 @@ class Canvas {
 	} 
 
 	/*** Layers ***/
+
 	addLayer() {
 		this.layers.addLayer();
+	}
+
+	removeLayer(index) {
+		this.layers.removeLayer(index);
+	}
+
+	toggleLayer(index) { 
+		this.layers.toggleLayer(index);
 	}
 
 	getLayers() {

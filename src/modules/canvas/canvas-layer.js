@@ -8,7 +8,7 @@ import Draw2D from './draw-2d.js';
 import DrawDicom from './draw-dicom.js';
 
 class CanvasLayer {
-	
+
 	/** Initializes canvas layer */
 	constructor(parent, file) { 
 		this.canvas = document.createElement('canvas');
@@ -22,6 +22,7 @@ class CanvasLayer {
 		this.opacity = 1.0;		
 		this.parent = parent;
 		this.threshold = new CanvasThreshold();
+		this.visible = true;
 	}
 	
 	loadFile(file) {
@@ -43,9 +44,12 @@ class CanvasLayer {
 
 	/** Creates new canvas with iamge data, Clears canvas, and draws image */
 	updateLayer() {
-		this.img = DrawDicom.createImage(this);
 		Draw2D.clear(this);
-		Draw2D.drawImage(this, this.img, 1.0);
+
+		if(this.visible) {
+			this.img = DrawDicom.createImage(this);
+			Draw2D.drawImage(this, this.img, 1.0);
+		}
 	}
 
 	/** 
@@ -67,6 +71,12 @@ class CanvasLayer {
 		this.opacity = value;
 		this.updateLayer();
 		this.parent.drawLayers();
+	}
+
+	toggleLayer() { 
+		this.visible = !this.visible;
+		this.updateLayer();
+		this.parent.drawLayers();		
 	}
 
 }

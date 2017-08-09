@@ -59,7 +59,6 @@ class ViewerStore extends EventEmitter {
 	}
 
 	setViewportSize() { 
-		/*
 		this.viewer.setViewportSize();
 		this.viewer2.setViewportSize();
 		this.viewer3.setViewportSize();
@@ -67,7 +66,6 @@ class ViewerStore extends EventEmitter {
 		this.viewer.drawImage();
 		this.viewer2.drawImage();
 		this.viewer3.drawImage();		
-		*/
 	}
 
 	autoZoomResize() {
@@ -92,6 +90,14 @@ class ViewerStore extends EventEmitter {
 
 	addLayer() {
 		this.viewer.addLayer();
+	}
+
+	removeLayer(index) { 
+		this.viewer.removeLayer(index);
+	}
+
+	toggleLayer(index) { 
+		this.viewer.toggleLayer(index);
 	}
 
 	getFileType() { 

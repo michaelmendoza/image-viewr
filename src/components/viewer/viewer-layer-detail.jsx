@@ -12,7 +12,9 @@ class ViewerLayerDetail extends React.Component {
 		var layer = ViewerStore.getLayer(this.props.layerIndex);
 		this.state = { 
 			layer: layer, colormap: 'greys', 
-			opacity:100, xoffset:0, yoffset:0,  
+			opacity: layer.opacity * 100, 
+			xoffset:0, 
+			yoffset:0,  
 			level: layer.contrast.level,
 			width: layer.contrast.width,
 			min_threshold: layer.threshold.minThreshold,
@@ -79,6 +81,13 @@ class ViewerLayerDetail extends React.Component {
 					<h4>Contrast</h4>
 					<li> <label>Level</label> <Spacer/> <Slider/> </li>
 					<li> <label>Width</label> <Spacer/> <Slider/> </li>
+
+					<h4>Slices</h4>
+					<li> <label>Slice</label> <Spacer/> <Slider/> </li>					
+
+					<li> <label>Axial</label> <Spacer/> <Slider/> </li>					
+					<li> <label>Coronal</label> <Spacer/> <Slider/> </li>					
+					<li> <label>Sagittal</label> <Spacer/> <Slider/> </li>					
 				</ul>
 
 			</section>

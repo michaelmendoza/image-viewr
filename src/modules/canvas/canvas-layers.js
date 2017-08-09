@@ -46,6 +46,14 @@ class CanvasLayers {
 		this.layers.push(layer);
 	}
 
+	removeLayer(index) { 
+		this.layers.splice(index, 1); 
+	}
+	
+	toggleLayer(index) {
+		this.layers[index].toggleLayer();
+	}
+	
 	isLoaded() { 
 		return this.layers.length > 0;
 	}

@@ -20,18 +20,24 @@ class ViewerLayersPanel extends React.Component {
 				img = <button className="layer-icon img"><i className="material-icons">wallpaper</i></button>
 
 			return <div className='layer layout-row layout-vertical-center'> 
-				{ img }
+				{ img } 
 				<label className="flex"> Layer {index} </label>
-				<button className="layer-icon opacity"><i className="material-icons">visibility</i></button>			
-				<button className="layer-icon close"><i className="material-icons">close</i></button>
+				<button className="layer-icon opacity" onClick={this.handleToggleVisible.bind(this, index)}><i className="material-icons">{layer.visible ? 'visibility' : 'visibility_off'}</i></button>			
+				<button className="layer-icon close" onClick={this.handleRemoveLayer.bind(this, index)}><i className="material-icons">close</i></button>
 				<button className="layer-icon more" onClick={this.handleShowDetail.bind(this, index)}><i className="material-icons">more_vert</i></button>
-				</div>;
+				</div>; 
 		});
 	}
 
 	getDetail() {
 		return <ViewerLayerDetail layerIndex={this.state.detailIndex}></ViewerLayerDetail>
 	}
+
+	getButton() {
+		return this.state.showDetail ? 
+		<button className="add-button" onClick={this.handleCloseLayer.bind(this)}><i className="material-icons">close</i></button> :		
+		<button className="add-button" onClick={this.handleAddLayer.bind(this)}><i className="material-icons">add</i></button>
+	} 
 
 	handleShowDetail(index) {
 		this.setState({ showDetail: true, detailIndex:index });
@@ -42,19 +48,33 @@ class ViewerLayersPanel extends React.Component {
 		this.setState({});
 	}
 
-	render() {
-		return (
+	handleCloseLayer() {
+		this.setState({ showDetail: false });
+	} 
+
+	handleRemoveLayer(index) {
+		ViewerStore.removeLayer(index);
+		this.setState({});
+	}
+
+	handleToggleVisible(index) {
+		this.setState({}); 
+		ViewerStore.toggleLayer(index);
+	}
+
+	render() { 
+		return ( 
 				<section className='panel viewer-layers-panel'>
 				<h4 className='panel-title'>
 					<label> Image Layers </label>
-					<button className="add-button" onClick={this.handleAddLayer.bind(this)}><i className="material-icons">add</i></button>
-				</h4>
+					{ this.getButton() }
+					</h4>
 				
 				<div className="layers">
 				{ this.state.showDetail ? this.getDetail() : this.getLayers() }
-				</div>
+				</div> 
 				
-				</section>		
+				</section> 
 		);
 	}	
 }
