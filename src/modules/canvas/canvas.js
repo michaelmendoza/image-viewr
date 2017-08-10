@@ -206,8 +206,8 @@ class Canvas {
 
 		var dz = dx < dy ? dx : dy;
 		this.controls.zoom = dz;
-		this.controls.panX = 0;
-		this.controls.panY = 0;
+		this.controls.offsetX = 0;
+		this.controls.offsetY = 0;
 
 		Viewr.emit('zoom-update');
 	}

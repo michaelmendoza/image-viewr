@@ -11,15 +11,22 @@ class ViewerLayerDetail extends React.Component {
 		super(props);
 		var layer = ViewerStore.getLayer(this.props.layerIndex);
 		this.state = { 
-			layer: layer, colormap: 'greys', 
+			layer: layer, 
+			colormap: 'greys', 
 			opacity: layer.opacity * 100, 
-			xoffset:0, 
-			yoffset:0,  
+			min: layer.threshold.min,
+			max: layer.threshold.max,
+			minValue: layer.contrast.minValue,
+			maxValue: layer.contrast.maxValue,
+			offsetX: layer.controls.offsetX, 
+			offsetY: layer.controls.offsetY, 
 			level: layer.contrast.level,
 			width: layer.contrast.width,
-			min_threshold: layer.threshold.minThreshold,
-			max_threshold: layer.threshold.maxThreshold
-		};
+			axial: 0,
+			coronal: 0,
+			sagittal: 0,
+			view:'2D'
+		}; 
 	}
 
 	componentDidMount() {
@@ -35,6 +42,36 @@ class ViewerLayerDetail extends React.Component {
 		this.setState({ opacity:value });
 		this.state.layer.setOpacity(value / 100.0);
 	}
+
+	handleMin(value) {
+		this.setState({ min:value });
+		this.state.layer.setMinThreshold(value);
+	}
+
+	handleMax(value) {
+		this.setState({ max:value });
+		this.state.layer.setMaxThreshold(value);
+	}
+
+	handleOffsetX(value) {
+		this.setState({ offsetX:value });
+		this.state.layer.setOffsetX(value);
+	}
+
+	handleOffsetY(value) {
+		this.setState({ offsetY:value });
+		this.state.layer.setOffsetY(value);
+	}		
+
+	handleLevel(value) {
+		this.setState({ level:value });
+		this.state.layer.setContrastLevel(value);
+	}
+
+	handleWidth(value) {
+		this.setState({ width:value });
+		this.state.layer.setContrastWidth(value);
+	} 
 
 	render() {
 		var layer = this.state.layer;
@@ -64,30 +101,65 @@ class ViewerLayerDetail extends React.Component {
 					</li>
 					<li> <canvas ref='colormap' width='200' height='40'></canvas> </li>
 					<li> <label>Histogram</label> </li> 
+					<li> <label>Pixel Interpolation</label> </li> 
 
 					<h4> Opacity </h4>
 					<li> <label>Visible</label> <Spacer/> <Toggle></Toggle> </li>
 					<li> <label>Opacity</label> <Spacer/> 
 						<Slider min={0} max={100} value={this.state.opacity} onChange={this.handleOpacity.bind(this)}/> 
-						<label> {this.state.opacity} </label>
+						<label className='value'> {this.state.opacity} </label>
 					</li>
-					<li> <label>Min Threshold</label><Spacer/> <Slider/> </li>
-					<li> <label>Max Threshold</label><Spacer/> <Slider/> </li>		
+					<li> <label>Min Threshold</label><Spacer/> 
+						<Slider min={this.state.minValue} max={this.state.maxValue} value={this.state.min} onChange={this.handleMin.bind(this)}/>
+						<label className='value'> {this.state.min} </label> 
+					</li>
+					<li> <label>Max Threshold</label><Spacer/> 
+						<Slider min={this.state.minValue} max={this.state.maxValue} value={this.state.max} onChange={this.handleMax.bind(this)}/> 
+						<label className='value'> {this.state.max} </label> 
+					</li>		
 
 					<h4> Offsets </h4>					
-					<li> <label>X Offset</label> <Spacer/> <Slider/> </li>
-					<li> <label>Y Offset</label> <Spacer/> <Slider/> </li>
+					<li> <label>X Offset</label> <Spacer/> 
+						<Slider min={-100} max={100} value={this.state.offsetX} onChange={this.handleOffsetX.bind(this)}/> 
+						<label className='value'> {this.state.offsetX} </label> 
+					</li>
+					<li> <label>Y Offset</label> <Spacer/>
+						<Slider  min={-100} max={100} value={this.state.offsetY} onChange={this.handleOffsetY.bind(this)}/>  
+						<label className='value'> {this.state.offsetY} </label> 
+					</li>
 
 					<h4>Contrast</h4>
-					<li> <label>Level</label> <Spacer/> <Slider/> </li>
-					<li> <label>Width</label> <Spacer/> <Slider/> </li>
+					<li> <label>Level</label> <Spacer/> 
+						<Slider min={0} max={4096} value={this.state.level} onChange={this.handleLevel.bind(this)}/> 
+						<label className='value'> {this.state.level} </label> 
+					</li>
+					<li> <label>Width</label> <Spacer/> 
+						<Slider min={0} max={4096} value={this.state.width} onChange={this.handleWidth.bind(this)}/> 
+						<label className='value'> {this.state.width} </label> 
+					</li>
 
-					<h4>Slices</h4>
-					<li> <label>Slice</label> <Spacer/> <Slider/> </li>					
-
-					<li> <label>Axial</label> <Spacer/> <Slider/> </li>					
-					<li> <label>Coronal</label> <Spacer/> <Slider/> </li>					
-					<li> <label>Sagittal</label> <Spacer/> <Slider/> </li>					
+					{ this.state.view != '2D' ? <h4>Slices</h4> : null }
+					{
+						this.state.view != '2D' ? 
+						<li> <label>Axial Index</label> <Spacer/> 
+							<Slider/> 
+							<label className='value'> {this.state.offsetY} </label> 
+						</li> : null		
+					}		
+					{	
+						this.state.view != '2D' ? 
+						<li> <label>Coronal Index</label> <Spacer/> 
+							<Slider/> 
+							<label className='value'> {this.state.offsetY} </label> 
+						</li>	: null				
+					}
+					{
+						this.state.view != '2D' ? 
+						<li> <label>Sagittal Index</label> <Spacer/> 
+							<Slider/> 
+							<label className='value'> {this.state.offsetY} </label> 
+						</li> : null
+					}				
 				</ul>
 
 			</section>

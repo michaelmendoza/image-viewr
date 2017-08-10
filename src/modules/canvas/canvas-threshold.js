@@ -2,8 +2,15 @@
 class CanvasThreshold {
 
 	constructor() {
+
+		// For overall image out 
 		this.minThreshold = 0;
 		this.maxThreshold = 255;
+
+		// TODO: Check for resolution -> dicom vs png
+		// For image layer
+		this.min = 0;
+		this.max = 4096;
 
 		this.colorPickerPixel = null; 
 		this.colorPixelOffset = 40;
@@ -14,6 +21,20 @@ class CanvasThreshold {
 		};
 	}
 	
+	/** Set default/starting threshold values */
+	setDefault(min, max) {
+		this.min = min;
+		this.max = max;
+	}
+	
+	/** 
+	 * Opacity map gives a value of 0 if value is out of bounds of thresholds, and 
+	 * a value of 1 if within bounds. 
+	 */
+	opacityMap(value) { 
+		return (value < this.min || this.max < value) ? 0 : 1;
+	} 
+
 	drawMinThreshold(canvas) {
 		var context = canvas.context;
 		var minThreshold = this.minThreshold;

@@ -7,8 +7,8 @@ class CanvasControls {
 	constructor() { 
 		this.zoom = 1;
 		this.aspectRatio = 1; 
-		this.panX = 0; // TODO: Rename to offsetX
-		this.panY = 0; // TODO: Rename to offsetY
+		this.offsetX = 0; 
+		this.offsetY = 0; 
 		
 		this.isPanning = false;
 		this.startPanX = null;
@@ -22,22 +22,22 @@ class CanvasControls {
 	/** Transform point from world coordinates to local coordinates */
 	transform(point) { 
 		return { 
-			x: (point.x - this.panX) / this.zoom / this.aspectRatio,
-			y: (point.y - this.panY) / this.zoom  
+			x: (point.x - this.offsetX) / this.zoom / this.aspectRatio,
+			y: (point.y - this.offsetY) / this.zoom  
 		};
 	}
 
 	/** Transform point from local coordinates to world coordinates */
 	inverseTransform(point) { 
 		return { 
-			x: (point.x * this.aspectRatio + this.panX) * this.zoom,
-			y: (point.y + this.panY) * this.zoom
+			x: (point.x * this.aspectRatio + this.offsetX) * this.zoom,
+			y: (point.y + this.offsetY) * this.zoom
 		};
 	}
 	
 	panImageFixedAmount(x, y) { 
-		this.panX += x;
-		this.panY += y;		
+		this.offsetX += x;
+		this.offsetY += y;		
 	}
 
 	panImage(event) {
@@ -45,12 +45,12 @@ class CanvasControls {
 		var y = event.offsetY;
 
 		if(this.isPanning) {
-			this.panX = (x - this.startPanX);
-			this.panY = (y - this.startPanY);			
+			this.offsetX = (x - this.startPanX);
+			this.offsetY = (y - this.startPanY);			
 		}
 		else {
-			this.startPanX = x - this.panX;
-			this.startPanY = y - this.panY;
+			this.startPanX = x - this.offsetX;
+			this.startPanY = y - this.offsetY;
 			this.isPanning = true;
 		}
 
@@ -74,8 +74,8 @@ class CanvasControls {
 
 	zoomReset() {
 		this.zoom = 1;
-		this.panX = 0;
-		this.panY = 0;
+		this.offsetX = 0;
+		this.offsetY = 0;
 	}
 
 }

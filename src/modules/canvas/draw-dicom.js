@@ -10,29 +10,29 @@ class DrawDicom {
 	
 	/** Creates a canvas with dicom data using specified image constrast */
 	createDicom2D(layer) { 
-		var contrast = layer.contrast;
 		var file = layer.file;
 		var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');		
 		canvas.width = file.width;
 		canvas.height = file.height;
-    var context = canvas.getContext('2d');
     
     var pixelData = file.pixelData;
     var numPixels = file.width * file.height;
-		var resolution = contrast.resolution;
+		var resolution = layer.contrast.resolution;
 		var imageData = context.getImageData(0, 0, file.width, file.height);
 
 		for(var i = 0; i < numPixels; i++) {
-			var value = contrast.map(pixelData[i]) * 255 / resolution;
+			var value = layer.contrast.map(pixelData[i]) * 255 / resolution;
+			var opacity = layer.threshold.opacityMap(pixelData[i]) * 255;
 			imageData.data[4*i] = value;
 			imageData.data[4*i+1] = value;
 			imageData.data[4*i+2] = value;
-			imageData.data[4*i+3] = 255;
+			imageData.data[4*i+3] = opacity;
 		} 
 		context.putImageData(imageData, 0, 0);
 		return canvas; 
 	} 
-
+	
 	/** Creates a canvas with a slice of 3D dicom data using specified image constrast */
 	createDicom3D(layer) { 
 		var contrast = layer.contrast;

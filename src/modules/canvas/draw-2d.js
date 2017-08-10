@@ -22,15 +22,15 @@ class Draw2D {
 		var height = layer.height || image.height;
 		
 		// Draw scaled/translated Image
-		var sx = -controls.panX;
-		var sy = -controls.panY;
+		var sx = -controls.offsetX;
+		var sy = -controls.offsetY;
 		var sWidth = Math.round(width / controls.zoom / aspectRatio);
 		var sHeight = Math.round(height / controls.zoom);
 		var dx = 0;
 		var dy = 0;
 		var dWidth = Math.round(width);
 		var dHeight = Math.round(height);
-
+		
 		context.globalAlpha = opacity;
 		context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 

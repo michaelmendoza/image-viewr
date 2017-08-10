@@ -38,8 +38,8 @@ class CanvasDraw {
 		var aspectRatio = canvas.controls.aspectRatio;
 
 		// Draw scaled/translated Image
-		var sx = -controls.panX;
-		var sy = -controls.panY;
+		var sx = -controls.offsetX;
+		var sy = -controls.offsetY;
 		var sWidth = Math.round(canvas.width / controls.zoom / aspectRatio);
 		var sHeight = Math.round(canvas.height / controls.zoom);
 		var dx = 0;

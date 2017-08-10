@@ -73,6 +73,19 @@ class DrawImage {
 			data[i + 2] = rgb[2]; // blue
 		}	
 	}
+	
+	toThreshold(canvas, min, max) {
+		var data = imageData.data;
+		for (var i = 0; i < data.length; i += 4) {
+			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
+			if(avg <= min || max <= avg) {
+				data[i] = 0;
+				data[i + 1] = 0;
+				data[i + 2] = 0;
+				data[i + 3] = 0;
+			}
+		}		
+	}
 
 }
 
