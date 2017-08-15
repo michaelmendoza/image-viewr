@@ -1,5 +1,6 @@
 
 import ImageContrast from './image-contrast.js';
+import ImageHistogram from './image-histogram.js';
 import CanvasControls from './canvas-controls.js';
 import CanvasLoader from './canvas-loader.js';
 import CanvasThreshold from './canvas-threshold.js';
@@ -19,6 +20,7 @@ class CanvasLayer {
 		this.controls = new CanvasControls();
 		this.file = null;
 		this.interpolate = true;
+		this.imageHistogram = null;
 		this.load = new CanvasLoader();
 		this.opacity = 1.0;		
 		this.parent = parent;
@@ -42,6 +44,12 @@ class CanvasLayer {
 		else if(file.type == 'dicom-3d')
 			this.contrast.autoContrast3D(file.fileset);
 		this.threshold.setDefault(this.contrast.minValue, this.contrast.maxValue);
+	}
+
+	createHistogram(element, width, height) {
+		if(!this.file) return;
+		this.imageHistogram = new ImageHistogram(this.file.pixelData, 4096, 4096);
+		this.imageHistogram.createHistogramSVG(element, width, height);
 	}
 
 	/** Clears canvas, and draws image data */
@@ -128,7 +136,7 @@ class CanvasLayer {
 		this.updateLayer();
 		this.parent.drawLayers();		
 	}
-	
+
 }
 
 export default CanvasLayer;

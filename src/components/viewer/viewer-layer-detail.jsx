@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Histogram from '../shared/histogram.jsx';
 import Toggle from '../shared/toggle.jsx';
 import Slider from '../shared/slider.jsx';
 import Spacer from '../shared/spacer.jsx';
@@ -39,7 +40,7 @@ class ViewerLayerDetail extends React.Component {
 		this.setState({ colormap: event.target.value })
 		this.state.layer.setColorMap(event.target.value, this.refs.colormap);
 	}
-	
+
 	handleVisible(value) {
 		this.setState({ visible:value });
 		this.state.layer.toggleLayer();
@@ -114,8 +115,14 @@ class ViewerLayerDetail extends React.Component {
 						  <option value="RdBu">RdBu</option>
 						</select> 
 					</li>
-					<li> <canvas ref='colormap' width='200' height='40'></canvas> </li>
-					<li> <label>Histogram</label> </li> 
+					<li> 
+						<canvas ref='colormap' width='260' height='40'></canvas> </li>
+					<li> 
+						<label>Histogram</label> 
+					</li> 
+					<li>
+						<Histogram layer={this.state.layer} width='260' height='40'/> 
+					</li>
 					<li> 
 						<label>Visible</label> <Spacer/>  
 						<Toggle value={this.state.visible} onChange={this.handleVisible.bind(this)} > </Toggle>
