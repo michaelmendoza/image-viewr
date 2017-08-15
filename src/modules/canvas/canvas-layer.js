@@ -18,6 +18,7 @@ class CanvasLayer {
 		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
 		this.file = null;
+		this.interpolate = true;
 		this.load = new CanvasLoader();
 		this.opacity = 1.0;		
 		this.parent = parent;
@@ -73,7 +74,7 @@ class CanvasLayer {
 	renderColorscale(canvas) {
 		this.colorMap.renderColorscale(canvas);
 	}
-	
+
 	toggleLayer() { 
 		this.visible = !this.visible;
 		this.drawLayer();
@@ -122,6 +123,12 @@ class CanvasLayer {
 		this.parent.drawLayers();			
 	}
 
+	setInterpolate(value) {
+		this.interpolate = value;
+		this.updateLayer();
+		this.parent.drawLayers();		
+	}
+	
 }
 
 export default CanvasLayer;

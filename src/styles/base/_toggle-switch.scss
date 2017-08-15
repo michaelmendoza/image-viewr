@@ -12,6 +12,9 @@ $height: $width/2;
 
 .toggle {
   	
+	cursor: hand;
+	cursor: pointer;
+
    .toggle-control{
 			transition: $transition;
 			width: $width;

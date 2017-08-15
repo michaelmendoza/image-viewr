@@ -45,7 +45,8 @@ class ColorMap {
 
 	/** Returns whether or not the current colormap is valid for use */
 	isValid() {
-		if(this.options.colormap == 'jet')
+		if(this.options.colormap == 'jet' || this.options.colormap == 'hot' ||
+			this.options.colormap == 'cool' || this.options.colormap == 'RdBu')
 			return true;
 		else 
 			return false;

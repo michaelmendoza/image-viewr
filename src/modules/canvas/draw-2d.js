@@ -30,19 +30,27 @@ class Draw2D {
 		var dy = 0;
 		var dWidth = Math.round(width);
 		var dHeight = Math.round(height);
-		
+
 		context.globalAlpha = opacity;
+		if(layer.interpolate !== undefined) this.setSmoothing(context, layer.interpolate);
 		context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
 		this.drawColormap(layer, dWidth, dHeight);
 	}
-	
+
 	drawColormap(layer, width, height) {
 		if(!layer.colorMap || !layer.colorMap.isValid()) return;
-		
+
 		var imageData = layer.context.getImageData(0, 0, width, height);
 		DrawImage.toColormap(imageData, layer.colorMap);
 		layer.context.putImageData(imageData, 0, 0);
+	}
+
+	setSmoothing(context, isSmooth) {
+    context.imageSmoothingEnabled = isSmooth;
+    context.mozImageSmoothingEnabled = isSmooth;
+    context.webkitImageSmoothingEnabled = isSmooth;
+    context.msImageSmoothingEnabled = isSmooth;		
 	}
 
 	drawSliceLocations(canvas) {
