@@ -13,6 +13,7 @@ class ViewerLayerDetail extends React.Component {
 		this.state = { 
 			layer: layer, 
 			colormap: 'greys', 
+			visible: layer.visible,
 			interpolate: layer.interpolate,
 			opacity: layer.opacity * 100, 
 			min: layer.threshold.min,
@@ -37,6 +38,11 @@ class ViewerLayerDetail extends React.Component {
 	handleColormap(event) {
 		this.setState({ colormap: event.target.value })
 		this.state.layer.setColorMap(event.target.value, this.refs.colormap);
+	}
+	
+	handleVisible(value) {
+		this.setState({ visible:value });
+		this.state.layer.toggleLayer();
 	}
 
 	handleInterpolate(value) {
@@ -111,12 +117,15 @@ class ViewerLayerDetail extends React.Component {
 					<li> <canvas ref='colormap' width='200' height='40'></canvas> </li>
 					<li> <label>Histogram</label> </li> 
 					<li> 
+						<label>Visible</label> <Spacer/>  
+						<Toggle value={this.state.visible} onChange={this.handleVisible.bind(this)} > </Toggle>
+					</li>					
+					<li> 
 						<label>Pixel Interpolation</label> <Spacer/>
 						<Toggle value={this.state.interpolate} onChange={this.handleInterpolate.bind(this)} ></Toggle>
 					</li> 
 
 					<h4> Opacity </h4>
-					<li> <label>Visible</label> <Spacer/>  </li>
 					<li> <label>Opacity</label> <Spacer/> 
 						<Slider min={0} max={100} value={this.state.opacity} onChange={this.handleOpacity.bind(this)}/> 
 						<label className='value'> {this.state.opacity} </label>
