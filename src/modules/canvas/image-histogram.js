@@ -60,6 +60,9 @@ class ImageHistogram {
 
 		var barthickness = width / this.binCount;
 		var xzoom = this.maxValue / (pmax - pmin);
+		var dx = 1.0;
+		var dy = 1.0;
+		var xOffset = 0;
 		
 		g.selectAll("rect")
 			.data(data)
@@ -72,13 +75,44 @@ class ImageHistogram {
 			.attr("ry", 2.5)
 			.attr("ry", 2.5)
 			.attr("fill", color)
-			.attr('transform', 'translate(0, 0) scale(' + xzoom + ', 1)');
+			.attr('transform', 'translate(0, 0) scale(' + xzoom + ', 1)')
 
 		g.selectAll('rect')
 			.transition()
 			.duration(500)				
 			.attr("y", function(d,i) { return height - y(d); })
 			.attr("height", function(d, i) { return y(d); })
+
+		var box = svg.append('rect')
+			.attr("x", 0).attr("width", width)
+			.attr("y", 0).attr("height", height)
+			.attr("fill", "#FEFEFE")
+			.attr("opacity", 0)
+			.on('wheel.zoom', () => {
+				d3.event.stopPropagation();
+				d3.event.preventDefault();
+				dx = d3.event.wheelDeltaX / 100 + dx;
+				dy = d3.event.wheelDeltaY / 100 + dy;
+				g.selectAll('rect').attr('transform', 'translate(0, 0) scale(' + (xzoom * dy) + ', 1)')
+			})
+			.call(d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragended));
+
+			function dragstarted(d) {
+				
+			}
+			
+			function dragged(d) {
+				var dx = d3.event.x - xOffset;
+				g.selectAll('rect').attr("transform", "translate(" + dx + ',' + 0 + ") ");
+				xOffset = d3.event.x;
+			}
+
+			function dragended(d) {
+				
+			}
 
 	}
 }
