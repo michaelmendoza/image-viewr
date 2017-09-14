@@ -1,0 +1,37 @@
+
+.viewer-layer-detail {
+
+	canvas {
+		margin-bottom: 10px;
+	}
+
+	img {
+		margin-bottom: 10px;
+	}
+
+	label.value {
+		width: 30px;
+		text-align: right;
+	}
+
+	li {
+		@extend .layout-row;
+		margin-bottom: 6px;
+	}
+
+	h4 {
+		border-top: 1px solid #E1E2E4;
+		margin-top: 8px;
+		margin-bottom: 6px;
+    padding-top: 6px;
+    font-size: 14px;
+	}
+
+	select {
+		width: 50%;
+	}
+
+	.detail-thumbnail {
+		height: 100px;
+	}
+}

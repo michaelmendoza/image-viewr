@@ -14,7 +14,7 @@ class ViewerStatsPanel extends React.Component {
 				return <label>{label}: {file[label]} </label>
 		})
 	}
-
+	
 	getDicomHeader() {
 		var file = ImageFileStore.getCurrentFile();
 		var header = file['header'];
@@ -42,7 +42,7 @@ class ViewerStatsPanel extends React.Component {
 				
 				<div className="labels">
 				{
-					this.getLabels().map((label) => { return label; })
+					this.getLabels()
 				}
 				</div>
 

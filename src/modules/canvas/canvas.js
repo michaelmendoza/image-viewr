@@ -4,7 +4,7 @@ import Viewr from '../viewr.js';
 
 // Canvas Modules
 import CanvasControls from './canvas-controls.js';
-import CanvasDraw from './canvas-draw.js';
+import CanvasLayers from './canvas-layers.js';
 import CanvasPixel from './canvas-pixel.js';
 import CanvasShapes from './canvas-shapes.js';
 import CanvasThreshold from './canvas-threshold.js';
@@ -34,26 +34,21 @@ class Canvas {
 		this.height = height;
 		this.canvas.width = width;
 		this.canvas.height = height;
-
-		// Layers
-		this.roiCanvas = document.createElement('canvas');
-		this.roiContext = this.roiCanvas.getContext('2d');
-		this.roiCanvas.width = width;
-		this.roiCanvas.height = height;
 	
 		// Image/File 
 		this.file = null;
 		this.img = null;
+		this.opacity = 1.0;
 
 		// 3D Data Options
 		this.dimIndex = 0;
 		this.sliceIndex = 0;
 
 		// Canvas Modules 
-		this.draw = new CanvasDraw(); 
 		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
+		this.layers = new CanvasLayers(this);
 		this.load = new ImageLoad(this);
 		this.pixel = new CanvasPixel();
 		this.shapes = new CanvasShapes();
@@ -84,24 +79,18 @@ class Canvas {
 	
 	/*** Draw ***/
 
-	clear() {
-		this.draw.clear(this);
-	}
-
 	drawImage() {
-		this.draw.drawImage(this);
+		//this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	drawTile3DImage() {
-		return this.draw.drawTile3DImage(this);
-	}
-
-	createImg() { 
-		return this.draw.createImg(this);
+		//return this.draw.drawTile3DImage(this);
 	}
 
 	updateImage() {
-		this.draw.updateImage(this);
+		//this.draw.updateImage(this);
+		this.layers.updateLayers();
 	}
 
 	/*** Controls ***/
@@ -112,20 +101,17 @@ class Canvas {
 
 	panImage(event) {
 		this.controls.panImage(event);
-		this.draw.clear(this);
-		this.draw.drawImage(this);		
+		this.layers.drawLayers();		
 	}
 
 	panImageFixedAmount(x, y) {
 		this.controls.panImageFixedAmount(x, y);
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	setZoom(zoomValue) {
 		this.controls.setZoom(zoomValue);
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	stopPanImage() {
@@ -134,20 +120,17 @@ class Canvas {
 
 	zoomIn() {
 		this.controls.zoomIn();
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 	
 	zoomOut() {
 		this.controls.zoomOut();
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 	
 	zoomReset() {
 		this.controls.zoomReset();
-		this.draw.clear(this);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	/*** Features ***/
@@ -159,11 +142,33 @@ class Canvas {
 	getFeatures() {
 		return this.features.features;
 	}
+	
+	drawAllFeatures() {
+		this.features.drawAllFeatures();
+	}
 
 	deleteFeature(index) {
 		this.features.deleteFeature(index);
 		this.drawImage();
 	} 
+
+	/*** Layers ***/
+
+	addLayer() {
+		this.layers.addLayer();
+	}
+
+	removeLayer(index) {
+		this.layers.removeLayer(index);
+	}
+
+	toggleLayer(index) { 
+		this.layers.toggleLayer(index);
+	}
+
+	getLayers() {
+		return this.layers.layers;
+	}
 
 	/*** Load ***/
 
@@ -172,7 +177,8 @@ class Canvas {
 	} 
 
 	loadFile(file) {
-		this.load.loadFile(file);
+		//this.load.loadFile(file);
+		this.layers.loadFile(file);
 	}
 
 	loadFile3D(indexMove) {
@@ -200,8 +206,8 @@ class Canvas {
 
 		var dz = dx < dy ? dx : dy;
 		this.controls.zoom = dz;
-		this.controls.panX = 0;
-		this.controls.panY = 0;
+		this.controls.offsetX = 0;
+		this.controls.offsetY = 0;
 
 		Viewr.emit('zoom-update');
 	}
@@ -258,22 +264,22 @@ class Canvas {
 
 	setColorThreshold(colorThreshold) {
 		this.threshold.setColorThreshold(colorThreshold);
-		this.draw.drawImage(this);		
+		this.layers.drawLayers();		
 	}
 
 	setColorThresholdWithPixel(colorPixel) {
 		this.threshold.setColorThresholdWithPixel(colorPixel);
-		this.draw.drawImage(this);		
+		this.layers.drawLayers();		
 	}
 
 	setMinThreshold(minThreshold) {
 		this.threshold.setMinThreshold(minThreshold);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	}
 
 	setColorPixelOffset(offset) {
 		this.threshold.setColorPixelOffset(offset);
-		this.draw.drawImage(this);
+		this.layers.drawLayers();
 	} 
 }
 

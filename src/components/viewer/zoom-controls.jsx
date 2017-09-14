@@ -29,13 +29,13 @@ class ZoomControls extends React.Component {
 		var zoomValue = this.state.zoomStep * ZOOM_STEP; 
 		ViewerStore.setZoom(zoomValue);
 	};
-
+	
 	render() {
 		return (
 			<div className='zoom-controls'>
 				<button className='icon-button' onClick={this.handleZoomReset}> <i className='material-icons'>location_searching</i> </button>
 				<button className='icon-button' onClick={this.handleZoomOut}> <i className='material-icons'>zoom_out</i> </button>						
-				<span className='zoom-slider'>
+				<span className='zoom-slider slider'>
 					<input type="range" name="zoom" value={this.state.zoomStep} min={this.state.zoomMin} max={this.state.zoomMax} onChange={this.handleZoomChange.bind(this)} />
 				</span>
 				<button className='icon-button' onClick={this.handleZoomIn}> <i className='material-icons'>zoom_in</i> </button>

@@ -52,12 +52,12 @@ class MouseEvents {
 			[CanvasModes.CUSTOM_ROI_UPDATE_POINT]: () => { this.features.updateActiveFeature(event); },
 			[CanvasModes.CUSTOM_ROI_UPDATE_POSITION]: () => { this.features.updatePosition(event); },
 			[CanvasModes.THRESHOLD]: () => { this.features.hoverOnFeature(event); }
-		};
+		}; 
 
 		var roi_action = () => {
 			event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
 			roi_actions[Viewr.modes.canvas]();
-			this.drawImage();
+			this.drawImage(); // TODO: Should I be drawing constantly
 		}
 
 		this.getPixelData(event.offsetX, event.offsetY);

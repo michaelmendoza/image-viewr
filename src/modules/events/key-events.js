@@ -5,6 +5,7 @@ class KeyEvents {
 
 	keydownSliceSelect(event) {
 		var keyCode = event.keyCode;
+		if(!this.file) return; 
 
 		if(keyCode == '37') { // Left Arrow
 			if(this.file.type == 'dicom-3d')
