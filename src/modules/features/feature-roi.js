@@ -63,8 +63,9 @@ class FeatureROI {
 
 		var layer = image.getActiveLayer();
 		var roiValues = ROIMask.getROIValues(this, maskData, layer);
+		var threshold = layer.threshold;
 
-		return { img:imageData, mask:maskData, roiValues:roiValues };
+		return { img:imageData, mask:maskData, roiValues:roiValues, threshold };
 	}	
 
 	getMinMax(image) {
@@ -72,7 +73,7 @@ class FeatureROI {
 		if(data == null)
 			return 0;
 
-		return PixelStats.getMinMax(data.roiValues);
+		return PixelStats.getMinMax(data.roiValues, data.threshold);
 
 		/*
 		var min = 255;
@@ -96,7 +97,7 @@ class FeatureROI {
 		if(data == null)
 			return 0;
 
-		return PixelStats.getMean(data.roiValues);
+		return PixelStats.getMean(data.roiValues, data.threshold);
 
 		/*
 		var sum = 0;
@@ -113,7 +114,7 @@ class FeatureROI {
 		if(data == null)
 			return 0;
 
-		return PixelStats.getStdDev(data.roiValues);
+		return PixelStats.getStdDev(data.roiValues, data.threshold);
 
 		/**
 		var sum = 0;
@@ -123,7 +124,7 @@ class FeatureROI {
 				var value =  (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
 				sum += value;
 				sum2 += value * value;
-			}
+			} 
 		}
 	
 		var N = (data.img.length / 4);
@@ -149,6 +150,15 @@ class FeatureROI {
 		}
 		return count;
 	}
+	
+
+	getPixelCount(image) {
+		var data = this.createROIMaskData(image);
+		if(data == null)
+			return 0;
+
+		return PixelStats.getCount(data.roiValues, data.threshold);
+	}	
 
 	getColorThresholdPixelCount(image) { 
 		var data = this.createROIMaskData(image);

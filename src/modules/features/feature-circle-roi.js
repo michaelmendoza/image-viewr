@@ -21,7 +21,7 @@ class FeatureCircleROI extends FeatureROI {
 		context.arc(x, y, r, 0, 2*Math.PI);
 		context.fill();
 	}
-
+	
 	getBoundingBox() {
 		var sx = this.x - this.radius;
 		var sy = this.y - this.radius;

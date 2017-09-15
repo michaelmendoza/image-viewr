@@ -127,13 +127,16 @@ class FeatureManager {
 		this.activeFeature.mean = this.activeFeature.getMean(canvas);
 		this.activeFeature.stdDev = this.activeFeature.getStdDev(canvas);
 		this.activeFeature.area = this.activeFeature.getArea(canvas);
+		this.activeFeature.pixelCount = this.activeFeature.getPixelCount(canvas);
 
+		/*
 		if(Viewr.modes.threshold == ThresholdModes.GREY)
 			this.activeFeature.pixelCount = this.activeFeature.getGreyThresdholdPixelCount(canvas);
 		else if(Viewr.modes.threshold = ThresholdModes.COLOR)
 			this.activeFeature.pixelCount = this.activeFeature.getColorThresholdPixelCount(canvas);	
 		else
 			this.activeFeature.pixelCount = 0;
+		*/
 	}
 
 	/**
