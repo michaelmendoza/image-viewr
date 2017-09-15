@@ -43,6 +43,7 @@ class Canvas {
 		// 3D Data Options
 		this.dimIndex = 0;
 		this.sliceIndex = 0;
+		this.layerIndex = 0;
 
 		// Canvas Modules 
 		this.contrast = ImageContrast;
@@ -170,6 +171,10 @@ class Canvas {
 		return this.layers.layers;
 	}
 
+	getActiveLayer() { 
+		return this.layers.layers[this.layerIndex];
+	}
+
 	/*** Load ***/
 
 	getFileType() {
@@ -194,6 +199,9 @@ class Canvas {
 	/*** Resize ***/
 	
 	autoZoomResize() {
+		//this.layers.autozoom();
+
+		/*
 		// Only Dicoms support auto-zoom and resize
 		if(this.file.type != 'dicom' && this.file.type != 'dicom-3d')
 			return;
@@ -210,6 +218,7 @@ class Canvas {
 		this.controls.offsetY = 0;
 
 		Viewr.emit('zoom-update');
+		*/
 	}
 
 	setViewportSize() { 

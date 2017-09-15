@@ -37,6 +37,7 @@ class CanvasLayers {
 		layer.loadFile(file);
 		this.layers.push(layer);
 		this.updateLayers();
+		this.autoZoom();
 
 		Viewr.setMode('view', ViewModes._2D);
 	}
@@ -56,6 +57,29 @@ class CanvasLayers {
 	
 	isLoaded() { 
 		return this.layers.length > 0;
+	}
+
+	/** Fix for 3d data */
+	autoZoom() {
+		var viewportSize = { width: this.parent.width, height: this.parent.height }
+
+		var width = 0;
+		var height = 0;
+		this.layers.forEach((layer) => {
+			width = width < layer.file.width ? layer.file.width : width;
+			height = height < layer.file.height ? layer.file.height : height;
+		})
+
+		var controls = this.parent.controls;
+		var dx = (viewportSize.width / width) / controls.aspectRatio;
+		var dy = (viewportSize.height / height);
+
+		var dz = dx < dy ? dx : dy;
+		controls.zoom = dz;
+		controls.offsetX = 0;
+		controls.offsetY = 0;
+
+		Viewr.emit('zoom-update');		
 	}
 
 }
