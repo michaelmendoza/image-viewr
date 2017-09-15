@@ -77,8 +77,8 @@ class FileDICOM {
 		canvas.width = this.width;
 		canvas.height = this.height;
 
-    var context = canvas.getContext('2d');
-    var numPixels = this.width * this.height;
+    	var context = canvas.getContext('2d');
+    	var numPixels = this.width * this.height;
 		var imageData = context.getImageData(0, 0, this.width, this.height);
 
 		var maxValue = 0;

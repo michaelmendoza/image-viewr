@@ -42,14 +42,14 @@ class ImageContrast {
 		this.minValue = minValue;
 	}
 	
-	autoContrast3D(fileSet) { 
+	autoContrast3D(file) { 
 		var minValue = 4096.0;
 		var maxValue = 0.0;
 
-		for(var i = 0; i < fileSet.length; i++) {
-			var pixelCount = fileSet[i].numPixels;
+		var pixelCount = file.getPixelCount(0);
+		for(var i = 0; i < file.depth; i++) {
 			for(var j = 0; j < pixelCount; j++) {
-				var value = fileSet[i].pixelData[j];
+				var value = file.pixelData[i][j];
 				value > maxValue ? maxValue = value : null;
 				value < minValue ? minValue = value : null;
 			}

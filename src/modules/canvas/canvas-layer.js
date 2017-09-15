@@ -42,7 +42,7 @@ class CanvasLayer {
 		if(file.type == 'dicom')
 			this.contrast.autoContrast(file.pixelData, file.numPixels); 
 		else if(file.type == 'dicom-3d')
-			this.contrast.autoContrast3D(file.fileset);
+			this.contrast.autoContrast3D(file);
 		this.threshold.setDefault(this.contrast.minValue, this.contrast.maxValue);
 	}
 
