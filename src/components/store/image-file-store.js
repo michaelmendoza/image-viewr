@@ -59,6 +59,11 @@ class ImageFileStore extends EventEmitter {
 		*/
 	}
 
+	addFile(file) {
+		this.files.push(file);
+		this.emit('filesloaded');
+	}
+	
 	addImageFile(image) {
 		var file = { filename:'', type:"image", img:image };
 		this.files.push(file);	

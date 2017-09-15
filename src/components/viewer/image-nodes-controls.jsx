@@ -11,7 +11,7 @@ class ImageNodesControls extends React.Component {
 	handlePlayGraph() {
 		ImageNodeStore.runGraph();
 		var query = ImageNodeStore.queryGraph();
-		ImageFileStore.addImageFile(query[0]);
+		ImageFileStore.addFile(query[0]);
 	}
 
 	render() {
