@@ -1,61 +1,87 @@
 
-class Signal {
-	constructor() {
-		this.sample_period;
-		this.sample_rate;
-	}
+var Signal = {};
 
-	linspace(start, stop, length) {
-		var result = Array(length)
-		for (var i = 0; i < length - 1; i++) {
-			result[i] = start + (stop - start) / (length - 1) * i;
-		}
-		result[length - 1] = stop;
-		return result;
-	}
-
-	linspace2D(xMin, xMax, Nx, yMin, yMax, Ny) { 
-		var x = this.linspace(xMin, xMax, Nx);
-		var y = this.linspace(yMin, yMax, Ny);
-		var result = Array(Nx * Ny);
-
-		var count = 0;
-		for (var i = 0; i < Nx - 1; i++)
-			for (var j = 0; j < Ny -1; j++ )
-				result[count++] = { x:x[i], y:y[j] };
-		return result;
-	}
-
-	generateSignal() {
-
-	}
-
-	generateNoisySignal() {
-
-	}
-
-	exponential(x, scale, lambda) {
-		var length = x.length;
-		var result = Array(length);
-		for(var i = 0; i < length; i++)
-			result[i] = scale * Math.exp(-lambda * x[i])
-		return result;
-	} 
-
-	biexponential(x, scale, lambda, x2, lambda2) {
-		var length = x.length;
-		var result = Array(length);
-		for(var i = 0; i < length; i++)
-			result[i] = scale * Math.exp(-lambda * x[i]) + scale2 * Math.exp(-lambda2 * x[i]);
-		return result;
-	}
-
-	gaussian(x, scale, mean, stdDev) { 
-		var length = x.length;
-		var result = Array(length);
-		for (int i = 0; i < length; i++)
-			result[i] = scale * Math.exp(-(x[i] - mean) * (x[i] - mean) / (2 * stdDev * stdDev));
-		return result;
+Signal.getRandom = function (min, max) {
+	return Math.random() * (max - min) + min;
 }
+
+Signal.getRandomPointArray = function(min, max, N) {
+	var array = [];
+	for(var i = 0; i < N; i++) {
+		array.push({x:i, y:Math.random() * (max - min) + min});
+	}
+	return array;
+}
+
+Signal.addRandomToArray = function(y, min, max) {
+	var N = y.length;
+	for(var i = 0; i < N; i++)
+		y[i] += Signal.getRandom(min, max);
+	return y;
+}
+
+Signal.linspace = function(min, max, N) {
+	var step = (max - min) / (N - 1);
+	var out = Array(N);
+	for(var i = 0; i < N; i ++)
+		out[i] = min + i * step;
+	return out;
+}
+
+Signal.linearModel = function(x, m, b) {
+	var N = x.length;
+	var out = Array(N);
+	for(var i = 0; i < N; i++)
+		out[i] = x[i] * m + b;
+	return out;
+}
+
+Signal.exponentialModel = function(x, A, lambda) {
+	var N = x.length;
+	var out = Array(N);
+	for(var i = 0; i < N; i++) 
+		out[i] = A * Math.exp(x[i] * lambda);
+	return out;
+}	
+
+Signal.log = function(x) {
+	var N = x.length;
+	var out = Array(N);
+	for(var i = 0; i < N; i++) {
+		out[i] = Math.log(x[i]);
+	}
+	return out;
+}
+
+Signal.setFloor = function(x, min) {
+	var N = x.length;
+	var out = Array(N);
+	for(var i = 0; i < N; i++) {
+		out[i] = (x[i] < min) ? min : x[i];
+	}
+	return out;
+}
+
+Signal.fromPointArray = function (data) {
+	var N = data.length;
+	var x = Array(N);
+	var y = Array(N);
+	for(var i = 0; i < N; i++) {
+		x[i] = data[i].x;
+		y[i] = data[i].y
+	}
+	return { x:x, y:y }
+}
+
+Signal.toPointArray = function (x, y) {
+	var N = x.length;
+	var out = Array(N);
+	for(var i = 0; i < N; i++) {
+		out[i] = {};
+		out[i].x = x[i];
+		out[i].y = y[i];
+	}
+	return out;
+} 
 
 export default Signal;
