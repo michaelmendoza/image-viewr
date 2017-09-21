@@ -4,25 +4,28 @@ import ROIPanelItem from './roi-panel-item.jsx';
 
 class ROIPanel extends React.Component {
 
-	constructor() {
+	constructor() { 
 		super();
+		ViewerStore.updateFeatureData();
 		this.getFeatures = this.getFeatures.bind(this);
 		this.state = { features: ViewerStore.getFeatures() };
 	}
 	
 	componentDidMount() {
-  	ViewerStore.on('mousemove', this.getFeatures);
-  	ViewerStore.on('feature-update', this.getFeatures);
+		ViewerStore.on('mousemove', this.getFeatures);
+		ViewerStore.on('feature-update', this.getFeatures);
 	}
 
 	componentWillUnmount() {
-	  ViewerStore.removeListener('mousemove', this.getFeatures);
-	  ViewerStore.removeListener('feature-update', this.getFeatures);
+		ViewerStore.removeListener('mousemove', this.getFeatures);
+		ViewerStore.removeListener('feature-update', this.getFeatures);
 	}
 
 	getFeatures() {
+		var features = ViewerStore.getFeatures();
+
 		this.setState({
-			features: ViewerStore.getFeatures()
+			features: features
 		})
 	}
 

@@ -9,6 +9,26 @@ class ImageContrast {
 		this.inEdit = false;
 	}
 
+	getMin() {
+		return this.level - this.width / 2.0;
+	}
+
+	getMax() {
+		return this.level + this.width / 2.0;
+	}
+
+	setMin(min) { 
+		var max = this.getMax();
+		this.width = (max - min);
+		this.level = min + (max - min) / 2.0;
+	}
+
+	setMax(max) { 
+		var min = this.getMin();
+		this.width = (max - min);
+		this.level = min + (max - min) / 2.0;		
+	}
+
 	setContrastLevel(level) {
 		this.level = level;
 	}

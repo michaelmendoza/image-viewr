@@ -138,6 +138,10 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.getFeatures();
 	}
 
+	updateFeatureData() {
+		return this.viewer.updateFeatureData();
+	}
+
 	deleteFeature(index) {
 		return this.viewer.deleteFeature(index);
 	}

@@ -135,6 +135,10 @@ class Canvas {
 	}
 
 	/*** Features ***/
+	
+	updateFeatureData() {
+		return this.features.updateFeatureData();
+	}	
 
 	getActiveFeature() {
 		return this.features.activeFeature;

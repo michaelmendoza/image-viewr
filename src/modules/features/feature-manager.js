@@ -139,6 +139,19 @@ class FeatureManager {
 		*/
 	}
 
+	updateFeatureData() { 
+		var canvas = this.canvas;
+		this.features.forEach((feature) => {
+			var minmax = feature.getMinMax(canvas)
+			feature.min = minmax.min;
+			feature.max = minmax.max;
+			feature.mean = feature.getMean(canvas);
+			feature.stdDev = feature.getStdDev(canvas);
+			feature.area = feature.getArea(canvas);
+			feature.pixelCount = feature.getPixelCount(canvas);	
+		})
+	}
+
 	/**
 	 * Updates active feature position
 	 */

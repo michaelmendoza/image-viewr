@@ -48,9 +48,15 @@ class CanvasLayer {
 
 	createHistogram(element, width, height) {
 		if(!this.file) return;
-		this.imageHistogram = new ImageHistogram(this.file.pixelData, 4096, 4096);
+		var min = this.contrast.getMin();
+		var max = this.contrast.getMax();
+		this.imageHistogram = new ImageHistogram(this.file.pixelData, min, max, 100);
 		this.imageHistogram.createHistogramSVG(element, width, height);
 	}
+
+	updateHistogram() {
+		this.imageHistogram.updateHistogram(this.contrast.getMin(), this.contrast.getMax());
+	} 
 
 	/** Clears canvas, and draws image data */
 	drawLayer() {
