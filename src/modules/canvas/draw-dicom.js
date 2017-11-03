@@ -3,21 +3,21 @@ class DrawDicom {
 	/** Creates an image from DICOM data */
 	createImage(layer) { 
 		var file = layer.file;
-		if(file.type == 'dicom') 					return this.createDicom2D(layer); // Returns canvas
+		if(file.type == 'dicom') 			return this.createDicom2D(layer); // Returns canvas
 		else if(file.type == 'dicom-3d') 	return this.createDicom3D(layer); // Returns canvas
-		else 															return file.img;									// Returns img
+		else 								return file.img;				  // Returns img
 	}
 	
 	/** Creates a canvas with dicom data using specified image constrast */
 	createDicom2D(layer) { 
 		var file = layer.file;
 		var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');		
+    	var context = canvas.getContext('2d');		
 		canvas.width = file.width;
 		canvas.height = file.height;
     
-    var pixelData = file.pixelData;
-    var numPixels = file.width * file.height;
+    	var pixelData = file.pixelData;
+    	var numPixels = file.width * file.height;
 		var resolution = layer.contrast.resolution;
 		var imageData = context.getImageData(0, 0, file.width, file.height);
 
@@ -37,8 +37,8 @@ class DrawDicom {
 	createDicom3D(layer) { 
 		var contrast = layer.contrast;
 		var file = layer.file;		
-		var dimIndex = layer.file.dimIndex;		
-		var sliceIndex = layer.sliceIndex;
+		var dimIndex = layer.parent.parent.dimIndex;		
+		var sliceIndex = layer.parent.parent.sliceIndex;
 
 		var bounds = [
 			{ width: file.width, height: file.height }, // x, y
@@ -48,8 +48,11 @@ class DrawDicom {
 		var width = bounds[dimIndex].width;
 		var height = bounds[dimIndex].height;
 
-		this.canvas.width = width;
-		this.canvas.height = height;
+		var canvas = document.createElement('canvas');
+    	var context = canvas.getContext('2d');	
+		canvas.width = width;
+		canvas.height = height;
+
 		var pixelData = file.pixelData;
 		var resolution = contrast.resolution;
 		var imageData = context.getImageData(0, 0, width, height);
@@ -91,7 +94,7 @@ class DrawDicom {
 		}
 
 		context.putImageData(imageData, 0, 0);
-		return this.canvas;
+		return canvas;
 	}
 	
 }

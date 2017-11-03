@@ -189,9 +189,10 @@ class Canvas {
 		//this.load.loadFile(file);
 		this.layers.loadFile(file);
 	}
-
+	
 	loadFile3D(indexMove) {
-		this.load.loadFileInFileSet(indexMove);
+		//this.load.loadFileInFileSet(indexMove);
+		this.layers.loadFile3D(indexMove);
 	}
 
 	/*** Pixel ***/

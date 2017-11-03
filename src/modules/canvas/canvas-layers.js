@@ -42,6 +42,29 @@ class CanvasLayers {
 		Viewr.setMode('view', ViewModes._2D);
 	}
 
+	is3D() {
+		var is3D = false;
+		this.layers.forEach((layer) => {
+			is3D = layer.file.type == 'dicom-3d' ? true : is3D;
+		})
+		return is3D;
+	}
+
+	loadFile3D(indexMove) { 
+		if(indexMove == 0)
+			return;
+
+		var dim = this.parent.dimIndex;
+		var maxIndex = (dim == 0) ? this.layers[0].file.depth : (dim == 1) ? this.layers[0].file.height : this.layers[0].file.width;
+		
+		var index = this.parent.sliceIndex + indexMove;
+		index = index < 0 ? 0 : index;
+		index = index >= maxIndex ? maxIndex - 1 : index;
+		this.parent.sliceIndex = index;
+
+		this.updateLayers();
+	}
+
 	addLayer() {
 		var layer = new CanvasLayer(this);
 		this.layers.push(layer);

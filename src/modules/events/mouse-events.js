@@ -175,10 +175,11 @@ class MouseEvents {
 		event.stopPropagation();
 		event.preventDefault();
 
-		if(this.file == null) return;
+		//if(this.file == null) return;
 
 		var indexMove = Math.round(event.wheelDelta / 20.0);
-		if(this.file.type == 'dicom-3d') 
+		//if(this.file.type == 'dicom-3d') 
+		if(this.layers.is3D())
 			this.loadFile3D(indexMove);
 	}
 
