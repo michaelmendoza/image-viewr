@@ -9,6 +9,14 @@ class ImageContrast {
 		this.inEdit = false;
 	}
 
+	setContrastLevel(level) {
+		this.level = level;
+	}
+
+	setContrastWidth(width) {
+		this.width = width;
+	}
+
 	setContrast(level, width) {
 		this.level = level;
 		this.width = width;
@@ -30,6 +38,8 @@ class ImageContrast {
 
 		this.width = maxValue - minValue;
 		this.level = minValue + (this.width / 2);
+		this.maxValue = maxValue;
+		this.minValue = minValue;
 	}
 	
 	autoContrast3D(fileSet) { 
@@ -47,6 +57,8 @@ class ImageContrast {
 
 		this.width = maxValue - minValue;
 		this.level = minValue + (this.width / 2);
+		this.maxValue = maxValue;
+		this.minValue = minValue;
 	}
 
 	map(value) {

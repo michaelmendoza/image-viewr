@@ -45,9 +45,9 @@ class ViewerStore extends EventEmitter {
 		window.onkeydown = keyEvents.keydownSliceSelect.bind(this.viewer);
 	}
 
-	isFileLoaded() {
+	isLayersLoaded() { 
 		if(this.viewer)
-			return this.viewer.file != null;
+			return this.viewer.layers.isLoaded();
 		else
 			return false;
 	}
@@ -69,13 +69,35 @@ class ViewerStore extends EventEmitter {
 	}
 
 	autoZoomResize() {
+		/*
 		this.viewer.autoZoomResize();
 		this.viewer2.autoZoomResize();	
-		this.viewer3.autoZoomResize();			
+		this.viewer3.autoZoomResize();	
+		*/		
 	}	
 
 	getCanvas() { 
 		return this.viewer;
+	}
+
+	getLayers() {
+		return this.viewer.getLayers();
+	}
+
+	getLayer(index) { 
+		return this.viewer.getLayers()[index];
+	}
+
+	addLayer() {
+		this.viewer.addLayer();
+	}
+
+	removeLayer(index) { 
+		this.viewer.removeLayer(index);
+	}
+
+	toggleLayer(index) { 
+		this.viewer.toggleLayer(index);
 	}
 
 	getFileType() { 
@@ -120,8 +142,8 @@ class ViewerStore extends EventEmitter {
 
 	loadFile(file) {
 		this.viewer.loadFile(file);
-		this.viewer2.loadFile(file);
-		this.viewer3.loadFile(file);
+		//this.viewer2.loadFile(file);
+		//this.viewer3.loadFile(file);
 	}
 
 	clear() {

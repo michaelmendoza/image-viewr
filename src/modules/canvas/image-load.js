@@ -18,7 +18,7 @@ var ImageLoad = function(canvas) {
 		// Auto-contrast for dicom files
 		if(file.type == 'dicom') {
 			Viewr.setMode('view', ViewModes._2D);
-			canvas.contrast.autoContrast(file.pixelData, file.numPixels);
+			canvas.contrast.autoContrast(file.pixelData, file.numPixels); // TODO: Should be done on file level
 			canvas.setViewportSize();
 			canvas.updateImage();			
 		}
