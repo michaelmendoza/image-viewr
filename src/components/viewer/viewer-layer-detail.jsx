@@ -25,6 +25,8 @@ class ViewerLayerDetail extends React.Component {
 			offsetY: layer.controls.offsetY, 
 			level: layer.contrast.level,
 			width: layer.contrast.width,
+			minContrast: layer.contrast.getMin(),
+			maxContrast: layer.contrast.getMax(),
 			axial: 0,
 			coronal: 0,
 			sagittal: 0,
@@ -77,14 +79,32 @@ class ViewerLayerDetail extends React.Component {
 	}		
 
 	handleLevel(value) {
-		this.setState({ level:value });
-		this.state.layer.setContrastLevel(value);
+		var layer = this.state.layer;
+		layer.setContrastLevel(parseInt(value));
+		layer.updateHistogram();
+		this.setState({ level:value, minContrast:layer.contrast.getMin(), maxContrast:layer.contrast.getMax() });		
 	}
 
 	handleWidth(value) {
-		this.setState({ width:value });
-		this.state.layer.setContrastWidth(value);
+		var layer = this.state.layer;
+		layer.setContrastWidth(parseInt(value));
+		layer.updateHistogram();
+		this.setState({ width:value, minContrast:layer.contrast.getMin(), maxContrast:layer.contrast.getMax() });
 	} 
+
+	handleMinContrast(value) {
+		var layer = this.state.layer;
+		layer.contrast.setMin(parseInt(value));
+		layer.updateHistogram();
+		this.setState({ minContrast:value, level:layer.contrast.level, width:layer.contrast.width });
+	}
+
+	handleMaxContrast(value) {
+		var layer = this.state.layer;
+		layer.contrast.setMax(parseInt(value));
+		layer.updateHistogram();
+		this.setState({ maxContrast:value, level:layer.contrast.level, width:layer.contrast.width });
+	}
 
 	render() {
 		var layer = this.state.layer;
@@ -164,6 +184,14 @@ class ViewerLayerDetail extends React.Component {
 					<li> <label>Width</label> <Spacer/> 
 						<Slider min={0} max={4096} value={this.state.width} onChange={this.handleWidth.bind(this)}/> 
 						<label className='value'> {this.state.width} </label> 
+					</li>
+					<li> <label>Min</label> <Spacer/> 
+						<Slider min={0} max={4096} value={this.state.minContrast} onChange={this.handleMinContrast.bind(this)}/> 
+						<label className='value'> {this.state.minContrast} </label> 
+					</li>
+					<li> <label>Max</label> <Spacer/> 
+						<Slider min={0} max={4096} value={this.state.maxContrast} onChange={this.handleMaxContrast.bind(this)}/> 
+						<label className='value'> {this.state.maxContrast} </label> 
 					</li>
 
 					{ this.state.view != '2D' ? <h4>Slices</h4> : null }

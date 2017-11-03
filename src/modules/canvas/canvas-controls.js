@@ -77,7 +77,6 @@ class CanvasControls {
 		this.offsetX = 0;
 		this.offsetY = 0;
 	}
-
 }
 
 export default CanvasControls;

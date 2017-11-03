@@ -1,5 +1,7 @@
 
 import Colors from '../utils/colors.js';
+import ROIMask from './roi-mask.js';
+import PixelStats from '../math/pixel-stats.js';
 
 class FeatureROI {
 
@@ -35,7 +37,7 @@ class FeatureROI {
 		canvas.width = image.width;
 		canvas.height = image.height;
 		var context = canvas.getContext('2d');
-		context.drawImage(image.img, 0, 0, canvas.width, canvas.height);
+		context.drawImage(image.canvas, 0, 0, canvas.width, canvas.height);
 		var imageData = context.getImageData(bounds.sx, bounds.sy, bounds.width, bounds.height);
 		return imageData.data;
 	}
@@ -59,14 +61,21 @@ class FeatureROI {
 		// Create ROI Mask and get pixel data
 		var maskData = this.createMaskData();
 
-		return { img:imageData, mask:maskData };
-	}
+		var layer = image.getActiveLayer();
+		var roiValues = ROIMask.getROIValues(this, maskData, layer);
+		var threshold = layer.threshold;
+
+		return { img:imageData, mask:maskData, roiValues:roiValues, threshold };
+	}	
 
 	getMinMax(image) {
 		var data = this.createROIMaskData(image);
 		if(data == null)
 			return 0;
 
+		return PixelStats.getMinMax(data.roiValues, data.threshold);
+
+		/*
 		var min = 255;
 		var max = 0;
 		for (var i = 0; i < data.img.length; i += 4) {
@@ -80,6 +89,7 @@ class FeatureROI {
 		}
 
 		return { min:min, max:max };
+		*/
 	}
 
 	getMean(image) {
@@ -87,12 +97,16 @@ class FeatureROI {
 		if(data == null)
 			return 0;
 
+		return PixelStats.getMean(data.roiValues, data.threshold);
+
+		/*
 		var sum = 0;
 		for (var i = 0; i < data.img.length; i += 4) {
 			if(data.mask[i] == 255)
 				sum += (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
 		}
 		return sum / (data.img.length / 4);
+		*/
 	}
 
 	getStdDev(image) {
@@ -100,6 +114,9 @@ class FeatureROI {
 		if(data == null)
 			return 0;
 
+		return PixelStats.getStdDev(data.roiValues, data.threshold);
+
+		/**
 		var sum = 0;
 		var sum2 = 0;
 		for (var i = 0; i < data.img.length; i += 4) {
@@ -107,15 +124,16 @@ class FeatureROI {
 				var value =  (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
 				sum += value;
 				sum2 += value * value;
-			}
+			} 
 		}
-
+	
 		var N = (data.img.length / 4);
 		var mean = sum / N;
 		var mean2 = sum2 / N;
 
 		var variance = mean2 - mean * mean;
 		return Math.sqrt(variance);
+		**/
 	}	
 
 	getArea(image) {
@@ -132,6 +150,15 @@ class FeatureROI {
 		}
 		return count;
 	}
+	
+
+	getPixelCount(image) {
+		var data = this.createROIMaskData(image);
+		if(data == null)
+			return 0;
+
+		return PixelStats.getCount(data.roiValues, data.threshold);
+	}	
 
 	getColorThresholdPixelCount(image) { 
 		var data = this.createROIMaskData(image);

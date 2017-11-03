@@ -77,18 +77,21 @@ class FileDICOM {
 		canvas.width = this.width;
 		canvas.height = this.height;
 
-    var context = canvas.getContext('2d');
-    var numPixels = this.width * this.height;
+    	var context = canvas.getContext('2d');
+    	var numPixels = this.width * this.height;
 		var imageData = context.getImageData(0, 0, this.width, this.height);
 
 		var maxValue = 0;
 		for(var i = 0; i < numPixels; i++) {
-			maxValue = maxValue >= this.pixelData[i] ? maxValue : this.pixelData[i];
-		}
+			var value = isFinite(this.pixelData[i]) ? this.pixelData[i] : 0;
+			value = (value <= 4096) ? value : 0;
+			value = (value >= 0) ? value : 0;
+			maxValue = maxValue >= value ? maxValue : value;
+		}  
 		var resolution = maxValue; //Math.pow(2,bitsStored);
 
 		for(var i = 0; i < numPixels; i++) {
-			var value = (this.pixelData[i] * 255) / resolution;
+			var value = Math.round((this.pixelData[i] * 255) / resolution);
 			imageData.data[4*i] = value;
 			imageData.data[4*i+1] = value;
 			imageData.data[4*i+2] = value;

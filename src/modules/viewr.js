@@ -22,7 +22,7 @@ class Viewr extends EventEmitter{
  		this.modes = {
  			canvas: CanvasModes.PAN,
  			threshold: ThresholdModes.NONE,
- 			view: ViewModes._3D
+ 			view: ViewModes._2D
  		}
 
  		this.settings = {

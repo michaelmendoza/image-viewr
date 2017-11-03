@@ -28,7 +28,10 @@ class ImageFileStore extends EventEmitter {
 
 	readFile(event) {
 		var files = event.dataTransfer.files;
+		var dataset = new File(files, ()=> { this.emit('filesloaded'); });
+		this.files.push( dataset );
 
+		/*
 		var isDicomSet = true;
 		for (var i = 0; i < files.length; i++) {
 			isDicomSet = files[i].type == "application/dicom" ? isDicomSet : false;
@@ -53,8 +56,14 @@ class ImageFileStore extends EventEmitter {
 				this.files.push( file );
 			}
 		}
+		*/
 	}
 
+	addFile(file) {
+		this.files.push(file);
+		this.emit('filesloaded');
+	}
+	
 	addImageFile(image) {
 		var file = { filename:'', type:"image", img:image };
 		this.files.push(file);	
