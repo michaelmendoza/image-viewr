@@ -43,6 +43,7 @@ class Canvas {
 		// 3D Data Options
 		this.dimIndex = 0;
 		this.sliceIndex = 0;
+		this.layerIndex = 0;
 
 		// Canvas Modules 
 		this.contrast = ImageContrast;
@@ -134,6 +135,10 @@ class Canvas {
 	}
 
 	/*** Features ***/
+	
+	updateFeatureData() {
+		return this.features.updateFeatureData();
+	}	
 
 	getActiveFeature() {
 		return this.features.activeFeature;
@@ -170,6 +175,10 @@ class Canvas {
 		return this.layers.layers;
 	}
 
+	getActiveLayer() { 
+		return this.layers.layers[this.layerIndex];
+	}
+
 	/*** Load ***/
 
 	getFileType() {
@@ -182,7 +191,8 @@ class Canvas {
 	}
 
 	loadFile3D(indexMove) {
-		this.load.loadFileInFileSet(indexMove);
+		//this.load.loadFileInFileSet(indexMove);
+		this.layers.loadFile3D(indexMove);
 	}
 
 	/*** Pixel ***/
@@ -194,6 +204,9 @@ class Canvas {
 	/*** Resize ***/
 	
 	autoZoomResize() {
+		this.layers.autoZoom();
+		
+		/*
 		// Only Dicoms support auto-zoom and resize
 		if(this.file.type != 'dicom' && this.file.type != 'dicom-3d')
 			return;
@@ -210,6 +223,7 @@ class Canvas {
 		this.controls.offsetY = 0;
 
 		Viewr.emit('zoom-update');
+		*/
 	}
 
 	setViewportSize() { 

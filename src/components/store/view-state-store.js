@@ -6,9 +6,9 @@
  		super();
 		this.view = 'horizontal';
 		this.views = ['hidden', 'vertical', 'horizontal'];
-		this.show = [true, true, true];
+		this.show = [true, false, false];
  	}
-
+ 	
  	setVertical() { this.view = 'vertical'; this.emit('update'); }
 
  	setHorizontal() { this.view = 'horizontal'; this.emit('update'); }

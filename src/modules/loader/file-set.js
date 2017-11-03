@@ -48,7 +48,7 @@ class FileSet {
 			this.fileLoadedCallback();			
 		}
 	}
-
+	
 	readDICOMs() {
 		this.loadedCount = 0;
 		this.fileset = [];

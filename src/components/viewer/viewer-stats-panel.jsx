@@ -5,7 +5,11 @@ class ViewerStatsPanel extends React.Component {
 
 	getLabels() {
 		var file = ImageFileStore.getCurrentFile();
-		var labels = ['filename', 'type', 'width', 'height', 'header'];
+		var labels;
+		if(file.type == 'dicom-3d')
+			labels = ['filename', 'type', 'width', 'height', 'depth', 'pixelSpacing_X', 'pixelSpacing_Y', 'sliceThickness'];
+		else
+			labels = ['filename', 'type', 'width', 'height', 'header'];
 
 		return labels.map((label) => {
 			if(label == 'header' && file[label])

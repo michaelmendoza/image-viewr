@@ -69,6 +69,8 @@ class ViewerStore extends EventEmitter {
 	}
 
 	autoZoomResize() {
+		this.viewer.autoZoomResize();
+
 		/*
 		this.viewer.autoZoomResize();
 		this.viewer2.autoZoomResize();	
@@ -134,6 +136,10 @@ class ViewerStore extends EventEmitter {
 
 	getFeatures() {
 		return this.viewer.getFeatures();
+	}
+
+	updateFeatureData() {
+		return this.viewer.updateFeatureData();
 	}
 
 	deleteFeature(index) {

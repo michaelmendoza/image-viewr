@@ -42,15 +42,25 @@ class CanvasLayer {
 		if(file.type == 'dicom')
 			this.contrast.autoContrast(file.pixelData, file.numPixels); 
 		else if(file.type == 'dicom-3d')
-			this.contrast.autoContrast3D(file.fileset);
+			this.contrast.autoContrast3D(file);
 		this.threshold.setDefault(this.contrast.minValue, this.contrast.maxValue);
 	}
 
+	// TODO: Fix for 3D Image - Should like at a slice?
 	createHistogram(element, width, height) {
 		if(!this.file) return;
-		this.imageHistogram = new ImageHistogram(this.file.pixelData, 4096, 4096);
+		if(this.file.type == 'dicom-3d') return;
+
+		var min = this.contrast.getMin();
+		var max = this.contrast.getMax();
+		this.imageHistogram = new ImageHistogram(this.file.pixelData, min, max, 100);
 		this.imageHistogram.createHistogramSVG(element, width, height);
 	}
+
+	updateHistogram() {
+		if(this.file.type == 'dicom-3d') return;
+		this.imageHistogram.updateHistogram(this.contrast.getMin(), this.contrast.getMax());
+	} 
 
 	/** Clears canvas, and draws image data */
 	drawLayer() {
