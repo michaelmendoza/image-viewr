@@ -1,6 +1,6 @@
 {
   "name": "web-image-viewer-app",
-  "version": "0.0.55",
+  "version": "0.0.56",
   "private": true,
   "scripts": {
     "start": "webpack; node server/server.js",

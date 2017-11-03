@@ -189,7 +189,7 @@ class Canvas {
 		//this.load.loadFile(file);
 		this.layers.loadFile(file);
 	}
-	
+
 	loadFile3D(indexMove) {
 		//this.load.loadFileInFileSet(indexMove);
 		this.layers.loadFile3D(indexMove);
@@ -204,8 +204,8 @@ class Canvas {
 	/*** Resize ***/
 	
 	autoZoomResize() {
-		//this.layers.autozoom();
-
+		this.layers.autoZoom();
+		
 		/*
 		// Only Dicoms support auto-zoom and resize
 		if(this.file.type != 'dicom' && this.file.type != 'dicom-3d')

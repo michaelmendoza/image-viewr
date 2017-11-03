@@ -7,7 +7,6 @@ class KeyEvents {
 		var keyCode = event.keyCode;
 
 		if(keyCode == '37') { // Left Arrow
-			//if(this.file.type == 'dicom-3d')
 			if(this.layers.is3D()) {
 				this.loadFile3D(-1);
 				Viewr.emit('canvas-update');
@@ -15,7 +14,6 @@ class KeyEvents {
 		} 
 
 		else if(keyCode == '39') { // Right Arrow
-			//if(this.file.type == 'dicom-3d')
 			if(this.layers.is3D()) {
 				this.loadFile3D(1);
 				Viewr.emit('canvas-update');

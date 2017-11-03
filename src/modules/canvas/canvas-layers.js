@@ -36,8 +36,8 @@ class CanvasLayers {
 		var layer = new CanvasLayer(this, file);
 		layer.loadFile(file);
 		this.layers.push(layer);
+		this.autoZoom(); 
 		this.updateLayers();
-		this.autoZoom();
 
 		Viewr.setMode('view', ViewModes._2D);
 	}

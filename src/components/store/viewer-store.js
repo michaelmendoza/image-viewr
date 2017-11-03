@@ -69,7 +69,7 @@ class ViewerStore extends EventEmitter {
 	}
 
 	autoZoomResize() {
-		//this.viewer.autoZoomResize();
+		this.viewer.autoZoomResize();
 
 		/*
 		this.viewer.autoZoomResize();

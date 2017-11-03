@@ -103,9 +103,11 @@ class File {
 		if(this.pixelSpacing !== undefined) {
 			this.pixelSpacing = this.pixelSpacing.split('\\');
 			this.pixelSpacing = { x: parseFloat(this.pixelSpacing[0]), y: parseFloat(this.pixelSpacing[1]) };				
+			this.pixelSpacing_X = this.pixelSpacing.x;
+			this.pixelSpacing_Y = this.pixelSpacing.y;
 		}		
 		this.sliceThickness = this.dicom[0].header.sliceThickness;
-		this.sliceThickness = parseFloat(this.sliceThickness);
+		this.sliceThickness = parseFloat(this.sliceThickness).toFixed(4);
 
 		this.pixelData = [];
 		for(var i = 0; i < this.dicom.length; i++) { 
