@@ -13,7 +13,7 @@ class ImageNodesControls extends React.Component {
 		var query = ImageNodeStore.queryGraph();
 		ImageFileStore.addFile(query[0]);
 	}
-
+	
 	render() {
 		return (
 			<section className='image-node-controls'> 
