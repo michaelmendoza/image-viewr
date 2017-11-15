@@ -175,6 +175,11 @@ class Canvas {
 		return this.layers.layers[this.layerIndex];
 	}
 
+	setActiveLayer(index) {
+		this.layerIndex = index;
+		this.layers.setActiveLayer(index);
+	} 
+
 	/* 
 	 * Sets contrast edit status for active layer
 	 */

@@ -20,6 +20,7 @@ class CanvasLayer {
 		this.controls = new CanvasControls();
 		this.file = null;
 		this.interpolate = true;
+		this.isActive = false;
 		this.imageHistogram = null;
 		this.load = new CanvasLoader();
 		this.opacity = 1.0;		

@@ -90,6 +90,10 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.getLayers()[index];
 	}
 
+	setActiveLayer(index) {
+		this.viewer.setActiveLayer(index);
+	}
+
 	addLayer() {
 		this.viewer.addLayer();
 	}

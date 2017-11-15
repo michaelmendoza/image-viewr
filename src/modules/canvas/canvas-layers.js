@@ -34,6 +34,7 @@ class CanvasLayers {
 	loadFile(file) { 
 		Viewr.emit('file-loaded');
 		var layer = new CanvasLayer(this, file);
+		this.layers.length == 0 ? layer.isActive = true : null;
 		layer.loadFile(file);
 		this.layers.push(layer);
 		this.autoZoom(); 
@@ -63,6 +64,13 @@ class CanvasLayers {
 		this.parent.sliceIndex = index;
 
 		this.updateLayers();
+	}
+
+	setActiveLayer(index) {
+		this.layers.forEach((layer) => {
+			layer.isActive = false;
+		})
+		this.layers[index].isActive = true;
 	}
 
 	addLayer() {
