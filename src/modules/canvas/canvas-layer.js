@@ -16,7 +16,7 @@ class CanvasLayer {
 		this.context = this.canvas.getContext('2d');
 
 		this.colorMap = new ColorMap();
-		this.contrast = ImageContrast;
+		this.contrast = new ImageContrast(); // Test
 		this.controls = new CanvasControls();
 		this.file = null;
 		this.interpolate = true;

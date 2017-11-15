@@ -9,8 +9,6 @@ import CanvasPixel from './canvas-pixel.js';
 import CanvasShapes from './canvas-shapes.js';
 import CanvasThreshold from './canvas-threshold.js';
 import FeatureManager from '../features/feature-manager.js';
-import ImageContrast from './image-contrast.js';
-import ImageLoad from './image-load.js';
 import SliceSelect from './slice-select.js';
 import VolumeRender from './volume-render.js';
 
@@ -46,11 +44,9 @@ class Canvas {
 		this.layerIndex = 0;
 
 		// Canvas Modules 
-		this.contrast = ImageContrast;
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);
 		this.layers = new CanvasLayers(this);
-		this.load = new ImageLoad(this);
 		this.pixel = new CanvasPixel();
 		this.shapes = new CanvasShapes();
 		this.sliceSelect = null;
@@ -179,6 +175,22 @@ class Canvas {
 		return this.layers.layers[this.layerIndex];
 	}
 
+	/* 
+	 * Sets contrast edit status for active layer
+	 */
+	setContrastEdit(_bool) {
+		var layer = this.getActiveLayer();
+		layer.contrast.inEdit = _bool;
+	} 
+
+	/* 
+	 * Gets contrast edit status for active layer
+	 */
+	getContrastEdit() {
+		var layer = this.getActiveLayer();
+		return layer.contrast.inEdit
+	}
+
 	/*** Load ***/
 
 	getFileType() {
@@ -186,12 +198,10 @@ class Canvas {
 	} 
 
 	loadFile(file) {
-		//this.load.loadFile(file);
 		this.layers.loadFile(file);
 	}
 
 	loadFile3D(indexMove) {
-		//this.load.loadFileInFileSet(indexMove);
 		this.layers.loadFile3D(indexMove);
 	}
 

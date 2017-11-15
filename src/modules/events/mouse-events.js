@@ -29,11 +29,12 @@ class MouseEvents {
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
 			[CanvasModes.CONTRAST]: () => { 
-				if(this.contrast.inEdit) {
+				if(this.getContrastEdit()) { 
 					var sensitivity = 4;
 					var x = event.movementX * sensitivity;
 					var y = event.movementY * sensitivity;
-					this.contrast.setContrastWithMouse({ x:x, y:y });
+					var layer = this.getActiveLayer();
+					layer.contrast.setContrastWithMouse({ x:x, y:y });
 
 					this.updateImage();
 					if(this.sliceSelect != null)
@@ -87,7 +88,7 @@ class MouseEvents {
 			},
 
 			[CanvasModes.CONTRAST]: () => {
-				this.contrast.inEdit = true;
+				this.setContrastEdit(true);
 			},
 
 			[CanvasModes.ROI]: () => { 
@@ -153,7 +154,7 @@ class MouseEvents {
 	handleMouseUp() {
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.PAN; this.stopPanImage(event); },
-			[CanvasModes.CONTRAST]: () => { this.contrast.inEdit = false; }
+			[CanvasModes.CONTRAST]: () => { this.setContrastEdit(false); } 
 		};
 
 		var roi_actions = {

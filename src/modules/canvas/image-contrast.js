@@ -102,4 +102,4 @@ class ImageContrast {
 
 }
 
-export default new ImageContrast();
+export default ImageContrast;
