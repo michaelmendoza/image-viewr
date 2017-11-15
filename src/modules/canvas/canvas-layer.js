@@ -78,14 +78,19 @@ class CanvasLayer {
 		}
 	}
 
+	/** Updates current layer and redraws all layers **/
+	updateLayerAndDrawLayers() {
+		this.updateLayer();       // Update current layer
+		this.parent.drawLayers(); // Draw all layers
+	}
+
 	/** 
 		* Sets colormap based on name, and renders a colorscale if a canvas is supplied, also
 		* updates current layer's image using new colormap 
 	 */
 	setColorMap(colormap_name, canvas) {
 		this.colorMap.setColorMap(colormap_name, canvas);
-		this.updateLayer();       // Update current layer
-		this.parent.drawLayers(); // Ask for parent to be updated
+		this.updateLayerAndDrawLayers();
 	}
 
 	/** Renders a colorscale for current colormap */
@@ -95,56 +100,57 @@ class CanvasLayer {
 
 	toggleLayer() { 
 		this.visible = !this.visible;
-		this.drawLayer();
-		this.parent.drawLayers();		
+		this.updateLayerAndDrawLayers();	
 	}
 
 	setOpacity(value) { 
 		this.opacity = value;
-		this.updateLayer();
-		this.parent.drawLayers();
+		this.updateLayerAndDrawLayers();
 	}
 
 	setMinThreshold(value) {
 		this.threshold.min = value;
-		this.updateLayer();
-		this.parent.drawLayers();
+		this.updateLayerAndDrawLayers();
 	}
 
 	setMaxThreshold(value) {
 		this.threshold.max = value;
-		this.updateLayer();
-		this.parent.drawLayers();		
+		this.updateLayerAndDrawLayers();		
 	}
 
 	setOffsetX(value) {
 		this.controls.offsetX = value;
-		this.drawLayer();
-		this.parent.drawLayers();			
+		this.updateLayerAndDrawLayers();	
 	}
 
 	setOffsetY(value) {
 		this.controls.offsetY = value;
-		this.drawLayer();
-		this.parent.drawLayers();	
+		this.updateLayerAndDrawLayers();	
 	}
 
 	setContrastLevel(value) {
 		this.contrast.setContrastLevel(value);
-		this.updateLayer();
-		this.parent.drawLayers();			
+		this.updateLayerAndDrawLayers();			
 	} 
 
 	setContrastWidth(value) {
 		this.contrast.setContrastWidth(value);
-		this.updateLayer();
-		this.parent.drawLayers();			
+		this.updateLayerAndDrawLayers();		
+	}
+
+	setContrastMin(value) {
+		this.contrast.setMin(value);
+		this.updateLayerAndDrawLayers();
+	}
+
+	setContrastMax(value) { 
+		this.contrast.setMax(value);
+		this.updateLayerAndDrawLayers();
 	}
 
 	setInterpolate(value) {
 		this.interpolate = value;
-		this.updateLayer();
-		this.parent.drawLayers();		
+		this.updateLayerAndDrawLayers();	
 	}
 
 }

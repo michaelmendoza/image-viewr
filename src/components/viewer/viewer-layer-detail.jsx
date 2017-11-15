@@ -94,14 +94,14 @@ class ViewerLayerDetail extends React.Component {
 
 	handleMinContrast(value) {
 		var layer = this.state.layer;
-		layer.contrast.setMin(parseInt(value));
+		layer.setContrastMin(parseInt(value));
 		layer.updateHistogram();
 		this.setState({ minContrast:value, level:layer.contrast.level, width:layer.contrast.width });
 	}
-
+	
 	handleMaxContrast(value) {
 		var layer = this.state.layer;
-		layer.contrast.setMax(parseInt(value));
+		layer.setContrastMax(parseInt(value));
 		layer.updateHistogram();
 		this.setState({ maxContrast:value, level:layer.contrast.level, width:layer.contrast.width });
 	}
