@@ -40,6 +40,13 @@ class MouseEvents {
 					if(this.sliceSelect != null)
 						this.sliceSelect.update();
 				}
+			},
+			[CanvasModes.ZOOM_UPDATE]: () => {
+					var sensitivity = 0.1;
+					var zoomFactor = event.movementY * sensitivity;
+					var layer = this.getActiveLayer();
+					layer.controls.setRelativeZoom(zoomFactor)
+					this.updateImage();
 			}			
 		}; 
 
@@ -89,6 +96,10 @@ class MouseEvents {
 
 			[CanvasModes.CONTRAST]: () => {
 				this.setContrastEdit(true);
+			},
+
+			[CanvasModes.ZOOM]: () => {
+				Viewr.modes.canvas = CanvasModes.ZOOM_UPDATE;
 			},
 
 			[CanvasModes.ROI]: () => { 
@@ -154,7 +165,8 @@ class MouseEvents {
 	handleMouseUp() {
 		var canvas_actions = {
 			[CanvasModes.PAN_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.PAN; this.stopPanImage(event); },
-			[CanvasModes.CONTRAST]: () => { this.setContrastEdit(false); } 
+			[CanvasModes.CONTRAST]: () => { this.setContrastEdit(false); },
+			[CanvasModes.ZOOM_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.ZOOM; }			
 		};
 
 		var roi_actions = {

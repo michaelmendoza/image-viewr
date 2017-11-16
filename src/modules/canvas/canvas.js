@@ -43,6 +43,9 @@ class Canvas {
 		this.sliceIndex = 0;
 		this.layerIndex = 0;
 
+		// Views
+		this.views = [];
+
 		// Canvas Modules 
 		this.controls = new CanvasControls();
 		this.features = new FeatureManager(this);

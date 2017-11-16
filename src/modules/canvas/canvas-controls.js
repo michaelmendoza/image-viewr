@@ -68,6 +68,10 @@ class CanvasControls {
 		this.zoom -= ZOOM_STEP;
 	}
 
+	setRelativeZoom(zoomFactor) {
+		this.zoom += zoomFactor * ZOOM_STEP;
+	}
+
 	setZoom(zoomValue) {
 		this.zoom = zoomValue;
 	}
