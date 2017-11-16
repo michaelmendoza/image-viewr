@@ -55,27 +55,35 @@ class Viewer extends React.Component {
 		ViewStateStore.setHorizontal();
 	}
 
-	render() {
+	getActiveClass(button) {
 		var mode = this.state.canvasMode;
 		var modes = ViewerStore.getCanvasModes();
-		var pixelButtonClass = mode == modes.PIXEL ? 'active' : '';
-		var panButtonClass = mode == modes.PAN || mode == modes.PAN_UPDATE ? 'active' : '';
-		var roiButtonClass = mode == modes.ROI || mode == modes.ROI_UPDATE_POSITION || mode == modes.ROI_UPDATE_RADIUS ? 'active' : '';
-		var customRoiButtonClass = mode == modes.CUSTOM_ROI || mode == modes.CUSTOM_ROI_ADD_POINT || mode == modes.CUSTOM_ROI_UPDATE_POINT || mode == modes.CUSTOM_ROI_UPDATE_POSITION ? 'active' : '';
-		var contrastButtonClass = mode == modes.CONTRAST ? 'active' : '';
-		var volumeViewButtonClass = this.is3DVolView() ? 'active' : '';
-		var volumeViewButton = <button className={'icon-button ' + volumeViewButtonClass} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
+		var buttonDict = {
+			'contrast': () => { return mode == modes.CONTRAST ?  'active' : ''; },
+			'zoom': () => { return mode == modes.ZOOM || mode == modes.ZOOM_UPDATE ? 'active' : ''; },
+			'pan': () => { return mode == modes.PAN || mode == modes.PAN_UPDATE ? 'active' : ''; },
+			'roi': () => { return mode == modes.ROI || mode == modes.ROI_UPDATE_POSITION || mode == modes.ROI_UPDATE_RADIUS ? 'active' : ''; },
+			'croi': () => { return mode == modes.CUSTOM_ROI || mode == modes.CUSTOM_ROI_ADD_POINT || mode == modes.CUSTOM_ROI_UPDATE_POINT || mode == modes.CUSTOM_ROI_UPDATE_POSITION ? 'active' : ''; },
+			'volume': () => { this.is3DVolView() ? 'active' : ''; }
+		}
+		
+		return buttonDict[button]();
+	}
 
+	render() {
+		var modes = ViewerStore.getCanvasModes();
 		var view = ViewStateStore;
 		var showControlsClass = ViewerStore.is3DView() ? '' : 'hidden';
+		var volumeViewButton = <button className={'icon-button ' + this.getActiveClass('volume')} onClick={this.handleSelectVolumeView}> <i className='material-icons'>landscape</i> </button> 
 
 		return ( 
 			<section className='viewer-header layout-row' > 
 				<div className='icons-left flex'> 
-					<button className={'icon-button contrast ' + contrastButtonClass} onClick={this.handleModeSelect.bind(modes.CONTRAST)}> <i className='material-icons'>tonality</i> </button>
-					<button className={'icon-button pan ' + panButtonClass}        onClick={this.handleModeSelect.bind(modes.PAN)}> <i className='material-icons'>pan_tool</i> </button>
-					<button className={'icon-button '     + roiButtonClass}        onClick={this.handleModeSelect.bind(modes.ROI)}> <i className='material-icons'>bubble_chart</i> </button>																		
-					<button className={'icon-button edit ' + customRoiButtonClass} onClick={this.handleModeSelect.bind(modes.CUSTOM_ROI)} > <i className='material-icons'>edit_mode</i> </button>
+					<button className={'icon-button contrast ' + this.getActiveClass('contrast')} onClick={this.handleModeSelect.bind(modes.CONTRAST)}>    <i className='material-icons'>tonality</i> </button>
+					<button className={'icon-button zoom '     + this.getActiveClass('zoom')}     onClick={this.handleModeSelect.bind(modes.ZOOM)}>        <i className='material-icons'>search</i> </button>
+					<button className={'icon-button pan '      + this.getActiveClass('pan')}      onClick={this.handleModeSelect.bind(modes.PAN)}>         <i className='material-icons'>pan_tool</i> </button>
+					<button className={'icon-button '          + this.getActiveClass('roi')}      onClick={this.handleModeSelect.bind(modes.ROI)}>         <i className='material-icons'>bubble_chart</i> </button>																		
+					<button className={'icon-button edit '     + this.getActiveClass('croi')}     onClick={this.handleModeSelect.bind(modes.CUSTOM_ROI)} > <i className='material-icons'>edit_mode</i> </button>
 				</div> 
 
 				<div className={'icons-center flex ' + showControlsClass}>

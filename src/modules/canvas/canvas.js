@@ -179,7 +179,7 @@ class Canvas {
 		this.layerIndex = index;
 		this.layers.setActiveLayer(index);
 	} 
-
+	
 	/* 
 	 * Sets contrast edit status for active layer
 	 */

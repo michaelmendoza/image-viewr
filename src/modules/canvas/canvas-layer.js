@@ -54,7 +54,7 @@ class CanvasLayer {
 
 		var min = this.contrast.getMin();
 		var max = this.contrast.getMax();
-		this.imageHistogram = new ImageHistogram(this.file.pixelData, min, max, 100);
+		this.imageHistogram = new ImageHistogram(this.file.pixelData, min, max, 50);
 		this.imageHistogram.createHistogramSVG(element, width, height);
 	}
 
