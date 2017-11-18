@@ -36,6 +36,13 @@ class CanvasLayer {
 		this.autoContrast();
 	}
 
+	/** Syncs layer canvas width/height to viewport **/
+	updateLayerCanvas() {
+		var viewport = this.parent.getViewport();
+		this.canvas.width = viewport.width;
+		this.canvas.height = viewport.height;
+	}
+
 	// TODO: Should be done on file level
 	/** AutoConstrast for maximum linear contrast */
 	autoContrast() {
@@ -66,6 +73,7 @@ class CanvasLayer {
 	/** Clears canvas, and draws image data */
 	drawLayer() {
 		Draw2D.clear(this);
+		this.updateLayerCanvas();
 		if(this.visible) Draw2D.drawImage(this, this.img, 1.0);
 	}
 
@@ -75,6 +83,7 @@ class CanvasLayer {
 
 		if(this.visible) {
 			this.img = DrawDicom.createImage(this);
+			this.updateLayerCanvas();
 			Draw2D.drawImage(this, this.img, 1.0);
 		}
 	}

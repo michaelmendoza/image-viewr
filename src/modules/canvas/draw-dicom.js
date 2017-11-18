@@ -3,21 +3,21 @@ class DrawDicom {
 	/** Creates an image from DICOM data */
 	createImage(layer) { 
 		var file = layer.file;
-		if(file.type == 'dicom') 			return this.createDicom2D(layer); // Returns canvas
-		else if(file.type == 'dicom-3d') 	return this.createDicom3D(layer); // Returns canvas
-		else 								return file.img;				  // Returns img
+		if(file.type == 'dicom')				 return this.createDicom2D(layer); // Returns canvas
+		else if(file.type == 'dicom-3d') return this.createDicom3D(layer); // Returns canvas
+		else return file.img;						 // Returns img
 	}
 	
 	/** Creates a canvas with dicom data using specified image constrast */
 	createDicom2D(layer) { 
 		var file = layer.file;
 		var canvas = document.createElement('canvas');
-    	var context = canvas.getContext('2d');		
+		var context = canvas.getContext('2d');		
 		canvas.width = file.width;
 		canvas.height = file.height;
-    
-    	var pixelData = file.pixelData;
-    	var numPixels = file.width * file.height;
+		
+		var pixelData = file.pixelData;
+		var numPixels = file.width * file.height;
 		var resolution = layer.contrast.resolution;
 		var imageData = context.getImageData(0, 0, file.width, file.height);
 
@@ -49,7 +49,7 @@ class DrawDicom {
 		var height = bounds[dimIndex].height;
 
 		var canvas = document.createElement('canvas');
-    	var context = canvas.getContext('2d');	
+    var context = canvas.getContext('2d');	
 		canvas.width = width;
 		canvas.height = height;
 

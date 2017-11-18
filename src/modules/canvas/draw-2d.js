@@ -18,8 +18,8 @@ class Draw2D {
 		var controls = layer.controls;
 		var threshold = layer.threshold;
 		var aspectRatio = layer.controls.aspectRatio;
-		var width = layer.width || image.width;
-		var height = layer.height || image.height;
+		var width = layer.canvas.width; //layer.width || image.width;
+		var height = layer.canvas.height; //layer.height || image.height;
 		
 		// Draw scaled/translated Image
 		var sx = -controls.offsetX;
@@ -36,6 +36,7 @@ class Draw2D {
 		context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
 		this.drawColormap(layer, dWidth, dHeight);
+		//canvas.drawThreshold(args); // For PNG images
 	}
 
 	drawColormap(layer, width, height) {

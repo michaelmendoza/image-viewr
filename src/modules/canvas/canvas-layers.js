@@ -19,6 +19,7 @@ class CanvasLayers {
 			Draw2D.drawImage(this.parent, layer.canvas, layer.opacity);
 		})
 		this.parent.drawAllFeatures();
+		//this.drawSliceLocations(canvas); 
 	}
 
 	/** Updates layers and draws all layers and features in order */
@@ -29,6 +30,7 @@ class CanvasLayers {
 			Draw2D.drawImage(this.parent, layer.canvas, layer.opacity);
 		})
 		this.parent.drawAllFeatures();
+		//this.drawSliceLocations(canvas); 
 	} 
 	
 	loadFile(file) { 
@@ -111,6 +113,10 @@ class CanvasLayers {
 		controls.offsetY = 0;
 
 		Viewr.emit('zoom-update');		
+	}
+
+	getViewport() {
+		return { width: this.parent.width, height: this.parent.height };
 	}
 
 }
