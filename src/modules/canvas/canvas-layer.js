@@ -27,7 +27,7 @@ class CanvasLayer {
 		this.parent = parent;
 		this.threshold = new CanvasThreshold();
 		this.visible = true;
-	}
+	} 
 	
 	loadFile(file) {
 		this.file = file;
@@ -136,6 +136,11 @@ class CanvasLayer {
 	setOffsetY(value) {
 		this.controls.offsetY = value;
 		this.updateLayerAndDrawLayers();	
+	}
+
+	setZoom(value) {
+		this.controls.zoom = value;
+		this.updateLayerAndDrawLayers();
 	}
 
 	setContrastLevel(value) {

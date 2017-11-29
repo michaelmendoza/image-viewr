@@ -26,7 +26,7 @@ class Viewr extends EventEmitter{
  		}
 
  		this.settings = {
- 			
+ 			ZOOM_STEP : 0.1
  		}
 
  		this.canvasList = [];

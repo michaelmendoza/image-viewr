@@ -6,6 +6,8 @@ import Slider from '../shared/slider.jsx';
 import Spacer from '../shared/spacer.jsx';
 import ViewerStore from '../store/viewer-store.js';
 
+var SETTINGS = ViewerStore.getSettings();
+
 class ViewerLayerDetail extends React.Component {
 	
 	constructor(props) {
@@ -23,6 +25,7 @@ class ViewerLayerDetail extends React.Component {
 			maxValue: layer.contrast.maxValue,
 			offsetX: layer.controls.offsetX, 
 			offsetY: layer.controls.offsetY, 
+			zoom: layer.controls.zoom / SETTINGS.ZOOM_STEP,
 			level: layer.contrast.level,
 			width: layer.contrast.width,
 			minContrast: layer.contrast.getMin(),
@@ -76,7 +79,12 @@ class ViewerLayerDetail extends React.Component {
 	handleOffsetY(value) {
 		this.setState({ offsetY:value });
 		this.state.layer.setOffsetY(value);
-	}		
+	}	
+
+	handleZoom(value) {
+		this.setState({ zoom:value });
+		this.state.layer.setZoom(parseFloat(value) * SETTINGS.ZOOM_STEP);
+	}
 
 	handleLevel(value) {
 		var layer = this.state.layer;
@@ -166,7 +174,7 @@ class ViewerLayerDetail extends React.Component {
 						<label className='value'> {this.state.max} </label> 
 					</li>		
 
-					<h4> Offsets </h4>					
+					<h4> Transforms </h4>					
 					<li> <label>X Offset</label> <Spacer/> 
 						<Slider min={-100} max={100} value={this.state.offsetX} onChange={this.handleOffsetX.bind(this)}/> 
 						<label className='value'> {this.state.offsetX} </label> 
@@ -175,6 +183,10 @@ class ViewerLayerDetail extends React.Component {
 						<Slider  min={-100} max={100} value={this.state.offsetY} onChange={this.handleOffsetY.bind(this)}/>  
 						<label className='value'> {this.state.offsetY} </label> 
 					</li>
+					<li> <label>Zoom</label> <Spacer/>
+						<Slider  min={1} max={100} value={this.state.zoom} onChange={this.handleZoom.bind(this)}/>  
+						<label className='value'> {this.state.zoom * SETTINGS.ZOOM_STEP} </label> 
+					</li> 
 
 					<h4>Contrast</h4>
 					<li> <label>Level</label> <Spacer/> 

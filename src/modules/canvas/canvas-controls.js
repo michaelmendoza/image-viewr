@@ -1,10 +1,10 @@
 
-const MAIN_ZOOM = 0.2;
-const MAX_ZOOM = 4;
-const ZOOM_STEP = 0.1;
+import Viewr from '../viewr.js';
 
 class CanvasControls { 
 	constructor() { 
+		this.ZOOM_STEP = Viewr.settings.ZOOM_STEP;
+
 		this.zoom = 1;
 		this.aspectRatio = 1; 
 		this.offsetX = 0; 
@@ -61,15 +61,15 @@ class CanvasControls {
 	}
 
 	zoomIn() {
-		this.zoom += ZOOM_STEP;
+		this.zoom += this.ZOOM_STEP;
 	}
 
 	zoomOut() {
-		this.zoom -= ZOOM_STEP;
+		this.zoom -= this.ZOOM_STEP;
 	}
 
 	setRelativeZoom(zoomFactor) {
-		this.zoom += zoomFactor * ZOOM_STEP;
+		this.zoom += zoomFactor * this.ZOOM_STEP;
 	}
 
 	setZoom(zoomValue) {

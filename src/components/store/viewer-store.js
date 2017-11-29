@@ -258,6 +258,10 @@ class ViewerStore extends EventEmitter {
 		return Viewr.modes.view == ViewModes._3D;
 	}
 
+	getSettings() {
+		return Viewr.settings;
+	}
+
 }
 
 export default new ViewerStore();

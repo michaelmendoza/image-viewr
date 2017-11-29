@@ -80,16 +80,14 @@ class Canvas {
 	/*** Draw ***/
 
 	drawImage() {
-		//this.draw.drawImage(this);
 		this.layers.drawLayers();
 	}
 
-	drawTile3DImage() {
-		//return this.draw.drawTile3DImage(this);
+	drawTile3DImage() { 
+		//return Draw3D.drawTile3DImage(this);
 	}
 
 	updateImage() {
-		//this.draw.updateImage(this);
 		this.layers.updateLayers();
 	}
 
@@ -223,25 +221,6 @@ class Canvas {
 	
 	autoZoomResize() {
 		this.layers.autoZoom();
-		
-		/*
-		// Only Dicoms support auto-zoom and resize
-		if(this.file.type != 'dicom' && this.file.type != 'dicom-3d')
-			return;
-		
-		var dataSize = this.file.getBounds(this.dimIndex);
-		var viewportSize = { width: this.width, height: this.height };
-
-		var dx = (viewportSize.width / dataSize.width) / this.controls.aspectRatio;
-		var dy = (viewportSize.height / dataSize.height);
-
-		var dz = dx < dy ? dx : dy;
-		this.controls.zoom = dz;
-		this.controls.offsetX = 0;
-		this.controls.offsetY = 0;
-
-		Viewr.emit('zoom-update');
-		*/
 	}
 
 	setViewportSize() { 
