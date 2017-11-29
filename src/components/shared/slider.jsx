@@ -13,11 +13,18 @@ class Slider extends React.Component {
 		}
 	}	
 
+	componentWillReceiveProps(nextProps) {
+		// You don't have to do this check first, but it can help prevent an unneeded render
+		if (nextProps.value !== this.state.value) {
+			this.setState({ value: nextProps.value });
+		}
+	}
+	
 	handleChange(event) {
 		this.setState({ value: event.target.value });
 		if(this.props.onChange) this.props.onChange(event.target.value);
 	}
-
+	
 	render() { 
 		return <span className='slider'>
 			<input type="range" 

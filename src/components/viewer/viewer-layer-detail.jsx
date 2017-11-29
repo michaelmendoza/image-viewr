@@ -36,7 +36,7 @@ class ViewerLayerDetail extends React.Component {
 			view:'2D'
 		}; 
 	}
-	
+
 	componentDidMount() {
 		this.state.layer.renderColorscale(this.refs.colormap);
 		ViewerStore.Viewr.on('layer-update', this.update.bind(this));
@@ -56,8 +56,7 @@ class ViewerLayerDetail extends React.Component {
 			width: layer.contrast.width,
 			minContrast: layer.contrast.getMin(),
 			maxContrast: layer.contrast.getMax()
-		})
-			
+		})		
 	}
 
 	handleColormap(event) {
@@ -204,7 +203,7 @@ class ViewerLayerDetail extends React.Component {
 					</li>
 					<li> <label>Zoom</label> <Spacer/>
 						<Slider  min={1} max={100} value={this.state.zoom} onChange={this.handleZoom.bind(this)}/>  
-						<label className='value'> {this.state.zoom * SETTINGS.ZOOM_STEP} </label> 
+						<label className='value'> {(this.state.zoom * SETTINGS.ZOOM_STEP).toFixed(2)} </label> 
 					</li> 
 
 					<h4>Contrast</h4>

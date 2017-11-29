@@ -18,7 +18,7 @@ class Viewr extends EventEmitter{
 	 		'threshold-update', 
 	 		'view-update', 
 	 		'file-loaded',
-	 		'layer-update'
+	 		'layer-update'  // viewer-layer-detail.jsx 
 	 		];
 
  		this.modes = {
