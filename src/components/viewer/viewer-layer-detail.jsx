@@ -36,9 +36,28 @@ class ViewerLayerDetail extends React.Component {
 			view:'2D'
 		}; 
 	}
-
+	
 	componentDidMount() {
 		this.state.layer.renderColorscale(this.refs.colormap);
+		ViewerStore.Viewr.on('layer-update', this.update.bind(this));
+	}
+
+	componentDidUnmount() {
+		ViewerStore.Viewr.removeListener('layer-update', this.update.bind(this));
+	}
+
+	update() {
+		var layer = ViewerStore.getLayer(this.props.layerIndex);
+		this.setState({
+			offsetX: layer.controls.offsetX, 
+			offsetY: layer.controls.offsetY, 
+			zoom: layer.controls.zoom / SETTINGS.ZOOM_STEP,
+			level: layer.contrast.level,
+			width: layer.contrast.width,
+			minContrast: layer.contrast.getMin(),
+			maxContrast: layer.contrast.getMax()
+		})
+			
 	}
 
 	handleColormap(event) {

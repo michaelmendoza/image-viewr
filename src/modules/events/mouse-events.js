@@ -37,6 +37,8 @@ class MouseEvents {
 					layer.contrast.setContrastWithMouse({ x:x, y:y });
 
 					this.updateImage();
+					Viewr.emit('layer-update');
+					
 					if(this.sliceSelect != null)
 						this.sliceSelect.update();
 				}
@@ -47,6 +49,7 @@ class MouseEvents {
 					var layer = this.getActiveLayer();
 					layer.controls.setRelativeZoom(zoomFactor)
 					this.updateImage();
+					Viewr.emit('layer-update');
 			}			
 		}; 
 

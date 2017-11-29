@@ -17,7 +17,9 @@ class Viewr extends EventEmitter{
 	 		'canvas-update', 
 	 		'threshold-update', 
 	 		'view-update', 
-	 		'file-loaded'];
+	 		'file-loaded',
+	 		'layer-update'
+	 		];
 
  		this.modes = {
  			canvas: CanvasModes.PAN,
