@@ -49,10 +49,11 @@ class CanvasControls {
 		this.offsetX += x;
 		this.offsetY += y;		
 	}
-	
+
 	panImage(event) {
-		var x = event.offsetX;
-		var y = event.offsetY;
+		// Event is point in Canvas Domain, x/y is point in Img Domain 
+		var x = event.offsetX / this.zoom;
+		var y = event.offsetY / this.zoom;
 
 		if(this.isPanning) {
 			this.offsetX = (x - this.startPanX);
