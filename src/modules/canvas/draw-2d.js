@@ -21,7 +21,7 @@ class Draw2D {
 		var width = layer.canvas.width; //layer.width || image.width;
 		var height = layer.canvas.height; //layer.height || image.height;
 		
-		// Draw scaled/translated Image
+		// Draw scaled/translated Image 
 		var sx = - controls.getOffsetX(); //controls.offsetX;
 		var sy = - controls.getOffsetY(); //controls.offsetY;
 		var sWidth = Math.round(width / controls.zoom / aspectRatio);

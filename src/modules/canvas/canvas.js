@@ -222,7 +222,7 @@ class Canvas {
 	autoZoomResize() {
 		this.layers.autoZoom();
 	}
-
+	
 	setViewportSize() { 
 		var width = this.ref.offsetWidth;
 		var height = this.ref.offsetHeight;		

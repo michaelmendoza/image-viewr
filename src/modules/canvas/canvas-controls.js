@@ -32,8 +32,8 @@ class CanvasControls {
 	/** Transform point from world coordinates to local coordinates */
 	transform(point) { 
 		return { 
-			x: (point.x - this.getOffsetX()) / this.zoom / this.aspectRatio,
-			y: (point.y - this.getOffsetY()) / this.zoom  
+			x: (point.x - this.getOffsetX() * this.zoom ) / this.zoom / this.aspectRatio,
+			y: (point.y - this.getOffsetY() * this.zoom ) / this.zoom  
 		};
 	}
 
@@ -49,7 +49,7 @@ class CanvasControls {
 		this.offsetX += x;
 		this.offsetY += y;		
 	}
-
+	
 	panImage(event) {
 		var x = event.offsetX;
 		var y = event.offsetY;

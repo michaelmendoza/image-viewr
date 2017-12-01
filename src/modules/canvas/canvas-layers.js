@@ -118,10 +118,11 @@ class CanvasLayers {
 		controls.zoom = dz;
 		controls.offsetX = 0;
 		controls.offsetY = 0;
-		
-		// Have autozoom set offsetCenterX/Y
-		controls.offsetCenterX = (viewportSize.width / 2  - (controls.zoom * layerSize.width / 2))  / controls.zoom;
-		controls.offsetCenterY = (viewportSize.height / 2 - (controls.zoom * layerSize.height / 2)) / controls.zoom;
+
+		// Have autozoom set offsetCenterX/Y 
+		var inv_zoom = 1 / controls.zoom; 
+		controls.offsetCenterX = inv_zoom * (viewportSize.width / 2) - layerSize.width / 2;
+		controls.offsetCenterY = inv_zoom * (viewportSize.height / 2) - layerSize.height / 2;
 		console.log(viewportSize, layerSize, controls.zoom);
 
 		Viewr.emit('zoom-update');		
