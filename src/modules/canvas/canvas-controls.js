@@ -9,7 +9,9 @@ class CanvasControls {
 		this.aspectRatio = 1; 
 		this.offsetX = 0; 
 		this.offsetY = 0; 
-		
+		this.offsetCenterX = 0; // X Offset to center layers in global layer
+		this.offsetCenterY = 0;	// Y Offset to center layers in global layer
+
 		this.isPanning = false;
 		this.startPanX = null;
 		this.startPanY = null;		
@@ -19,19 +21,27 @@ class CanvasControls {
 		this.aspectRatio = dx / dy;
 	} 
 
+	getOffsetX() { 
+		return this.offsetX + this.offsetCenterX;
+	}
+
+	getOffsetY() {
+		return this.offsetY + this.offsetCenterY;
+	}
+
 	/** Transform point from world coordinates to local coordinates */
 	transform(point) { 
 		return { 
-			x: (point.x - this.offsetX) / this.zoom / this.aspectRatio,
-			y: (point.y - this.offsetY) / this.zoom  
+			x: (point.x - this.getOffsetX()) / this.zoom / this.aspectRatio,
+			y: (point.y - this.getOffsetY()) / this.zoom  
 		};
 	}
 
 	/** Transform point from local coordinates to world coordinates */
 	inverseTransform(point) { 
 		return { 
-			x: (point.x * this.aspectRatio + this.offsetX) * this.zoom,
-			y: (point.y + this.offsetY) * this.zoom
+			x: (point.x * this.aspectRatio + this.getOffsetX()) * this.zoom,
+			y: (point.y + this.getOffsetY()) * this.zoom
 		};
 	}
 	

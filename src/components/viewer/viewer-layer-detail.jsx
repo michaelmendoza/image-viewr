@@ -37,7 +37,7 @@ class ViewerLayerDetail extends React.Component {
 		}; 
 	}
 
-	componentDidMount() {
+	componentDidMount() { 
 		this.state.layer.renderColorscale(this.refs.colormap);
 		ViewerStore.Viewr.on('layer-update', this.update.bind(this));
 	}

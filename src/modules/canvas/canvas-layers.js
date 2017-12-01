@@ -92,25 +92,37 @@ class CanvasLayers {
 		return this.layers.length > 0;
 	}
 
-	/** Fix for 3d data */
-	autoZoom() {
-		var viewportSize = { width: this.parent.width, height: this.parent.height }
-
+	/** Get layer max height/width - based off size * zoom **/
+	getLayerSize() {
 		var width = 0;
 		var height = 0;
-		this.layers.forEach((layer) => {
-			width = width < layer.file.width ? layer.file.width : width;
-			height = height < layer.file.height ? layer.file.height : height;
+		this.layers.forEach((layer) => { 
+			var layerWidth = layer.file.width * layer.controls.zoom
+			var layerHeight = layer.file.height * layer.controls.zoom
+			width = width < layerWidth ? layerWidth : width;
+			height = height < layerHeight ? layerHeight : height;
 		})
+		return { width:width, height:height }
+	}
+
+	/** Fix for 3d data */
+	autoZoom() { 
+		var viewportSize = { width: this.parent.width, height: this.parent.height }
+		var layerSize = this.getLayerSize();
 
 		var controls = this.parent.controls;
-		var dx = (viewportSize.width / width) / controls.aspectRatio;
-		var dy = (viewportSize.height / height);
+		var dx = (viewportSize.width / layerSize.width) / controls.aspectRatio;
+		var dy = (viewportSize.height / layerSize.height);
 
 		var dz = dx < dy ? dx : dy;
 		controls.zoom = dz;
 		controls.offsetX = 0;
 		controls.offsetY = 0;
+		
+		// Have autozoom set offsetCenterX/Y
+		controls.offsetCenterX = (viewportSize.width / 2  - (controls.zoom * layerSize.width / 2))  / controls.zoom;
+		controls.offsetCenterY = (viewportSize.height / 2 - (controls.zoom * layerSize.height / 2)) / controls.zoom;
+		console.log(viewportSize, layerSize, controls.zoom);
 
 		Viewr.emit('zoom-update');		
 	}
