@@ -9,7 +9,8 @@
   "dependencies": {
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.14.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.11.1",
     "body-parser": "^1.17.2",
     "colormap": "^2.2.0",

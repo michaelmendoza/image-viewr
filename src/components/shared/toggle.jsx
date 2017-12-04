@@ -2,14 +2,11 @@
 import React from 'react';
 
 class Toggle extends React.Component {
+	static defaultProps = {onChange: () => {}};
 
-	constructor(props) {
-		super(props);
-		this.defaultProps = {onChange: () => {}};
-		this.state = {on:true};	
-	}
+	state = {on:true};
 
-	toggle() {
+	toggle = () => {
 		this.setState(
 			({on}) => ({on: !on}),
 			() => { this.props.onChange(this.state.on); }
@@ -21,7 +18,7 @@ class Toggle extends React.Component {
 		
 		return <label className="label toggle">
 				<input type="checkbox" className="toggle_input" 
-					checked={on} onChange={this.toggle.bind(this)}/>
+					checked={on} onChange={this.toggle}/>
 				<div className="toggle-control"></div>
 			</label>;
 	}
