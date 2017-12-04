@@ -48,7 +48,7 @@ class CanvasShapes {
 			context.strokeStyle = roi.color;
 			context.fillStyle = roi.color;
 		}
-
+		
 		// Transform to global coordinates
 		var pt = controls.inverseTransform({ x:roi.x, y:roi.y });
 		var x = pt.x;

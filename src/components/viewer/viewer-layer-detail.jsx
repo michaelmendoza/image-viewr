@@ -42,7 +42,7 @@ class ViewerLayerDetail extends React.Component {
 		ViewerStore.Viewr.on('layer-update', this.update.bind(this));
 	}
 
-	componentDidUnmount() {
+	componentWillUnmount() {
 		ViewerStore.Viewr.removeListener('layer-update', this.update.bind(this));
 	}
 
