@@ -2,8 +2,8 @@
 import React from 'react';
 
 class Toggle extends React.Component {
+	
 	static defaultProps = {onChange: () => {}};
-
 	state = {on:true};
 
 	toggle = () => {

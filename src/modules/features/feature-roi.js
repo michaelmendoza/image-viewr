@@ -6,11 +6,15 @@ import PixelStats from '../math/pixel-stats.js';
 class FeatureROI {
 
 	constructor() {
+		// ROI Properties
 		this.name = '';
 		this.color = Colors.getColor();
 
+		// ROI position
 		this.x = null;
 		this.y = null;
+		
+		// ROI stats
 		this.area = 0;
 		this.mean = 0;
 		this.stdDev = 0;
@@ -18,8 +22,10 @@ class FeatureROI {
 		this.max = 0;
 		this.pixelCount = 0;
 
+		// ROI pixel data
 		this.pixelData = null;
 
+		// UI flags
 		this.activePoint = null; 	// Handle Point is active
 		this.isHover = false;			// Mouse is hovering on ROI
 		this.isDrag = false;			// ROI is being dragged
@@ -30,6 +36,7 @@ class FeatureROI {
 		this.y = point.y;
 	}
 
+	/** Retrieve image data for bounding box of ROI. Gives an imageData array of size (num pixel * 4) **/
 	createImageData(image) {
 		var bounds = this.getBoundingBox();
 
@@ -42,6 +49,7 @@ class FeatureROI {
 		return imageData.data;
 	}
 
+	/** Retrieve mask data for bounding box of ROI. Gives an imageData array of size (num pixel * 4) **/
 	createMaskData() {
 		var bounds = this.getBoundingBox();
 
@@ -54,90 +62,46 @@ class FeatureROI {
 		return mask.data;
 	}
 
-	createROIMaskData(image) {
-		// Create a copy of image and get pixel data within the bounding box
+	/** Creates ROI masked image data. Unmasked pixels have a value of -1. Gives an imageData array of size (num pixel) **/
+	createMaskedImageData(image) { 
+
+		// Create a copy of image and get pixel data within a ROI bounding box
 		var imageData = this.createImageData(image);
 
-		// Create ROI Mask and get pixel data
+		// Create ROI Mask and get pixel data within the ROI bounding box
 		var maskData = this.createMaskData();
 
+		// Create Masked Image Data
 		var layer = image.getActiveLayer();
-		var roiValues = ROIMask.getROIValues(this, maskData, layer);
-		var threshold = layer.threshold;
+		var maskedImageData = ROIMask.applyMaskToImage(this, maskData, layer);
 
-		return { img:imageData, mask:maskData, roiValues:roiValues, threshold };
+		return { img:imageData, mask:maskData, maskedImageData:maskedImageData, threshold:layer.threshold };
 	}	
 
 	getMinMax(image) {
-		var data = this.createROIMaskData(image);
-		if(data == null)
-			return 0;
-
-		return PixelStats.getMinMax(data.roiValues, data.threshold);
-
-		/*
-		var min = 255;
-		var max = 0;
-		for (var i = 0; i < data.img.length; i += 4) {
-			if(data.mask[i] == 255) {
-				var value = (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
-				if(value < min)
-					min = value;
-				if(value > max)
-					max = value;
-			}
-		}
-
-		return { min:min, max:max };
-		*/
+		var data = this.createMaskedImageData(image);
+		if(data == null) return 0;
+		return PixelStats.getMinMax(data.maskedImageData, data.threshold);
 	}
 
 	getMean(image) {
-		var data = this.createROIMaskData(image);
+		var data = this.createMaskedImageData(image);
 		if(data == null)
 			return 0;
 
-		return PixelStats.getMean(data.roiValues, data.threshold);
-
-		/*
-		var sum = 0;
-		for (var i = 0; i < data.img.length; i += 4) {
-			if(data.mask[i] == 255)
-				sum += (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
-		}
-		return sum / (data.img.length / 4);
-		*/
+		return PixelStats.getMean(data.maskedImageData, data.threshold);
 	}
 
 	getStdDev(image) {
-		var data = this.createROIMaskData(image);
+		var data = this.createMaskedImageData(image);
 		if(data == null)
 			return 0;
 
-		return PixelStats.getStdDev(data.roiValues, data.threshold);
-
-		/**
-		var sum = 0;
-		var sum2 = 0;
-		for (var i = 0; i < data.img.length; i += 4) {
-			if(data.mask[i] == 255) {
-				var value =  (data.img[i] + data.img[i +1] + data.img[i +2]) / 3;
-				sum += value;
-				sum2 += value * value;
-			} 
-		}
-	
-		var N = (data.img.length / 4);
-		var mean = sum / N;
-		var mean2 = sum2 / N;
-
-		var variance = mean2 - mean * mean;
-		return Math.sqrt(variance);
-		**/
+		return PixelStats.getStdDev(data.maskedImageData, data.threshold);
 	}	
 
 	getArea(image) {
-		var data = this.createROIMaskData(image);
+		var data = this.createMaskedImageData(image);
 		if(data == null)
 			return 0;
 
@@ -151,17 +115,16 @@ class FeatureROI {
 		return count;
 	}
 	
-
 	getPixelCount(image) {
-		var data = this.createROIMaskData(image);
+		var data = this.createMaskedImageData(image);
 		if(data == null)
 			return 0;
 
-		return PixelStats.getCount(data.roiValues, data.threshold);
+		return PixelStats.getCount(data.maskedImageData, data.threshold);
 	}	
 
 	getColorThresholdPixelCount(image) { 
-		var data = this.createROIMaskData(image);
+		var data = this.createMaskedImageData(image);
 		if(data == null)
 			return 0;
 
@@ -183,7 +146,7 @@ class FeatureROI {
 	}	
 
 	getGreyThresdholdPixelCount(image) {
-		var data = this.createROIMaskData(image);
+		var data = this.createMaskedImageData(image);
 		if(data == null)
 			return 0;
 

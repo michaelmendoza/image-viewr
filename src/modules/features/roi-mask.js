@@ -14,7 +14,12 @@ class ROIMask {
 		return mask.data;
 	}
 
-	getROIValues(feature, mask, layer) {
+	/** 
+		* Takes images, and mask imageData array, and creates a new array with masked image 
+		*	data. Masked pixels maintain image values, while unmasked pixels have a value of -1.
+		* Returned masked image array size is 1/4 the size of the image.
+		**/ 	
+	applyMaskToImage(feature, mask, layer) {
 		var pixelData = layer.file.pixelData;
 		var width = layer.file.width;
 		var height = layer.file.height;
