@@ -91,12 +91,12 @@ class ViewerLayerDetail extends React.Component {
 
 	handleOffsetX(value) {
 		this.setState({ offsetX:value });
-		this.state.layer.setOffsetX(value);
+		this.state.layer.setOffsetX(parseFloat(value));
 	}
 
 	handleOffsetY(value) {
 		this.setState({ offsetY:value });
-		this.state.layer.setOffsetY(value);
+		this.state.layer.setOffsetY(parseFloat(value));
 	}	
 
 	handleZoom(value) {
@@ -194,11 +194,11 @@ class ViewerLayerDetail extends React.Component {
 
 					<h4> Transforms </h4>					
 					<li> <label>X Offset</label> <Spacer/> 
-						<Slider min={-100} max={100} value={this.state.offsetX} onChange={this.handleOffsetX.bind(this)}/> 
+						<Slider min={-100} max={100} value={this.state.offsetX} step={0.1} onChange={this.handleOffsetX.bind(this)}/> 
 						<label className='value'> {this.state.offsetX} </label> 
 					</li>
 					<li> <label>Y Offset</label> <Spacer/>
-						<Slider  min={-100} max={100} value={this.state.offsetY} onChange={this.handleOffsetY.bind(this)}/>  
+						<Slider  min={-100} max={100} value={this.state.offsetY} step={0.1} onChange={this.handleOffsetY.bind(this)}/>  
 						<label className='value'> {this.state.offsetY} </label> 
 					</li>
 					<li> <label>Zoom</label> <Spacer/>

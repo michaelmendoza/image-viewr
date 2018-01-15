@@ -25,7 +25,7 @@ class ViewerLayersPanel extends React.Component {
 			else 
 				img = <button className="layer-icon img"><i className="material-icons">wallpaper</i></button>
 
-			return <div className={'layer layout-row layout-vertical-center ' + active} onClick={this.handleClickLayer.bind(this, index)}> 
+			return <div className={'layer layout-row layout-vertical-center ' + active} key={index} onClick={this.handleClickLayer.bind(this, index)}> 
 				{ img } 
 				<label className="flex"> Layer {index} </label>
 				<button className="layer-icon opacity" onClick={this.handleToggleVisible.bind(this, index)}><i className="material-icons">{layer.visible ? 'visibility' : 'visibility_off'}</i></button>			

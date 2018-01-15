@@ -9,7 +9,8 @@ class Slider extends React.Component {
 		this.state = { 
 			value:this.props.value || 0, 
 			min:this.props.min || 0,
-			max:this.props.max || 100
+			max:this.props.max || 100,
+			step:this.props.step || 1
 		}
 	}	
 
@@ -32,6 +33,7 @@ class Slider extends React.Component {
 				value={this.state.value} 
 				min={this.state.min} 
 				max={this.state.max}
+				step={this.state.step}
 				onChange={this.handleChange.bind(this)}/>
 		</span>;
 	}

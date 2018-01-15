@@ -48,31 +48,43 @@ class FeatureROI {
 		var imageData = context.getImageData(bounds.sx, bounds.sy, bounds.width, bounds.height);
 		return imageData.data;
 	}
-
+	
 	/** Retrieve mask data for bounding box of ROI. Gives an imageData array of size (num pixel * 4) **/
-	createMaskData() {
+	createMaskData(layer) {
 		var bounds = this.getBoundingBox();
 
+		// Draw mask in canvas frame
 		var canvasMask = document.createElement('canvas');
 		canvasMask.width = Math.floor(bounds.width);
 		canvasMask.height = Math.floor(bounds.height);
 		var contextMask = canvasMask.getContext('2d');
-		this.drawMaskROI(contextMask, bounds);
-		var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
+		this.drawMaskROI(contextMask, bounds, layer.controls); 
+
+		// Draw in LayerFrame
+		var layerMask = document.createElement('canvas');
+		layerMask.width = layer.file.width;
+		layerMask.height = layer.file.height;
+		var layerContextMask = layerMask.getContext('2d'); 
+		layerContextMask.drawImage(canvasMask, 0, 0, canvasMask.width, canvasMask.height, 
+																					 0, 0, layerMask.width, layerMask.height);
+
+		//var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
+		var mask = layerContextMask.getImageData(0, 0, layerMask.width, layerMask.height);
 		return mask.data;
 	}
-
+	
 	/** Creates ROI masked image data. Unmasked pixels have a value of -1. Gives an imageData array of size (num pixel) **/
 	createMaskedImageData(image) { 
+
+		var layer = image.getActiveLayer();
 
 		// Create a copy of image and get pixel data within a ROI bounding box
 		var imageData = this.createImageData(image);
 
 		// Create ROI Mask and get pixel data within the ROI bounding box
-		var maskData = this.createMaskData();
+		var maskData = this.createMaskData(layer); 
 
 		// Create Masked Image Data
-		var layer = image.getActiveLayer();
 		var maskedImageData = ROIMask.applyMaskToImage(this, maskData, layer);
 
 		return { img:imageData, mask:maskData, maskedImageData:maskedImageData, threshold:layer.threshold };

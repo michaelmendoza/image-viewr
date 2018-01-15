@@ -15,7 +15,7 @@ class ViewerStatsPanel extends React.Component {
 			if(label == 'header' && file[label])
 				return this.getDicomHeader()
 			else if(file[label]) 
-				return <label>{label}: {file[label]} </label>
+				return <label key={label} >{label}: {file[label]} </label>
 		})
 	}
 	
@@ -24,11 +24,11 @@ class ViewerStatsPanel extends React.Component {
 		var header = file['header'];
 		if(header) {
 			var keys = Object.keys(header);
-			return <div className='header-info'>
+			return <div className='header-info' key="header-info">
 				<h4>Dicom Header Information: </h4>
 				{ 
 					keys.map((key) => {
-						return  <label>{key}: {header[key]} </label>; 
+						return  <label key={key} >{key}: {header[key]} </label>; 
 					}) 
 				}
 			</div>	
