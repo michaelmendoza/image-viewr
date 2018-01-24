@@ -9,6 +9,10 @@ import Viewr from '../viewr.js';
  */
 class MouseEvents { 
 
+	contructor() {
+		this.point = null;
+	}
+
 	fixCanvasMode() {
 		// Fix Canvas Movde if not active feature
 		if(this.features.activeFeature == null) {

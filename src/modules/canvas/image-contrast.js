@@ -1,4 +1,6 @@
 
+import PixelStats from '../math/pixel-stats.js';
+
 class ImageContrast {
 
 	constructor() {
@@ -47,7 +49,8 @@ class ImageContrast {
 		this.width += event.x;
 	}
 
-	autoContrast(pixelData, pixelCount) {
+	/* Constrast based off max-min values */
+	autoContrastOld(pixelData, pixelCount) {
 		var minValue = 4096.0;
 		var maxValue = 0.0;
 		for(var i = 0; i < pixelCount; i++) {
@@ -62,6 +65,19 @@ class ImageContrast {
 		this.minValue = minValue;
 	}
 	
+	/* Constrast based off pixel statistitics */
+	autoContrast(pixelData, pixelCount) {
+		var mean = PixelStats.getMean(pixelData, { min:0, max:4096 });
+		var std = PixelStats.getStdDev(pixelData, { min:0, max:4096 });
+		var minValue = 0;
+		var maxValue = mean + 2.5 * std;
+
+		this.width = maxValue - minValue;
+		this.level = minValue + (this.width / 2);
+		this.maxValue = maxValue;
+		this.minValue = minValue;
+	}
+
 	autoContrast3D(file) { 
 		var minValue = 4096.0;
 		var maxValue = 0.0;
