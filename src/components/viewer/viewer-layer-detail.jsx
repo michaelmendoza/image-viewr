@@ -6,12 +6,12 @@ import Slider from '../shared/slider.jsx';
 import Spacer from '../shared/spacer.jsx';
 import ViewerStore from '../store/viewer-store.js';
 
-var SETTINGS = ViewerStore.getSettings();
+var SETTINGS = ViewerStore.getSettings(); 
 
 class ViewerLayerDetail extends React.Component {
 	
-	constructor(props) {
-		super(props);
+	constructor(props) { 
+		super(props); 
 		var layer = ViewerStore.getLayer(this.props.layerIndex);
 		this.state = { 
 			layer: layer, 
@@ -64,7 +64,7 @@ class ViewerLayerDetail extends React.Component {
 		this.state.layer.setColorMap(event.target.value, this.refs.colormap);
 	}
 
-	handleVisible(value) {
+	handleVisible(value) { 
 		this.setState({ visible:value });
 		this.state.layer.toggleLayer();
 	}

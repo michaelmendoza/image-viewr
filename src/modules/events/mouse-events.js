@@ -27,7 +27,12 @@ class MouseEvents {
 	handleMouseMove(event) { 
 		
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
+			[CanvasModes.PAN_UPDATE]: () => { 
+				var layer = this.getActiveLayer();
+				layer.controls.panImage(event); 
+				this.updateImage();
+				//this.panImage(event); 
+			},
 			[CanvasModes.CONTRAST]: () => { 
 				if(this.getContrastEdit()) { 
 					var sensitivity = 4;
@@ -68,7 +73,7 @@ class MouseEvents {
 		var roi_action = () => {
 			event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
 			roi_actions[Viewr.modes.canvas]();
-			this.drawImage(); // TODO: Should I be drawing constantly
+			this.drawImage(); // TODO: Should I be drawing constantly 
 		}
 
 		this.getPixelData(event.offsetX, event.offsetY);
@@ -78,13 +83,13 @@ class MouseEvents {
 		var c = this.defaultAction;
 		(a || b || c)();
 		this.onMouseMove();
-	}
+	} 
 
 	handleMouseDown(event) {
 
 		//console.log('Mouse Down - Mode: ' + Viewr.modes.canvas);
 
-		var actions = {
+		var actions = { 
 			[CanvasModes.PAN]: () => {
 				var point = this.controls.transform({ x:event.offsetX, y:event.offsetY });
 				if(this.isOnSliceHandle(point)) {
@@ -93,7 +98,9 @@ class MouseEvents {
 				}
 				else {
 					Viewr.modes.canvas = CanvasModes.PAN_UPDATE;
-					this.panImage(event);
+					var layer = this.getActiveLayer();
+					layer.controls.panImage(event); 
+					//this.panImage(event);
 				}
 			},
 
@@ -164,10 +171,13 @@ class MouseEvents {
 		(actions[Viewr.modes.canvas] || this.defaultAction)();
 		Viewr.emit('canvas-update');
 	}
-
+	
 	handleMouseUp() {
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.PAN; this.stopPanImage(event); },
+			[CanvasModes.PAN_UPDATE]: () => { 
+				Viewr.modes.canvas = CanvasModes.PAN; 
+				var layer = this.getActiveLayer();
+				layer.controls.stopPanImage(event); },
 			[CanvasModes.CONTRAST]: () => { this.setContrastEdit(false); },
 			[CanvasModes.ZOOM_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.ZOOM; }			
 		};

@@ -178,7 +178,7 @@ class ViewerStore extends EventEmitter {
 		this.viewer3.setMinThreshold(minThreshold);
 	}
 
-	setCanvasMode(mode) {
+	setCanvasMode(mode) { 
 		Viewr.setMode('canvas', mode);
 	}
 
