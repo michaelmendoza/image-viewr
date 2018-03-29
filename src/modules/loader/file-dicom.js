@@ -30,10 +30,16 @@ class FileDICOM {
 			rows: 'x00280010',
 			columns: 'x00280011',
 			samplesPerPixel: 'x00280002',
-			pixelSpacing: 'x00280030',
-			sliceThickness: 'x00180050',
 			bitsStored: 'x00280101',
 
+			// Image Plane Module
+			pixelSpacing: 'x00280030',		
+			imageOrientation: 'x00200037',							
+			imagePosition: 'x00200032',
+			sliceThickness: 'x00180050',
+			sliceLocation: 'x00201041',
+
+			// Transfer Syntax
 			transferSyntax: 'x00020010' // Explicit VR Little Endian - "1.2.840.10008.1.2.1"
 		};
 

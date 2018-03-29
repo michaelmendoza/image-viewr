@@ -18,7 +18,7 @@ class PixelStats {
 
 		return { min:min, max:max };
 	}
-
+	
 	/**
 	 * Calculate the mean of the pixel data with in the threshold bounds
 	 */
