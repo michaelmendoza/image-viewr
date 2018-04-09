@@ -12,7 +12,7 @@ class FeatureCircleROI extends FeatureROI {
 		this.handleIsActive = false;
 	}
 	
-	drawMaskROI(context) {
+	drawMaskROI(context, bounds, controls) {
 		var x = this.radius;
 		var y = this.radius;
 		var r = this.radius;
@@ -20,7 +20,7 @@ class FeatureCircleROI extends FeatureROI {
 		context.fillStyle = "#FFFFFF";
 		context.arc(x, y, r, 0, 2*Math.PI);
 		context.fill();
-	}
+	} 
 	
 	getBoundingBox() {
 		var sx = this.x - this.radius;

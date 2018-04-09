@@ -17,7 +17,9 @@ class Viewr extends EventEmitter{
 	 		'canvas-update', 
 	 		'threshold-update', 
 	 		'view-update', 
-	 		'file-loaded'];
+	 		'file-loaded',
+	 		'layer-update'  // viewer-layer-detail.jsx 
+	 		];
 
  		this.modes = {
  			canvas: CanvasModes.PAN,
@@ -26,7 +28,7 @@ class Viewr extends EventEmitter{
  		}
 
  		this.settings = {
- 			
+ 			ZOOM_STEP : 0.1
  		}
 
  		this.canvasList = [];

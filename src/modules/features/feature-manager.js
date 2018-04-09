@@ -159,31 +159,7 @@ class FeatureManager {
 		this.activeFeature.updatePosition(event);
 		this.updateActiveFeatureData();
 	}
-
-	getFeatureMask(sliceIndex) {
-		var sliceFeature = null;
-		this.features.forEach((feature) => {
-			sliceFeature = feature.sliceIndex == sliceIndex ? feature : sliceFeature;
-		})
-
-		if(sliceFeature == null)
-			return null;
-
-		var width = this.canvas.file.width;
-		var height = this.canvas.file.height;
-		var canvas = document.createElement('canvas');
-		canvas.width = width;
-		canvas.height = height;
-		var context = canvas.getContext('2d');
-		
-		if(sliceFeature.type == FeatureTypes.CIRCLE)
-			this.canvas.shapes.drawCircleMask(context, sliceFeature);
-		else if(sliceFeature.type == FeatureTypes.CUSTOM)
-			this.canvas.shapes.drawCustomShapeMask(context, sliceFeature);
-
-		return context.getImageData(0, 0, width, height);
-	}
-
+	
 }
 
 export default FeatureManager;

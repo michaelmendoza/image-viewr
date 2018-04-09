@@ -97,7 +97,7 @@ class File {
 		this.width = this.dicom[0].width;
 		this.height = this.dicom[0].height;
 		this.depth = this.dicom.length;
-		this.img = this.dicom[this.depth / 2].createImg();
+		this.img = this.dicom[Math.floor(this.depth / 2)].createImg();
 
 		this.pixelSpacing = this.dicom[0].header.pixelSpacing;
 		if(this.pixelSpacing !== undefined) {

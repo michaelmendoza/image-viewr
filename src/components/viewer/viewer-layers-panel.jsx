@@ -9,17 +9,27 @@ class ViewerLayersPanel extends React.Component {
 		this.state = { showDetail:false, detailIndex: 0 };
 	}
 
+	handleClickLayer(index) {
+		ViewerStore.setActiveLayer(index);
+		this.setState({});
+	}
+
 	getLayers() {
 		var layers = ViewerStore.getLayers();
 
 		return layers.map((layer, index) => { 
+			var active = layer.isActive ? 'active' : '';
 			var img;
-			if(layer.img)
-				img = <img src={layer.img.toDataURL()} />
+			if(layer.img) {
+				if(layer.img.toDataURL)
+					img = <img src={layer.img.toDataURL()} />
+				else
+					img = <img src={layer.img} />
+			}
 			else 
 				img = <button className="layer-icon img"><i className="material-icons">wallpaper</i></button>
 
-			return <div className='layer layout-row layout-vertical-center'> 
+			return <div className={'layer layout-row layout-vertical-center ' + active} key={index} onClick={this.handleClickLayer.bind(this, index)}> 
 				{ img } 
 				<label className="flex"> Layer {index} </label>
 				<button className="layer-icon opacity" onClick={this.handleToggleVisible.bind(this, index)}><i className="material-icons">{layer.visible ? 'visibility' : 'visibility_off'}</i></button>			

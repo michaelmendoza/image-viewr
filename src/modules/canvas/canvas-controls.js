@@ -1,15 +1,17 @@
 
-const MAIN_ZOOM = 0.2;
-const MAX_ZOOM = 4;
-const ZOOM_STEP = 0.1;
+import Viewr from '../viewr.js';
 
 class CanvasControls { 
 	constructor() { 
+		this.ZOOM_STEP = Viewr.settings.ZOOM_STEP;
+
 		this.zoom = 1;
 		this.aspectRatio = 1; 
 		this.offsetX = 0; 
 		this.offsetY = 0; 
-		
+		this.offsetCenterX = 0; // X Offset to center layers in global layer
+		this.offsetCenterY = 0;	// Y Offset to center layers in global layer
+
 		this.isPanning = false;
 		this.startPanX = null;
 		this.startPanY = null;		
@@ -19,19 +21,27 @@ class CanvasControls {
 		this.aspectRatio = dx / dy;
 	} 
 
+	getOffsetX() { 
+		return this.offsetX + this.offsetCenterX;
+	}
+
+	getOffsetY() {
+		return this.offsetY + this.offsetCenterY;
+	}
+
 	/** Transform point from world coordinates to local coordinates */
 	transform(point) { 
 		return { 
-			x: (point.x - this.offsetX) / this.zoom / this.aspectRatio,
-			y: (point.y - this.offsetY) / this.zoom  
+			x: (point.x - this.getOffsetX() * this.zoom ) / this.zoom / this.aspectRatio,
+			y: (point.y - this.getOffsetY() * this.zoom ) / this.zoom  
 		};
 	}
 
 	/** Transform point from local coordinates to world coordinates */
 	inverseTransform(point) { 
 		return { 
-			x: (point.x * this.aspectRatio + this.offsetX) * this.zoom,
-			y: (point.y + this.offsetY) * this.zoom
+			x: (point.x * this.aspectRatio + this.getOffsetX()) * this.zoom,
+			y: (point.y + this.getOffsetY()) * this.zoom
 		};
 	}
 	
@@ -41,8 +51,9 @@ class CanvasControls {
 	}
 
 	panImage(event) {
-		var x = event.offsetX;
-		var y = event.offsetY;
+		// Event is point in Canvas Domain, x/y is point in Img Domain 
+		var x = event.offsetX / this.zoom;
+		var y = event.offsetY / this.zoom;
 
 		if(this.isPanning) {
 			this.offsetX = (x - this.startPanX);
@@ -61,11 +72,15 @@ class CanvasControls {
 	}
 
 	zoomIn() {
-		this.zoom += ZOOM_STEP;
+		this.zoom += this.ZOOM_STEP;
 	}
 
 	zoomOut() {
-		this.zoom -= ZOOM_STEP;
+		this.zoom -= this.ZOOM_STEP;
+	}
+
+	setRelativeZoom(zoomFactor) {
+		this.zoom += zoomFactor * this.ZOOM_STEP;
 	}
 
 	setZoom(zoomValue) {

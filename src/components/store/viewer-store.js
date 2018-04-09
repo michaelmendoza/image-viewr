@@ -90,6 +90,10 @@ class ViewerStore extends EventEmitter {
 		return this.viewer.getLayers()[index];
 	}
 
+	setActiveLayer(index) {
+		this.viewer.setActiveLayer(index);
+	}
+
 	addLayer() {
 		this.viewer.addLayer();
 	}
@@ -174,7 +178,7 @@ class ViewerStore extends EventEmitter {
 		this.viewer3.setMinThreshold(minThreshold);
 	}
 
-	setCanvasMode(mode) {
+	setCanvasMode(mode) { 
 		Viewr.setMode('canvas', mode);
 	}
 
@@ -252,6 +256,10 @@ class ViewerStore extends EventEmitter {
 
 	is3DView() {
 		return Viewr.modes.view == ViewModes._3D;
+	}
+
+	getSettings() {
+		return Viewr.settings;
 	}
 
 }

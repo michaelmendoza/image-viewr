@@ -6,10 +6,12 @@ import Slider from '../shared/slider.jsx';
 import Spacer from '../shared/spacer.jsx';
 import ViewerStore from '../store/viewer-store.js';
 
+var SETTINGS = ViewerStore.getSettings(); 
+
 class ViewerLayerDetail extends React.Component {
 	
-	constructor(props) {
-		super(props);
+	constructor(props) { 
+		super(props); 
 		var layer = ViewerStore.getLayer(this.props.layerIndex);
 		this.state = { 
 			layer: layer, 
@@ -23,6 +25,7 @@ class ViewerLayerDetail extends React.Component {
 			maxValue: layer.contrast.maxValue,
 			offsetX: layer.controls.offsetX, 
 			offsetY: layer.controls.offsetY, 
+			zoom: layer.controls.zoom / SETTINGS.ZOOM_STEP,
 			level: layer.contrast.level,
 			width: layer.contrast.width,
 			minContrast: layer.contrast.getMin(),
@@ -34,8 +37,26 @@ class ViewerLayerDetail extends React.Component {
 		}; 
 	}
 
-	componentDidMount() {
+	componentDidMount() { 
 		this.state.layer.renderColorscale(this.refs.colormap);
+		ViewerStore.Viewr.on('layer-update', this.update.bind(this));
+	}
+
+	componentWillUnmount() {
+		ViewerStore.Viewr.removeListener('layer-update', this.update.bind(this));
+	}
+
+	update() {
+		var layer = ViewerStore.getLayer(this.props.layerIndex);
+		this.setState({
+			offsetX: layer.controls.offsetX, 
+			offsetY: layer.controls.offsetY, 
+			zoom: layer.controls.zoom / SETTINGS.ZOOM_STEP,
+			level: layer.contrast.level,
+			width: layer.contrast.width,
+			minContrast: layer.contrast.getMin(),
+			maxContrast: layer.contrast.getMax()
+		})		
 	}
 
 	handleColormap(event) {
@@ -43,7 +64,7 @@ class ViewerLayerDetail extends React.Component {
 		this.state.layer.setColorMap(event.target.value, this.refs.colormap);
 	}
 
-	handleVisible(value) {
+	handleVisible(value) { 
 		this.setState({ visible:value });
 		this.state.layer.toggleLayer();
 	}
@@ -70,13 +91,18 @@ class ViewerLayerDetail extends React.Component {
 
 	handleOffsetX(value) {
 		this.setState({ offsetX:value });
-		this.state.layer.setOffsetX(value);
+		this.state.layer.setOffsetX(parseFloat(value));
 	}
 
 	handleOffsetY(value) {
 		this.setState({ offsetY:value });
-		this.state.layer.setOffsetY(value);
-	}		
+		this.state.layer.setOffsetY(parseFloat(value));
+	}	
+
+	handleZoom(value) {
+		this.setState({ zoom:value });
+		this.state.layer.setZoom(parseFloat(value) * SETTINGS.ZOOM_STEP);
+	}
 
 	handleLevel(value) {
 		var layer = this.state.layer;
@@ -94,14 +120,14 @@ class ViewerLayerDetail extends React.Component {
 
 	handleMinContrast(value) {
 		var layer = this.state.layer;
-		layer.contrast.setMin(parseInt(value));
+		layer.setContrastMin(parseInt(value));
 		layer.updateHistogram();
 		this.setState({ minContrast:value, level:layer.contrast.level, width:layer.contrast.width });
 	}
-
+	
 	handleMaxContrast(value) {
 		var layer = this.state.layer;
-		layer.contrast.setMax(parseInt(value));
+		layer.setContrastMax(parseInt(value));
 		layer.updateHistogram();
 		this.setState({ maxContrast:value, level:layer.contrast.level, width:layer.contrast.width });
 	}
@@ -166,15 +192,19 @@ class ViewerLayerDetail extends React.Component {
 						<label className='value'> {this.state.max} </label> 
 					</li>		
 
-					<h4> Offsets </h4>					
+					<h4> Transforms </h4>					
 					<li> <label>X Offset</label> <Spacer/> 
-						<Slider min={-100} max={100} value={this.state.offsetX} onChange={this.handleOffsetX.bind(this)}/> 
+						<Slider min={-100} max={100} value={this.state.offsetX} step={0.1} onChange={this.handleOffsetX.bind(this)}/> 
 						<label className='value'> {this.state.offsetX} </label> 
 					</li>
 					<li> <label>Y Offset</label> <Spacer/>
-						<Slider  min={-100} max={100} value={this.state.offsetY} onChange={this.handleOffsetY.bind(this)}/>  
+						<Slider  min={-100} max={100} value={this.state.offsetY} step={0.1} onChange={this.handleOffsetY.bind(this)}/>  
 						<label className='value'> {this.state.offsetY} </label> 
 					</li>
+					<li> <label>Zoom</label> <Spacer/>
+						<Slider  min={1} max={100} value={this.state.zoom} onChange={this.handleZoom.bind(this)}/>  
+						<label className='value'> {(this.state.zoom * SETTINGS.ZOOM_STEP).toFixed(2)} </label> 
+					</li> 
 
 					<h4>Contrast</h4>
 					<li> <label>Level</label> <Spacer/> 

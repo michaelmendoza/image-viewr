@@ -64,5 +64,5 @@ var ImageLoad = function(canvas) {
 
 }
 
-export default ImageLoad;
+//export default ImageLoad;
 

@@ -7,7 +7,7 @@
 	min-height: 600px;
 
 	.layers {
-		margin: 20px 20px 0 20px;
+		margin: 12px 12px 0 12px;
 		text-align: left;
 		overflow: auto;
     white-space: nowrap;
@@ -15,7 +15,9 @@
 	}
 
 	.layer {
+		border: 1px solid transparent;
 		margin-bottom: 6px;
+		padding: 6px;
 
 		img {
 			width: 50px;
@@ -24,6 +26,12 @@
 
 		label {
 			margin-left: 12px;
+		}
+
+		&.active {
+			border-radius: 4px;
+			border: 1px solid $light-grey-border-color;
+			box-shadow: $box-shadow-z1;
 		}
 	}
 

@@ -83,7 +83,7 @@ class CanvasThreshold {
 
 	setColorThreshold(colorThreshold) {
 		this.colorThreshold = colorThreshold;
-	}
+	} 
 
 	setColorThresholdWithPixel(colorPixel) {
 		var r = colorPixel.r;

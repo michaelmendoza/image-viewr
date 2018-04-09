@@ -16,23 +16,31 @@ class CanvasLayer {
 		this.context = this.canvas.getContext('2d');
 
 		this.colorMap = new ColorMap();
-		this.contrast = ImageContrast;
+		this.contrast = new ImageContrast(); // Test
 		this.controls = new CanvasControls();
 		this.file = null;
 		this.interpolate = true;
+		this.isActive = false;
 		this.imageHistogram = null;
 		this.load = new CanvasLoader();
 		this.opacity = 1.0;		
 		this.parent = parent;
 		this.threshold = new CanvasThreshold();
 		this.visible = true;
-	}
+	} 
 	
 	loadFile(file) {
 		this.file = file;
 		this.canvas.width = file.width;
 		this.canvas.height = file.height;		
 		this.autoContrast();
+	}
+
+	/** Syncs layer canvas width/height to viewport **/
+	updateLayerCanvas() {
+		var viewport = this.parent.getViewport();
+		this.canvas.width = viewport.width;
+		this.canvas.height = viewport.height;
 	}
 
 	// TODO: Should be done on file level
@@ -53,7 +61,7 @@ class CanvasLayer {
 
 		var min = this.contrast.getMin();
 		var max = this.contrast.getMax();
-		this.imageHistogram = new ImageHistogram(this.file.pixelData, min, max, 100);
+		this.imageHistogram = new ImageHistogram(this.file.pixelData, min, max, 50);
 		this.imageHistogram.createHistogramSVG(element, width, height);
 	}
 
@@ -65,6 +73,7 @@ class CanvasLayer {
 	/** Clears canvas, and draws image data */
 	drawLayer() {
 		Draw2D.clear(this);
+		this.updateLayerCanvas();
 		if(this.visible) Draw2D.drawImage(this, this.img, 1.0);
 	}
 
@@ -74,8 +83,15 @@ class CanvasLayer {
 
 		if(this.visible) {
 			this.img = DrawDicom.createImage(this);
+			this.updateLayerCanvas();
 			Draw2D.drawImage(this, this.img, 1.0);
 		}
+	}
+
+	/** Updates current layer and redraws all layers **/
+	updateLayerAndDrawLayers() {
+		this.updateLayer();       // Update current layer
+		this.parent.drawLayers(); // Draw all layers
 	}
 
 	/** 
@@ -84,8 +100,7 @@ class CanvasLayer {
 	 */
 	setColorMap(colormap_name, canvas) {
 		this.colorMap.setColorMap(colormap_name, canvas);
-		this.updateLayer();       // Update current layer
-		this.parent.drawLayers(); // Ask for parent to be updated
+		this.updateLayerAndDrawLayers();
 	}
 
 	/** Renders a colorscale for current colormap */
@@ -95,56 +110,62 @@ class CanvasLayer {
 
 	toggleLayer() { 
 		this.visible = !this.visible;
-		this.drawLayer();
-		this.parent.drawLayers();		
+		this.updateLayerAndDrawLayers();	
 	}
 
 	setOpacity(value) { 
 		this.opacity = value;
-		this.updateLayer();
-		this.parent.drawLayers();
+		this.updateLayerAndDrawLayers();
 	}
 
 	setMinThreshold(value) {
 		this.threshold.min = value;
-		this.updateLayer();
-		this.parent.drawLayers();
+		this.updateLayerAndDrawLayers();
 	}
 
 	setMaxThreshold(value) {
 		this.threshold.max = value;
-		this.updateLayer();
-		this.parent.drawLayers();		
+		this.updateLayerAndDrawLayers();		
 	}
 
 	setOffsetX(value) {
 		this.controls.offsetX = value;
-		this.drawLayer();
-		this.parent.drawLayers();			
+		this.updateLayerAndDrawLayers();	
 	}
 
 	setOffsetY(value) {
 		this.controls.offsetY = value;
-		this.drawLayer();
-		this.parent.drawLayers();	
+		this.updateLayerAndDrawLayers();	
+	}
+
+	setZoom(value) {
+		this.controls.zoom = value;
+		this.updateLayerAndDrawLayers();
 	}
 
 	setContrastLevel(value) {
 		this.contrast.setContrastLevel(value);
-		this.updateLayer();
-		this.parent.drawLayers();			
+		this.updateLayerAndDrawLayers();			
 	} 
 
 	setContrastWidth(value) {
 		this.contrast.setContrastWidth(value);
-		this.updateLayer();
-		this.parent.drawLayers();			
+		this.updateLayerAndDrawLayers();		
+	}
+
+	setContrastMin(value) {
+		this.contrast.setMin(value);
+		this.updateLayerAndDrawLayers();
+	}
+
+	setContrastMax(value) { 
+		this.contrast.setMax(value);
+		this.updateLayerAndDrawLayers();
 	}
 
 	setInterpolate(value) {
 		this.interpolate = value;
-		this.updateLayer();
-		this.parent.drawLayers();		
+		this.updateLayerAndDrawLayers();	
 	}
 
 }

@@ -9,6 +9,10 @@ import Viewr from '../viewr.js';
  */
 class MouseEvents { 
 
+	contructor() {
+		this.point = null;
+	}
+
 	fixCanvasMode() {
 		// Fix Canvas Movde if not active feature
 		if(this.features.activeFeature == null) {
@@ -27,18 +31,34 @@ class MouseEvents {
 	handleMouseMove(event) { 
 		
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { this.panImage(event); },
+			[CanvasModes.PAN_UPDATE]: () => { 
+				var layer = this.getActiveLayer();
+				layer.controls.panImage(event); 
+				this.updateImage();
+				//this.panImage(event); 
+			},
 			[CanvasModes.CONTRAST]: () => { 
-				if(this.contrast.inEdit) {
+				if(this.getContrastEdit()) { 
 					var sensitivity = 4;
 					var x = event.movementX * sensitivity;
 					var y = event.movementY * sensitivity;
-					this.contrast.setContrastWithMouse({ x:x, y:y });
+					var layer = this.getActiveLayer();
+					layer.contrast.setContrastWithMouse({ x:x, y:y });
 
 					this.updateImage();
+					Viewr.emit('layer-update');
+					
 					if(this.sliceSelect != null)
 						this.sliceSelect.update();
 				}
+			},
+			[CanvasModes.ZOOM_UPDATE]: () => {
+					var sensitivity = 0.1;
+					var zoomFactor = event.movementY * sensitivity;
+					var layer = this.getActiveLayer();
+					layer.controls.setRelativeZoom(zoomFactor)
+					this.updateImage();
+					Viewr.emit('layer-update');
 			}			
 		}; 
 
@@ -57,7 +77,7 @@ class MouseEvents {
 		var roi_action = () => {
 			event = this.controls.transform({ x:event.offsetX, y:event.offsetY });
 			roi_actions[Viewr.modes.canvas]();
-			this.drawImage(); // TODO: Should I be drawing constantly
+			this.drawImage(); // TODO: Should I be drawing constantly 
 		}
 
 		this.getPixelData(event.offsetX, event.offsetY);
@@ -67,13 +87,13 @@ class MouseEvents {
 		var c = this.defaultAction;
 		(a || b || c)();
 		this.onMouseMove();
-	}
+	} 
 
 	handleMouseDown(event) {
 
 		//console.log('Mouse Down - Mode: ' + Viewr.modes.canvas);
 
-		var actions = {
+		var actions = { 
 			[CanvasModes.PAN]: () => {
 				var point = this.controls.transform({ x:event.offsetX, y:event.offsetY });
 				if(this.isOnSliceHandle(point)) {
@@ -82,12 +102,18 @@ class MouseEvents {
 				}
 				else {
 					Viewr.modes.canvas = CanvasModes.PAN_UPDATE;
-					this.panImage(event);
+					var layer = this.getActiveLayer();
+					layer.controls.panImage(event); 
+					//this.panImage(event);
 				}
 			},
 
 			[CanvasModes.CONTRAST]: () => {
-				this.contrast.inEdit = true;
+				this.setContrastEdit(true);
+			},
+
+			[CanvasModes.ZOOM]: () => {
+				Viewr.modes.canvas = CanvasModes.ZOOM_UPDATE;
 			},
 
 			[CanvasModes.ROI]: () => { 
@@ -149,11 +175,15 @@ class MouseEvents {
 		(actions[Viewr.modes.canvas] || this.defaultAction)();
 		Viewr.emit('canvas-update');
 	}
-
+	
 	handleMouseUp() {
 		var canvas_actions = {
-			[CanvasModes.PAN_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.PAN; this.stopPanImage(event); },
-			[CanvasModes.CONTRAST]: () => { this.contrast.inEdit = false; }
+			[CanvasModes.PAN_UPDATE]: () => { 
+				Viewr.modes.canvas = CanvasModes.PAN; 
+				var layer = this.getActiveLayer();
+				layer.controls.stopPanImage(event); },
+			[CanvasModes.CONTRAST]: () => { this.setContrastEdit(false); },
+			[CanvasModes.ZOOM_UPDATE]: () => { Viewr.modes.canvas = CanvasModes.ZOOM; }			
 		};
 
 		var roi_actions = {
