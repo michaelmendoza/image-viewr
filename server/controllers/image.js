@@ -44,12 +44,17 @@ function getImages (req, res) {
 	"use strict";
 
 	req.files = [];
+	req.fields = [];
 	var form = new formidable.IncomingForm()
 
 	return new Promise((resolve, reject) => {
 		form.parse(req)
 		.on('file', function (name, file) {
 			req.files.push(file);
+		})
+		.on('field', function (name, value) {
+			req.fields.push(value);
+			// console.log(name);
 		})
 		.on('error', function (err) {
 			console.log(err);
@@ -111,21 +116,21 @@ exports.add = function (req, res) {
 	"use strict";
 
 	getImages(req, res)
-		.then(function (images) {
-			return sendImages('add', images)
-		})
-		.then(
-			function (pyres) {
-				console.log('Sending response back to main server...');
-				res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
-				res.end(pyres,'base64');
-			},
-			function (error) {
-				res.writeHead(500, { 'Content-Type': 'html/text' });
-				res.write(error);
-				res.end();
-			}
-		);
+	.then(function (images) {
+		return sendImages('add', images)
+	})
+	.then(
+		function (pyres) {
+			console.log('Sending response back to main server...');
+			res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
+			res.end(pyres,'base64');
+		},
+		function (error) {
+			res.writeHead(500, { 'Content-Type': 'html/text' });
+			res.write(error);
+			res.end();
+		}
+	);
 }
 
 /**
@@ -135,18 +140,68 @@ exports.sos = function (req, res) {
 	"use strict";
 
 	getImages(req, res)
+	.then(function (images) {
+		return sendImages('sos', images);
+	})
+	.then(
+		function (pyres) {
+			res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
+			res.end(pyres,'base64');
+		},
+		function (error) {
+			res.writeHead(500, { 'Content-Type': 'html/text' });
+			res.write(error);
+			res.end();
+		}
+	);
+}
+
+/**
+ * Reads in images and user code and then returns the result:
+*/
+exports.customcode = function (req, res) {
+	"use strict";
+
+	let fields = [];
+	let files = [];
+	var form = new formidable.IncomingForm();
+	form.parse(req)
+	.on('file', function (name, file) {
+		files.push(file);
+	})
+	.on('field', function (name, value) {
+		fields.push({
+			key: name,
+			value: value
+		});
+	})
+	.on('error', function (err) {
+		console.log(err);
+	})
+	.on('end', function () {
+		loadImages(files)
 		.then(function (images) {
-			return sendImages('sos', images);
-		})
-		.then(
-			function (pyres) {
-				res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
-				res.end(pyres,'base64');
-			},
-			function (error) {
-				res.writeHead(500, { 'Content-Type': 'html/text' });
-				res.write(error);
-				res.end();
-			}
-		);
+			let images_base64 = [];
+			images_base64.push(fields[0].value);
+			images.forEach(function (im) {
+				images_base64.push(im.toString('base64'));
+			});
+
+			let options = {
+				scriptPath: 'api/code',
+				args: images_base64
+			};
+
+			PythonShell.run('router.py', options, function (err, results) {
+				if (err) {
+					console.log(err);
+				}
+				else {
+					console.log('Done running python script!');
+					res.writeHead(200 , { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' });
+					res.end(results[0], 'base64');
+				}
+			});
+		});
+	});
 }

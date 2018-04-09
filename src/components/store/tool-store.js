@@ -28,6 +28,13 @@ class ToolStore extends EventEmitter {
 		});
 	}
 
+	doCustomCode (form) {
+		let that = this;
+		this.sendForm(form).then(function (blob) {
+			that.displayResult(blob);
+		});
+	}
+
 	sendForm (form) {
 		let init = {
 			method: form.method,

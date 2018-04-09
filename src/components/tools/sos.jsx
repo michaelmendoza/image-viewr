@@ -1,6 +1,6 @@
 import React from 'react';
 import ToolStore from '../store/tool-store.js';
-import UploadForm from './upload-form.jsx';
+import SimpleUploadForm from './simple-upload-form.jsx';
 
 class SOS extends React.Component {
 
@@ -15,7 +15,7 @@ class SOS extends React.Component {
 	render() {
 		return <div>
 			<section className="leftSide">
-				<UploadForm name="SOS" onSubmit={this.onSubmit} action="/api/image/sos"></UploadForm>
+				<SimpleUploadForm name="SOS" onSubmit={this.onSubmit} action="/api/image/sos"></SimpleUploadForm>
 			</section>
 			<section className="rightSide">
 				<img className="result" />

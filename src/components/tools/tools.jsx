@@ -3,6 +3,7 @@ import Nav from './nav.jsx';
 import ToolStore from '../store/tool-store.js';
 import Add from './add.jsx';
 import SOS from './sos.jsx';
+import CustomCode from './customcode.jsx';
 
 class Tools extends React.Component {
 
@@ -16,7 +17,11 @@ class Tools extends React.Component {
 
 	render() {
 	
-		var View = ToolStore.activeTool == 'add' ? <Add></Add> : <SOS></SOS>;
+		let View = {
+			'add': <Add></Add>,
+			'sos': <SOS></SOS>,
+			'customcode': <CustomCode></CustomCode>
+		}[ToolStore.activeTool];
 
 		return (
 			<div className='api-tools'> 
