@@ -19,7 +19,23 @@ class File {
 	
 	/** Assuming first file is the same type for all files in list, should check */
 	getType(file) { 
-		return file[0].type;
+		var fileType = file[0].type;
+		if(fileType == "")	
+		{
+			var filename = file[0].name;
+			var splitHere = filename.indexOf('.');
+			var typeTag = filename.substring(splitHere, filename.length); 
+			if(typeTag == ".dcm"){
+				fileType = "application/dicom";
+			}
+			else if(typeTag == ".jpeg"){
+				fileType = "image/jpeg";
+			}
+			else if(typeTag == ".png"){
+				fileType = "image/png";
+			}
+		}
+		return fileType;				
 	}	
 
 	readPNG(file) {
