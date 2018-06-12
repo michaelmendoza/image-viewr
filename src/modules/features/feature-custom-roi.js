@@ -24,7 +24,7 @@ class FeatureCustomROI extends FeatureROI {
 			// Close shape if click on starting point
 			var startPt = new Point(this.points[0].x, this.points[0].y);
 			if( startPt.isOnPoint(point.x, point.y) ) {
-				this.points.push(startPt);
+				//this.points.push(startPt); //looks like it adds a second start point here
 				this.isClosedShape = true;
 			}
 			else {

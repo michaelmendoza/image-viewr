@@ -130,6 +130,10 @@ class CanvasShapes {
 			points.forEach(function(point) {
 				context.lineTo(point.x, point.y);
 			});
+			if(roi.isClosedShape){//Closes outline when shape is closed
+				context.moveTo(points[0].x, points[0].y);
+				context.lineTo(points[points.length-1].x, points[points.length-1].y);
+			}
 			context.stroke();
 		}
 
