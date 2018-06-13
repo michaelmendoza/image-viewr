@@ -58,18 +58,21 @@ class FeatureROI {
 		canvasMask.width = Math.floor(bounds.width);
 		canvasMask.height = Math.floor(bounds.height);
 		var contextMask = canvasMask.getContext('2d');
-		this.drawMaskROI(contextMask, bounds, layer.controls); 
+		this.drawMaskROI(contextMask, bounds); 
 
 		// Draw in LayerFrame
-		var layerMask = document.createElement('canvas');
-		layerMask.width = layer.file.width;
-		layerMask.height = layer.file.height;
-		var layerContextMask = layerMask.getContext('2d'); 
-		layerContextMask.drawImage(canvasMask, 0, 0, canvasMask.width, canvasMask.height, 
-																					 0, 0, layerMask.width, layerMask.height);
+		if(layer === undefined) {
+			var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
+		}
+		else {
+			var layerMask = document.createElement('canvas');
+			layerMask.width = layer.file.width;
+			layerMask.height = layer.file.height;
+			var layerContextMask = layerMask.getContext('2d'); 
+			layerContextMask.drawImage(canvasMask, 0, 0, canvasMask.width, canvasMask.height, 0, 0, layerMask.width, layerMask.height);
+			var mask = layerContextMask.getImageData(0, 0, layerMask.width, layerMask.height);	
+		}
 
-		//var mask = contextMask.getImageData(0, 0, canvasMask.width, canvasMask.height);
-		var mask = layerContextMask.getImageData(0, 0, layerMask.width, layerMask.height);
 		return mask.data;
 	}
 	

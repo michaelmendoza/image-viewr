@@ -43,7 +43,7 @@ class FeatureCustomROI extends FeatureROI {
 			});
 			context.fill();
 		}
-	}
+	} 
 
 	getBoundingBox() { 
 		var x = this.points.map((p) => { return p.x; });
