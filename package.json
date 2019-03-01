@@ -6,6 +6,7 @@
     "test": "webpack; node server/simple-server.js",
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --open --mode development",
+    "dev2": "npx webpack-dev-server --hot --progress --debug --output-pathinfo --mode development",
     "start": "webpack; node server/server.js"
   }, 
   "dependencies": {
