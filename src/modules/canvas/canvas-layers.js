@@ -39,10 +39,20 @@ class CanvasLayers {
 		this.layers.length == 0 ? layer.isActive = true : null;
 		layer.loadFile(file);
 		this.layers.push(layer);
-		this.autoZoom(); 
-		this.updateLayers();
 
-		Viewr.setMode('view', ViewModes._2D);
+		if(this.canvasReady()) {
+			this.autoZoom(); 
+			this.updateLayers();			
+		}
+
+		if(this.is3D())
+			Viewr.setMode('view', ViewModes._3D);
+		else
+			Viewr.setMode('view', ViewModes._2D);
+	}
+
+	canvasReady() {
+		return this.parent.width > 0 && this.parent.height > 0;
 	}
 
 	is3D() {
@@ -115,6 +125,9 @@ class CanvasLayers {
 		var dy = (viewportSize.height / layerSize.height);
 
 		var dz = dx < dy ? dx : dy;
+		if(dz == 0)
+			dz = 1;
+		
 		controls.zoom = dz;
 		controls.offsetX = 0;
 		controls.offsetY = 0;

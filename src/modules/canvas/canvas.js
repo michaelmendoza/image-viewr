@@ -28,11 +28,9 @@ class Canvas {
 		// Canvas Properties 
 		this.canvas = document.createElement('canvas');
 		this.context = this.canvas.getContext('2d');
-		this.width = width;
-		this.height = height;
 		this.canvas.width = width;
 		this.canvas.height = height;
-	
+
 		// Image/File 
 		this.file = null;
 		this.img = null;
@@ -76,7 +74,25 @@ class Canvas {
 	 	var element = document.getElementById(elementId);
 		element.appendChild(this.canvas);
 	}
+
+	/*** Properties ***/
+
+	get width() {
+		return this.canvas.width;
+	}
 	
+	set width(value) {
+		this.canvas.width = value;
+	}
+
+	get height() {
+		return this.canvas.height;
+	}
+
+	set height(value) {
+		this.canvas.height = value;
+	}	
+
 	/*** Draw ***/
 
 	drawImage() {
@@ -219,17 +235,18 @@ class Canvas {
 
 	/*** Resize ***/
 	
+	canvasReady() {
+		return this.width > 0 && this.height > 0;
+	}
+
 	autoZoomResize() {
-		this.layers.autoZoom();
+		if(this.canvasReady())
+			this.layers.autoZoom();
 	}
 	
 	setViewportSize() { 
-		var width = this.ref.offsetWidth;
-		var height = this.ref.offsetHeight;		
-		this.width = width;
-		this.height = height;
-		this.canvas.width = this.width;
-		this.canvas.height = this.height;
+		this.width = this.ref.offsetWidth;
+		this.height = this.ref.offsetHeight;		
 	}
 
 	/*** Shapes ***/

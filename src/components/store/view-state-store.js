@@ -29,6 +29,7 @@
 
  	getToggleClass(index) {
  		return this.show[index] ? 'active' : '';
+    this.emit('update');
  	}
 
  	getVerticalClass() {

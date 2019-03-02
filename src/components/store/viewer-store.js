@@ -70,14 +70,10 @@ class ViewerStore extends EventEmitter {
 
 	autoZoomResize() {
 		this.viewer.autoZoomResize();
-
-		/*
-		this.viewer.autoZoomResize();
 		this.viewer2.autoZoomResize();	
 		this.viewer3.autoZoomResize();	
-		*/		
 	}	
-
+	
 	getCanvas() { 
 		return this.viewer;
 	}
@@ -129,7 +125,6 @@ class ViewerStore extends EventEmitter {
 	getCanvasModes() {
 		return CanvasModes;
 	}
-
 	getFeatureTypes() {
 		return FeatureTypes;
 	}
@@ -152,8 +147,8 @@ class ViewerStore extends EventEmitter {
 
 	loadFile(file) {
 		this.viewer.loadFile(file);
-		//this.viewer2.loadFile(file);
-		//this.viewer3.loadFile(file);
+		this.viewer2.loadFile(file);
+		this.viewer3.loadFile(file);
 	}
 
 	clear() {
