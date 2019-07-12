@@ -17,7 +17,7 @@
     "formidable": "^1.1.1",
     "gl-matrix": "^2.3.2",
     "image-nodes": "^0.0.21",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "mixin": "^0.2.0",
     "ml-matrix": "^5.0.1",
     "mongodb": "^2.2.28",
