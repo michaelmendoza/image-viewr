@@ -10,37 +10,41 @@ export const FileType = {
 /** Reads, and Holds data from file. */
 class FileData {
 
-    constructor(file, callback) {
-        this.filename = file.name;
-        this.type = this.getType(file);
-        this.data = read(file);
+    constructor(filelist, callback) {
+        this.filelist = filelist;
+        this.type = this.getType(filelist);
+        this.data = this.read(filelist, callback);
     }
 
     /** Retrieves files type */
-    getType(file) {
-        var fileType = file[0].type;
+    getType(filelist) {
+        var fileType = filelist[0].type;
 
         // Generate type from fileExtension, if type is empty
         if(fileType == "") {
-            var filename = file[0].name;
+            var filename = filelist[0].name;
 			var splitHere = filename.indexOf('.');
             var typeTag = filename.substring(splitHere, filename.length); 
-			if(typeTag == ".dcm")  fileType = "application/dicom";
-			if(typeTag == ".jpeg") fileType = "image/jpeg";
-			if(typeTag == ".png")  fileType = "image/png";
+			if(typeTag == ".dcm")  fileType = FileType.DICOM;
+			if(typeTag == ".jpeg") fileType = FileType.JPEG;
+			if(typeTag == ".png")  fileType = FileType.PNG;
         }
 
         return fileType;
     }
 
     /** Read file data */
-    read(file) {
+    read(filelist, callback) {
         var readers = {
-			"image/png" : () => { this.readImage(file); },
-			"image/jpeg": () => { this.readImage(file); },
-			"application/dicom" : () => { this.readDICOM(file); }
+			[FileType.PNG]   : () => { return readImage(filelist[0], callback); },
+			[FileType.JPEG]  : () => { return readImage(filelist[0], callback); },
+			[FileType.DICOM] : () => { return readDicom(filelist, callback); }
 		}
         return readers[this.type]();
+    }
+
+    toImageURL() {
+        toImageURL(this.data.pixelData);
     }
 }
 
@@ -48,16 +52,24 @@ export const readImage = (file, callback) => {
     var data = { img: new Image() };
     var reader = new FileReader();
     reader.onload = (event) => { 
+        data.img.onload = () =>  {
+            data.pixelData = nj.images.read(data.img);
+            callback(data);
+        }
         data.img.src = event.target.result;
-        data.pixelData = nj.images.read(data.img);
-        callback();
     }
     reader.readAsDataURL(file);
     return data;
 }
 
-export const readDicom = (file, callback) => {
-    return file.length > 1 ? readDicom2D(file[0], callback) : readDicom3D(file, callback);
+export const readDicom = (filelist, callback) => {
+    return filelist.length > 1 ? readDicom3D(filelist, callback) : readDicom2D(filelist[0], callback);
+}
+
+export const toImageURL = (pixelData) => {
+    var canvas = document.createElement('canvas');
+    nj.images.save(pixelData, canvas);
+    return canvas.toDataURL();
 }
 
 const readDicom2D = (file, callback) => {
@@ -65,7 +77,7 @@ const readDicom2D = (file, callback) => {
     var reader = new FileReader();
     reader.onload = (event) => {
         data = readDicomFile(event);
-        callback();
+        callback(data);
     }
     reader.readAsArrayBuffer(file);
     return data;
@@ -81,11 +93,12 @@ const readDicom3D = (files, callback) => {
             dicomArray[count] = readDicomFile(event);
             if(files.length - 1 == count++) {
                 data = processDicom3D(dicomArray);
-                callback();
+                callback(data);
             }
         }
         reader.readAsArrayBuffer(files[i]);
     }
+    return data;
 }
 
 const processDicom3D = (dicomArray) => {
@@ -161,7 +174,7 @@ const readDicomFile = (event) => {
 
     var pixelDataElement = dataSet.elements.x7fe00010;
     var pixelDataOffset = pixelDataElement.dataOffset;
-    
+
     var pixelFormat = getPixelFormat(dataSet);
     var bytesPerPixel = getBytesPerPixel(pixelFormat);
     var frameOffset = pixelDataOffset + frame * numPixels * bytesPerPixel;
@@ -172,8 +185,12 @@ const readDicomFile = (event) => {
         console.log('Error: Invalid File Format, Uses compressed data.');
     }
     
-    var pixelArray = new Uint16Array(dataSet.byteArray.buffer, frameOffset, numPixels);    
-    var pixelData = nj.array(pixelArray).reshape(height, width);
+    // View array buffer as uint16 typed array, convert to normal array 
+    var pixelArray = new Uint16Array(dataSet.byteArray.buffer, frameOffset, numPixels);   
+    pixelArray = [...pixelArray];
+
+    // Convert normal array to NdArray (numjs) 
+    var pixelData = nj.array(pixelArray).reshape(rows, columns);
 
     return { header:header, width:columns, height:rows, depth:1, pixelArray:pixelArray, pixelData:pixelData }
 }

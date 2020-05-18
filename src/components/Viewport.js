@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
 const Viewport = () => {
+    const { file } = useContext(AppContext);
+
+    useEffect( () => {
+        console.log('File Update');
+    }, [file])
 
     return (
         <div className="viewport" >  
-        Viewport
+            Viewport
+            {file}
+        
         </div>
       );
 
