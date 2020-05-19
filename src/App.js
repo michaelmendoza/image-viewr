@@ -7,7 +7,14 @@ const App = () => (
   <section className='app'>  
     <AppContextProvider>
         <FileLoader/>
-        <Viewport/>
+        <div className="layout-row flex">
+          <Viewport/>
+          <Viewport/>
+        </div>
+        <div className="layout-row flex">
+          <Viewport/>
+          <Viewport/>
+        </div>
     </AppContextProvider>
   </section>
 );

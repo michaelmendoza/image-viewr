@@ -5,10 +5,13 @@ const Layer = (props) => {
 
     const file = props.file;
     const src = file === null ? "" : file.toImageURL();
-
+    
     return (
         <g className="layer" ref={ref}>
-           { file === null ? <image/> : <image href={src} width={file.width} height={file.height}/> }
+           { file === null ? <image/> : <image href={file.toImageURL()} 
+                                                x="0" y="0"
+                                                height={file.data.height.toString()} 
+                                                width={file.data.width.toString()}/> }
         </g>
     );
 }

@@ -7,13 +7,19 @@ export const FileType = {
     DICOM: 'application/dicom'
 }
 
+export const ContrastType = {
+    MINMAX:'minmax',
+    AUTO:'auto',
+    WINDOW:'window',
+    NONE:'none'
+}
+
 /** Reads, and Holds data from file. */
 class FileData {
 
     constructor(filelist, callback) {
         this.filelist = filelist;
-        this.type = this.getType(filelist);
-        this.data = this.read(filelist, callback);
+        this.type = this.getType(filelist);      
     }
 
     /** Retrieves files type */
@@ -34,17 +40,24 @@ class FileData {
     }
 
     /** Read file data */
-    read(filelist, callback) {
+    async read() {
+        var filelist = this.filelist;
         var readers = {
-			[FileType.PNG]   : () => { return readImage(filelist[0], callback); },
-			[FileType.JPEG]  : () => { return readImage(filelist[0], callback); },
-			[FileType.DICOM] : () => { return readDicom(filelist, callback); }
-		}
-        return readers[this.type]();
+			[FileType.PNG]   : () => { return readImageAsync(filelist[0]); },
+			[FileType.JPEG]  : () => { return readImageAsync(filelist[0]); },
+			[FileType.DICOM] : () => { return readDicomAsync(filelist); }
+        }
+                
+        try {
+            this.data = await readers[this.type]();
+            console.log("Debug: File Read", this.type)
+        } catch(err) {
+            console.log("Debug: File Read Error")
+        } 
     }
 
-    toImageURL() {
-        toImageURL(this.data.pixelData);
+    toImageURL(contrastType = ContrastType.MINMAX) {
+        return toImageURL(this.data.pixelData, contrastType);
     }
 }
 
@@ -62,13 +75,41 @@ export const readImage = (file, callback) => {
     return data;
 }
 
-export const readDicom = (filelist, callback) => {
-    return filelist.length > 1 ? readDicom3D(filelist, callback) : readDicom2D(filelist[0], callback);
+export const readImageAsync = (file) => {
+    return new Promise((resolve, reject) => {
+        var data = { img: new Image() };
+        var reader = new FileReader();
+        reader.onload = (event) => { 
+            data.img.onload = () =>  {
+                data.pixelData = nj.images.read(data.img);
+                data.width = data.pixelData.shape[1];
+                data.height = data.pixelData.shape[0];
+                resolve(data);
+            }
+            data.img.onerror = reject;
+            data.img.src = event.target.result;
+        }
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    })
 }
 
-export const toImageURL = (pixelData) => {
+export const readDicomAsync = (filelist) => {
+    return filelist.length > 1 ? readDicom3DAsync(filelist) : readDicom2DAsync(filelist[0]);
+}
+
+export const toImageURL = (pixelData, contrastType) => { 
+    var scaledData = null;
+    if(contrastType == ContrastType.MINMAX)
+        scaledData = pixelData.divide(pixelData.max()).multiply(255);
+    else
+        scaledData = pixelData;
+    
     var canvas = document.createElement('canvas');
-    nj.images.save(pixelData, canvas);
+    canvas.width = pixelData.shape[1];
+    canvas.height = pixelData.shape[0];
+    console.log(canvas.width, canvas.height);
+    nj.images.save(scaledData, canvas);
     return canvas.toDataURL();
 }
 
@@ -81,6 +122,17 @@ const readDicom2D = (file, callback) => {
     }
     reader.readAsArrayBuffer(file);
     return data;
+}
+
+const readDicom2DAsync = (file) => {
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onload = (event) => {
+            resolve(readDicomFile(event));
+        }
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+    })
 }
 
 const readDicom3D = (files, callback) => {
@@ -99,6 +151,26 @@ const readDicom3D = (files, callback) => {
         reader.readAsArrayBuffer(files[i]);
     }
     return data;
+}
+
+const readDicom3DAsync = (files) => {
+    return new Promise((resolve, reject) => {
+        var data = null;
+        var dicomArray = Array(files.length);
+        var count = 0;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = (event) => {
+                dicomArray[count] = readDicomFile(event);
+                if(files.length - 1 == count++) {
+                    data = processDicom3D(dicomArray);
+                    resolve(data);
+                }
+            }
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(files[i]);
+        } 
+    })
 }
 
 const processDicom3D = (dicomArray) => {

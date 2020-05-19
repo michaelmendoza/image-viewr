@@ -1,0 +1,37 @@
+
+/* Base Styles */
+html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
+      background-color: $off-white;
+  }
+  
+  ul {
+      padding: 0;
+  }
+  
+  li {
+      list-style: none;
+  }
+  
+  select {
+      background-color: #FFFFFF;
+      border: 1px solid $grey-border-color;
+      border-radius: 4px;
+      font-size: 16px;
+      height: 30px;
+      line-height: 1;
+      margin-bottom: 10px;
+      width: 100%;
+  }
+  
+  input, textarea {
+      margin-left: 1px;
+  }
+  
