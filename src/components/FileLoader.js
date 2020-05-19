@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import FileData, { toImageURL } from '../modules/data/FileData';
-import nj from 'numjs';
 
 const FileLoader = () => {
 
     const { setFile } = useContext(AppContext);
     const [src, setSrc] = useState('https://picsum.photos/200/200');
+    const [shape, setShape] = useState([200, 200])
 
     const handleFileInput = (event) => {
         var file = event.target.files[0];
@@ -19,24 +19,29 @@ const FileLoader = () => {
       }
     
     const handleImageInput = (event) => {
+        //var file = new FileData(event.target.files);
+        //file.read()
+
         var file = new FileData(event.target.files, 
             (data) => { 
                 var max = data.pixelData.max();
                 var mean = data.pixelData.mean();
                 var std = data.pixelData.std();
                 console.log('shape:', data.pixelData.shape, 'max:', max, 'mean:', mean, 'std:', std);
-                setSrc(toImageURL(data.pixelData)); 
+                var scaled = data.pixelData.divide(max).multiply(255);
+                setSrc(toImageURL(scaled)); 
+                setShape(data.pixelData.shape);
+                setFile(file);
             }
         ); 
     }
-    
+
     return (
         <div className="file-loader" >  
         <input type="file" onChange={handleImageInput} />
-        <img src={src}/>
+        <img src={src} width={shape[1]} height={shape[0]}/>
         </div>
       );
-
 }
 
 export default FileLoader;

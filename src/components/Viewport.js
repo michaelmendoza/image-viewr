@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../contexts/AppContext';
+import Layer from '../modules/layers/Layer';
 
 const Viewport = () => {
     const { file } = useContext(AppContext);
+    const ref = useRef();
 
     useEffect( () => {
         console.log('File Update');
@@ -10,12 +12,12 @@ const Viewport = () => {
 
     return (
         <div className="viewport" >  
-            Viewport
-            {file}
-        
+            <svg ref={ref}>
+                <Layer file={file}></Layer>
+            </svg>
+            
         </div>
-      );
-
+    );
 }
 
 export default Viewport;

@@ -4,10 +4,10 @@ export const AppContext = createContext();
 
 class AppContextProvider extends Component {
     state = { 
-        file: ''
+        file: null
     }
     
-    setFile = (file) => { this.setState({file:file})}
+    setFile = (file) => { this.setState({ file:file }); console.log("AppContext:SetFile"); }
 
     render() {
         return (
