@@ -14,19 +14,20 @@ export const ContrastType = {
 }
 
 export const slice = (data, sliceType, index) => {
-    //let sliceData = null;
+    index = Math.max(index, 0);
+
     let shape = data.shape;
     if(sliceType == SliceType.XY) { // XY slice, index by z
-        //sliceData = pixelData.slice(null, null, [index,index+1]);
         shape = [shape[0], shape[1]];
+        index = Math.min(index, data.shape[2]-1);
     }
     if(sliceType == SliceType.XZ) { // XZ slice, index by y
-        //sliceData = pixelData.slice(null, [index,index+1], null);
         shape = [shape[0], shape[2]]
+        index = Math.min(index, data.shape[1]-1);
     }
     if(sliceType == SliceType.YZ) {  // YZ slice, index by x
-        //sliceData = pixelData.slice([index,index+1], null, null);
         shape = [shape[1], shape[2]]
+        index = Math.min(index, data.shape[0]-1);
     }
     
     var copyData = nj.zeros(shape);
@@ -45,6 +46,8 @@ export const slice = (data, sliceType, index) => {
     return copyData;
 }
 
+const canvas = document.createElement('canvas');
+
 export const toImageURL = (pixelData, contrastType = ContrastType.MINMAX) => { 
     var scaledData = null;
     if(contrastType == ContrastType.MINMAX)
@@ -52,17 +55,17 @@ export const toImageURL = (pixelData, contrastType = ContrastType.MINMAX) => {
     else
         scaledData = pixelData;
     
-    var canvas = document.createElement('canvas');
+    //var canvas = document.createElement('canvas');
     canvas.width = pixelData.shape[1];
     canvas.height = pixelData.shape[0];
-    console.log(canvas.width, canvas.height);
+    //console.log(canvas.width, canvas.height);
     nj.images.save(scaledData, canvas);
     return canvas.toDataURL();
 }
 
 export const sliceToImageURL = (pixelData, sliceType, index, contrastType = ContrastType.MINMAX) => {
     var sliceData = slice(pixelData, sliceType, index);
-    console.log(sliceData.shape);
+    //console.log(sliceData.shape);
     return toImageURL(sliceData, contrastType);
 }
 
