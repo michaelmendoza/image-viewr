@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import Layer from './Layer';
 
-const Viewport = () => {
+const Viewport = (props) => {
     const { file } = useContext(AppContext);
     const ref = useRef();
 
     const getViewBox = () => {
-        if(file !== null) {
+        let invalidData = file == null || file.data == null || file.data === undefined;
+        
+        if(!invalidData) {
             let width = file.data.width;
             let height = file.data.height;
             return `0 0 ${width} ${height}`;
@@ -16,7 +18,7 @@ const Viewport = () => {
             return "0 0 100 100";
         }
     }
-
+    
     const handleMouseDown = () => {
         console.log("Debug:MouseDown");
     }
@@ -32,7 +34,7 @@ const Viewport = () => {
     return (
         <div className="viewport flex-50" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>  
             <svg width="100%" height="100%" ref={ref} viewBox={getViewBox()} preserveAspectRatio="xMidYMid meet">
-                <Layer file={file}></Layer>
+                <Layer file={file} view={props.view} idx={10}></Layer>
             </svg>
             
         </div>

@@ -1,17 +1,11 @@
 import {parseDicom} from 'dicom-parser';
 import nj from 'numjs';
+import { ContrastType, toImageURL } from './Voxel';
 
 export const FileType = {
     PNG: 'image/png',
     JPEG: 'image/jpeg',
     DICOM: 'application/dicom'
-}
-
-export const ContrastType = {
-    MINMAX:'minmax',
-    AUTO:'auto',
-    WINDOW:'window',
-    NONE:'none'
 }
 
 /** Reads, and Holds data from file. */
@@ -55,10 +49,6 @@ class FileData {
             console.log("Debug: File Read Error")
         } 
     }
-
-    toImageURL(contrastType = ContrastType.MINMAX) {
-        return toImageURL(this.data.pixelData, contrastType);
-    }
 }
 
 export const readImage = (file, callback) => {
@@ -96,21 +86,6 @@ export const readImageAsync = (file) => {
 
 export const readDicomAsync = (filelist) => {
     return filelist.length > 1 ? readDicom3DAsync(filelist) : readDicom2DAsync(filelist[0]);
-}
-
-export const toImageURL = (pixelData, contrastType) => { 
-    var scaledData = null;
-    if(contrastType == ContrastType.MINMAX)
-        scaledData = pixelData.divide(pixelData.max()).multiply(255);
-    else
-        scaledData = pixelData;
-    
-    var canvas = document.createElement('canvas');
-    canvas.width = pixelData.shape[1];
-    canvas.height = pixelData.shape[0];
-    console.log(canvas.width, canvas.height);
-    nj.images.save(scaledData, canvas);
-    return canvas.toDataURL();
 }
 
 const readDicom2D = (file, callback) => {
@@ -175,23 +150,40 @@ const readDicom3DAsync = (files) => {
 
 const processDicom3D = (dicomArray) => {
     var data = {};
+    data.header = dicomArray.map((d)=>{ return d.header; })
     data.width = dicomArray[0].width;
     data.height = dicomArray[0].height;
     data.depth = dicomArray.length;
+    data.shape = [data.height, data.width, data.depth]
+
     var pixelSpacing = dicomArray[0].header.pixelSpacing;
     if(pixelSpacing !== undefined) {
         pixelSpacing = pixelSpacing.split('\\');
         data.dx = parseFloat(pixelSpacing[0]);
         data.dy = parseFloat(pixelSpacing[1]);
     }		
-    data.dz = parseFloat(dicomArray[0].header.sliceThickness).toFixed(4);
+    data.dz = parseFloat(dicomArray[0].header.sliceThickness);
+    data.dz = parseFloat(data.dz.toFixed(4));
 
-    // Process data into numjs 3d array
+
     data.pixelArray = [];
     for(var i = 0; i < dicomArray.length; i++) { 
         data.pixelArray.push(dicomArray[i].pixelArray);
     }
-    data.pixelData = nj.array(data.pixelArray).reshape(data.height, data.width, data.depth);
+
+    // Process data into numjs 3d array
+    data.pixelData = nj.zeros(data.shape);
+    for(var h = 0; h < data.shape[0]; h++) {
+        for(var w = 0; w < data.shape[1]; w++) {
+            for(var d = 0; d < data.shape[2]; d++) {
+                let value = data.pixelArray[d][h * data.width + w];
+                data.pixelData.set(h,w,d,value);
+            }
+        }
+    }
+    
+    //data.pixelData = nj.array(data.pixelArray).reshape(data.height, data.width, data.depth);
+    return data;
 }
 
 /** Reads dicom header data from single dicom file */

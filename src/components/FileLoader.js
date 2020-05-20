@@ -13,7 +13,7 @@ const FileLoader = (props) => {
         var file = event.target.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          setSrc(e.target.result);
+          //setSrc(e.target.result);
           setFile(e.target.result);
         }; 
         reader.readAsDataURL(file);
@@ -50,8 +50,8 @@ const FileLoader = (props) => {
           </div>
          
           <div className="file-loader-button">
-            <input type="file" id="file" onChange={handleImageInput} />
-            <label for="file"> Upload Image </label>
+            <input type="file" id="file" onChange={handleImageInput} multiple/>
+            <label for="file"> Upload File </label>
           </div>
           
            <div className="file-loader-note"> 
