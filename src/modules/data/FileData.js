@@ -170,8 +170,9 @@ const processDicom3D = (dicomArray) => {
     for(var i = 0; i < dicomArray.length; i++) { 
         data.pixelArray.push(dicomArray[i].pixelArray);
     }
-
+    
     // Process data into numjs 3d array
+    /*
     data.pixelData = nj.zeros(data.shape);
     for(var h = 0; h < data.shape[0]; h++) {
         for(var w = 0; w < data.shape[1]; w++) {
@@ -181,7 +182,8 @@ const processDicom3D = (dicomArray) => {
             }
         }
     }
-    
+    */
+
     //data.pixelData = nj.array(data.pixelArray).reshape(data.height, data.width, data.depth);
     return data;
 }

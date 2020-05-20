@@ -13,35 +13,34 @@ export const ContrastType = {
     NONE:'none'
 }
 
-export const slice = (pixelData, sliceType, index) => {
-    let sliceData = null;
-    let shape = pixelData.shape;
+export const slice = (data, sliceType, index) => {
+    //let sliceData = null;
+    let shape = data.shape;
     if(sliceType == SliceType.XY) { // XY slice, index by z
-        sliceData = pixelData.slice(null, null, [index,index+1]);
+        //sliceData = pixelData.slice(null, null, [index,index+1]);
         shape = [shape[0], shape[1]];
     }
     if(sliceType == SliceType.XZ) { // XZ slice, index by y
-        sliceData = pixelData.slice(null, [index,index+1], null);
+        //sliceData = pixelData.slice(null, [index,index+1], null);
         shape = [shape[0], shape[2]]
     }
     if(sliceType == SliceType.YZ) {  // YZ slice, index by x
-        sliceData = pixelData.slice([index,index+1], null, null);
+        //sliceData = pixelData.slice([index,index+1], null, null);
         shape = [shape[1], shape[2]]
     }
-
+    
     var copyData = nj.zeros(shape);
     for(var h = 0; h < shape[0]; h++) {
         for(var w = 0; w < shape[1]; w++) {
             if(sliceType == SliceType.XY)
-                copyData.set(h, w, pixelData.get(h, w, index));
+                copyData.set(h, w, data.pixelArray[index][h * data.width + w]); // copyData.set(h, w, pixelData.get(h, w, index));
             else if(sliceType == SliceType.XZ)
-                copyData.set(h, w, pixelData.get(h, index, w));
+                copyData.set(h, w, data.pixelArray[w][index * data.width + h]); // copyData.set(h, w, pixelData.get(h, index, w));
             else if(sliceType == SliceType.YZ)
-                copyData.set(h, w, pixelData.get(index, h, w));
+                copyData.set(h, w, data.pixelArray[w][h * data.width + index]); // copyData.set(h, w, pixelData.get(index, h, w));
         }
     }
     
-
     //return sliceData.reshape(shape[0],shape[1]);
     return copyData;
 }

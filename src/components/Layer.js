@@ -12,9 +12,9 @@ const Layer = (props) => {
         else if(file.data.depth == 1)
             return toImageURL(file.data.pixelData);
         else 
-            return sliceToImageURL(file.data.pixelData, props.view, props.idx);
+            return sliceToImageURL(file.data, props.view, props.idx);
     }
-    
+
     return (
         <g className="layer" ref={ref}>
            { file === null ? <image/> : <image href={getSrc()} 
