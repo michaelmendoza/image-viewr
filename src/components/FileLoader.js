@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import FileData, { toImageURL } from '../modules/data/FileData';
+import img from '../assets/sheep-logan-phantom.png';
 
-const FileLoader = () => {
+const FileLoader = (props) => {
 
     const { setFile } = useContext(AppContext);
     //const [src, setSrc] = useState('https://picsum.photos/200/200');
@@ -17,8 +18,8 @@ const FileLoader = () => {
         }; 
         reader.readAsDataURL(file);
       }
-    
-    const handleImageInput = (event) => {         
+      
+      const handlePreview = (event) => {         
         var file = new FileData(event.target.files);
         file.read().then(() => {
             var data = file.data;
@@ -32,12 +33,30 @@ const FileLoader = () => {
             setFile(file);
         })
     }
-    
-    //<img src={src} width={shape[1]} height={shape[0]}/>
 
+    const handleImageInput = (event) => {   
+        props.handleClose();
+
+        var file = new FileData(event.target.files);
+        file.read().then(() => {
+            setFile(file);
+        })
+    }
+    
     return (
         <div className="file-loader" >  
-        <input type="file" onChange={handleImageInput} />
+          <div className="file-loader-picture">
+            <img  src={img}></img>
+          </div>
+         
+          <div className="file-loader-button">
+            <input type="file" id="file" onChange={handleImageInput} />
+            <label for="file"> Upload Image </label>
+          </div>
+          
+           <div className="file-loader-note"> 
+            <label> Note: Dicom, png, jpeg files supported</label> 
+          </div>
         </div>
       );
 }

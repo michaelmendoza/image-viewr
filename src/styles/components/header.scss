@@ -1,0 +1,12 @@
+.header {
+	height: 60px;
+	padding: 16px;
+	text-align: center;
+	box-shadow: rgba(51, 61, 78, 0.2) 0px 1px 2px 0px;
+	z-index: 2;
+	
+	h2 {
+		margin: 0 0 0 0;
+		color: $lighter-black;
+	}
+}

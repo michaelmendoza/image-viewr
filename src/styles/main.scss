@@ -1,7 +1,9 @@
-@import 'variables.scss';
-@import 'base.scss';
-@import 'layout.scss';
+@import 'settings/variables.scss';
+@import 'base/base.scss';
+@import 'base/layout.scss';
 
-.viewport {
-    height: 40vh;
-}
+@import 'components/fileloader.scss';
+@import 'components/header.scss';
+@import 'components/mainview.scss';
+@import 'components/sidenav.scss';
+@import 'components/viewport.scss';

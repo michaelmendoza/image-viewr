@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../contexts/AppContext';
-import Layer from '../modules/layers/Layer';
+import Layer from './Layer';
 
 const Viewport = () => {
     const { file } = useContext(AppContext);

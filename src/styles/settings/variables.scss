@@ -4,18 +4,22 @@ $app-min-width: 1200px;
 
 // Color Palette
 $black: #222222;
-$grey: #444444;
-$light-grey: #888888;
-$blue: #106CC8;
-$light-blue: #7D99C7;
-$dark-blue: #0A4386;
-$red: #C22A27;
+$lighter-black: #444444;
+$dark-grey: #6C6C6C;
+$grey: #C5C5C5;
+$light-grey: #E7E7E7;
 $white: #FFFFFF;
 $off-white: #f7f7f7;
 
+$light-blue: #7D99C7;
+$blue: #013874;
+$dark-blue: #0A4386;
+$red: #C22A27;
+$green: #019C47;
+
 // Background Colors
-$primary: $blue;
-$secondary: $light-blue;
+$primary:#4468dc;
+$secondary:#ff4f15;
 
 // Text
 $text-color: $black;
@@ -31,4 +35,6 @@ $z-modal: 1000;
 $z-drag: 2000;
 
 // Box Shadow
+$box-shadow-0: 0 4px 5px -2px rgba(0,0,0,.2), 0 7px 10px 1px rgba(0,0,0,.14), 0 2px 16px 1px rgba(0,0,0,.12);
+$box-shadow-1: 0 4px 5px -2px rgba(0,0,0,.1), 0 7px 10px 1px rgba(0,0,0,.07), 0 2px 16px 1px rgba(0,0,0,.06);
 $box-shadow-z1: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12); 

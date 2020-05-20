@@ -1,0 +1,50 @@
+.sidenav {
+	position: relative;
+	font-family: Helvetica;
+	width: 60px;
+	padding-top: 20px;
+	background-color: $light-grey;
+	z-index: 1;
+	box-shadow: $box-shadow-0;
+
+	.sidenav-item {
+		position: relative;
+		cursor: pointer;
+		text-align: center;
+		padding: 10px 0;
+		
+		.sidenav-icon {
+			width: 40px;
+			transform: translate(10px, 0px);
+			transition: 0.2s;
+
+			i {
+				color: $lighter-black;
+				transition: 0.2s;
+			}
+
+			&:hover {
+				transform: translate(15px, 0px);
+
+				i {
+					filter: drop-shadow(-3px 2px 4px rgba(51,61,78,.2));
+				}
+			}
+		}
+
+		label {
+			position: relative;
+			top: -6px;
+			font-size: 9px;
+			color: $dark-grey;
+		}
+	}
+
+	.side-panel {
+		position: absolute;
+		left: 60px;
+		border-radius: 4px;
+		background-color: $off-white;
+		box-shadow: $box-shadow-0;
+	}
+}

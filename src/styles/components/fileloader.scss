@@ -1,0 +1,71 @@
+
+.file-loader {
+    width: 300px;
+    padding: 40px 20px;
+
+    .file-loader-picture {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 12px;
+
+        img {
+            width: 120px;
+            height: 120px;
+            border: solid 4px $grey;
+            border-radius: 4px;
+        }
+    }
+
+    .file-loader-button {
+        text-align: center;
+        margin-bottom: 12px;
+
+        [type="file"] {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute !important;
+            white-space: nowrap;
+            width: 1px;
+          }
+           
+          [type="file"] + label {
+            background-color: $secondary;
+            border-radius: 6px;
+            color: $off-white;
+            cursor: pointer;
+            display: inline-block;
+            padding: 12px;
+            padding-left: 2rem 4rem;
+          }
+            
+          [type="file"]:focus + label,
+          [type="file"] + label:hover {
+              background-color: darken($color: $secondary, $amount: 10%);
+          }
+            
+          [type="file"]:focus + label {
+            outline: 1px dotted #000;
+          }
+
+        button {
+            color: $off-white;
+            background-color: $secondary;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .file-loader-note {
+        text-align: center;
+        
+        label {
+            color: $dark-grey;
+            display: block;
+            font-size: 0.8em;  
+        }
+    }
+}
