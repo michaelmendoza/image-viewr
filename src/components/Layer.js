@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { toImageURL, sliceToImageURL } from '../modules/data/Voxel';
+import { toImageURL, sliceToImageURL, multiSliceToImageURL } from '../modules/data/Voxel';
 
 const Layer = (props) => {
     const ref = useRef();
@@ -11,6 +11,8 @@ const Layer = (props) => {
             return "";
         else if(file.data.depth == 1)
             return toImageURL(file.data.pixelData);
+        else if(props.multislice)
+            return  multiSliceToImageURL(file.data, props.view, props.idx);
         else 
             return sliceToImageURL(file.data, props.view, props.idx);
     }

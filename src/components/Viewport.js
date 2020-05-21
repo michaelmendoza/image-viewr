@@ -35,6 +35,7 @@ const Viewport = (props) => {
     const getMaxIndex = () => {
         if(props.file == null)
             return 640;
+        // TODO: Make not hard coded     
 
         var maxIndex = 0;
         if(props.view == SliceType.XY)
@@ -52,6 +53,7 @@ const Viewport = (props) => {
         if(!invalidData) {
             let width = props.file.data.width;
             let height = props.file.data.height;
+
             return `0 0 ${width} ${height}`;
         }
         else {
@@ -62,7 +64,7 @@ const Viewport = (props) => {
     return (
         <div className="viewport flex-50" ref={ref} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>  
             <svg width="100%" height="100%" viewBox={getViewBox()} preserveAspectRatio="xMidYMid meet">
-                <Layer file={props.file} view={props.view} idx={idx}></Layer>
+                <Layer file={props.file} view={props.view} multislice={props.multislice} idx={idx}></Layer>
             </svg>
             
         </div>
