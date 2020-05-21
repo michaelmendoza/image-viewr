@@ -17,12 +17,20 @@ const Layer = (props) => {
             return sliceToImageURL(file.data, props.view, props.idx);
     }
 
+    const getHeight = () => {
+        return file.data.height.toString();
+    }
+
+    const getWidth = () => {
+        if(props.multislice == true)
+            return (3 * file.data.width).toString();
+        else
+            return file.data.width.toString();
+    }
+
     return (
         <g className="layer" ref={ref}>
-           { file === null ? <image/> : <image href={getSrc()} 
-                                                x="0" y="0"
-                                                height={file.data.height.toString()} 
-                                                width={file.data.width.toString()}/> }
+           { file === null ? <image/> : <image href={getSrc()}  x="0" y="0" height={getHeight()} width={getWidth()}/> }
         </g>
     );
 }

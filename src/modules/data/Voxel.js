@@ -47,40 +47,12 @@ export const slice = (data, sliceType, index) => {
 }
 
 export const multiSlice = (data, sliceType, index) => {
-    index = Math.max(index, 0);
+    var d0 = slice(data, sliceType, index);
+    var d1 = slice(data, sliceType, index + 1);
+    var d2 = slice(data, sliceType, index + 2);
 
-    var nSlices = 3;
-    let shape = data.shape;
-    if(sliceType == SliceType.XY) { // XY slice, index by z
-        shape = [shape[0], nSlices * shape[1]];
-        index = Math.min(index, data.shape[2]-1);
-    }
-    if(sliceType == SliceType.XZ) { // XZ slice, index by y
-        shape = [shape[0], nSlices * shape[2]]
-        index = Math.min(index, data.shape[1]-1);
-    }
-    if(sliceType == SliceType.YZ) {  // YZ slice, index by x
-        shape = [shape[1], nSlices * shape[2]]
-        index = Math.min(index, data.shape[0]-1);
-    }
-
-    var copyData = nj.zeros(shape);
-    for(var m = 0; m < nSlices; m++) {
-        for(var h = 0; h < shape[0]; h++) {
-            for(var w = 0; w < shape[1]; w++) {
-                var idx = index + m;
-
-                if(sliceType == SliceType.XY)
-                    copyData.set(h, w + m * shape[1], data.pixelArray[idx][h * data.width + w]); // copyData.set(h, w, pixelData.get(h, w, index));
-                else if(sliceType == SliceType.XZ)
-                    copyData.set(h, w + m * shape[1], data.pixelArray[w][idx * data.width + h]); // copyData.set(h, w, pixelData.get(h, index, w));
-                else if(sliceType == SliceType.YZ)
-                    copyData.set(h, w + m * shape[1], data.pixelArray[w][h * data.width + idx]); // copyData.set(h, w, pixelData.get(index, h, w));
-            }
-        }
-    }
-
-    return copyData;
+    var multSliceData = nj.concatenate(nj.concatenate(d0, d1), d2);
+    return multSliceData;
 }
 
 const canvas = document.createElement('canvas');

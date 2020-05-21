@@ -53,7 +53,9 @@ const Viewport = (props) => {
         if(!invalidData) {
             let width = props.file.data.width;
             let height = props.file.data.height;
-
+            if(props.multislice)
+                width = width * 3;
+                
             return `0 0 ${width} ${height}`;
         }
         else {

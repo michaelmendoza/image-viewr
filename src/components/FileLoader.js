@@ -6,14 +6,11 @@ import img from '../assets/sheep-logan-phantom.png';
 const FileLoader = (props) => {
 
     const { setFile } = useContext(AppContext);
-    //const [src, setSrc] = useState('https://picsum.photos/200/200');
-    //const [shape, setShape] = useState([200, 200])
 
     const handleFileInput = (event) => {
         var file = event.target.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          //setSrc(e.target.result);
           setFile(e.target.result);
         }; 
         reader.readAsDataURL(file);
@@ -28,12 +25,10 @@ const FileLoader = (props) => {
             var std = data.pixelData.std();
             console.log('shape:', data.pixelData.shape, 'max:', max, 'mean:', mean, 'std:', std);
             var scaled = data.pixelData.divide(max).multiply(255);
-            //setSrc(toImageURL(scaled)); 
-            //setShape(data.pixelData.shape);
             setFile(file);
         })
     }
-
+    
     const handleImageInput = (event) => {   
         props.handleClose();
 
@@ -51,7 +46,7 @@ const FileLoader = (props) => {
          
           <div className="file-loader-button">
             <input type="file" id="file" onChange={handleImageInput} multiple/>
-            <label for="file"> Upload File </label>
+            <label htmlFor="file"> Upload File </label>
           </div>
           
            <div className="file-loader-note"> 
