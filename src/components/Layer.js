@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+
+import React, { useRef } from 'react';
 import { toImageURL, sliceToImageURL, multiSliceToImageURL } from '../modules/data/Voxel';
 
 const Layer = (props) => {
     const ref = useRef();
-
     const file = props.file;
-    //const src = file === null ? "" : toImageURL(file.data.pixelData);
+
     const getSrc = () => {
         if(file == null) 
             return "";
@@ -18,14 +18,24 @@ const Layer = (props) => {
     }
 
     const getHeight = () => {
-        return file.data.height.toString();
-    }
-
-    const getWidth = () => {
-        if(props.multislice == true)
-            return (3 * file.data.width).toString();
+        if(file != null)
+            return file.data.height.toString();    
         else
-            return file.data.width.toString();
+            return "0";    
+        //return props.viewbox.height.toString();
+    }
+    
+    const getWidth = () => {
+        if(file == null)
+            return "0";
+        else {
+           if(props.multislice == true)
+                return (3 * file.data.width).toString();
+            else    
+                return file.data.width.toString();
+        }
+
+        //return props.viewbox.width.toString();
     }
 
     return (

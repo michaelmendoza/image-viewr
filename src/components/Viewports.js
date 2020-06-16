@@ -7,21 +7,21 @@ import Viewport3D from './Viewport3D';
 // <Viewport3D></Viewport3D>
 
 const Viewports = () => {
-    const { file } = useContext(AppContext);
+    const { state } = useContext(AppContext);
 
     useEffect( () => {
-        console.log('File Update', file);
-    }, [file])
-
+        console.log('File Update', state.file);
+    }, [state.file])
+    
     return (
        <div className="viewports">
            <div className="layout-row flex">
-              <Viewport view={SliceType.XY} file={file} multislice={false}/>
-              <Viewport view={SliceType.XZ} file={file} multislice={false}/>
+              <Viewport view={SliceType.XY} file={state.file} multislice={false}/>
+              <Viewport view={SliceType.XZ} file={state.file} multislice={false}/>
             </div>
             <div className="layout-row flex">
-              <Viewport view={SliceType.YZ} file={file} multislice={false}/>
-              <Viewport view={SliceType.XY} file={file} multislice={true}/>
+              <Viewport view={SliceType.YZ} file={state.file} multislice={false}/>
+              <Viewport view={SliceType.XY} file={state.file} multislice={true}/>
             </div>
        </div> 
     )

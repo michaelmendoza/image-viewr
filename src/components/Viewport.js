@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Layer from './Layer';
 import { SliceType } from '../modules/data/Voxel';
+import LayerTargetLines from './LayerTargetLines';
 
 const Viewport = (props) => {
     const ref = useRef();
@@ -46,8 +47,8 @@ const Viewport = (props) => {
             maxIndex = props.file.data.width;
         return maxIndex;
     }
-
-    const getViewBox = () => {
+    
+    const getViewBoxDims = () => {
         let invalidData = props.file == null || props.file.data == null || props.file.data === undefined;
         
         if(!invalidData) {
@@ -56,19 +57,24 @@ const Viewport = (props) => {
             if(props.multislice)
                 width = width * 3;
                 
-            return `0 0 ${width} ${height}`;
+            return { width:width, height:height};
         }
         else {
-            return "0 0 100 100";
+            return { width:100, height:100};
         }
     }
 
+    const getViewBox = () => {
+        const { width, height } = getViewBoxDims();
+        return `0 0 ${width} ${height}`;
+    }
+    
     return (
         <div className="viewport flex-50" ref={ref} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>  
             <svg width="100%" height="100%" viewBox={getViewBox()} preserveAspectRatio="xMidYMid meet">
-                <Layer file={props.file} view={props.view} multislice={props.multislice} idx={idx}></Layer>
+                <Layer file={props.file} viewbox={getViewBoxDims()} view={props.view} multislice={props.multislice} idx={idx}></Layer>
+                <LayerTargetLines viewbox={getViewBoxDims()} view={props.view}></LayerTargetLines>
             </svg>
-            
         </div>
     );
 }

@@ -5,13 +5,13 @@ import img from '../assets/sheep-logan-phantom.png';
 
 const FileLoader = (props) => {
 
-    const { setFile } = useContext(AppContext);
+    const { dispatch } = useContext(AppContext);
 
     const handleFileInput = (event) => {
         var file = event.target.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-          setFile(e.target.result);
+          dispatch({ type:'SET_FILE', file:e.target.result });
         }; 
         reader.readAsDataURL(file);
       }
@@ -31,10 +31,10 @@ const FileLoader = (props) => {
     
     const handleImageInput = (event) => {   
         props.handleClose();
-
+        
         var file = new FileData(event.target.files);
-        file.read().then(() => {
-            setFile(file);
+        file.read().then((result) => {
+          dispatch({ type:'SET_FILE', file:file });
         })
     }
     
