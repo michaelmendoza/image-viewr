@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import 'normalize.css';
-import CSS from "./styles/main.scss";
+import './styles/main.scss';
 
-console.log('Image Viewer - ','Version: 0.0.58', 'Date:May 18, 2020');
+console.log('Image Viewer - ','Version: 0.1.1', 'Date:Nov 19, 2021');
 
-const root = document.getElementById('app-hook')
-ReactDOM.render(<App/>, root);
+ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );

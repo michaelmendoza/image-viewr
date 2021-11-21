@@ -1,57 +1,37 @@
 {
   "name": "web-image-viewer-app",
-  "version": "0.0.58",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
-    "test": "webpack; node server/simple-server.js",
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --open --mode development",
-    "dev2": "npx webpack-dev-server --hot --progress --debug --output-pathinfo --mode development",
-    "start": "webpack; node server/server.js"
+    "start": "react-scripts start"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.8.7",
-    "body-parser": "^1.19.0",
-    "colormap": "^2.3.1",
-    "d3": "4.9.1",
-    "dicom-parser": "^1.8.5",
-    "express": "^4.17.1",
-    "formidable": "^1.2.2",
-    "gl-matrix": "^2.3.2",
-    "lodash": "^4.17.15",
-    "material-icons": "^0.3.1",
-    "mixin": "^0.2.0",
-    "ml-matrix": "^5.3.0",
-    "mongodb": "^2.2.28",
-    "mongoose": "^4.13.20",
+    "colormap": "^2.3.2",
+    "d3": "^7.1.1",
+    "dicom-parser": "^1.8.11",
+    "gl-matrix": "^3.4.3",
+    "material-icons": "^1.10.2",
+    "node-sass": "^6.0.1",
     "normalize.css": "^8.0.1",
-    "nouislider": "^9.0.0",
-    "numjs": "file:../open-source/numjs",
-    "python-shell": "^0.4.0",
-    "react": "^16.13.1",
-    "react-color": "^2.18.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^4.3.1",
-    "three": "^0.116.1"
+    "nouislider": "^15.5.0",
+    "numjs": "^0.16.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
   },
   "engines": {
-    "node": "13.8.0"
+    "node": "14.17.5"
   },
-  "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^2.1.1",
-    "file-loader": "^2.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^7.3.1",
-    "style-loader": "^0.23.1",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

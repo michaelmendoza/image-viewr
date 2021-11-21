@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { AppContext } from  '../contexts/AppContext';
 import { SliceType } from '../modules/data/Voxel';
 import Viewport from './Viewport';
-import Viewport3D from './Viewport3D';
 
 // <Viewport3D></Viewport3D>
 
