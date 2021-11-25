@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Layer from './Layer';
 import { SliceType } from '../modules/data/Voxel';
-import LayerTargetLines from './LayerTargetLines';
+import LayerLines from './LayerLines';
 
 const Viewport = (props) => {
     const ref = useRef();
@@ -73,7 +73,7 @@ const Viewport = (props) => {
         <div className="viewport flex-50" ref={ref} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>  
             <svg width="100%" height="100%" viewBox={getViewBox()} preserveAspectRatio="xMidYMid meet">
                 <Layer file={props.file} viewbox={getViewBoxDims()} view={props.view} multislice={props.multislice} idx={idx}></Layer>
-                <LayerTargetLines viewbox={getViewBoxDims()} view={props.view}></LayerTargetLines>
+                <LayerLines viewbox={getViewBoxDims()} view={props.view}></LayerLines>
             </svg>
         </div>
     );

@@ -23,11 +23,10 @@ class FileData {
         // Generate type from fileExtension, if type is empty
         if(fileType == "") {
             var filename = filelist[0].name;
-			var splitHere = filename.indexOf('.');
-            var typeTag = filename.substring(splitHere, filename.length); 
-			if(typeTag == ".dcm")  fileType = FileType.DICOM;
-			if(typeTag == ".jpeg") fileType = FileType.JPEG;
-			if(typeTag == ".png")  fileType = FileType.PNG;
+            const typeTag = filename.split('.').at(-1);
+            if(typeTag == "dcm")  fileType = FileType.DICOM;
+			if(typeTag == "jpeg") fileType = FileType.JPEG;
+			if(typeTag == "png")  fileType = FileType.PNG;
         }
 
         return fileType;

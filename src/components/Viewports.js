@@ -3,8 +3,6 @@ import { AppContext } from  '../contexts/AppContext';
 import { SliceType } from '../modules/data/Voxel';
 import Viewport from './Viewport';
 
-// <Viewport3D></Viewport3D>
-
 const Viewports = () => {
     const { state } = useContext(AppContext);
 

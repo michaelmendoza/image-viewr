@@ -3,6 +3,7 @@ import AppContextProvider from './contexts/AppContext';
 import Header from './components/Header';
 import SideNav from './components/SideNav';
 import Viewports from './components/Viewports';
+import Viewport3d from './components/Viewport3d/Viewport3d';
 
 const MainView = (props) => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <div className="layout-row">
           <SideNav></SideNav>
           <MainView> 
+            <Viewport3d/>
             <Viewports></Viewports>
           </MainView>
         </div>
